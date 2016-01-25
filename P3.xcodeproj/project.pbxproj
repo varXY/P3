@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */; };
+		C372483D1C561B9100EDD735 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483B1C561B9100EDD735 /* Term.swift */; };
 		C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5051C522CFC00209556 /* AppDelegate.swift */; };
 		C3CDD5081C522CFC00209556 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5071C522CFC00209556 /* ViewController.swift */; };
 		C3CDD50B1C522CFC00209556 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3CDD5091C522CFC00209556 /* Main.storyboard */; };
@@ -17,6 +19,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Term+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C372483B1C561B9100EDD735 /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		C3CDD5021C522CFC00209556 /* P3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CDD5051C522CFC00209556 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3CDD5071C522CFC00209556 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +46,8 @@
 		C3CDD4F91C522CFC00209556 = {
 			isa = PBXGroup;
 			children = (
+				C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */,
+				C372483B1C561B9100EDD735 /* Term.swift */,
 				C3CDD5041C522CFC00209556 /* P3 */,
 				C3CDD5031C522CFC00209556 /* Products */,
 			);
@@ -144,7 +150,9 @@
 			files = (
 				C3CDD50E1C522CFD00209556 /* P3.xcdatamodeld in Sources */,
 				C3CDD5081C522CFC00209556 /* ViewController.swift in Sources */,
+				C372483D1C561B9100EDD735 /* Term.swift in Sources */,
 				C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */,
+				C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,6 +300,7 @@
 				C3CDD5191C522CFD00209556 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

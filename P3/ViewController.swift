@@ -11,7 +11,7 @@ import CoreData
 
 class ViewController: UIViewController {
     
-    var term = [NSManagedObject]()
+    var term = [Term]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,40 +20,75 @@ class ViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
+//        saveToEntity()
+        
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
         
         let fetchRequest = NSFetchRequest(entityName: "Term")
+        fetchRequest.predicate = NSPredicate(format:"word == %@", "什么")
         
         do {
             let fetchedResults = try managedContext.executeFetchRequest(fetchRequest)
             
-            if let results = fetchedResults as? [NSManagedObject] {
+            if let results = fetchedResults as? [Term] {
                 term = results
+                print(term[0].pinyin)
             }
             
         } catch let error as NSError {
             print("Counld not fetch \(error), \(error.userInfo)")
         }
+        
     }
     
-    func saveTerm(word: String, pinyin: String) {
+    func saveTerm(index: Double, word: String, pinyin: String) {
         let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
         let managedContext = appDelegate.managedObjectContext
         
         let entity = NSEntityDescription.entityForName("Term", inManagedObjectContext: managedContext)
-        let single = NSManagedObject(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        let single = Term(entity: entity!, insertIntoManagedObjectContext: managedContext)
+        single.word = word
+        single.pinyin = pinyin
+        single.index = index
         
-        single.setValue(word, forKey: "word")
-        single.setValue(pinyin, forKey: "pinyin")
+        print(single.pinyin)
         
         do {
             try managedContext.save()
+            print("success!")
         } catch let error as NSError {
             print("Could not save \(error), \(error.userInfo)")
         }
         
-        term.append(single)
+    }
+    
+    func saveToEntity() {
+        let terms = getTerms()
+        
+        var word = ""
+        
+        
+        var words = [String]()
+        var pinyins = [String]()
+        
+        for term in terms {
+            word = term[0]
+            words.append(word)
+            
+            var pinyin = ""
+            for i in 1..<term.count {
+                
+                pinyin += (term[i] + " ")
+                
+            }
+            
+            pinyins.append(pinyin)
+        }
+        
+        for i in 0..<words.count {
+            saveTerm(Double(i), word: words[i], pinyin: pinyins[i])
+        }
     }
     
     func getTerms() -> [[String]] {
