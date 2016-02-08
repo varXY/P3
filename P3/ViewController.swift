@@ -19,27 +19,20 @@ class ViewController: UIViewController {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        
-//        saveToEntity()
-        
-        let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
-        let managedContext = appDelegate.managedObjectContext
-        
-        let fetchRequest = NSFetchRequest(entityName: "Term")
-        fetchRequest.predicate = NSPredicate(format:"word == %@", "什么")
-        
-        do {
-            let fetchedResults = try managedContext.executeFetchRequest(fetchRequest)
-            
-            if let results = fetchedResults as? [Term] {
-                term = results
-                print(term[0].pinyin)
-            }
-            
-        } catch let error as NSError {
-            print("Counld not fetch \(error), \(error.userInfo)")
-        }
-        
+
+		let chinese = Chinese()
+		var words = [String]()
+
+		for _ in 0..<100 {
+			let pinyin = chinese.randomPinyinOfWord()
+			print(pinyin)
+			let results = chinese.wordsFromPinyin(pinyin)
+			words += results
+		}
+
+		print(words)
+
+
     }
     
     func saveTerm(index: Double, word: String, pinyin: String) {

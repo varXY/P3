@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		311A89F71C685ECE00257A26 /* SingleViewCoreData.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 311A89F41C685ECE00257A26 /* SingleViewCoreData.sqlite */; };
+		311A89F81C685ECE00257A26 /* SingleViewCoreData.sqlite-shm in Resources */ = {isa = PBXBuildFile; fileRef = 311A89F51C685ECE00257A26 /* SingleViewCoreData.sqlite-shm */; };
+		311A89F91C685ECE00257A26 /* SingleViewCoreData.sqlite-wal in Resources */ = {isa = PBXBuildFile; fileRef = 311A89F61C685ECE00257A26 /* SingleViewCoreData.sqlite-wal */; };
+		311A89FB1C68619D00257A26 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 311A89FA1C68619D00257A26 /* libsqlite3.0.tbd */; };
+		311A89FF1C68647000257A26 /* Chinese.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A89FE1C68647000257A26 /* Chinese.swift */; };
+		311A8A061C68654200257A26 /* NSArray+PinYinSearcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A021C68654200257A26 /* NSArray+PinYinSearcher.m */; };
+		311A8A071C68654200257A26 /* NSString+PinYinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A041C68654200257A26 /* NSString+PinYinConverter.m */; };
+		311A8A091C68654D00257A26 /* hanzi2pinyin_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 311A8A081C68654D00257A26 /* hanzi2pinyin_v2.txt */; };
+		311A8A0C1C688A2600257A26 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A0B1C688A2600257A26 /* Global.swift */; };
 		C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */; };
 		C372483D1C561B9100EDD735 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483B1C561B9100EDD735 /* Term.swift */; };
 		C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5051C522CFC00209556 /* AppDelegate.swift */; };
@@ -19,6 +28,19 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		311A89F41C685ECE00257A26 /* SingleViewCoreData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = SingleViewCoreData.sqlite; sourceTree = "<group>"; };
+		311A89F51C685ECE00257A26 /* SingleViewCoreData.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SingleViewCoreData.sqlite-shm"; sourceTree = "<group>"; };
+		311A89F61C685ECE00257A26 /* SingleViewCoreData.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SingleViewCoreData.sqlite-wal"; sourceTree = "<group>"; };
+		311A89FA1C68619D00257A26 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		311A89FE1C68647000257A26 /* Chinese.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chinese.swift; sourceTree = "<group>"; };
+		311A8A001C6864CC00257A26 /* NSArray+PinYinSearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PinYinSearcher.h"; sourceTree = "<group>"; };
+		311A8A011C6864D700257A26 /* P3-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "P3-Bridging-Header.h"; sourceTree = "<group>"; };
+		311A8A021C68654200257A26 /* NSArray+PinYinSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PinYinSearcher.m"; sourceTree = "<group>"; };
+		311A8A031C68654200257A26 /* NSString+PinYinConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinYinConverter.h"; sourceTree = "<group>"; };
+		311A8A041C68654200257A26 /* NSString+PinYinConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinYinConverter.m"; sourceTree = "<group>"; };
+		311A8A051C68654200257A26 /* SWPinYinHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWPinYinHeader.h; sourceTree = "<group>"; };
+		311A8A081C68654D00257A26 /* hanzi2pinyin_v2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hanzi2pinyin_v2.txt; sourceTree = "<group>"; };
+		311A8A0B1C688A2600257A26 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
 		C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Term+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C372483B1C561B9100EDD735 /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
 		C3CDD5021C522CFC00209556 /* P3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P3.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -37,15 +59,59 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				311A89FB1C68619D00257A26 /* libsqlite3.0.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		311A89F31C685E4300257A26 /* sqlite */ = {
+			isa = PBXGroup;
+			children = (
+				311A89F41C685ECE00257A26 /* SingleViewCoreData.sqlite */,
+				311A89F51C685ECE00257A26 /* SingleViewCoreData.sqlite-shm */,
+				311A89F61C685ECE00257A26 /* SingleViewCoreData.sqlite-wal */,
+			);
+			name = sqlite;
+			sourceTree = "<group>";
+		};
+		311A89FC1C6863A400257A26 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C3CDD5091C522CFC00209556 /* Main.storyboard */,
+				C3CDD50F1C522CFD00209556 /* Assets.xcassets */,
+				C3CDD5111C522CFD00209556 /* LaunchScreen.storyboard */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		311A89FD1C6863FF00257A26 /* Support File */ = {
+			isa = PBXGroup;
+			children = (
+				C3CDD5141C522CFD00209556 /* Info.plist */,
+				311A8A011C6864D700257A26 /* P3-Bridging-Header.h */,
+			);
+			name = "Support File";
+			sourceTree = "<group>";
+		};
+		311A8A0A1C68655000257A26 /* Charcter Search */ = {
+			isa = PBXGroup;
+			children = (
+				311A8A081C68654D00257A26 /* hanzi2pinyin_v2.txt */,
+				311A8A001C6864CC00257A26 /* NSArray+PinYinSearcher.h */,
+				311A8A021C68654200257A26 /* NSArray+PinYinSearcher.m */,
+				311A8A031C68654200257A26 /* NSString+PinYinConverter.h */,
+				311A8A041C68654200257A26 /* NSString+PinYinConverter.m */,
+				311A8A051C68654200257A26 /* SWPinYinHeader.h */,
+			);
+			name = "Charcter Search";
+			sourceTree = "<group>";
+		};
 		C3CDD4F91C522CFC00209556 = {
 			isa = PBXGroup;
 			children = (
+				311A89FA1C68619D00257A26 /* libsqlite3.0.tbd */,
 				C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */,
 				C372483B1C561B9100EDD735 /* Term.swift */,
 				C3CDD5041C522CFC00209556 /* P3 */,
@@ -66,11 +132,13 @@
 			children = (
 				C3CDD5051C522CFC00209556 /* AppDelegate.swift */,
 				C3CDD5071C522CFC00209556 /* ViewController.swift */,
-				C3CDD5091C522CFC00209556 /* Main.storyboard */,
-				C3CDD50F1C522CFD00209556 /* Assets.xcassets */,
-				C3CDD5111C522CFD00209556 /* LaunchScreen.storyboard */,
-				C3CDD5141C522CFD00209556 /* Info.plist */,
+				311A89FE1C68647000257A26 /* Chinese.swift */,
+				311A8A0B1C688A2600257A26 /* Global.swift */,
+				311A8A0A1C68655000257A26 /* Charcter Search */,
+				311A89FD1C6863FF00257A26 /* Support File */,
+				311A89FC1C6863A400257A26 /* Resources */,
 				C3CDD51A1C522DAE00209556 /* terms.plist */,
+				311A89F31C685E4300257A26 /* sqlite */,
 				C3CDD50C1C522CFD00209556 /* P3.xcdatamodeld */,
 			);
 			path = P3;
@@ -135,8 +203,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C3CDD51B1C522DAE00209556 /* terms.plist in Resources */,
+				311A89F91C685ECE00257A26 /* SingleViewCoreData.sqlite-wal in Resources */,
 				C3CDD5131C522CFD00209556 /* LaunchScreen.storyboard in Resources */,
+				311A8A091C68654D00257A26 /* hanzi2pinyin_v2.txt in Resources */,
+				311A89F81C685ECE00257A26 /* SingleViewCoreData.sqlite-shm in Resources */,
 				C3CDD5101C522CFD00209556 /* Assets.xcassets in Resources */,
+				311A89F71C685ECE00257A26 /* SingleViewCoreData.sqlite in Resources */,
 				C3CDD50B1C522CFC00209556 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -152,7 +224,11 @@
 				C3CDD5081C522CFC00209556 /* ViewController.swift in Sources */,
 				C372483D1C561B9100EDD735 /* Term.swift in Sources */,
 				C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */,
+				311A8A061C68654200257A26 /* NSArray+PinYinSearcher.m in Sources */,
 				C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */,
+				311A89FF1C68647000257A26 /* Chinese.swift in Sources */,
+				311A8A071C68654200257A26 /* NSString+PinYinConverter.m in Sources */,
+				311A8A0C1C688A2600257A26 /* Global.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -267,6 +343,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = myname.P3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/P3-Bridging-Header.h";
 			};
 			name = Debug;
 		};
@@ -278,6 +355,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = myname.P3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/P3-Bridging-Header.h";
 			};
 			name = Release;
 		};
