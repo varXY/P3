@@ -16,11 +16,19 @@
 		311A8A071C68654200257A26 /* NSString+PinYinConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A041C68654200257A26 /* NSString+PinYinConverter.m */; };
 		311A8A091C68654D00257A26 /* hanzi2pinyin_v2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 311A8A081C68654D00257A26 /* hanzi2pinyin_v2.txt */; };
 		311A8A0C1C688A2600257A26 /* Global.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A0B1C688A2600257A26 /* Global.swift */; };
+		311A8A0E1C69631000257A26 /* Trash.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A0D1C69631000257A26 /* Trash.swift */; };
+		311A8A111C6963DD00257A26 /* UIImage+ColorImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A101C6963DD00257A26 /* UIImage+ColorImage.swift */; };
+		311A8A131C6963E700257A26 /* UIColor+CustomColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A121C6963E700257A26 /* UIColor+CustomColor.swift */; };
+		311A8A151C6963F000257A26 /* UIButton+genAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A141C6963F000257A26 /* UIButton+genAnimation.swift */; };
+		311A8A171C6963F800257A26 /* Array+removeAtIndexes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A161C6963F800257A26 /* Array+removeAtIndexes.swift */; };
+		311A8A1A1C69737B00257A26 /* Chinese+SameOrNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */; };
+		3175AF071C69B77C001BEACE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF061C69B77C001BEACE /* NavigationController.swift */; };
+		3175AF0A1C69BDDF001BEACE /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF091C69BDDF001BEACE /* BlockView.swift */; };
+		3175AF0C1C69CD19001BEACE /* SameOrNotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */; };
 		C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */; };
 		C372483D1C561B9100EDD735 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483B1C561B9100EDD735 /* Term.swift */; };
 		C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5051C522CFC00209556 /* AppDelegate.swift */; };
-		C3CDD5081C522CFC00209556 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5071C522CFC00209556 /* ViewController.swift */; };
-		C3CDD50B1C522CFC00209556 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3CDD5091C522CFC00209556 /* Main.storyboard */; };
+		C3CDD5081C522CFC00209556 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5071C522CFC00209556 /* HomepageViewController.swift */; };
 		C3CDD50E1C522CFD00209556 /* P3.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD50C1C522CFD00209556 /* P3.xcdatamodeld */; };
 		C3CDD5101C522CFD00209556 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3CDD50F1C522CFD00209556 /* Assets.xcassets */; };
 		C3CDD5131C522CFD00209556 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3CDD5111C522CFD00209556 /* LaunchScreen.storyboard */; };
@@ -41,12 +49,20 @@
 		311A8A051C68654200257A26 /* SWPinYinHeader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWPinYinHeader.h; sourceTree = "<group>"; };
 		311A8A081C68654D00257A26 /* hanzi2pinyin_v2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hanzi2pinyin_v2.txt; sourceTree = "<group>"; };
 		311A8A0B1C688A2600257A26 /* Global.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Global.swift; sourceTree = "<group>"; };
-		C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Term+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		C372483B1C561B9100EDD735 /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Term.swift; sourceTree = "<group>"; };
+		311A8A0D1C69631000257A26 /* Trash.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash.swift; sourceTree = "<group>"; };
+		311A8A101C6963DD00257A26 /* UIImage+ColorImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIImage+ColorImage.swift"; sourceTree = "<group>"; };
+		311A8A121C6963E700257A26 /* UIColor+CustomColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+CustomColor.swift"; sourceTree = "<group>"; };
+		311A8A141C6963F000257A26 /* UIButton+genAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+genAnimation.swift"; sourceTree = "<group>"; };
+		311A8A161C6963F800257A26 /* Array+removeAtIndexes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+removeAtIndexes.swift"; sourceTree = "<group>"; };
+		311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+SameOrNot.swift"; sourceTree = "<group>"; };
+		3175AF061C69B77C001BEACE /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		3175AF091C69BDDF001BEACE /* BlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
+		3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SameOrNotViewController.swift; sourceTree = "<group>"; };
+		C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Term+CoreDataProperties.swift"; path = "../Term+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		C372483B1C561B9100EDD735 /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Term.swift; path = ../Term.swift; sourceTree = "<group>"; };
 		C3CDD5021C522CFC00209556 /* P3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CDD5051C522CFC00209556 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		C3CDD5071C522CFC00209556 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C3CDD50A1C522CFC00209556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C3CDD5071C522CFC00209556 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		C3CDD50D1C522CFD00209556 /* P3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = P3.xcdatamodel; sourceTree = "<group>"; };
 		C3CDD50F1C522CFD00209556 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C3CDD5121C522CFD00209556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -69,9 +85,14 @@
 		311A89F31C685E4300257A26 /* sqlite */ = {
 			isa = PBXGroup;
 			children = (
+				C372483B1C561B9100EDD735 /* Term.swift */,
+				C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */,
+				C3CDD50C1C522CFD00209556 /* P3.xcdatamodeld */,
 				311A89F41C685ECE00257A26 /* SingleViewCoreData.sqlite */,
 				311A89F51C685ECE00257A26 /* SingleViewCoreData.sqlite-shm */,
 				311A89F61C685ECE00257A26 /* SingleViewCoreData.sqlite-wal */,
+				311A89FA1C68619D00257A26 /* libsqlite3.0.tbd */,
+				C3CDD51A1C522DAE00209556 /* terms.plist */,
 			);
 			name = sqlite;
 			sourceTree = "<group>";
@@ -79,7 +100,6 @@
 		311A89FC1C6863A400257A26 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				C3CDD5091C522CFC00209556 /* Main.storyboard */,
 				C3CDD50F1C522CFD00209556 /* Assets.xcassets */,
 				C3CDD5111C522CFD00209556 /* LaunchScreen.storyboard */,
 			);
@@ -91,6 +111,8 @@
 			children = (
 				C3CDD5141C522CFD00209556 /* Info.plist */,
 				311A8A011C6864D700257A26 /* P3-Bridging-Header.h */,
+				311A8A0B1C688A2600257A26 /* Global.swift */,
+				311A8A0D1C69631000257A26 /* Trash.swift */,
 			);
 			name = "Support File";
 			sourceTree = "<group>";
@@ -108,12 +130,47 @@
 			name = "Charcter Search";
 			sourceTree = "<group>";
 		};
+		311A8A0F1C69639D00257A26 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				311A8A101C6963DD00257A26 /* UIImage+ColorImage.swift */,
+				311A8A121C6963E700257A26 /* UIColor+CustomColor.swift */,
+				311A8A141C6963F000257A26 /* UIButton+genAnimation.swift */,
+				311A8A161C6963F800257A26 /* Array+removeAtIndexes.swift */,
+			);
+			name = Extension;
+			sourceTree = "<group>";
+		};
+		311A8A181C69643E00257A26 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				311A89FE1C68647000257A26 /* Chinese.swift */,
+				311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		3175AF051C69B690001BEACE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				3175AF061C69B77C001BEACE /* NavigationController.swift */,
+				C3CDD5071C522CFC00209556 /* HomepageViewController.swift */,
+				3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		3175AF081C69BDCA001BEACE /* View */ = {
+			isa = PBXGroup;
+			children = (
+				3175AF091C69BDDF001BEACE /* BlockView.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		C3CDD4F91C522CFC00209556 = {
 			isa = PBXGroup;
 			children = (
-				311A89FA1C68619D00257A26 /* libsqlite3.0.tbd */,
-				C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */,
-				C372483B1C561B9100EDD735 /* Term.swift */,
 				C3CDD5041C522CFC00209556 /* P3 */,
 				C3CDD5031C522CFC00209556 /* Products */,
 			);
@@ -131,15 +188,14 @@
 			isa = PBXGroup;
 			children = (
 				C3CDD5051C522CFC00209556 /* AppDelegate.swift */,
-				C3CDD5071C522CFC00209556 /* ViewController.swift */,
-				311A89FE1C68647000257A26 /* Chinese.swift */,
-				311A8A0B1C688A2600257A26 /* Global.swift */,
+				3175AF081C69BDCA001BEACE /* View */,
+				3175AF051C69B690001BEACE /* Controller */,
+				311A8A181C69643E00257A26 /* Model */,
+				311A8A0F1C69639D00257A26 /* Extension */,
 				311A8A0A1C68655000257A26 /* Charcter Search */,
 				311A89FD1C6863FF00257A26 /* Support File */,
 				311A89FC1C6863A400257A26 /* Resources */,
-				C3CDD51A1C522DAE00209556 /* terms.plist */,
 				311A89F31C685E4300257A26 /* sqlite */,
-				C3CDD50C1C522CFD00209556 /* P3.xcdatamodeld */,
 			);
 			path = P3;
 			sourceTree = "<group>";
@@ -209,7 +265,6 @@
 				311A89F81C685ECE00257A26 /* SingleViewCoreData.sqlite-shm in Resources */,
 				C3CDD5101C522CFD00209556 /* Assets.xcassets in Resources */,
 				311A89F71C685ECE00257A26 /* SingleViewCoreData.sqlite in Resources */,
-				C3CDD50B1C522CFC00209556 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -220,14 +275,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3175AF0A1C69BDDF001BEACE /* BlockView.swift in Sources */,
 				C3CDD50E1C522CFD00209556 /* P3.xcdatamodeld in Sources */,
-				C3CDD5081C522CFC00209556 /* ViewController.swift in Sources */,
+				311A8A171C6963F800257A26 /* Array+removeAtIndexes.swift in Sources */,
+				3175AF0C1C69CD19001BEACE /* SameOrNotViewController.swift in Sources */,
+				311A8A1A1C69737B00257A26 /* Chinese+SameOrNot.swift in Sources */,
+				C3CDD5081C522CFC00209556 /* HomepageViewController.swift in Sources */,
+				311A8A111C6963DD00257A26 /* UIImage+ColorImage.swift in Sources */,
 				C372483D1C561B9100EDD735 /* Term.swift in Sources */,
 				C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */,
 				311A8A061C68654200257A26 /* NSArray+PinYinSearcher.m in Sources */,
 				C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */,
+				3175AF071C69B77C001BEACE /* NavigationController.swift in Sources */,
+				311A8A151C6963F000257A26 /* UIButton+genAnimation.swift in Sources */,
+				311A8A0E1C69631000257A26 /* Trash.swift in Sources */,
 				311A89FF1C68647000257A26 /* Chinese.swift in Sources */,
 				311A8A071C68654200257A26 /* NSString+PinYinConverter.m in Sources */,
+				311A8A131C6963E700257A26 /* UIColor+CustomColor.swift in Sources */,
 				311A8A0C1C688A2600257A26 /* Global.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -235,14 +299,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		C3CDD5091C522CFC00209556 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C3CDD50A1C522CFC00209556 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		C3CDD5111C522CFD00209556 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -344,6 +400,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = myname.P3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/P3-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -356,6 +413,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = myname.P3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/P3-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

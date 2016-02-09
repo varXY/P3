@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import UIKit
 
 
-typealias Group = String
-typealias Collection = [String]
-typealias Batch = [String]
+let ScreenBounds = UIScreen.mainScreen().bounds
+let ScreenWidth = ScreenBounds.width
+let ScreenHeight = ScreenBounds.height
+
+let BarHeight = UIApplication.sharedApplication().statusBarFrame.height
 
 enum DuadType {
     case Same
