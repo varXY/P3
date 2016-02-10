@@ -12,11 +12,9 @@ import Foundation
 extension Chinese {
 
 	func getOneForSameOrNot() {
+		forSameOrNot.removeAll()
 		let sameOrNot = getRandomNumbers(1, lessThan: 2)
 		let oneForSameOrNot = sameOrNot[0] == 0 ? sameCharactersOrWords() : differentCharactersOrWords()
-
-
-		print(oneForSameOrNot)
 
 		if oneForSameOrNot.count == 3 {
 			var text_0 = [String]()
@@ -42,7 +40,6 @@ extension Chinese {
 			
 		}
 
-		print(forSameOrNot)
 	}
 
 	func differentCharactersOrWords() -> [String] {

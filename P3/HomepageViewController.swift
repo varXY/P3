@@ -62,6 +62,10 @@ class HomepageViewController: UIViewController {
 			let sameOrNotVC = SameOrNotViewController()
 			self.navigationController?.pushViewController(sameOrNotVC, animated: true)
 
+		case 11:
+			let selectTheSameVC = SelectTheSameViewController()
+			self.navigationController?.pushViewController(selectTheSameVC, animated: true)
+
 		default:
 			break
 		}

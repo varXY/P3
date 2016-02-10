@@ -6,6 +6,27 @@
 //typealias Batch = [String]
 
 //let confusablePinyinOfWord_Different = [
+//	"an zhuang，ang zang",
+//	"shi huo，si huo，si hu",
+//	"zhi bi，zhi bu",
+//	"nao zhong，lao zong，nao zi",
+//	"fan jian，fang jia",
+//	"jiang su，jian su",
+//	"cong ming，chong ming",
+//	"dou po，du bu",
+//	"ben shen，bie shuo",
+//	"xin zang，xue zhe",
+//	"ceng ci，cheng chi",
+//	"chan rao，chang ran",
+//	"cheng dui，cheng du",
+//	"gui zhou，gui zu，gui zheng",
+//	"chuan shuo，chuang shang",
+//	"dan dang，dan dan",
+//	"chuan bo，chuang ban",
+//	"zhun bei，zun bei",
+//]
+
+//let confusablePinyinOfWord_Different = [
 //	"安装，肮脏",
 //	"失火，私活，似乎",
 //	"纸笔，自闭，织布",

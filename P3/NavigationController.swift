@@ -12,10 +12,6 @@ import UIKit
 class NavigationController: UINavigationController {
 
 
-	convenience init(viewController: UIViewController) {
-		self.init(rootViewController: viewController)
-	}
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
@@ -63,6 +59,8 @@ class NavigationController: UINavigationController {
 extension NavigationController: UINavigationControllerDelegate {
     
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+
+		self.navigationBar.barTintColor = UIColor.deepGray()
         
 //        if viewController.isKindOfClass(InfoViewController) {
 //            self.setNavigationBarHidden(true, animated: true)

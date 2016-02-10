@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		self.window!.backgroundColor = UIColor.whiteColor()
 
-		let homePageVC = HomepageViewController()
-		let navi = NavigationController(viewController: homePageVC)
+		let homepageVC = HomepageViewController()
+		let navi = NavigationController(rootViewController: homepageVC)
 		navi.setNavigationBarHidden(true, animated: true)
 		self.window?.rootViewController = navi
 

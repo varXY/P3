@@ -13,6 +13,10 @@ enum TestType {
 	case Homepage, SameOrNot, SelectTheSame, Spell
 }
 
+protocol BlockViewDelegate: class {
+	func blockViewSelected(blockText: [String])
+}
+
 class BlockView: UIView {
 
 	var text: [String]!
@@ -21,16 +25,26 @@ class BlockView: UIView {
 	var textLabels = [UILabel]()
 	var pinyinLabels = [UILabel]()
 
+	var pinyinVisble = false
+
+	weak var delegate: BlockViewDelegate?
+
 	init(type: TestType, origin: CGPoint, text: [String]) {
+
+		var blockSize = CGSize()
 
 		switch type {
 		case .SameOrNot:
-			let blockSize = CGSize(width: (ScreenWidth - 60) / 2, height: (ScreenWidth - 60) / 2)
-			super.init(frame: CGRect(origin: origin, size: blockSize))
+			blockSize = CGSize(width: (ScreenWidth - 60) / 2, height: (ScreenWidth - 60) / 2)
+
+		case .SelectTheSame:
+			blockSize = CGSize(width: (ScreenWidth - 90) / 2, height: (ScreenWidth - 90) / 2)
+
 		default:
-			super.init(frame: CGRect(origin: origin, size: CGSize.zero))
+			break
 		}
 
+		super.init(frame: CGRect(origin: origin, size: blockSize))
 		self.backgroundColor = UIColor.themeBlue()
 
 		self.text = text
@@ -56,7 +70,6 @@ class BlockView: UIView {
 	}
 
 	func addLabels(text: [String]) {
-		print(text)
 		var pinyins = [String]()
 		if text[1].characters.count == 1 {
 			pinyins.append(text[0])
@@ -72,7 +85,6 @@ class BlockView: UIView {
 
 
 		let amount = text[1].characters.count
-		print(amount)
 		let labelSize = CGSize(width: self.frame.width / CGFloat(amount), height: self.frame.height / 2)
 
 		for i in 0..<amount {
@@ -104,16 +116,46 @@ class BlockView: UIView {
 		}
 	}
 
+	func addButton() {
+		let button = UIButton(frame: self.bounds)
+		button.backgroundColor = UIColor.clearColor()
+		button.addTarget(self, action: "selected", forControlEvents: .TouchUpInside)
+		self.addSubview(button)
+	}
+
+	func selected() {
+		delegate?.blockViewSelected(self.text)
+	}
+
 	func showPinyin() {
 
-		UIView.animateWithDuration(0.5) { () -> Void in
-			for textLabel in self.textLabels {
-				textLabel.frame.origin.y -= self.frame.height / 4
+		if !pinyinVisble {
+			pinyinVisble = true
+
+			UIView.animateWithDuration(0.3) { () -> Void in
+				for textLabel in self.textLabels {
+					textLabel.frame.origin.y -= self.frame.height / 5
+				}
+
+				for pinyinLabel in self.pinyinLabels {
+					pinyinLabel.alpha = 1.0
+					pinyinLabel.frame.origin.y -= self.frame.height / 4
+				}
 			}
 
-			for pinyinLabel in self.pinyinLabels {
-				pinyinLabel.alpha = 1.0
-				pinyinLabel.frame.origin.y -= self.frame.height / 4
+		}
+
+	}
+
+	func allChangeColor(right: Bool) {
+
+		for colorView in colorfulViews {
+			colorView.backgroundColor = right ? UIColor.greenColor() : UIColor.redColor()
+		}
+
+		delay(seconds: 0.5) { () -> () in
+			for colorView in self.colorfulViews {
+				colorView.backgroundColor = UIColor.themeBlue()
 			}
 		}
 
