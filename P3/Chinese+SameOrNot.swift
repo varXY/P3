@@ -92,22 +92,19 @@ extension Chinese {
 
 		if characterOrWord[0] == 0 {
 
-			repeat {
 
-				let pinyin = randomPinyin()
+//				let pinyin = randomPinyin()
 
-				let charcters = charactersFromPinyin(pinyin)
+			let chinese_1 = Chinese_1()
+			let pinyin = chinese_1.randomPinyin()
 
-				if charcters.count >= 2 {
-					couple.append(pinyin)
-					let randomIndex = getRandomNumbers(2, lessThan: charcters.count)
-					for index in randomIndex {
-						couple.append(charcters[index])
-					}
-				}
+			let charcters = charactersFromPinyin(pinyin)
 
-
-			} while couple.count < 3
+			couple.append(pinyin)
+			let randomIndex = getRandomNumbers(2, lessThan: charcters.count)
+			for index in randomIndex {
+				couple.append(charcters[index])
+			}
 
 		}
 

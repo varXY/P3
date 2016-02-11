@@ -15,6 +15,8 @@ class SameOrNotViewController: UIViewController {
 	var scrollView = UIScrollView()
 	var currentPage = 0
 
+	var firstData = [[String]]()
+
 	var chinese = Chinese()
 
 	var titleLabel = UILabel()
@@ -37,7 +39,7 @@ class SameOrNotViewController: UIViewController {
 		prepareScrollView(firstTime: true)
 
 		titleLabel.frame.size = CGSize(width: 200, height: 60)
-		titleLabel.frame.origin = CGPoint(x: 20, y: 10)
+		titleLabel.frame.origin = CGPoint(x: 20, y: 5)
 		titleLabel.textColor = UIColor.whiteColor()
 		titleLabel.text = "1/10"
 		self.view.addSubview(titleLabel)
@@ -67,11 +69,19 @@ class SameOrNotViewController: UIViewController {
 		self.view.bringSubviewToFront(quitButton)
 
 		currentPage = 0
-		addContent(page: currentPage)
+		addContent(page: currentPage, firstTime: firstTime)
 	}
 
-	func addContent(page page: Int) {
-		chinese.getOneForSameOrNot()
+	func addContent(page page: Int, firstTime: Bool) {
+
+		var data = [[String]]()
+		if firstTime {
+			data = self.firstData
+		} else {
+			chinese.getOneForSameOrNot()
+			data = chinese.forSameOrNot
+		}
+
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 
@@ -81,11 +91,11 @@ class SameOrNotViewController: UIViewController {
 		for i in 0..<2 {
 			let blockWidth = (ScreenWidth - 60) / 2
 			let point = CGPoint(x: positionInPage + 20 + (blockWidth + 20) * CGFloat(i), y: 60 + 20)
-			let blockView = BlockView(type: .SameOrNot, origin: point, text: chinese.forSameOrNot[i])
+			let blockView = BlockView(type: .SameOrNot, origin: point, text: data[i])
 			blockViews.append(blockView)
 			scrollView.addSubview(blockViews[blockViews.count - 1])
 
-			let buttonY = blockView.frame.origin.y + blockView.frame.height + 60
+			let buttonY = blockView.frame.origin.y + blockView.frame.height + 40
 			let buttonOrigin = CGPoint(x: positionInPage + 20, y: buttonY + (buttonSize.height + 20) * CGFloat(i))
 			let button = UIButton(type: .System)
 			button.frame = CGRect(origin: buttonOrigin, size: buttonSize)
@@ -122,7 +132,7 @@ class SameOrNotViewController: UIViewController {
 		if currentPage < 9 {
 
 			delay(seconds: 0.8) { self.addNextPageButton() }
-			delay(seconds: 1.0) { self.currentPage++; self.addContent(page: self.currentPage) }
+			delay(seconds: 1.0) { self.currentPage++; self.addContent(page: self.currentPage, firstTime: false) }
 
 		} else {
 

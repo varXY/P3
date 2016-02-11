@@ -27,6 +27,9 @@
 		3175AF0C1C69CD19001BEACE /* SameOrNotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */; };
 		31F09E181C6B239200196277 /* SelectTheSameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E171C6B239200196277 /* SelectTheSameViewController.swift */; };
 		31F09E1A1C6B26C900196277 /* Chinese+SelectTheSame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */; };
+		31F09E1C1C6C5D0C00196277 /* Chinese_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E1B1C6C5D0C00196277 /* Chinese_1.swift */; };
+		31F09E1E1C6C737D00196277 /* SpellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E1D1C6C737D00196277 /* SpellViewController.swift */; };
+		31F09E201C6C73F400196277 /* Chinese+Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E1F1C6C73F400196277 /* Chinese+Spell.swift */; };
 		C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */; };
 		C372483D1C561B9100EDD735 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483B1C561B9100EDD735 /* Term.swift */; };
 		C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5051C522CFC00209556 /* AppDelegate.swift */; };
@@ -62,6 +65,9 @@
 		3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SameOrNotViewController.swift; sourceTree = "<group>"; };
 		31F09E171C6B239200196277 /* SelectTheSameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTheSameViewController.swift; sourceTree = "<group>"; };
 		31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+SelectTheSame.swift"; sourceTree = "<group>"; };
+		31F09E1B1C6C5D0C00196277 /* Chinese_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chinese_1.swift; sourceTree = "<group>"; };
+		31F09E1D1C6C737D00196277 /* SpellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpellViewController.swift; sourceTree = "<group>"; };
+		31F09E1F1C6C73F400196277 /* Chinese+Spell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+Spell.swift"; sourceTree = "<group>"; };
 		C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Term+CoreDataProperties.swift"; path = "../Term+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C372483B1C561B9100EDD735 /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Term.swift; path = ../Term.swift; sourceTree = "<group>"; };
 		C3CDD5021C522CFC00209556 /* P3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P3.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -149,8 +155,10 @@
 			isa = PBXGroup;
 			children = (
 				311A89FE1C68647000257A26 /* Chinese.swift */,
+				31F09E1B1C6C5D0C00196277 /* Chinese_1.swift */,
 				311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */,
 				31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */,
+				31F09E1F1C6C73F400196277 /* Chinese+Spell.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 				C3CDD5071C522CFC00209556 /* HomepageViewController.swift */,
 				3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */,
 				31F09E171C6B239200196277 /* SelectTheSameViewController.swift */,
+				31F09E1D1C6C737D00196277 /* SpellViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -288,6 +297,7 @@
 				311A8A1A1C69737B00257A26 /* Chinese+SameOrNot.swift in Sources */,
 				C3CDD5081C522CFC00209556 /* HomepageViewController.swift in Sources */,
 				311A8A111C6963DD00257A26 /* UIImage+ColorImage.swift in Sources */,
+				31F09E1E1C6C737D00196277 /* SpellViewController.swift in Sources */,
 				C372483D1C561B9100EDD735 /* Term.swift in Sources */,
 				C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */,
 				31F09E181C6B239200196277 /* SelectTheSameViewController.swift in Sources */,
@@ -299,7 +309,9 @@
 				311A89FF1C68647000257A26 /* Chinese.swift in Sources */,
 				311A8A071C68654200257A26 /* NSString+PinYinConverter.m in Sources */,
 				311A8A131C6963E700257A26 /* UIColor+CustomColor.swift in Sources */,
+				31F09E1C1C6C5D0C00196277 /* Chinese_1.swift in Sources */,
 				311A8A0C1C688A2600257A26 /* Global.swift in Sources */,
+				31F09E201C6C73F400196277 /* Chinese+Spell.swift in Sources */,
 				31F09E1A1C6B26C900196277 /* Chinese+SelectTheSame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,6 +11,10 @@ import Foundation
 
 extension Chinese {
 
+	func getSixForSelectTheSame(complete: () -> Void) {
+		sixPinyinAndCharacters()
+		complete()
+	}
 
 	func sixPinyinAndCharacters() {
 		forSelectTheSame.removeAll()
@@ -49,7 +53,6 @@ extension Chinese {
 			}
 		} while sameWords.count < 3
 
-
 	}
 
 	func numberOfWords(number: Int, words: [String]) -> [String] {
@@ -79,4 +82,55 @@ extension Chinese {
 
 		return allFour
 	}
+
+	func getSixForSelectTheSame_1() {
+		forSelectTheSame.removeAll()
+
+		var pinyins = coupleOfConfusablePinyin_1()
+
+		let index = getRandomNumbers(1, lessThan: pinyins.count)[0]
+
+		let words = charactersFromPinyin(pinyins[index])
+		let three = getRandomNumbers(3, lessThan: words.count)
+
+		for one in three {
+			var block = [String]()
+			block.append(pinyins[index])
+			block.append(words[one])
+			forSelectTheSame.append(block)
+		}
+
+		if let index = pinyins.indexOf(pinyins[index]) {
+			pinyins.removeAtIndex(index)
+
+			for pinyin in pinyins {
+				let words = charactersFromPinyin(pinyin)
+				let randomOne = getRandomNumbers(1, lessThan: words.count)[0]
+
+				var block = [String]()
+				block.append(pinyin)
+				block.append(words[randomOne])
+				forSelectTheSame.append(block)
+			}
+		}
+	}
+
+	func coupleOfConfusablePinyin_1() -> [String] {
+		let chinese_1 = Chinese_1()
+		var results = [String]()
+
+		let one = getRandomNumbers(1, lessThan: chinese_1.confusablePinyinsForSelectTheSame.count)
+		let all = chinese_1.confusablePinyinsForSelectTheSame[one[0]]
+
+		let numbers = getRandomNumbers(4, lessThan: all.count)
+
+		for number in numbers {
+			results.append(all[number])
+		}
+
+		return results
+	}
 }
+
+
+

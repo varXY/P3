@@ -11,7 +11,10 @@ import CoreData
 
 class HomepageViewController: UIViewController {
 
+	let chinese = Chinese()
+	var bigButtons = [UIButton]()
 
+	var six = [[String]]()
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
@@ -22,14 +25,37 @@ class HomepageViewController: UIViewController {
 		self.view.backgroundColor = UIColor.deepGray()
 
 		addThreeMainButtons()
-		
+
+
+
     }
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 		self.navigationController?.setNavigationBarHidden(true, animated: true)
 
+		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+		dispatch_async(queue) {
+			self.chinese.getOneForSameOrNot()
+			self.chinese.getSixForSelectTheSame_1()
+			self.six = self.chinese.forSelectTheSame
+		}
+
+		for button in bigButtons {
+			UIView.animateWithDuration(1.0, animations: { () -> Void in
+				button.alpha = 1.0
+				}, completion: { (_) -> Void in
+					button.userInteractionEnabled = true
+			})
+		}
+
     }
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+
+
+	}
 
 	func addThreeMainButtons() {
 
@@ -51,7 +77,19 @@ class HomepageViewController: UIViewController {
 			button.tag = 10 + i
 			button.addTarget(self, action: "bigButtonTapped:", forControlEvents: .TouchUpInside)
 
+			button.alpha = 0.0
+			button.userInteractionEnabled = false
+
+			bigButtons.append(button)
 			self.view.addSubview(button)
+		}
+	}
+
+	func removeThreeMainButtons() {
+		for i in 0..<3 {
+			if let button = self.view.viewWithTag(10 + i) {
+				button.removeFromSuperview()
+			}
 		}
 	}
 
@@ -60,11 +98,20 @@ class HomepageViewController: UIViewController {
 		switch sender.tag {
 		case 10:
 			let sameOrNotVC = SameOrNotViewController()
+			sameOrNotVC.firstData = chinese.forSameOrNot
 			self.navigationController?.pushViewController(sameOrNotVC, animated: true)
 
 		case 11:
-			let selectTheSameVC = SelectTheSameViewController()
-			self.navigationController?.pushViewController(selectTheSameVC, animated: true)
+			if self.six.count == 6 {
+				let selectTheSameVC = SelectTheSameViewController()
+				selectTheSameVC.firstData = self.six
+				self.navigationController?.pushViewController(selectTheSameVC, animated: true)
+			} else {
+				print("not complete")
+			}
+		case 12:
+			let spellVC = SpellViewController()
+			self.navigationController?.pushViewController(spellVC, animated: true)
 
 		default:
 			break

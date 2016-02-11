@@ -14,7 +14,7 @@ enum TestType {
 }
 
 protocol BlockViewDelegate: class {
-	func blockViewSelected(blockText: [String])
+	func blockViewSelected(selected: Bool, blockText: [String])
 }
 
 class BlockView: UIView {
@@ -24,8 +24,10 @@ class BlockView: UIView {
 	var colorfulViews = [UIView]()
 	var textLabels = [UILabel]()
 	var pinyinLabels = [UILabel]()
+	var button = UIButton()
 
 	var pinyinVisble = false
+	var selected = false
 
 	weak var delegate: BlockViewDelegate?
 
@@ -51,6 +53,8 @@ class BlockView: UIView {
 
 		addColorfulView(text)
 		addLabels(text)
+
+		if type == .SelectTheSame { addButton() }
 	}
 
 	func addColorfulView(text: [String]) {
@@ -117,14 +121,29 @@ class BlockView: UIView {
 	}
 
 	func addButton() {
-		let button = UIButton(frame: self.bounds)
+		button = UIButton(frame: self.bounds)
 		button.backgroundColor = UIColor.clearColor()
-		button.addTarget(self, action: "selected", forControlEvents: .TouchUpInside)
+		button.addTarget(self, action: "selected:", forControlEvents: .TouchUpInside)
 		self.addSubview(button)
 	}
 
-	func selected() {
-		delegate?.blockViewSelected(self.text)
+	func selected(sender: UIButton) {
+
+		if !selected {
+			selected = true
+			sender.layer.borderWidth = 2.0
+			sender.layer.borderColor = UIColor.whiteColor().CGColor
+		} else {
+			selected = false
+			sender.layer.borderWidth = 0.0
+		}
+
+		delegate?.blockViewSelected(selected, blockText: text)
+	}
+
+	func showGreenBorder() {
+		button.layer.borderWidth = 2.0
+		button.layer.borderColor = UIColor.greenColor().CGColor
 	}
 
 	func showPinyin() {
@@ -145,6 +164,10 @@ class BlockView: UIView {
 
 		}
 
+	}
+
+	func setSelectable(canSelect: Bool) {
+		button.userInteractionEnabled = canSelect
 	}
 
 	func allChangeColor(right: Bool) {
