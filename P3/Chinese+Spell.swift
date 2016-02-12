@@ -13,6 +13,8 @@ extension Chinese {
 
 	func getOneForSpell() {
 
+		forSpell.removeAll()
+
 		repeat {
 			
 			let randomIndex = getRandomNumbers(1, lessThan: 52936)

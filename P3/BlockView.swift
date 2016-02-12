@@ -13,6 +13,23 @@ enum TestType {
 	case Homepage, SameOrNot, SelectTheSame, Spell
 }
 
+enum ColorType {
+	case Blue, White, Red, Green
+
+	var color: UIColor {
+		switch self {
+		case .Blue:
+			return UIColor.themeBlue()
+		case .White:
+			return UIColor.whiteColor()
+		case .Red:
+			return UIColor.redColor()
+		case .Green:
+			return UIColor.greenColor()
+		}
+	}
+}
+
 protocol BlockViewDelegate: class {
 	func blockViewSelected(selected: Bool, blockText: [String])
 }
@@ -41,6 +58,9 @@ class BlockView: UIView {
 
 		case .SelectTheSame:
 			blockSize = CGSize(width: (ScreenWidth - 90) / 2, height: (ScreenWidth - 90) / 2)
+
+		case .Spell:
+			blockSize = CGSize(width: ScreenWidth - 120, height: ScreenWidth - 120)
 
 		default:
 			break
@@ -107,6 +127,7 @@ class BlockView: UIView {
 			pinyinLabel.font = UIFont.systemFontOfSize(18)
 			pinyinLabel.textAlignment = .Center
 			pinyinLabel.text = pinyins[i]
+			pinyinLabel.adjustsFontSizeToFitWidth = true
 			pinyinLabels.append(pinyinLabel)
 		}
 
@@ -146,7 +167,7 @@ class BlockView: UIView {
 		button.layer.borderColor = UIColor.greenColor().CGColor
 	}
 
-	func showPinyin() {
+	func showAllPinyin() {
 
 		if !pinyinVisble {
 			pinyinVisble = true
@@ -166,14 +187,44 @@ class BlockView: UIView {
 
 	}
 
+	func showPinyinAtIndex(index: Int) {
+
+		UIView.animateWithDuration(0.3) { () -> Void in
+			self.textLabels[index].frame.origin.y -= self.frame.height / 5
+			self.pinyinLabels[index].alpha = 1.0
+			self.pinyinLabels[index].frame.origin.y -= self.frame.height / 4
+		}
+	}
+
+	func changeColor(index: Int, colorType: ColorType, backToBlue: Bool) {
+		colorfulViews[index].backgroundColor = colorType.color
+
+		if colorType.color == UIColor.whiteColor() {
+			textLabels[index].textColor = UIColor.blackColor()
+			pinyinLabels[index].textColor = UIColor.blackColor()
+		} else {
+			textLabels[index].textColor = UIColor.whiteColor()
+			pinyinLabels[index].textColor = UIColor.whiteColor()
+		}
+
+		if backToBlue {
+			delay(seconds: 0.3) { () -> () in
+				self.textLabels[index].textColor = UIColor.whiteColor()
+				self.pinyinLabels[index].textColor = UIColor.whiteColor()
+				self.colorfulViews[index].backgroundColor = UIColor.themeBlue()
+			}
+		}
+
+	}
+
 	func setSelectable(canSelect: Bool) {
 		button.userInteractionEnabled = canSelect
 	}
 
-	func allChangeColor(right: Bool) {
+	func allChangeColor(colorType: ColorType) {
 
 		for colorView in colorfulViews {
-			colorView.backgroundColor = right ? UIColor.greenColor() : UIColor.redColor()
+			colorView.backgroundColor = colorType.color
 		}
 
 		delay(seconds: 0.5) { () -> () in

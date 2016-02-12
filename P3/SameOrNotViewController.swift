@@ -127,7 +127,7 @@ class SameOrNotViewController: UIViewController {
 		for button in buttons { button.userInteractionEnabled = false }
 
 		showRightOrWorng(sender)
-		delay(seconds: 0.6) { self.showPinyin() }
+		delay(seconds: 0.6) { self.showAllPinyin() }
 
 		if currentPage < 9 {
 
@@ -157,7 +157,7 @@ class SameOrNotViewController: UIViewController {
 
 		if ChosenSame == trulySame {
 			rightCount++
-			for blockView in blockViews { blockView.allChangeColor(true) }
+			for blockView in blockViews { blockView.allChangeColor(.Green) }
 			sender.backgroundColor = UIColor.greenColor()
 			sender.tintColor = UIColor.whiteColor()
 
@@ -168,7 +168,7 @@ class SameOrNotViewController: UIViewController {
 			}
 
 		} else {
-			for blockView in blockViews { blockView.allChangeColor(false) }
+			for blockView in blockViews { blockView.allChangeColor(.Red) }
 			AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
 
 			sender.enabled = false
@@ -183,9 +183,9 @@ class SameOrNotViewController: UIViewController {
 		}
 	}
 
-	func showPinyin() {
+	func showAllPinyin() {
 		for blockView in blockViews {
-			blockView.showPinyin()
+			blockView.showAllPinyin()
 		}
 	}
 

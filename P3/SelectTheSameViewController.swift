@@ -187,9 +187,9 @@ class SelectTheSameViewController: UIViewController {
 
 			for blockView in blockViews {
 				blockView.setSelectable(false)
-				blockView.allChangeColor(true)
+				blockView.allChangeColor(.Green)
 				delay(seconds: 0.5, completion: {
-					blockView.showPinyin()
+					blockView.showAllPinyin()
 					if blockView.text[0] == self.rightAnswer { blockView.showGreenBorder() }
 				})
 			}
@@ -197,9 +197,9 @@ class SelectTheSameViewController: UIViewController {
 		} else {
 			for blockView in blockViews {
 				blockView.setSelectable(false)
-				blockView.allChangeColor(false)
+				blockView.allChangeColor(.Red)
 				delay(seconds: 0.5, completion: {
-					blockView.showPinyin()
+					blockView.showAllPinyin()
 					if blockView.text[0] == self.rightAnswer { blockView.showGreenBorder() }
 				})
 			}

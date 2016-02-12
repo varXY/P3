@@ -25,6 +25,10 @@
 		3175AF071C69B77C001BEACE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF061C69B77C001BEACE /* NavigationController.swift */; };
 		3175AF0A1C69BDDF001BEACE /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF091C69BDDF001BEACE /* BlockView.swift */; };
 		3175AF0C1C69CD19001BEACE /* SameOrNotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */; };
+		31C8B7A81C6DB0B60018DD9B /* Trash_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7A71C6DB0B60018DD9B /* Trash_1.swift */; };
+		31C8B7AA1C6DB7310018DD9B /* Trash_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7A91C6DB7310018DD9B /* Trash_2.swift */; };
+		31C8B7AC1C6DB9F00018DD9B /* Trash_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */; };
+		31C8B7AE1C6DBB150018DD9B /* Trash_4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7AD1C6DBB150018DD9B /* Trash_4.swift */; };
 		31F09E181C6B239200196277 /* SelectTheSameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E171C6B239200196277 /* SelectTheSameViewController.swift */; };
 		31F09E1A1C6B26C900196277 /* Chinese+SelectTheSame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */; };
 		31F09E1C1C6C5D0C00196277 /* Chinese_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E1B1C6C5D0C00196277 /* Chinese_1.swift */; };
@@ -61,9 +65,13 @@
 		311A8A161C6963F800257A26 /* Array+removeAtIndexes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+removeAtIndexes.swift"; sourceTree = "<group>"; };
 		311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+SameOrNot.swift"; sourceTree = "<group>"; };
 		3175AF061C69B77C001BEACE /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		3175AF091C69BDDF001BEACE /* BlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockView.swift; sourceTree = "<group>"; };
-		3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SameOrNotViewController.swift; sourceTree = "<group>"; };
-		31F09E171C6B239200196277 /* SelectTheSameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectTheSameViewController.swift; sourceTree = "<group>"; };
+		3175AF091C69BDDF001BEACE /* BlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BlockView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SameOrNotViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		31C8B7A71C6DB0B60018DD9B /* Trash_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_1.swift; sourceTree = "<group>"; };
+		31C8B7A91C6DB7310018DD9B /* Trash_2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_2.swift; sourceTree = "<group>"; };
+		31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_3.swift; sourceTree = "<group>"; };
+		31C8B7AD1C6DBB150018DD9B /* Trash_4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_4.swift; sourceTree = "<group>"; };
+		31F09E171C6B239200196277 /* SelectTheSameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SelectTheSameViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+SelectTheSame.swift"; sourceTree = "<group>"; };
 		31F09E1B1C6C5D0C00196277 /* Chinese_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chinese_1.swift; sourceTree = "<group>"; };
 		31F09E1D1C6C737D00196277 /* SpellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpellViewController.swift; sourceTree = "<group>"; };
@@ -123,6 +131,10 @@
 				311A8A011C6864D700257A26 /* P3-Bridging-Header.h */,
 				311A8A0B1C688A2600257A26 /* Global.swift */,
 				311A8A0D1C69631000257A26 /* Trash.swift */,
+				31C8B7A71C6DB0B60018DD9B /* Trash_1.swift */,
+				31C8B7A91C6DB7310018DD9B /* Trash_2.swift */,
+				31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */,
+				31C8B7AD1C6DBB150018DD9B /* Trash_4.swift */,
 			);
 			name = "Support File";
 			sourceTree = "<group>";
@@ -291,10 +303,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3175AF0A1C69BDDF001BEACE /* BlockView.swift in Sources */,
+				31C8B7AA1C6DB7310018DD9B /* Trash_2.swift in Sources */,
 				C3CDD50E1C522CFD00209556 /* P3.xcdatamodeld in Sources */,
 				311A8A171C6963F800257A26 /* Array+removeAtIndexes.swift in Sources */,
 				3175AF0C1C69CD19001BEACE /* SameOrNotViewController.swift in Sources */,
 				311A8A1A1C69737B00257A26 /* Chinese+SameOrNot.swift in Sources */,
+				31C8B7AE1C6DBB150018DD9B /* Trash_4.swift in Sources */,
+				31C8B7AC1C6DB9F00018DD9B /* Trash_3.swift in Sources */,
 				C3CDD5081C522CFC00209556 /* HomepageViewController.swift in Sources */,
 				311A8A111C6963DD00257A26 /* UIImage+ColorImage.swift in Sources */,
 				31F09E1E1C6C737D00196277 /* SpellViewController.swift in Sources */,
@@ -308,6 +323,7 @@
 				311A8A0E1C69631000257A26 /* Trash.swift in Sources */,
 				311A89FF1C68647000257A26 /* Chinese.swift in Sources */,
 				311A8A071C68654200257A26 /* NSString+PinYinConverter.m in Sources */,
+				31C8B7A81C6DB0B60018DD9B /* Trash_1.swift in Sources */,
 				311A8A131C6963E700257A26 /* UIColor+CustomColor.swift in Sources */,
 				31F09E1C1C6C5D0C00196277 /* Chinese_1.swift in Sources */,
 				311A8A0C1C688A2600257A26 /* Global.swift in Sources */,

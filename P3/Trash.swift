@@ -5,6 +5,14 @@
 //typealias Collection = [String]
 //typealias Batch = [String]
 
+//let trash = Trash_4()
+//let dealWith = trash.Z
+//
+//for i in 0..<dealWith.count {
+//	let pinyin = String(dealWith[i].characters.dropLast())
+//	print("#" + pinyin + "#" + ",")
+//}
+
 //let confusablePinyinOfWord_Different = [
 //	"an zhuang，ang zang",
 //	"shi huo，si huo，si hu",
