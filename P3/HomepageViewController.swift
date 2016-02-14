@@ -12,9 +12,12 @@ import CoreData
 class HomepageViewController: UIViewController {
 
 	let chinese = Chinese()
+
+	var blockView: BlockView!
 	var bigButtons = [UIButton]()
 
 	var six = [[String]]()
+	var scoreModel = ScoreModel()
 
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
@@ -24,58 +27,60 @@ class HomepageViewController: UIViewController {
         super.viewDidLoad()
 		self.view.backgroundColor = UIColor.deepGray()
 
+		addBlockView()
 		addThreeMainButtons()
+		addTwoLittleButtons()
 
-		let trash = Trash_1()
-		let confusables = [trash.confusableFirstInB, trash.confusableFirstInC, trash.confusableFirstInD, trash.confusableFirstInE, trash.confusableFirstInF, trash.confusableFirstInG]
-		let contents = [trash.B, trash.C, trash.D, trash.E, trash.F, trash.G]
-
-		for i in 0..<contents.count {
-			let content = contents[i]
-
-			var allA = [String]()
-			var allAs = [String]()
-
-			var allB = [String]()
-			var allBs = [String]()
-
-			for j in 0..<confusables[i].count {
-				let confusable = confusables[i][j]
-				let yins = confusable.componentsSeparatedByString("，")
-				var a = ""
-				var b = ""
-
-				for pinyin in content {
-					if let range = pinyin.rangeOfString(yins[0]) {
-						a = pinyin
-						a.replaceRange(range, with: "")
-						allA.append(a)
-						allAs.append(pinyin)
-						print(a)
-					}
-				}
-
-				for pinyin in content {
-					if let range = pinyin.rangeOfString(yins[1]) {
-						b = pinyin
-						b.replaceRange(range, with: "")
-						allB.append(b)
-						allBs.append(pinyin)
-						print(b)
-					}
-				}
-
-			}
-
-			for m in 0..<allA.count {
-				if let _ = allB.indexOf(allA[m]) {
-					print(confusables[i])
-					print(allAs[m])
-					print(allA[m])
-					print("--------")
-				}
-			}
-		}
+//		let trash = Trash_1()
+//		let confusables = [trash.confusableFirstInB, trash.confusableFirstInC, trash.confusableFirstInD, trash.confusableFirstInE, trash.confusableFirstInF, trash.confusableFirstInG]
+//		let contents = [trash.B, trash.C, trash.D, trash.E, trash.F, trash.G]
+//
+//		for i in 0..<contents.count {
+//			let content = contents[i]
+//
+//			var allA = [String]()
+//			var allAs = [String]()
+//
+//			var allB = [String]()
+//			var allBs = [String]()
+//
+//			for j in 0..<confusables[i].count {
+//				let confusable = confusables[i][j]
+//				let yins = confusable.componentsSeparatedByString("，")
+//				var a = ""
+//				var b = ""
+//
+//				for pinyin in content {
+//					if let range = pinyin.rangeOfString(yins[0]) {
+//						a = pinyin
+//						a.replaceRange(range, with: "")
+//						allA.append(a)
+//						allAs.append(pinyin)
+//						print(a)
+//					}
+//				}
+//
+//				for pinyin in content {
+//					if let range = pinyin.rangeOfString(yins[1]) {
+//						b = pinyin
+//						b.replaceRange(range, with: "")
+//						allB.append(b)
+//						allBs.append(pinyin)
+//						print(b)
+//					}
+//				}
+//
+//			}
+//
+//			for m in 0..<allA.count {
+//				if let _ = allB.indexOf(allA[m]) {
+//					print(confusables[i])
+//					print(allAs[m])
+//					print(allA[m])
+//					print("--------")
+//				}
+//			}
+//		}
 
     }
 
@@ -106,6 +111,17 @@ class HomepageViewController: UIViewController {
 
 	}
 
+	func addBlockView() {
+		chinese.getOneForSpell()
+
+		let point = CGPoint(x: 80, y: 60)
+		blockView = BlockView(type: .Homepage, origin: point, text: chinese.forSpell)
+		self.view.addSubview(blockView)
+
+		let timer = NSTimer(timeInterval: 5.0, target: self, selector: "blockViewChangeContent", userInfo: nil, repeats: true)
+		NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+	}
+
 	func addThreeMainButtons() {
 
 		let titles = ["SAME OR DIFFERENT", "SELECT THE SAME", "SPELL IT"]
@@ -115,7 +131,7 @@ class HomepageViewController: UIViewController {
 		for i in 0..<3 {
 			let button = UIButton(type: .System)
 			button.frame.size = CGSize(width: ScreenWidth - 40, height: buttonHeight)
-			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + 20) * CGFloat(i))
+			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + 20) * CGFloat(i) + 20)
 
 			button.backgroundColor = UIColor.whiteColor()
 			button.tintColor = UIColor.themeBlue()
@@ -134,6 +150,23 @@ class HomepageViewController: UIViewController {
 		}
 	}
 
+	func addTwoLittleButtons() {
+
+		let titles = ["Record", "Setting"]
+		let xPositons: [CGFloat] = [10, self.view.frame.width - 90]
+
+		for i in 0..<2 {
+			let button = UIButton(type: .System)
+			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 40, width: 80, height: 30)
+			button.tintColor = UIColor.whiteColor()
+			button.setTitle(titles[i], forState: .Normal)
+			button.titleLabel?.font = UIFont.systemFontOfSize(15)
+			button.exclusiveTouch = true
+			button.addTarget(self, action: "smallButtonTapped:", forControlEvents: .TouchUpInside)
+			self.view.addSubview(button)
+		}
+	}
+
 	func removeThreeMainButtons() {
 		for i in 0..<3 {
 			if let button = self.view.viewWithTag(10 + i) {
@@ -142,22 +175,48 @@ class HomepageViewController: UIViewController {
 		}
 	}
 
+	func blockViewChangeContent() {
+		chinese.getOneForSpell()
+		blockView.homepageChanging(chinese.forSpell)
+	}
+
 	func bigButtonTapped(sender: UIButton) {
 
 		switch sender.tag {
 		case 10:
 			let sameOrNotVC = SameOrNotViewController()
 			sameOrNotVC.firstData = chinese.forSameOrNot
+			sameOrNotVC.scoreModel = scoreModel
+
+			sameOrNotVC.sendBackScore = { (totalScore, score) -> Void in
+				self.scoreModel.totalScore = totalScore
+				self.scoreModel.scores.insert(score, atIndex: 0)
+				print(self.scoreModel.totalScore)
+				print(self.scoreModel.scores.count)
+				print(self.scoreModel.scores[0].score)
+			}
+
 			self.navigationController?.pushViewController(sameOrNotVC, animated: true)
 
 		case 11:
 			if self.six.count == 6 {
 				let selectTheSameVC = SelectTheSameViewController()
 				selectTheSameVC.firstData = self.six
+				selectTheSameVC.totalScore = scoreModel.totalScore
+
+				selectTheSameVC.sendBackScore = { (totalScore, score) -> Void in
+					self.scoreModel.totalScore = totalScore
+					self.scoreModel.scores.insert(score, atIndex: 0)
+					print(self.scoreModel.totalScore)
+					print(self.scoreModel.scores.count)
+					print(self.scoreModel.scores[0].score)
+				}
+
 				self.navigationController?.pushViewController(selectTheSameVC, animated: true)
 			} else {
 				print("not complete")
 			}
+			
 		case 12:
 			let spellVC = SpellViewController()
 			self.navigationController?.pushViewController(spellVC, animated: true)
@@ -165,6 +224,10 @@ class HomepageViewController: UIViewController {
 		default:
 			break
 		}
+	}
+
+	func smallButtonTapped(sender: UIButton) {
+
 	}
     
 

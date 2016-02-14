@@ -19,14 +19,18 @@ class SameOrNotViewController: UIViewController {
 
 	var chinese = Chinese()
 
-	var titleLabel = UILabel()
 	var blockViews = [BlockView]()
 	var buttons = [UIButton]()
-	var quitButton = UIButton()
-	var nextButton = UIButton()
+	var nextButton: NextButton!
+	var headerView: HeaderView!
 
 	var rightCount = 0
 
+	var scoreModel: ScoreModel!
+	let rightScore = 2
+	let wrongScore = -2
+
+	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
 
 	override func prefersStatusBarHidden() -> Bool {
 		return true
@@ -36,18 +40,15 @@ class SameOrNotViewController: UIViewController {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.deepGray()
 
+		headerView = HeaderView(page: 1, score: scoreModel.totalScore)
+		headerView.delegate = self
+		self.view.addSubview(headerView)
+
+		nextButton = NextButton(title: "Next")
+		nextButton.delegate = self
+		self.view.addSubview(nextButton)
+
 		prepareScrollView(firstTime: true)
-
-		titleLabel.frame.size = CGSize(width: 200, height: 60)
-		titleLabel.frame.origin = CGPoint(x: 20, y: 5)
-		titleLabel.textColor = UIColor.whiteColor()
-		titleLabel.text = "1/10"
-		self.view.addSubview(titleLabel)
-
-		quitButton = UIButton(type: .InfoLight)
-		quitButton.frame = CGRect(x: view.frame.width - 50, y: 20, width: 30, height: 30)
-		quitButton.addTarget(self, action: "confirmToQuit", forControlEvents: .TouchUpInside)
-		self.view.addSubview(quitButton)
 
 	}
 
@@ -63,10 +64,9 @@ class SameOrNotViewController: UIViewController {
 		scrollView.backgroundColor = UIColor.deepGray()
 		scrollView.pagingEnabled = true
 		scrollView.scrollEnabled = false
-		scrollView.delegate = self
 		self.view.addSubview(scrollView)
-		self.view.bringSubviewToFront(titleLabel)
-		self.view.bringSubviewToFront(quitButton)
+		self.view.bringSubviewToFront(headerView)
+		self.view.bringSubviewToFront(nextButton)
 
 		currentPage = 0
 		addContent(page: currentPage, firstTime: firstTime)
@@ -90,7 +90,7 @@ class SameOrNotViewController: UIViewController {
 
 		for i in 0..<2 {
 			let blockWidth = (ScreenWidth - 60) / 2
-			let point = CGPoint(x: positionInPage + 20 + (blockWidth + 20) * CGFloat(i), y: 60 + 20)
+			let point = CGPoint(x: positionInPage + 20 + (blockWidth + 20) * CGFloat(i), y: 60 + 70)
 			let blockView = BlockView(type: .SameOrNot, origin: point, text: data[i])
 			blockViews.append(blockView)
 			scrollView.addSubview(blockViews[blockViews.count - 1])
@@ -119,8 +119,6 @@ class SameOrNotViewController: UIViewController {
 		buttons[0].removeFromSuperview()
 		buttons[1].removeFromSuperview()
 
-		nextButton.removeFromSuperview()
-
 	}
 
 	func sameOrNot(sender: UIButton) {
@@ -129,25 +127,8 @@ class SameOrNotViewController: UIViewController {
 		showRightOrWorng(sender)
 		delay(seconds: 0.6) { self.showAllPinyin() }
 
-		if currentPage < 9 {
-
-			delay(seconds: 0.8) { self.addNextPageButton() }
-			delay(seconds: 1.0) { self.currentPage++; self.addContent(page: self.currentPage, firstTime: false) }
-
-		} else {
-
-			delay(seconds: 1.5, completion: { () -> () in
-				self.titleLabel.text = "完成"
-				self.scrollView.removeFromSuperview()
-			})
-
-			delay(seconds: 2.5, completion: { () -> () in
-				self.addCompletedPage()
-				self.prepareScrollView(firstTime: false)
-			})
-
-		}
-
+		delay(seconds: 0.8) { self.addNextPageButton() }
+		delay(seconds: 1.0) { self.currentPage++; self.addContent(page: self.currentPage, firstTime: false) }
 
 	}
 
@@ -166,8 +147,11 @@ class SameOrNotViewController: UIViewController {
 					button.enabled = false
 				}
 			}
+			delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(self.rightScore) })
+
 
 		} else {
+			
 			for blockView in blockViews { blockView.allChangeColor(.Red) }
 			AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
 
@@ -180,6 +164,8 @@ class SameOrNotViewController: UIViewController {
 				}
 			}
 
+			delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(self.wrongScore) })
+
 		}
 	}
 
@@ -190,21 +176,8 @@ class SameOrNotViewController: UIViewController {
 	}
 
 	func addNextPageButton() {
-		nextButton = UIButton(type: .System)
-		nextButton.frame.size = CGSize(width: 100, height: 100)
-		let positionInPage = scrollView.frame.width * CGFloat(currentPage)
-		nextButton.center = CGPoint(x: scrollView.frame.width / 2 + positionInPage, y: scrollView.frame.height - 70)
-		nextButton.backgroundColor = UIColor.whiteColor()
-		nextButton.setTitle("Next", forState: .Normal)
-		nextButton.addTarget(self, action: "nextPage", forControlEvents: .TouchUpInside)
-		nextButton.tag = 99
-
-		scrollView.addSubview(nextButton)
-	}
-
-	func nextPage() {
-		titleLabel.text = "\(currentPage + 1)/10"
-		delay(seconds: 0.1) { self.jumpToPage(self.currentPage) }
+		let title = currentPage < 9 ? "Next" : "Done"
+		nextButton.show(title)
 	}
 
 	func jumpToPage(page: Int) {
@@ -224,11 +197,13 @@ class SameOrNotViewController: UIViewController {
 		contentView.tag = 110
 		self.view.addSubview(contentView)
 
-		let resultLabel = UILabel(frame: CGRect(x: 0, y: 60, width: contentView.frame.width, height: 60))
+		let resultLabel = UILabel(frame: CGRect(x: 0, y: 60, width: contentView.frame.width, height: 100))
+		resultLabel.numberOfLines = 0
 		resultLabel.textAlignment = .Center
 		resultLabel.textColor = UIColor.whiteColor()
 		resultLabel.font = UIFont.boldSystemFontOfSize(22)
-		resultLabel.text = "共答对了\(rightCount)题"
+		let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
+		resultLabel.text = "共答对了\(rightCount)题\n总分" + score
 		contentView.addSubview(resultLabel)
 
 		let titles = ["Again", "Quit"]
@@ -252,7 +227,8 @@ class SameOrNotViewController: UIViewController {
 		let again = sender.tag == 120
 
 		if again {
-			self.titleLabel.text = "1/10"
+			self.headerView.clearCurrentScore()
+			self.headerView.changePage(1)
 			self.rightCount = 0
 
 			if let contentView = self.view.viewWithTag(110) {
@@ -280,7 +256,66 @@ class SameOrNotViewController: UIViewController {
 }
 
 
-extension SameOrNotViewController: UIScrollViewDelegate {
+extension SameOrNotViewController: HeaderViewDelegate {
 
-
+	func backButtonTapped() {
+		self.navigationController?.popViewControllerAnimated(true)
+	}
 }
+
+
+extension SameOrNotViewController: NextButtonDelegate {
+
+	func nextButtonTapped(title: String) {
+		if currentPage < 10 {
+			headerView.changePage(currentPage + 1)
+			delay(seconds: 0.1) { self.jumpToPage(self.currentPage) }
+		} else {
+			let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
+			let finalView = FinalView(title: "共答对了\(rightCount)题\n总分" + score)
+			finalView.delegate = self
+			self.view.addSubview(finalView)
+
+			UIView.animateWithDuration(0.5, animations: { () -> Void in
+				self.scrollView.alpha = 0.0
+				}, completion: { (_) -> Void in
+					self.scrollView.removeFromSuperview()
+					finalView.show()
+					self.prepareScrollView(firstTime: false)
+
+					let score = Score(score: self.headerView.currentScore, time: NSDate())
+					self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
+			})
+
+		}
+
+	}
+}
+
+extension SameOrNotViewController: FinalViewDelegate {
+
+	func finalViewButtonTapped(buttonType: FinalViewButtonType) {
+
+		if buttonType == .Again {
+			self.headerView.clearCurrentScore()
+			self.headerView.changePage(1)
+			self.rightCount = 0
+
+			UIView.animateWithDuration(0.5, animations: { () -> Void in
+				self.scrollView.frame.origin.x -= self.view.frame.width
+			})
+
+		} else {
+			self.confirmToQuit()
+		}
+	}
+}
+
+
+
+
+
+
+
+
+

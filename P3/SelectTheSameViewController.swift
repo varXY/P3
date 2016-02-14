@@ -26,7 +26,16 @@ class SelectTheSameViewController: UIViewController {
 	var quitButton = UIButton()
 	var confirmButtons = [UIButton]()
 
+	var nextButton: NextButton!
+	var headerView: HeaderView!
+
 	var selectedBlocks = [[String]]()
+
+	var totalScore = Int()
+	let rightScore = 3
+	let wrongScore = -3
+
+	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
 
 	override func prefersStatusBarHidden() -> Bool {
 		return true
@@ -36,18 +45,15 @@ class SelectTheSameViewController: UIViewController {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.deepGray()
 
+		headerView = HeaderView(page: 1, score: totalScore)
+		headerView.delegate = self
+		self.view.addSubview(headerView)
+
+		nextButton = NextButton(title: "Confirm")
+		nextButton.delegate = self
+		self.view.addSubview(nextButton)
+
 		prepareScrollView(firstTime: true)
-
-		titleLabel.frame.size = CGSize(width: 200, height: 60)
-		titleLabel.frame.origin = CGPoint(x: 20, y: 5)
-		titleLabel.textColor = UIColor.whiteColor()
-		titleLabel.text = "1/10"
-		self.view.addSubview(titleLabel)
-
-		quitButton = UIButton(type: .InfoLight)
-		quitButton.frame = CGRect(x: view.frame.width - 50, y: 20, width: 30, height: 30)
-		quitButton.addTarget(self, action: "confirmToQuit", forControlEvents: .TouchUpInside)
-		self.view.addSubview(quitButton)
 
 	}
 
@@ -64,8 +70,8 @@ class SelectTheSameViewController: UIViewController {
 		scrollView.pagingEnabled = true
 		scrollView.scrollEnabled = false
 		self.view.addSubview(scrollView)
-		self.view.bringSubviewToFront(titleLabel)
-		self.view.bringSubviewToFront(quitButton)
+		self.view.bringSubviewToFront(headerView)
+		self.view.bringSubviewToFront(nextButton)
 
 		currentPage = 0
 		addContent(page: currentPage, firstTime: firstTime)
@@ -83,14 +89,13 @@ class SelectTheSameViewController: UIViewController {
 		}
 
 		rightAnswer = data[0][0]
-		print(rightAnswer)
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let indexs = getRandomNumbers(6, lessThan: 6)
 
 		for i in 0..<6 {
 			let x = positionInPage + 30 + ((self.view.frame.width - 90) / 2 + 30) * CGFloat(i % 2)
-			let y = blockY(i)
+			let y = blockY(i) + 20
 
 			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: data[indexs[i]])
 			blockView.delegate = self
@@ -98,16 +103,6 @@ class SelectTheSameViewController: UIViewController {
 			scrollView.addSubview(blockViews[blockViews.count - 1])
 		}
 
-		let confirmButton = UIButton(type: .System)
-		confirmButton.frame = CGRect(x: positionInPage + 30, y: blockY(6), width: self.view.frame.width - 60, height: 60)
-		confirmButton.backgroundColor = UIColor.whiteColor()
-		confirmButton.setTitle("Confirm", forState: .Normal)
-		confirmButton.addTarget(self, action: "confirm:", forControlEvents: .TouchUpInside)
-		confirmButton.exclusiveTouch = true
-		confirmButton.enabled = false
-
-		confirmButtons.append(confirmButton)
-		scrollView.addSubview(confirmButtons[confirmButtons.count - 1])
 	}
 
 	func blockY(number: Int) -> CGFloat {
@@ -131,44 +126,29 @@ class SelectTheSameViewController: UIViewController {
 			blockViews[i].removeFromSuperview()
 		}
 
-		confirmButtons[0].removeFromSuperview()
-		
 	}
 
-	func confirm(sender: UIButton) {
-		sender.enabled = false
+	func confirm() {
+//		sender.enabled = false
 
 		if !answerShowed {
 			answerShowed = true
 			showRightOrWrong()
 
-			delay(seconds: 0.7, completion: { () -> () in
+			delay(seconds: 0.7, completion: {
 				self.currentPage++
 				self.addContent(page: self.currentPage, firstTime: false)
 
-				sender.setTitle("Next", forState: .Normal)
-				sender.enabled = true
+//				sender.setTitle("Next", forState: .Normal)
+//				sender.enabled = true
 			})
 
 		} else {
 			answerShowed = false
 
 			if currentPage != 10 {
-				titleLabel.text = "\(currentPage + 1)/10"
+				headerView.changePage(currentPage + 1)
 				jumpToPage(currentPage)
-			} else {
-
-				UIView.animateWithDuration(0.5, animations: { () -> Void in
-					self.scrollView.removeFromSuperview()
-
-					}, completion: { (_) -> Void in
-						self.titleLabel.text = "完成"
-						self.addCompletedPage()
-
-						delay(seconds: 0.2, completion: { () -> () in
-							self.prepareScrollView(firstTime: false)
-						})
-				})
 			}
 
 		}
@@ -178,10 +158,8 @@ class SelectTheSameViewController: UIViewController {
 	}
 
 	func showRightOrWrong() {
-		print(selectedBlocks)
 		let allTheSame = selectedBlocks.filter({ $0[0] == rightAnswer })
-		print(allTheSame)
-		
+
 		if allTheSame.count == 3 && selectedBlocks.count == 3 {
 			rightCount++
 
@@ -194,7 +172,10 @@ class SelectTheSameViewController: UIViewController {
 				})
 			}
 
+			headerView.showAndAddScore(rightScore)
+
 		} else {
+
 			for blockView in blockViews {
 				blockView.setSelectable(false)
 				blockView.allChangeColor(.Red)
@@ -203,6 +184,9 @@ class SelectTheSameViewController: UIViewController {
 					if blockView.text[0] == self.rightAnswer { blockView.showGreenBorder() }
 				})
 			}
+
+			headerView.showAndAddScore(wrongScore)
+
 		}
 
 		selectedBlocks.removeAll()
@@ -219,58 +203,6 @@ class SelectTheSameViewController: UIViewController {
 
 	}
 
-	func addCompletedPage() {
-		let contentView = UIView(frame: CGRect(x: 0, y: 60, width: self.view.frame.width, height: self.view.frame.height - 60))
-		contentView.backgroundColor = UIColor.clearColor()
-		contentView.tag = 110
-		self.view.addSubview(contentView)
-
-		let resultLabel = UILabel(frame: CGRect(x: 0, y: 60, width: contentView.frame.width, height: 60))
-		resultLabel.textAlignment = .Center
-		resultLabel.textColor = UIColor.whiteColor()
-		resultLabel.font = UIFont.boldSystemFontOfSize(22)
-		resultLabel.text = "共答对了\(rightCount)题"
-		contentView.addSubview(resultLabel)
-
-		let titles = ["Again", "Quit"]
-
-		for i in 0..<2 {
-			let button = UIButton(type: .System)
-			button.frame = CGRect(x: 20, y: (contentView.frame.height - 160) + 80 * CGFloat(i), width: contentView.frame.width - 40, height: 60)
-			button.backgroundColor = UIColor.whiteColor()
-			button.setTitle(titles[i], forState: .Normal)
-			button.addTarget(self, action: "finalChoice:", forControlEvents: .TouchUpInside)
-			button.exclusiveTouch = true
-			button.tag = 120 + i
-			contentView.addSubview(button)
-		}
-
-
-	}
-
-
-	func finalChoice(sender: UIButton) {
-		let again = sender.tag == 120
-
-		if again {
-			self.titleLabel.text = "1/10"
-			self.rightCount = 0
-
-			if let contentView = self.view.viewWithTag(110) {
-
-				UIView.animateWithDuration(0.4, animations: { () -> Void in
-					contentView.alpha = 0.0
-					self.scrollView.frame.origin.x -= self.view.frame.width
-					}, completion: { (_) -> Void in
-						contentView.removeFromSuperview()
-				})
-
-			}
-
-		} else {
-			confirmToQuit()
-		}
-	}
 
 	func confirmToQuit() {
 		self.navigationController?.popViewControllerAnimated(true)
@@ -290,18 +222,83 @@ extension SelectTheSameViewController: BlockViewDelegate {
 			selectedBlocks = selectedBlocks.filter({ $0[1] != text })
 		}
 
-		if selectedBlocks.count > 1 {
-			for button in confirmButtons { button.enabled = true }
+		if selectedBlocks.count > 1 && !nextButton.showed {
+			nextButton.show("Confirm")
+		}
+
+		if selectedBlocks.count < 2 && nextButton.showed {
+			nextButton.hide()
 		}
 
 	}
 }
 
 
+extension SelectTheSameViewController: HeaderViewDelegate {
+
+	func backButtonTapped() {
+		self.navigationController?.popViewControllerAnimated(true)
+	}
+}
 
 
+extension SelectTheSameViewController: NextButtonDelegate {
+
+	func nextButtonTapped(title: String) {
+//		if title == "Confirm" {
+		if currentPage != 10 {
+			confirm()
+
+			if title != "Next" {
+				let nextTitle = currentPage == 9 ? "Done" : "Next"
+				delay(seconds: 0.5) { self.nextButton.show(nextTitle) }
+			}
+
+		} else {
+			headerView.pageToTitle("Completed")
+
+			let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
+			let finalView = FinalView(title: "共答对了\(rightCount)题\n总分" + score)
+			finalView.delegate = self
+			self.view.addSubview(finalView)
+
+			UIView.animateWithDuration(0.5, animations: { () -> Void in
+				self.scrollView.alpha = 0.0
+				}, completion: { (_) -> Void in
+					self.scrollView.removeFromSuperview()
+					finalView.show()
+					self.prepareScrollView(firstTime: false)
+
+					let score = Score(score: self.headerView.currentScore, time: NSDate())
+					self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
+			})
+		}
+
+//		} else {
+//
+//		}
+
+	}
+}
 
 
+extension SelectTheSameViewController: FinalViewDelegate {
 
+	func finalViewButtonTapped(buttonType: FinalViewButtonType) {
+
+		if buttonType == .Again {
+			self.headerView.clearCurrentScore()
+			self.headerView.changePage(1)
+			self.rightCount = 0
+
+			UIView.animateWithDuration(0.5, animations: {
+				self.scrollView.frame.origin.x -= self.view.frame.width
+			})
+
+		} else {
+			self.confirmToQuit()
+		}
+	}
+}
 
 

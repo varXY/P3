@@ -37,6 +37,8 @@ protocol BlockViewDelegate: class {
 class BlockView: UIView {
 
 	var text: [String]!
+	var pinyins = [String]()
+	var letters = [String]()
 
 	var colorfulViews = [UIView]()
 	var textLabels = [UILabel]()
@@ -62,8 +64,9 @@ class BlockView: UIView {
 		case .Spell:
 			blockSize = CGSize(width: ScreenWidth - 120, height: ScreenWidth - 120)
 
-		default:
-			break
+		case .Homepage:
+			blockSize = CGSize(width: ScreenWidth - 160, height: ScreenWidth - 160)
+
 		}
 
 		super.init(frame: CGRect(origin: origin, size: blockSize))
@@ -74,6 +77,7 @@ class BlockView: UIView {
 		addColorfulView(text)
 		addLabels(text)
 
+		if type == .Homepage { showAllPinyin() }
 		if type == .SelectTheSame { addButton() }
 	}
 
@@ -94,26 +98,54 @@ class BlockView: UIView {
 	}
 
 	func addLabels(text: [String]) {
-		var pinyins = [String]()
+
+		handleText(text)
+		genLabels(letters.count, hidePinyin: true)
+
+	}
+
+	func changeLabels(text: [String]) {
+
+		for view in self.subviews { view.removeFromSuperview() }
+		textLabels.removeAll()
+		pinyinLabels.removeAll()
+
+		handleText(text)
+		genLabels(letters.count, hidePinyin: false)
+
+	}
+
+	func handleText(text: [String]) {
+		pinyins.removeAll()
+		letters.removeAll()
+
 		if text[1].characters.count == 1 {
 			pinyins.append(text[0])
 		} else {
 			pinyins = text[0].componentsSeparatedByString(" ")
 		}
 
-
-		var letters = [String]()
 		for letter in text[1].characters {
 			letters.append(String(letter))
 		}
 
+	}
 
-		let amount = text[1].characters.count
+	func genLabels(amount: Int, hidePinyin: Bool) {
+
 		let labelSize = CGSize(width: self.frame.width / CGFloat(amount), height: self.frame.height / 2)
+
+		var yPositions = [CGFloat]()
+
+		if hidePinyin {
+			yPositions = [self.frame.height / 4, self.frame.height / 4 + labelSize.height]
+		} else {
+			yPositions = [ self.frame.height / 20, labelSize.height]
+		}
 
 		for i in 0..<amount {
 
-			let textLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: self.frame.height / 4)
+			let textLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: yPositions[0])
 			let textLabel = UILabel(frame: CGRect(origin: textLabelOrigin, size: labelSize))
 			textLabel.textColor = UIColor.whiteColor()
 			textLabel.font = UIFont.systemFontOfSize(20)
@@ -121,7 +153,7 @@ class BlockView: UIView {
 			textLabel.text = letters[i]
 			textLabels.append(textLabel)
 
-			let pinyinLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: textLabelOrigin.y + labelSize.height)
+			let pinyinLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: yPositions[1])
 			let pinyinLabel = UILabel(frame: CGRect(origin: pinyinLabelOrigin, size: labelSize))
 			pinyinLabel.textColor = UIColor.whiteColor()
 			pinyinLabel.font = UIFont.systemFontOfSize(18)
@@ -132,6 +164,7 @@ class BlockView: UIView {
 		}
 
 		for textLabel in textLabels {
+			textLabel.alpha = hidePinyin ? 1.0 : 0.0
 			self.addSubview(textLabel)
 		}
 
@@ -146,6 +179,31 @@ class BlockView: UIView {
 		button.backgroundColor = UIColor.clearColor()
 		button.addTarget(self, action: "selected:", forControlEvents: .TouchUpInside)
 		self.addSubview(button)
+	}
+
+	func homepageChanging(text: [String]) {
+
+		UIView.animateWithDuration(1.5, animations: { () -> Void in
+
+			for textLabel in self.textLabels { textLabel.alpha = 0.0 }
+			for pinyinLabel in self.pinyinLabels { pinyinLabel.alpha = 0.0 }
+
+			}) { (_) -> Void in
+
+				self.changeLabels(text)
+		}
+
+		delay(seconds: 2.5) { () -> () in
+
+			UIView.animateWithDuration(1.5, animations: { () -> Void in
+
+				for textLabel in self.textLabels { textLabel.alpha = 1.0 }
+				for pinyinLabel in self.pinyinLabels { pinyinLabel.alpha = 1.0 }
+
+				}, completion: nil)
+
+		}
+
 	}
 
 	func selected(sender: UIButton) {
