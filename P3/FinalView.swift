@@ -23,7 +23,7 @@ class FinalView: UIView {
 	weak var delegate: FinalViewDelegate?
 
 	init(title: String) {
-		super.init(frame: CGRect(x: 20, y: ScreenHeight, width: ScreenWidth - 40, height: ScreenHeight - 100))
+		super.init(frame: CGRect(x: 10, y: ScreenHeight, width: ScreenWidth - 20, height: ScreenHeight - 100))
 		self.backgroundColor = UIColor.whiteColor()
 
 		let infoLabel = UILabel(frame: CGRect(x: 10, y: 10, width: self.frame.width - 20, height: 120))
@@ -39,6 +39,7 @@ class FinalView: UIView {
 			let button = UIButton(type: .System)
 			button.frame = CGRect(x: 10, y: (self.frame.height - 120) + 60 * CGFloat(i), width: self.frame.width - 20, height: 50)
 			button.backgroundColor = UIColor.themeBlue()
+			button.tintColor = UIColor.whiteColor()
 			button.setTitle(titles[i], forState: .Normal)
 			button.addTarget(self, action: "finalChoice:", forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
@@ -58,6 +59,7 @@ class FinalView: UIView {
 			}) { (_) -> Void in
 				let buttonType = sender.titleLabel!.text == "Again" ? FinalViewButtonType.Again : FinalViewButtonType.Quit
 				self.delegate?.finalViewButtonTapped(buttonType)
+				self.removeFromSuperview()
 		}
 
 	}

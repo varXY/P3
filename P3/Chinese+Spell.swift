@@ -20,12 +20,16 @@ extension Chinese {
 			let randomIndex = getRandomNumbers(1, lessThan: 52936)
 			let pinyin = pinyinFromIndex(Double(randomIndex[0]))
 
+			let yins = pinyin.componentsSeparatedByString(" ")
 			let words = wordsFromPinyin(pinyin)
 
 			if words.count >= 1 {
-				forSpell.append(pinyin)
 				let index = getRandomNumbers(1, lessThan: words.count)[0]
-				forSpell.append(words[index])
+				if words[index].characters.count == yins.count {
+					forSpell.append(pinyin)
+					forSpell.append(words[index])
+
+				}
 			}
 
 		} while forSpell.count < 2

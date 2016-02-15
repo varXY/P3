@@ -11,7 +11,7 @@ import Foundation
 
 class ScoreModel {
 
-	var totalScore = Int()
+	var totalScore = 0
 	var scores = [Score]()
 
 	init() {

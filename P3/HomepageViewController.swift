@@ -158,7 +158,7 @@ class HomepageViewController: UIViewController {
 		for i in 0..<2 {
 			let button = UIButton(type: .System)
 			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 40, width: 80, height: 30)
-			button.tintColor = UIColor.whiteColor()
+			button.tintColor = UIColor.themeBlue()
 			button.setTitle(titles[i], forState: .Normal)
 			button.titleLabel?.font = UIFont.systemFontOfSize(15)
 			button.exclusiveTouch = true
@@ -219,6 +219,15 @@ class HomepageViewController: UIViewController {
 			
 		case 12:
 			let spellVC = SpellViewController()
+			spellVC.totalScore = scoreModel.totalScore
+			spellVC.sendBackScore = { (totalScore, score) -> Void in
+				self.scoreModel.totalScore = totalScore
+				self.scoreModel.scores.insert(score, atIndex: 0)
+				print(self.scoreModel.totalScore)
+				print(self.scoreModel.scores.count)
+				print(self.scoreModel.scores[0].score)
+			}
+			
 			self.navigationController?.pushViewController(spellVC, animated: true)
 
 		default:
@@ -227,6 +236,46 @@ class HomepageViewController: UIViewController {
 	}
 
 	func smallButtonTapped(sender: UIButton) {
+
+		if sender.titleLabel?.text == "Record" {
+			var days = [String]()
+			var numbers = [Int]()
+			var maxDailyNumber: UInt = 0
+			var dailyScores = [DailyScore]()
+
+			for score in scoreModel.scores {
+				let day = dateFormatter.stringFromDate(score.time)
+				if let index = days.indexOf(day) {
+					days.removeAtIndex(index)
+				}
+				days.append(day)
+			}
+
+			for day in days {
+				let scoresInSameDay = scoreModel.scores.filter({ dateFormatter.stringFromDate($0.time) == day })
+				var dailyNumber = 0
+				for score in scoresInSameDay { dailyNumber += score.score }
+				let result = DailyScore(date: day, score: dailyNumber)
+				dailyScores.append(result)
+				numbers.append(abs(dailyNumber))
+			}
+
+			let sorted = numbers.sort({ $0 > $1 })
+			maxDailyNumber = UInt(sorted[0])
+
+			let recordVC = RecordViewController()
+			recordVC.totalScore = scoreModel.totalScore
+			recordVC.dailyScores = dailyScores
+			recordVC.maxDailyNumber = maxDailyNumber
+			let navi = NavigationController(rootViewController: recordVC)
+			presentViewController(navi, animated: true, completion: nil)
+		}
+
+		if sender.titleLabel?.text == "Setting" {
+			let settingVC = SettingViewController()
+			let navi = NavigationController(rootViewController: settingVC)
+			presentViewController(navi, animated: true, completion: nil)
+		}
 
 	}
     

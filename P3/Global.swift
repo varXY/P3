@@ -16,6 +16,12 @@ let ScreenHeight = ScreenBounds.height
 
 let BarHeight = UIApplication.sharedApplication().statusBarFrame.height
 
+let dateFormatter: NSDateFormatter = {
+	let formatter = NSDateFormatter()
+	formatter.dateFormat = "MM/dd/yy"
+	return formatter
+}()
+
 enum DuadType {
     case Same
     case Different
@@ -27,6 +33,11 @@ enum AnimationType {
     case Touched
     case IsRightAnswer
     case Other
+}
+
+struct Defaults {
+	static let sound = "Sound"
+	static let C_amount = "C_amount"
 }
 
 func delay(seconds seconds: Double, completion:()->()) {
@@ -51,5 +62,10 @@ func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
     } while result.count < amount
     
     return result
+}
+
+func toUInt(int: Int) -> Int {
+	let positive = UInt(bitPattern: int)
+	return Int(bitPattern: positive)
 }
 

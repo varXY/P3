@@ -21,10 +21,7 @@ class SelectTheSameViewController: UIViewController {
 
 	var firstData = [[String]]()
 	
-	var titleLabel = UILabel()
 	var blockViews = [BlockView]()
-	var quitButton = UIButton()
-	var confirmButtons = [UIButton]()
 
 	var nextButton: NextButton!
 	var headerView: HeaderView!
@@ -129,7 +126,6 @@ class SelectTheSameViewController: UIViewController {
 	}
 
 	func confirm() {
-//		sender.enabled = false
 
 		if !answerShowed {
 			answerShowed = true
@@ -138,9 +134,6 @@ class SelectTheSameViewController: UIViewController {
 			delay(seconds: 0.7, completion: {
 				self.currentPage++
 				self.addContent(page: self.currentPage, firstTime: false)
-
-//				sender.setTitle("Next", forState: .Normal)
-//				sender.enabled = true
 			})
 
 		} else {
@@ -152,8 +145,6 @@ class SelectTheSameViewController: UIViewController {
 			}
 
 		}
-
-
 
 	}
 
@@ -222,11 +213,11 @@ extension SelectTheSameViewController: BlockViewDelegate {
 			selectedBlocks = selectedBlocks.filter({ $0[1] != text })
 		}
 
-		if selectedBlocks.count > 1 && !nextButton.showed {
+		if selectedBlocks.count > 2 && !nextButton.showed {
 			nextButton.show("Confirm")
 		}
 
-		if selectedBlocks.count < 2 && nextButton.showed {
+		if selectedBlocks.count < 3 && nextButton.showed {
 			nextButton.hide()
 		}
 
@@ -245,7 +236,6 @@ extension SelectTheSameViewController: HeaderViewDelegate {
 extension SelectTheSameViewController: NextButtonDelegate {
 
 	func nextButtonTapped(title: String) {
-//		if title == "Confirm" {
 		if currentPage != 10 {
 			confirm()
 
@@ -273,10 +263,6 @@ extension SelectTheSameViewController: NextButtonDelegate {
 					self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
 			})
 		}
-
-//		} else {
-//
-//		}
 
 	}
 }
