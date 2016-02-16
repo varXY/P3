@@ -25,9 +25,23 @@ class HomepageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		self.view.backgroundColor = UIColor.deepGray()
+		self.view.backgroundColor = UIColor.themeBlue()
 
-		addBlockView()
+		let titleLabel = UILabel(frame: CGRect(x: 0, y: 55, width: view.frame.width, height: 60))
+		titleLabel.text = "Pinyin Comparison"
+		titleLabel.textAlignment = .Center
+		titleLabel.textColor = UIColor.blackColor()
+		titleLabel.font = UIFont.boldSystemFontOfSize(25)
+		view.addSubview(titleLabel)
+
+		let footerLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height - 130, width: view.frame.width, height: 60))
+		footerLabel.text = "Efficient ways to learn Pinyin and Chinese"
+		footerLabel.textAlignment = .Center
+		footerLabel.textColor = UIColor.deepGray()
+		footerLabel.font = UIFont.italicSystemFontOfSize(15)
+		view.addSubview(footerLabel)
+
+//		addBlockView()
 		addThreeMainButtons()
 		addTwoLittleButtons()
 
@@ -98,6 +112,7 @@ class HomepageViewController: UIViewController {
 		for button in bigButtons {
 			UIView.animateWithDuration(1.0, animations: { () -> Void in
 				button.alpha = 1.0
+				button.changeColorBack()
 				}, completion: { (_) -> Void in
 					button.userInteractionEnabled = true
 			})
@@ -107,37 +122,36 @@ class HomepageViewController: UIViewController {
 
 	override func viewDidAppear(animated: Bool) {
 		super.viewDidAppear(animated)
-
-
 	}
 
-	func addBlockView() {
-		chinese.getOneForSpell()
-
-		let point = CGPoint(x: 80, y: 60)
-		blockView = BlockView(type: .Homepage, origin: point, text: chinese.forSpell)
-		self.view.addSubview(blockView)
-
-		let timer = NSTimer(timeInterval: 5.0, target: self, selector: "blockViewChangeContent", userInfo: nil, repeats: true)
-		NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
-	}
+//	func addBlockView() {
+//		chinese.getOneForSpell()
+//
+//		let point = CGPoint(x: (ScreenWidth - BlockWidth.homepage) / 2, y: (ScreenHeight / 2 - BlockWidth.homepage) / 2)
+//		blockView = BlockView(type: .Homepage, origin: point, text: chinese.forSpell)
+//		self.view.addSubview(blockView)
+//
+//		let timer = NSTimer(timeInterval: 5.0, target: self, selector: "blockViewChangeContent", userInfo: nil, repeats: true)
+//		NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+//	}
 
 	func addThreeMainButtons() {
 
-		let titles = ["SAME OR DIFFERENT", "SELECT THE SAME", "SPELL IT"]
 		let buttonHeight: CGFloat = 60
-		let center = CGPoint(x: ScreenWidth / 2, y: ScreenHeight / 2)
+		let center = CGPoint(x: ScreenWidth / 2, y: ScreenHeight / 2 - 90)
 
 		for i in 0..<3 {
 			let button = UIButton(type: .System)
 			button.frame.size = CGSize(width: ScreenWidth - 40, height: buttonHeight)
-			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + 20) * CGFloat(i) + 20)
+			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + 30) * CGFloat(i))
 
-			button.backgroundColor = UIColor.whiteColor()
-			button.tintColor = UIColor.themeBlue()
-			button.titleLabel?.font = UIFont.systemFontOfSize(19)
-			button.setTitle(titles[i], forState: .Normal)
+			button.backgroundColor = UIColor.clearColor()
+			button.tintColor = UIColor.whiteColor()
+			button.titleLabel?.font = UIFont.systemFontOfSize(22)
+			button.setTitle(Titles.homepageBigButtons[i], forState: .Normal)
 			button.exclusiveTouch = true
+			button.changeColorWhenTouchDown()
+			button.addBorder()
 
 			button.tag = 10 + i
 			button.addTarget(self, action: "bigButtonTapped:", forControlEvents: .TouchUpInside)
@@ -152,15 +166,14 @@ class HomepageViewController: UIViewController {
 
 	func addTwoLittleButtons() {
 
-		let titles = ["Record", "Setting"]
 		let xPositons: [CGFloat] = [10, self.view.frame.width - 90]
 
 		for i in 0..<2 {
 			let button = UIButton(type: .System)
-			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 40, width: 80, height: 30)
-			button.tintColor = UIColor.themeBlue()
-			button.setTitle(titles[i], forState: .Normal)
-			button.titleLabel?.font = UIFont.systemFontOfSize(15)
+			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 45, width: 80, height: 30)
+			button.tintColor = UIColor.deepGray()
+			button.setTitle(Titles.homepageSmallButtons[i], forState: .Normal)
+			button.titleLabel?.font = UIFont.buttonTitleFont(15)
 			button.exclusiveTouch = true
 			button.addTarget(self, action: "smallButtonTapped:", forControlEvents: .TouchUpInside)
 			self.view.addSubview(button)
@@ -237,7 +250,7 @@ class HomepageViewController: UIViewController {
 
 	func smallButtonTapped(sender: UIButton) {
 
-		if sender.titleLabel?.text == "Record" {
+		if sender.titleLabel?.text == Titles.homepageSmallButtons[0] {
 			var days = [String]()
 			var numbers = [Int]()
 			var maxDailyNumber: UInt = 0
@@ -271,7 +284,7 @@ class HomepageViewController: UIViewController {
 			presentViewController(navi, animated: true, completion: nil)
 		}
 
-		if sender.titleLabel?.text == "Setting" {
+		if sender.titleLabel?.text == Titles.homepageSmallButtons[1] {
 			let settingVC = SettingViewController()
 			let navi = NavigationController(rootViewController: settingVC)
 			presentViewController(navi, animated: true, completion: nil)

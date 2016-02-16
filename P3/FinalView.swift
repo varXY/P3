@@ -23,7 +23,7 @@ class FinalView: UIView {
 	weak var delegate: FinalViewDelegate?
 
 	init(title: String) {
-		super.init(frame: CGRect(x: 10, y: ScreenHeight, width: ScreenWidth - 20, height: ScreenHeight - 100))
+		super.init(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: ScreenHeight - 100))
 		self.backgroundColor = UIColor.whiteColor()
 
 		let infoLabel = UILabel(frame: CGRect(x: 10, y: 10, width: self.frame.width - 20, height: 120))

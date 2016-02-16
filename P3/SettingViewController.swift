@@ -26,7 +26,7 @@ class SettingViewController: UIViewController {
 		navigationItem.rightBarButtonItem = quitButton
 
 		tableView = UITableView(frame: view.bounds, style: .Grouped)
-		tableView.backgroundColor = UIColor.deepGray()
+		tableView.backgroundColor = UIColor.lightGray()
 		tableView.dataSource = self
 		tableView.delegate = self
 		view = tableView
@@ -56,7 +56,7 @@ class SettingViewController: UIViewController {
 			controller.navigationBar.tintColor = UIColor.themeBlue()
 			controller.mailComposeDelegate = self
 			controller.setSubject("反馈")
-			controller.setToRecipients(["xiaoyao901010@icloud.com"])
+			controller.setToRecipients(["pmlcfwcs@foxmail.com"])
 			presentViewController(controller, animated: true, completion: nil)
 		}
 

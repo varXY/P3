@@ -40,6 +40,21 @@ struct Defaults {
 	static let C_amount = "C_amount"
 }
 
+struct Titles {
+	static let next = ">"
+	static let done = "Done"
+	static let homepageBigButtons = ["SAME OR DIFFERENT", "SELECT THE SAME", "SPELL IT"]
+	static let homepageSmallButtons = ["Records", "Settings"]
+	static let sameOrNot = ["Same", "Different"]
+}
+
+struct BlockWidth {
+	static let homepage: CGFloat = (ScreenWidth - 60) / 2
+	static let sameOrNot: CGFloat = (ScreenWidth - 60) / 2
+	static let selectTheSame: CGFloat = (ScreenHeight - 240) / 3
+	static let spell: CGFloat = ScreenHeight / 2 - 60
+}
+
 func delay(seconds seconds: Double, completion:()->()) {
     let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
     
@@ -64,8 +79,4 @@ func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
     return result
 }
 
-func toUInt(int: Int) -> Int {
-	let positive = UInt(bitPattern: int)
-	return Int(bitPattern: positive)
-}
 

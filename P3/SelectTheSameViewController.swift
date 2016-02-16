@@ -91,8 +91,9 @@ class SelectTheSameViewController: UIViewController {
 		let indexs = getRandomNumbers(6, lessThan: 6)
 
 		for i in 0..<6 {
-			let x = positionInPage + 30 + ((self.view.frame.width - 90) / 2 + 30) * CGFloat(i % 2)
-			let y = blockY(i) + 20
+			let margin = (ScreenWidth - BlockWidth.selectTheSame * 2) / 3
+			let x = positionInPage + (ScreenWidth - BlockWidth.selectTheSame * 2) / 3 + (BlockWidth.selectTheSame + margin) * CGFloat(i % 2)
+			let y = blockY(i)
 
 			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: data[indexs[i]])
 			blockView.delegate = self
@@ -105,15 +106,13 @@ class SelectTheSameViewController: UIViewController {
 	func blockY(number: Int) -> CGFloat {
 		switch number {
 		case 0, 1:
-			return 60
+			return 90
 		case 2, 3:
-			return 60 + (self.view.frame.width - 90) / 2 + 30
+			return 90 + (self.view.frame.width - 90) / 2 + 30
 		case 4, 5:
-			return 60 + ((self.view.frame.width - 90) / 2 + 30) * 2
-		case 6:
-			return 60 + ((self.view.frame.width - 90) / 2 + 30) * 3 - 10
+			return 90 + ((self.view.frame.width - 90) / 2 + 30) * 2
 		default:
-			return 60
+			return 90
 		}
 	}
 

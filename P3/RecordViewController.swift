@@ -25,7 +25,7 @@ class RecordViewController: UIViewController {
 		navigationItem.rightBarButtonItem = quitButton
 
 		tableView = UITableView(frame: view.bounds, style: .Plain)
-		tableView.backgroundColor = UIColor.deepGray()
+		tableView.backgroundColor = UIColor.lightGray()
 		tableView.separatorStyle = .None
 		tableView.allowsSelection = false
 		tableView.dataSource = self

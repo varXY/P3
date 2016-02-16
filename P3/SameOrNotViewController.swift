@@ -86,21 +86,25 @@ class SameOrNotViewController: UIViewController {
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 
 		let buttonSize = CGSize(width: scrollView.frame.width - 40, height: 60)
-		let buttonTitles = ["Same", "Different"]
 
 		for i in 0..<2 {
 			let blockWidth = (ScreenWidth - 60) / 2
-			let point = CGPoint(x: positionInPage + 20 + (blockWidth + 20) * CGFloat(i), y: 60 + 70)
+			let point = CGPoint(x: positionInPage + 20 + (blockWidth + 20) * CGFloat(i), y: (ScreenHeight / 2 - blockWidth) / 2)
 			let blockView = BlockView(type: .SameOrNot, origin: point, text: data[i])
 			blockViews.append(blockView)
 			scrollView.addSubview(blockViews[blockViews.count - 1])
 
-			let buttonY = blockView.frame.origin.y + blockView.frame.height + 40
+			let buttonY = ScreenHeight / 2
 			let buttonOrigin = CGPoint(x: positionInPage + 20, y: buttonY + (buttonSize.height + 20) * CGFloat(i))
 			let button = UIButton(type: .System)
 			button.frame = CGRect(origin: buttonOrigin, size: buttonSize)
-			button.backgroundColor = UIColor.whiteColor()
-			button.setTitle(buttonTitles[i], forState: .Normal)
+			button.backgroundColor = UIColor.clearColor()
+			button.setTitle(Titles.sameOrNot[i], forState: .Normal)
+			button.tintColor = UIColor.whiteColor()
+			button.titleLabel!.font = UIFont.buttonTitleFont(22)
+			button.changeColorWhenTouchDown()
+			button.addBorder()
+
 			button.tag = 100 + i
 			button.addTarget(self, action: "sameOrNot:", forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
@@ -112,13 +116,10 @@ class SameOrNotViewController: UIViewController {
 	}
 
 	func removeContent() {
-
 		blockViews[0].removeFromSuperview()
 		blockViews[1].removeFromSuperview()
-
 		buttons[0].removeFromSuperview()
 		buttons[1].removeFromSuperview()
-
 	}
 
 	func sameOrNot(sender: UIButton) {
@@ -126,7 +127,6 @@ class SameOrNotViewController: UIViewController {
 
 		showRightOrWorng(sender)
 		delay(seconds: 0.6) { self.showAllPinyin() }
-
 		delay(seconds: 0.8) { self.addNextPageButton() }
 		delay(seconds: 1.0) { self.currentPage++; self.addContent(page: self.currentPage, firstTime: false) }
 
@@ -139,7 +139,7 @@ class SameOrNotViewController: UIViewController {
 		if ChosenSame == trulySame {
 			rightCount++
 			for blockView in blockViews { blockView.allChangeColor(.Green) }
-			sender.backgroundColor = UIColor.greenColor()
+			sender.backgroundColor = UIColor.rightGreen()
 			sender.tintColor = UIColor.whiteColor()
 
 			for button in buttons {
@@ -154,12 +154,12 @@ class SameOrNotViewController: UIViewController {
 			
 			for blockView in blockViews { blockView.allChangeColor(.Red) }
 			AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
-
+			sender.changeColorBack()
 			sender.enabled = false
 
 			for button in buttons {
 				if button != sender {
-					button.backgroundColor = UIColor.greenColor()
+					button.backgroundColor = UIColor.rightGreen()
 					button.tintColor = UIColor.whiteColor()
 				}
 			}
@@ -176,7 +176,7 @@ class SameOrNotViewController: UIViewController {
 	}
 
 	func addNextPageButton() {
-		let title = currentPage < 9 ? "Next" : "Done"
+		let title = currentPage < 9 ? Titles.next : Titles.done
 		nextButton.show(title)
 	}
 
@@ -191,67 +191,10 @@ class SameOrNotViewController: UIViewController {
 
 	}
 
-	func addCompletedPage() {
-		let contentView = UIView(frame: CGRect(x: 0, y: 60, width: self.view.frame.width, height: self.view.frame.height - 60))
-		contentView.backgroundColor = UIColor.clearColor()
-		contentView.tag = 110
-		self.view.addSubview(contentView)
-
-		let resultLabel = UILabel(frame: CGRect(x: 0, y: 60, width: contentView.frame.width, height: 100))
-		resultLabel.numberOfLines = 0
-		resultLabel.textAlignment = .Center
-		resultLabel.textColor = UIColor.whiteColor()
-		resultLabel.font = UIFont.boldSystemFontOfSize(22)
-		let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
-		resultLabel.text = "共答对了\(rightCount)题\n总分" + score
-		contentView.addSubview(resultLabel)
-
-		let titles = ["Again", "Quit"]
-
-		for i in 0..<2 {
-			let button = UIButton(type: .System)
-			button.frame = CGRect(x: 20, y: (contentView.frame.height - 160) + 80 * CGFloat(i), width: contentView.frame.width - 40, height: 60)
-			button.backgroundColor = UIColor.whiteColor()
-			button.setTitle(titles[i], forState: .Normal)
-			button.addTarget(self, action: "finalChoice:", forControlEvents: .TouchUpInside)
-			button.exclusiveTouch = true
-			button.tag = 120 + i
-			contentView.addSubview(button)
-		}
-
-
-	}
-
-
-	func finalChoice(sender: UIButton) {
-		let again = sender.tag == 120
-
-		if again {
-			self.headerView.clearCurrentScore()
-			self.headerView.changePage(1)
-			self.rightCount = 0
-
-			if let contentView = self.view.viewWithTag(110) {
-
-				UIView.animateWithDuration(0.4, animations: { () -> Void in
-					contentView.alpha = 0.0
-					self.scrollView.frame.origin.x -= self.view.frame.width
-					}, completion: { (_) -> Void in
-						contentView.removeFromSuperview()
-				})
-
-			}
-
-		} else {
-			confirmToQuit()
-		}
-	}
 
 	func confirmToQuit() {
-//		scrollView.removeFromSuperview()
 		self.navigationController?.popViewControllerAnimated(true)
 	}
-
 
 }
 

@@ -18,7 +18,7 @@ class SettingVC_1: UITableViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView = UITableView(frame: view.bounds, style: .Grouped)
-		tableView.backgroundColor = UIColor.deepGray()
+		tableView.backgroundColor = UIColor.lightGray()
 	}
 
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {

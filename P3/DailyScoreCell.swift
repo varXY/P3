@@ -19,13 +19,13 @@ class DailyScoreCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
 		contentView.frame.size = CGSize(width: ScreenWidth, height: 60)
-		contentView.backgroundColor = UIColor.deepGray()
+		contentView.backgroundColor = UIColor.lightGray()
 
 		scoreLabel = UILabel(frame: CGRect(x: 10, y: 10, width: 80, height: contentView.frame.height - 20))
 		contentView.addSubview(scoreLabel)
 
 		dateLabel = UILabel(frame: CGRect(x: contentView.frame.width / 2 - 50, y: 10, width: 100, height: contentView.frame.height - 20))
-		dateLabel.textColor = UIColor.whiteColor()
+		dateLabel.textColor = UIColor.themeBlue()
 		dateLabel.textAlignment = .Center
 		contentView.addSubview(dateLabel)
 	}
@@ -37,9 +37,8 @@ class DailyScoreCell: UITableViewCell {
 		let maxWidth = contentView.frame.width * 0.9
 		let factor = maxWidth / CGFloat(max)
 		let width = positive ? number * factor : -number * factor
-		print(width)
 		let x = positive ? 0 : ScreenWidth - width
-		let color = positive ? UIColor.greenColor() : UIColor.redColor()
+		let color = positive ? UIColor.rightGreen() : UIColor.wrongRed()
 
 		let colorView = UIView(frame: CGRect(x: x, y: 5, width: width, height: contentView.frame.height - 5))
 		colorView.backgroundColor = color

@@ -21,13 +21,13 @@ class NextButton: UIButton {
 	weak var delegate: NextButtonDelegate?
 
 	init(title: String) {
-		super.init(frame: CGRect(x: 20, y: ScreenHeight, width: ScreenWidth - 40, height: 60))
+		super.init(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: 60))
 
 		customTitleLabel = UILabel(frame: self.bounds)
 		customTitleLabel.backgroundColor = UIColor.whiteColor()
 		customTitleLabel.textAlignment = .Center
-		customTitleLabel.font = UIFont.systemFontOfSize(18)
-		customTitleLabel.textColor = UIColor.themeBlue()
+		customTitleLabel.font = UIFont.buttonTitleFont(18)
+		customTitleLabel.textColor = UIColor.deepGray()
 		customTitleLabel.text = title
 		self.addSubview(customTitleLabel)
 

@@ -12,36 +12,36 @@ import UIKit
 
 extension UIColor {
     
-    class func backgroundColor() -> UIColor {
+    class func darkerWhite() -> UIColor {
         return UIColor(red: 236/255, green: 235/255, blue: 243/255, alpha: 1.0)
     }
 
-	class func deepGreen() -> UIColor {
-		return UIColor(red: 0/255, green: 153/255, blue: 153/255, alpha: 1.0)
-	}
-
-	class func lightGreen() -> UIColor {
-		return UIColor(red: 0/255, green: 204/255, blue: 204/255, alpha: 1.0)
-	}
-
-	class func brightGreen() -> UIColor {
-		return UIColor(red: 30/255, green: 240/255, blue: 30/255, alpha: 1.0)
-	}
-
-	class func electricRed() -> UIColor {
-		return UIColor(red: 250/255, green: 30/255, blue: 30/255, alpha: 1.0)
-	}
-
-	class func lightElectricRed() -> UIColor {
-		return UIColor(red: 250/255, green: 30/255, blue: 30/255, alpha: 0.7)
+	class func lightGray() -> UIColor {
+		return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
 	}
 
 	class func deepGray() -> UIColor {
-		return UIColor(red: 52/255, green: 52/255, blue: 52/255, alpha: 1.0)
+		return UIColor(red: 60/255, green: 65/255, blue: 80/255, alpha: 1.0)
+	}
+
+	class func deepGrayLighter() -> UIColor {
+		return UIColor(red: 67/255, green: 72/255, blue: 85/255, alpha: 1.0)
 	}
 
 	class func themeBlue() -> UIColor {
-		return UIColor(red: 21/255, green: 108/255, blue: 195/255, alpha: 1.0)
+		return UIColor(red: 21/255, green: 108/255, blue: 196/255, alpha: 1.0)
+	}
+
+	class func themeGold() -> UIColor {
+		return UIColor(red: 215/255, green: 177/255, blue: 112/255, alpha: 1.0)
+	}
+
+	class func rightGreen() -> UIColor {
+		return UIColor(red: 40/255, green: 197/255, blue: 101/255, alpha: 1.0)
+	}
+
+	class func wrongRed() -> UIColor {
+		return UIColor(red: 226/255, green: 67/255, blue: 54/255, alpha: 1.0)
 	}
 
 }

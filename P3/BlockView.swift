@@ -11,6 +11,15 @@ import UIKit
 
 enum TestType {
 	case Homepage, SameOrNot, SelectTheSame, Spell
+
+	var blockWidth: CGFloat {
+		switch self {
+		case .Homepage: return BlockWidth.homepage
+		case .SameOrNot: return BlockWidth.sameOrNot
+		case .SelectTheSame: return BlockWidth.selectTheSame
+		case .Spell: return BlockWidth.spell
+		}
+	}
 }
 
 enum ColorType {
@@ -23,9 +32,9 @@ enum ColorType {
 		case .White:
 			return UIColor.whiteColor()
 		case .Red:
-			return UIColor.redColor()
+			return UIColor.wrongRed()
 		case .Green:
-			return UIColor.greenColor()
+			return UIColor.rightGreen()
 		}
 	}
 }
@@ -52,23 +61,7 @@ class BlockView: UIView {
 
 	init(type: TestType, origin: CGPoint, text: [String]) {
 
-		var blockSize = CGSize()
-
-		switch type {
-		case .SameOrNot:
-			blockSize = CGSize(width: (ScreenWidth - 60) / 2, height: (ScreenWidth - 60) / 2)
-
-		case .SelectTheSame:
-			blockSize = CGSize(width: (ScreenWidth - 90) / 2, height: (ScreenWidth - 90) / 2)
-
-		case .Spell:
-			blockSize = CGSize(width: ScreenWidth - 120, height: ScreenWidth - 120)
-
-		case .Homepage:
-			blockSize = CGSize(width: ScreenWidth - 160, height: ScreenWidth - 160)
-
-		}
-
+		let blockSize = CGSize(width: type.blockWidth, height: type.blockWidth)
 		super.init(frame: CGRect(origin: origin, size: blockSize))
 		self.backgroundColor = UIColor.themeBlue()
 
@@ -77,7 +70,7 @@ class BlockView: UIView {
 		addColorfulView(text)
 		addLabels(text)
 
-		if type == .Homepage { showAllPinyin() }
+		if type == .Homepage { colorForHomepage(); showAllPinyin() }
 		if type == .SelectTheSame { addButton() }
 	}
 
@@ -106,12 +99,19 @@ class BlockView: UIView {
 
 	func changeLabels(text: [String]) {
 
-		for view in self.subviews { view.removeFromSuperview() }
+		for textLabel in textLabels {
+			textLabel.removeFromSuperview()
+		}
+
+		for pinyinLabel in pinyinLabels {
+			pinyinLabel.removeFromSuperview()
+		}
 		textLabels.removeAll()
 		pinyinLabels.removeAll()
 
 		handleText(text)
 		genLabels(letters.count, hidePinyin: false)
+		colorForHomepage()
 
 	}
 
@@ -211,7 +211,7 @@ class BlockView: UIView {
 		if !selected {
 			selected = true
 			sender.layer.borderWidth = 2.0
-			sender.layer.borderColor = UIColor.whiteColor().CGColor
+			sender.layer.borderColor = ColorType.White.color.CGColor
 		} else {
 			selected = false
 			sender.layer.borderWidth = 0.0
@@ -222,7 +222,7 @@ class BlockView: UIView {
 
 	func showGreenBorder() {
 		button.layer.borderWidth = 2.0
-		button.layer.borderColor = UIColor.greenColor().CGColor
+		button.layer.borderColor = ColorType.Green.color.CGColor
 	}
 
 	func showAllPinyin() {
@@ -258,8 +258,8 @@ class BlockView: UIView {
 		colorfulViews[index].backgroundColor = colorType.color
 
 		if colorType.color == UIColor.whiteColor() {
-			textLabels[index].textColor = UIColor.blackColor()
-			pinyinLabels[index].textColor = UIColor.blackColor()
+			textLabels[index].textColor = UIColor.deepGray()
+			pinyinLabels[index].textColor = UIColor.deepGray()
 		} else {
 			textLabels[index].textColor = UIColor.whiteColor()
 			pinyinLabels[index].textColor = UIColor.whiteColor()
@@ -273,6 +273,12 @@ class BlockView: UIView {
 			}
 		}
 
+	}
+
+	func colorForHomepage() {
+		for view in colorfulViews { view.backgroundColor = UIColor.whiteColor() }
+		for label in textLabels { label.textColor = UIColor.deepGray() }
+		for label in pinyinLabels { label.textColor = UIColor.deepGray() }
 	}
 
 	func setSelectable(canSelect: Bool) {

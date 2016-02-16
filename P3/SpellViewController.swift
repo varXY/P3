@@ -59,20 +59,20 @@ class SpellViewController: UIViewController {
 
 		headerView = HeaderView(page: 1, score: totalScore)
 		headerView.delegate = self
-		self.view.addSubview(headerView)
+		view.addSubview(headerView)
 
-		nextButton = NextButton(title: "Confirm")
+		nextButton = NextButton(title: Titles.next)
 		nextButton.delegate = self
-		self.view.addSubview(nextButton)
+		view.addSubview(nextButton)
 
 		prepareScrollView(firstTime: true)
 
-		picker.frame = CGRect(x: 30, y: (self.view.frame.height - 70) / 2, width: self.view.frame.width - 60, height: (self.view.frame.height - 60) / 2)
+		picker.frame = CGRect(x: 30, y: ScreenHeight / 2, width: ScreenWidth - 60, height: ScreenHeight / 2 - 60)
 		picker.showsSelectionIndicator = true
 		picker.tintColor = UIColor.whiteColor()
 		picker.dataSource = self
 		picker.delegate = self
-		self.view.addSubview(picker)
+		view.addSubview(picker)
 
 	}
 
@@ -90,26 +90,25 @@ class SpellViewController: UIViewController {
 
 	func prepareScrollView(firstTime firstTime: Bool) {
 		let x = firstTime ? 0 : self.view.frame.width
-		scrollView = UIScrollView(frame: CGRect(x: x, y: 60, width: self.view.frame.width, height: ScreenWidth - 120))
+		scrollView = UIScrollView(frame: CGRect(x: x, y: 0, width: self.view.frame.width, height: ScreenHeight / 2))
 		scrollView.contentSize = CGSize(width: scrollView.frame.width * 10, height: scrollView.frame.height)
 		scrollView.backgroundColor = UIColor.deepGray()
 		scrollView.pagingEnabled = true
 		scrollView.scrollEnabled = false
-		self.view.addSubview(scrollView)
-		self.view.bringSubviewToFront(titleLabel)
-		self.view.bringSubviewToFront(quitButton)
-
+		view.addSubview(scrollView)
+		view.bringSubviewToFront(headerView)
+		
 		currentPage = 0
 		addContent(currentPage)
 	}
 
 	func addContent(page: Int) {
 		chinese.getOneForSpell()
-		self.selectedIndex = 0
-		self.showed = false
+		selectedIndex = 0
+		showed = false
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
-		let point = CGPoint(x: positionInPage + 60, y: 0)
+		let point = CGPoint(x: positionInPage + (ScreenWidth - BlockWidth.spell) / 2, y: 60)
 		let blockView = BlockView(type: .Spell, origin: point, text: chinese.forSpell)
 		blockView.changeColor(selectedIndex, colorType: .White, backToBlue: false)
 		blockViews.append(blockView)
@@ -135,8 +134,6 @@ class SpellViewController: UIViewController {
 	func changeStateBaseOnSelectedPinyin(selectedPinyin: String) {
 		let blockView = blockViews[blockViews.count - 1]
 		let pinyins = blockView.text[0].componentsSeparatedByString(" ")
-		print(selectedPinyin)
-		print(pinyins[selectedIndex])
 
 		if pinyins[selectedIndex] == selectedPinyin && !showed {
 			showed = true
@@ -160,7 +157,7 @@ class SpellViewController: UIViewController {
 					self.addContent(self.currentPage)
 				})
 
-				let title = currentPage == 9 ? "Done" : "Next"
+				let title = currentPage == 9 ? Titles.done : Titles.next
 				delay(seconds: 0.5, completion: { () -> () in
 					self.nextButton.show(title)
 				})
@@ -213,12 +210,10 @@ extension SpellViewController: NextButtonDelegate {
 
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
 				self.scrollView.alpha = 0.0
-//				self.picker.alpha = 0.0
 				}, completion: { (_) -> Void in
 					self.scrollView.removeFromSuperview()
 					finalView.show()
 					self.prepareScrollView(firstTime: false)
-//					self.picker.alpha = 1.0
 
 					let score = Score(score: self.headerView.currentScore, time: NSDate())
 					self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)

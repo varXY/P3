@@ -11,6 +11,11 @@ import UIKit
 
 extension UIButton {
 
+	func changeColorWhenTouchDown() {
+		self.addTarget(self, action: "changeColor", forControlEvents: .TouchDown)
+		self.addTarget(self, action: "changeColorBack", forControlEvents: .TouchUpOutside)
+	}
+
 	func genAnimation(animationType: AnimationType, delay: Double, distance: CGFloat) {
 
 		switch animationType {
@@ -52,6 +57,23 @@ extension UIButton {
 			break
 		}
 
+	}
+
+	func changeColor() {
+		self.backgroundColor = UIColor.themeGold()
+		self.tintColor = UIColor.whiteColor()
+		self.layer.borderColor = UIColor.themeGold().CGColor
+	}
+
+	func changeColorBack() {
+		self.backgroundColor = UIColor.clearColor()
+		self.tintColor = UIColor.whiteColor()
+		self.layer.borderColor = UIColor.whiteColor().CGColor
+	}
+
+	func addBorder() {
+		self.layer.borderColor = UIColor.whiteColor().CGColor
+		self.layer.borderWidth = 2.0
 	}
 
 	
