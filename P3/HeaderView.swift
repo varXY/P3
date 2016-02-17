@@ -31,25 +31,24 @@ class HeaderView: UIView {
 		self.totalScore = score
 
 		let backButton = UIButton(type: .System)
-		backButton.frame = CGRect(x: 10, y: 10, width: 40, height: 40)
-		backButton.backgroundColor = UIColor.clearColor()
 		backButton.tintColor = UIColor.whiteColor()
-		backButton.setTitle("<", forState: .Normal)
+		backButton.frame = CGRect(x: 5, y: 15, width: 45, height: 45)
+		backButton.setImage(UIImage(named: ImageName.Back), forState: .Normal)
 		backButton.addTarget(self, action: "backButtonTapped", forControlEvents: .TouchUpInside)
 		backButton.exclusiveTouch = true
 		self.addSubview(backButton)
 
-		pageLabel = UILabel(frame: CGRect(x: (self.frame.width - 100) / 2, y: 10, width: 100, height: 40))
+		pageLabel = UILabel(frame: CGRect(x: (self.frame.width - 100) / 2, y: 15, width: 100, height: 45))
 		pageLabel.textColor = UIColor.whiteColor()
 		pageLabel.textAlignment = .Center
-		pageLabel.font = UIFont.boldSystemFontOfSize(16)
-		pageLabel.text = "\(page)/10"
+		pageLabel.font = UIFont.systemFontOfSize(18)
+		pageLabel.text = "\(page) / 10"
 		self.addSubview(pageLabel)
 
-		scoreLabel = UILabel(frame: CGRect(x: self.frame.width - 120, y: 10, width: 100, height: 40))
+		scoreLabel = UILabel(frame: CGRect(x: self.frame.width - 120, y: 15, width: 100, height: 45))
 		scoreLabel.textColor = UIColor.whiteColor()
 		scoreLabel.textAlignment = .Right
-		scoreLabel.font = UIFont.systemFontOfSize(15)
+		scoreLabel.font = UIFont.italicSystemFontOfSize(15)
 		scoreLabel.text = "\(score)"
 		self.addSubview(scoreLabel)
 	}
@@ -63,7 +62,7 @@ class HeaderView: UIView {
 	}
 
 	func changePage(toPage: Int) {
-		self.pageLabel.text = "\(toPage)/10"
+		self.pageLabel.text = "\(toPage) / 10"
 	}
 
 	func pageToTitle(title: String) {

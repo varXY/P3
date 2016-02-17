@@ -6,7 +6,31 @@
 //  Copyright © 2016 myname. All rights reserved.
 //
 
-import Foundation
+
+//func removeThreeMainButtons() {
+//	for i in 0..<3 {
+//		if let button = self.view.viewWithTag(10 + i) {
+//			button.removeFromSuperview()
+//		}
+//	}
+//}
+
+//	func addBlockView() {
+//		chinese.getOneForSpell()
+//
+//		let point = CGPoint(x: (ScreenWidth - BlockWidth.homepage) / 2, y: (ScreenHeight / 2 - BlockWidth.homepage) / 2)
+//		blockView = BlockView(type: .Homepage, origin: point, text: chinese.forSpell)
+//		self.view.addSubview(blockView)
+//
+//		let timer = NSTimer(timeInterval: 5.0, target: self, selector: "blockViewChangeContent", userInfo: nil, repeats: true)
+//		NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+//	}
+
+
+//	func blockViewChangeContent() {
+//		chinese.getOneForSpell()
+//		blockView.homepageChanging(chinese.forSpell)
+//	}
 
 
 //	func addNextButton() {

@@ -15,7 +15,7 @@ class SettingViewController: UIViewController {
 	var tableView: UITableView!
 	var switchControl: UISwitch!
 
-	let titles = ["Sound", "Component Amount", "Feed Back"]
+	let titles = ["Sound & Vibration", "Spell Component Amount", "Feedback"]
 	var C_amount = Int()
 
 	override func viewDidLoad() {
@@ -51,12 +51,22 @@ class SettingViewController: UIViewController {
 
 	func menuViewControllerSendSupportEmail() {
 
+		let appInfoDict = NSBundle.mainBundle().infoDictionary
+		let appName = appInfoDict!["CFBundleName"] as! String
+		let appVersion = appInfoDict!["CFBundleShortVersionString"] as! String
+
+		let deviceName = UIDevice.currentDevice().localizedModel
+		let iOSVersion = UIDevice.currentDevice().systemVersion
+
+		let messageBody = "\n\n\n" + appName + ": " + appVersion + "\n" + deviceName + ": " + iOSVersion
+
 		if MFMailComposeViewController.canSendMail() {
 			let controller = MFMailComposeViewController()
 			controller.navigationBar.tintColor = UIColor.themeBlue()
 			controller.mailComposeDelegate = self
 			controller.setSubject("反馈")
 			controller.setToRecipients(["pmlcfwcs@foxmail.com"])
+			controller.setMessageBody(messageBody, isHTML: false)
 			presentViewController(controller, animated: true, completion: nil)
 		}
 

@@ -32,6 +32,8 @@ enum AnimationType {
     case Disappear
     case Touched
     case IsRightAnswer
+	case Bigger
+	case BecomeVisble
     case Other
 }
 
@@ -42,17 +44,27 @@ struct Defaults {
 
 struct Titles {
 	static let next = ">"
+	static let confirm = "Confirm"
 	static let done = "Done"
+	static let completed = "Completed"
 	static let homepageBigButtons = ["SAME OR DIFFERENT", "SELECT THE SAME", "SPELL IT"]
 	static let homepageSmallButtons = ["Records", "Settings"]
 	static let sameOrNot = ["Same", "Different"]
+	static let finalChoices = ["Again", "Quit"]
+}
+
+struct ImageName {
+	static let Back = "Back"
+	static let Next = "Next"
+	static let Record = "Record"
+	static let Setting = "Setting"
 }
 
 struct BlockWidth {
 	static let homepage: CGFloat = (ScreenWidth - 60) / 2
-	static let sameOrNot: CGFloat = (ScreenWidth - 60) / 2
+	static let sameOrNot: CGFloat = (ScreenWidth - 60) / 2 + 4
 	static let selectTheSame: CGFloat = (ScreenHeight - 240) / 3
-	static let spell: CGFloat = ScreenHeight / 2 - 60
+	static let spell: CGFloat = ScreenHeight / 2 - 80
 }
 
 func delay(seconds seconds: Double, completion:()->()) {
@@ -77,6 +89,15 @@ func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
     } while result.count < amount
     
     return result
+}
+
+func alertOfStayOrQuit(viewController: UIViewController, title: String, message: String, quit: (() -> ())) {
+	let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+	let action = UIAlertAction(title: "确定", style: .Default, handler: ({ _ in quit() }))
+	let action1 = UIAlertAction(title: "取消", style: .Default, handler: nil)
+	alert.addAction(action)
+	alert.addAction(action1)
+	viewController.presentViewController(alert, animated: true, completion: nil)
 }
 
 

@@ -10,56 +10,89 @@ import Foundation
 import UIKit
 
 protocol NextButtonDelegate: class {
-	func nextButtonTapped(title: String)
+	func nextButtonTapped(title: NextButtonTitle)
+}
+
+enum NextButtonTitle {
+	case Next, Confirm, Done
+
+	var title: String? {
+		switch self {
+		case .Next: return nil
+		case .Confirm: return Titles.confirm
+		case .Done: return Titles.done
+		}
+	}
 }
 
 class NextButton: UIButton {
 
 	var customTitleLabel = UILabel()
+	var dismissAfterTapped = true
 	var showed = false
+
+	var titleType: NextButtonTitle = .Next
 
 	weak var delegate: NextButtonDelegate?
 
-	init(title: String) {
+	init() {
 		super.init(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: 60))
-
-		customTitleLabel = UILabel(frame: self.bounds)
-		customTitleLabel.backgroundColor = UIColor.whiteColor()
-		customTitleLabel.textAlignment = .Center
-		customTitleLabel.font = UIFont.buttonTitleFont(18)
-		customTitleLabel.textColor = UIColor.deepGray()
-		customTitleLabel.text = title
-		self.addSubview(customTitleLabel)
-
+		self.backgroundColor = UIColor.whiteColor()
+		self.tintColor = UIColor.deepGray()
 		self.addTarget(self, action: "nextButtonTapped", forControlEvents: .TouchUpInside)
 		self.exclusiveTouch = true
 	}
 
 	func nextButtonTapped() {
-		self.showed = false
-		self.delegate?.nextButtonTapped(self.customTitleLabel.text!)
+		if dismissAfterTapped { hide() }
+		self.delegate?.nextButtonTapped(titleType)
+	}
 
-		UIView.animateWithDuration(0.5) { () -> Void in
-			self.frame.origin.y += 60
+	func show(title: NextButtonTitle, dismissAfterTapped: Bool) {
+		titleType = title
+		self.dismissAfterTapped = dismissAfterTapped
+		
+		removeSubview(animated: false)
+
+		switch title {
+		case .Next:
+			self.addImageView(ImageName.Next, tintColor: tintColor, animated: false)
+		case .Confirm, .Done:
+			self.addTextLabel(title.title!, textColor: tintColor, font: UIFont.buttonTitleFont(22), animated: false)
+		}
+
+		dispatch_async(dispatch_get_main_queue()) {
+			UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.2, options: [], animations: { () -> Void in
+				self.frame.origin.y -= 60
+				}, completion: {(success) -> Void in
+					print(success)
+					self.showed = true
+			})
 		}
 
 	}
 
-	func show(title: String) {
-		self.customTitleLabel.text = title
-		self.showed = true
+	func changeTitle(toTitle: NextButtonTitle, dismissAfterTapped: Bool) {
+		self.dismissAfterTapped = dismissAfterTapped
+		titleType = toTitle
+		self.removeSubview(animated: true)
 
-		UIView.animateWithDuration(0.5) { () -> Void in
-			self.frame.origin.y -= 60
+		switch toTitle {
+		case .Next:
+			self.addImageView(ImageName.Next, tintColor: tintColor, animated: true)
+		case .Confirm, .Done:
+			self.addTextLabel(toTitle.title!, textColor: tintColor, font: UIFont.buttonTitleFont(22), animated: true)
 		}
 	}
 
 	func hide() {
-		self.showed = false
+		titleType = .Next
 
-		UIView.animateWithDuration(0.5) { () -> Void in
+		UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.2, options: [], animations: { () -> Void in
 			self.frame.origin.y += 60
-		}
+			}, completion: {(_) -> Void in
+				self.showed = false
+		})
 	}
 
 	required init?(coder aDecoder: NSCoder) {

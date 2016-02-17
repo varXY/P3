@@ -26,7 +26,7 @@ class SameOrNotViewController: UIViewController {
 
 	var rightCount = 0
 
-	var scoreModel: ScoreModel!
+	var totalScore = 0
 	let rightScore = 2
 	let wrongScore = -2
 
@@ -40,11 +40,11 @@ class SameOrNotViewController: UIViewController {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.deepGray()
 
-		headerView = HeaderView(page: 1, score: scoreModel.totalScore)
+		headerView = HeaderView(page: 1, score: totalScore)
 		headerView.delegate = self
 		self.view.addSubview(headerView)
 
-		nextButton = NextButton(title: "Next")
+		nextButton = NextButton()
 		nextButton.delegate = self
 		self.view.addSubview(nextButton)
 
@@ -99,11 +99,9 @@ class SameOrNotViewController: UIViewController {
 			let button = UIButton(type: .System)
 			button.frame = CGRect(origin: buttonOrigin, size: buttonSize)
 			button.backgroundColor = UIColor.clearColor()
-			button.setTitle(Titles.sameOrNot[i], forState: .Normal)
-			button.tintColor = UIColor.whiteColor()
-			button.titleLabel!.font = UIFont.buttonTitleFont(22)
+			button.addTextLabel(Titles.sameOrNot[i], textColor: UIColor.whiteColor(), font: UIFont.buttonTitleFont(22), animated: true)
 			button.changeColorWhenTouchDown()
-			button.addBorder()
+			button.addBorder(borderColor: UIColor.whiteColor())
 
 			button.tag = 100 + i
 			button.addTarget(self, action: "sameOrNot:", forControlEvents: .TouchUpInside)
@@ -126,7 +124,7 @@ class SameOrNotViewController: UIViewController {
 		for button in buttons { button.userInteractionEnabled = false }
 
 		showRightOrWorng(sender)
-		delay(seconds: 0.6) { self.showAllPinyin() }
+		delay(seconds: 0.6) { self.allShowPinyin() }
 		delay(seconds: 0.8) { self.addNextPageButton() }
 		delay(seconds: 1.0) { self.currentPage++; self.addContent(page: self.currentPage, firstTime: false) }
 
@@ -139,8 +137,7 @@ class SameOrNotViewController: UIViewController {
 		if ChosenSame == trulySame {
 			rightCount++
 			for blockView in blockViews { blockView.allChangeColor(.Green) }
-			sender.backgroundColor = UIColor.rightGreen()
-			sender.tintColor = UIColor.whiteColor()
+			sender.changeToColor(UIColor.rightGreen())
 
 			for button in buttons {
 				if button != sender {
@@ -159,8 +156,7 @@ class SameOrNotViewController: UIViewController {
 
 			for button in buttons {
 				if button != sender {
-					button.backgroundColor = UIColor.rightGreen()
-					button.tintColor = UIColor.whiteColor()
+					button.changeToColor(UIColor.rightGreen())
 				}
 			}
 
@@ -169,15 +165,15 @@ class SameOrNotViewController: UIViewController {
 		}
 	}
 
-	func showAllPinyin() {
+	func allShowPinyin() {
 		for blockView in blockViews {
 			blockView.showAllPinyin()
 		}
 	}
 
 	func addNextPageButton() {
-		let title = currentPage < 9 ? Titles.next : Titles.done
-		nextButton.show(title)
+		let title: NextButtonTitle = currentPage < 9 ? .Next : .Done
+		nextButton.show(title, dismissAfterTapped: true)
 	}
 
 	func jumpToPage(page: Int) {
@@ -202,14 +198,18 @@ class SameOrNotViewController: UIViewController {
 extension SameOrNotViewController: HeaderViewDelegate {
 
 	func backButtonTapped() {
-		self.navigationController?.popViewControllerAnimated(true)
+		if currentPage != 0 && currentPage != 10 {
+			alertOfStayOrQuit(self, title: "Sure to Quit?", message: "If you quit, current scores will lose.", quit: { self.confirmToQuit() })
+		} else {
+			navigationController?.popToRootViewControllerAnimated(true)
+		}
 	}
 }
 
 
 extension SameOrNotViewController: NextButtonDelegate {
 
-	func nextButtonTapped(title: String) {
+	func nextButtonTapped(title: NextButtonTitle) {
 		if currentPage < 10 {
 			headerView.changePage(currentPage + 1)
 			delay(seconds: 0.1) { self.jumpToPage(self.currentPage) }

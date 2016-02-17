@@ -23,18 +23,15 @@ enum TestType {
 }
 
 enum ColorType {
-	case Blue, White, Red, Green
+	case Blue, White, Red, Green, Gold
 
 	var color: UIColor {
 		switch self {
-		case .Blue:
-			return UIColor.themeBlue()
-		case .White:
-			return UIColor.whiteColor()
-		case .Red:
-			return UIColor.wrongRed()
-		case .Green:
-			return UIColor.rightGreen()
+		case .Blue: return UIColor.themeBlue()
+		case .White: return UIColor.whiteColor()
+		case .Red: return UIColor.wrongRed()
+		case .Green: return UIColor.rightGreen()
+		case .Gold: return UIColor.themeGold()
 		}
 	}
 }
@@ -60,13 +57,12 @@ class BlockView: UIView {
 	weak var delegate: BlockViewDelegate?
 
 	init(type: TestType, origin: CGPoint, text: [String]) {
+		self.text = text
 
 		let blockSize = CGSize(width: type.blockWidth, height: type.blockWidth)
 		super.init(frame: CGRect(origin: origin, size: blockSize))
-		self.backgroundColor = UIColor.themeBlue()
-
-		self.text = text
-
+		backgroundColor = UIColor.themeBlue()
+//		addBorder()
 		addColorfulView(text)
 		addLabels(text)
 
@@ -220,8 +216,16 @@ class BlockView: UIView {
 		delegate?.blockViewSelected(selected, blockText: text)
 	}
 
+	func showResultAndPinyin(resultColorType: ColorType) {
+		for i in 0..<colorfulViews.count {
+			changeColor(i, colorType: resultColorType, backToBlue: true)
+		}
+
+		delay(seconds: 0.5, completion: { self.showAllPinyin() })
+	}
+
 	func showGreenBorder() {
-		button.layer.borderWidth = 2.0
+		button.layer.borderWidth = 4.0
 		button.layer.borderColor = ColorType.Green.color.CGColor
 	}
 

@@ -12,6 +12,7 @@ import UIKit
 class SpellViewController: UIViewController {
 
 	let chinese = Chinese()
+	var firstData = [String]()
 
 	var scrollView = UIScrollView()
 	var blockViews = [BlockView]()
@@ -61,13 +62,13 @@ class SpellViewController: UIViewController {
 		headerView.delegate = self
 		view.addSubview(headerView)
 
-		nextButton = NextButton(title: Titles.next)
+		nextButton = NextButton()
 		nextButton.delegate = self
 		view.addSubview(nextButton)
 
 		prepareScrollView(firstTime: true)
 
-		picker.frame = CGRect(x: 30, y: ScreenHeight / 2, width: ScreenWidth - 60, height: ScreenHeight / 2 - 60)
+		picker.frame = CGRect(x: 30, y: ScreenHeight / 2 - 10, width: ScreenWidth - 60, height: ScreenHeight / 2 - 60)
 		picker.showsSelectionIndicator = true
 		picker.tintColor = UIColor.whiteColor()
 		picker.dataSource = self
@@ -79,12 +80,6 @@ class SpellViewController: UIViewController {
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		self.navigationController?.setNavigationBarHidden(true, animated: true)
-
-//		let indexs = [20, 5, 1, 3]
-//
-//		for i in 0..<indexs.count {
-//			picker.selectRow(indexs[i], inComponent: i, animated: true)
-//		}
 
 	}
 
@@ -99,17 +94,24 @@ class SpellViewController: UIViewController {
 		view.bringSubviewToFront(headerView)
 		
 		currentPage = 0
-		addContent(currentPage)
+		addContent(currentPage, firstTime: firstTime)
 	}
 
-	func addContent(page: Int) {
-		chinese.getOneForSpell()
+	func addContent(page: Int, firstTime: Bool) {
+		var data = [String]()
+		if firstTime {
+			data = firstData
+		} else {
+			chinese.getOneForSpell()
+			data = chinese.forSpell
+		}
+
 		selectedIndex = 0
 		showed = false
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let point = CGPoint(x: positionInPage + (ScreenWidth - BlockWidth.spell) / 2, y: 60)
-		let blockView = BlockView(type: .Spell, origin: point, text: chinese.forSpell)
+		let blockView = BlockView(type: .Spell, origin: point, text: data)
 		blockView.changeColor(selectedIndex, colorType: .White, backToBlue: false)
 		blockViews.append(blockView)
 		scrollView.addSubview(blockViews[blockViews.count - 1])
@@ -154,13 +156,11 @@ class SpellViewController: UIViewController {
 
 				delay(seconds: 0.4, completion: { () -> () in
 					self.currentPage++
-					self.addContent(self.currentPage)
+					self.addContent(self.currentPage, firstTime: false)
+					let title: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
+					self.nextButton.show(title, dismissAfterTapped: true)
 				})
 
-				let title = currentPage == 9 ? Titles.done : Titles.next
-				delay(seconds: 0.5, completion: { () -> () in
-					self.nextButton.show(title)
-				})
 			}
 
 
@@ -177,12 +177,7 @@ extension SpellViewController: HeaderViewDelegate {
 
 	func backButtonTapped() {
 		if currentPage != 0 && currentPage != 10 {
-			let alert = UIAlertController(title: "提示", message: "答题还没完成，确定退出吗？", preferredStyle: .Alert)
-			let action = UIAlertAction(title: "确定", style: .Default, handler: ({ _ in self.confirmToQuit() }))
-			alert.addAction(action)
-			let action1 = UIAlertAction(title: "取消", style: .Default, handler: nil)
-			alert.addAction(action1)
-			presentViewController(alert, animated: true, completion: nil)
+			alertOfStayOrQuit(self, title: "Sure to Quit?", message: "If you quit, current scores will lose.", quit: { self.confirmToQuit() })
 		} else {
 			navigationController?.popToRootViewControllerAnimated(true)
 		}
@@ -193,7 +188,7 @@ extension SpellViewController: HeaderViewDelegate {
 
 extension SpellViewController: NextButtonDelegate {
 
-	func nextButtonTapped(title: String) {
+	func nextButtonTapped(title: NextButtonTitle) {
 
 		if self.currentPage <= 9 {
 			delay(seconds: 0.5, completion: { () -> () in

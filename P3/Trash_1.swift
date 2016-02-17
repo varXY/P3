@@ -2238,6 +2238,60 @@ let confusableFirstInD = [
 		"guan ，guang ",
 	]
 
+	// the way--------------------
+	//		let trash = Trash_1()
+	//		let confusables = [trash.confusableFirstInB, trash.confusableFirstInC, trash.confusableFirstInD, trash.confusableFirstInE, trash.confusableFirstInF, trash.confusableFirstInG]
+	//		let contents = [trash.B, trash.C, trash.D, trash.E, trash.F, trash.G]
+	//
+	//		for i in 0..<contents.count {
+	//			let content = contents[i]
+	//
+	//			var allA = [String]()
+	//			var allAs = [String]()
+	//
+	//			var allB = [String]()
+	//			var allBs = [String]()
+	//
+	//			for j in 0..<confusables[i].count {
+	//				let confusable = confusables[i][j]
+	//				let yins = confusable.componentsSeparatedByString("，")
+	//				var a = ""
+	//				var b = ""
+	//
+	//				for pinyin in content {
+	//					if let range = pinyin.rangeOfString(yins[0]) {
+	//						a = pinyin
+	//						a.replaceRange(range, with: "")
+	//						allA.append(a)
+	//						allAs.append(pinyin)
+	//						print(a)
+	//					}
+	//				}
+	//
+	//				for pinyin in content {
+	//					if let range = pinyin.rangeOfString(yins[1]) {
+	//						b = pinyin
+	//						b.replaceRange(range, with: "")
+	//						allB.append(b)
+	//						allBs.append(pinyin)
+	//						print(b)
+	//					}
+	//				}
+	//
+	//			}
+	//
+	//			for m in 0..<allA.count {
+	//				if let _ = allB.indexOf(allA[m]) {
+	//					print(confusables[i])
+	//					print(allAs[m])
+	//					print(allA[m])
+	//					print("--------")
+	//				}
+	//			}
+	//		}
+
+
+
 	// Treasure from Trash 1
 //	["gan ，gang ", "guan ，guang "]
 //	gan cai

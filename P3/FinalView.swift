@@ -34,13 +34,13 @@ class FinalView: UIView {
 		infoLabel.text = title
 		self.addSubview(infoLabel)
 
-		let titles = ["Again", "Quit"]
 		for i in 0..<2 {
 			let button = UIButton(type: .System)
-			button.frame = CGRect(x: 10, y: (self.frame.height - 120) + 60 * CGFloat(i), width: self.frame.width - 20, height: 50)
-			button.backgroundColor = UIColor.themeBlue()
-			button.tintColor = UIColor.whiteColor()
-			button.setTitle(titles[i], forState: .Normal)
+			button.frame = CGRect(x: 20, y: (self.frame.height - 160) + 80 * CGFloat(i), width: self.frame.width - 40, height: 60)
+			button.backgroundColor = UIColor.clearColor()
+			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.deepGray(), font: UIFont.buttonTitleFont(22), animated: false)
+			button.changeColorWhenTouchDown()
+			button.addBorder(borderColor: UIColor.deepGray())
 			button.addTarget(self, action: "finalChoice:", forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
 			self.addSubview(button)
@@ -48,16 +48,19 @@ class FinalView: UIView {
 	}
 
 	func show() {
-		UIView.animateWithDuration(0.5) { () -> Void in
+
+		UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 			self.frame.origin.y -= self.frame.height
-		}
+			}, completion: nil)
+
 	}
 
 	func finalChoice(sender: UIButton) {
-		UIView.animateWithDuration(0.5, animations: { () -> Void in
+
+		UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 			self.frame.origin.y += self.frame.height
 			}) { (_) -> Void in
-				let buttonType = sender.titleLabel!.text == "Again" ? FinalViewButtonType.Again : FinalViewButtonType.Quit
+				let buttonType = sender.titleLabel!.text == Titles.finalChoices[0] ? FinalViewButtonType.Again : FinalViewButtonType.Quit
 				self.delegate?.finalViewButtonTapped(buttonType)
 				self.removeFromSuperview()
 		}

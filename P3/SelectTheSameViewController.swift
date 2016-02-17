@@ -33,6 +33,7 @@ class SelectTheSameViewController: UIViewController {
 	let wrongScore = -3
 
 	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
+	var sendBackGroup: ((group: [[String]]) -> Void)!
 
 	override func prefersStatusBarHidden() -> Bool {
 		return true
@@ -46,7 +47,7 @@ class SelectTheSameViewController: UIViewController {
 		headerView.delegate = self
 		self.view.addSubview(headerView)
 
-		nextButton = NextButton(title: "Confirm")
+		nextButton = NextButton()
 		nextButton.delegate = self
 		self.view.addSubview(nextButton)
 
@@ -76,16 +77,17 @@ class SelectTheSameViewController: UIViewController {
 
 	func addContent(page page: Int, firstTime: Bool) {
 
-		var data = [[String]]()
+		var group = [[String]]()
 
 		if firstTime {
-			data = self.firstData
+			group = self.firstData
 		} else {
 			chinese.getSixForSelectTheSame_1()
-			data = chinese.forSelectTheSame
+			group = chinese.forSelectTheSame
+			sendBackGroup(group: group)
 		}
 
-		rightAnswer = data[0][0]
+		rightAnswer = group[0][0]
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let indexs = getRandomNumbers(6, lessThan: 6)
@@ -95,7 +97,7 @@ class SelectTheSameViewController: UIViewController {
 			let x = positionInPage + (ScreenWidth - BlockWidth.selectTheSame * 2) / 3 + (BlockWidth.selectTheSame + margin) * CGFloat(i % 2)
 			let y = blockY(i)
 
-			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: data[indexs[i]])
+			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: group[indexs[i]])
 			blockView.delegate = self
 			blockViews.append(blockView)
 			scrollView.addSubview(blockViews[blockViews.count - 1])
@@ -212,11 +214,14 @@ extension SelectTheSameViewController: BlockViewDelegate {
 			selectedBlocks = selectedBlocks.filter({ $0[1] != text })
 		}
 
-		if selectedBlocks.count > 2 && !nextButton.showed {
-			nextButton.show("Confirm")
+		print(selectedBlocks.count)
+		print(nextButton.titleType)
+
+		if selectedBlocks.count > 2 && nextButton.titleType != .Confirm {
+			nextButton.show(.Confirm, dismissAfterTapped: false)
 		}
 
-		if selectedBlocks.count < 3 && nextButton.showed {
+		if selectedBlocks.count < 3 && nextButton.titleType == .Confirm {
 			nextButton.hide()
 		}
 
@@ -227,24 +232,42 @@ extension SelectTheSameViewController: BlockViewDelegate {
 extension SelectTheSameViewController: HeaderViewDelegate {
 
 	func backButtonTapped() {
-		self.navigationController?.popViewControllerAnimated(true)
+		if currentPage != 0 && currentPage != 10 {
+			alertOfStayOrQuit(self, title: "Sure to Quit?", message: "If you quit, current scores will lose.", quit: { self.confirmToQuit() })
+		} else {
+			navigationController?.popToRootViewControllerAnimated(true)
+		}
 	}
 }
 
 
 extension SelectTheSameViewController: NextButtonDelegate {
 
-	func nextButtonTapped(title: String) {
-		if currentPage != 10 {
-			confirm()
+	func nextButtonTapped(title: NextButtonTitle) {
+		if currentPage < 10 {
 
-			if title != "Next" {
-				let nextTitle = currentPage == 9 ? "Done" : "Next"
-				delay(seconds: 0.5) { self.nextButton.show(nextTitle) }
+			if title == .Confirm {
+				showRightOrWrong()
+
+				delay(seconds: 0.5, completion: { () -> () in
+					let nextTitle: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
+					self.nextButton.changeTitle(nextTitle, dismissAfterTapped: true)
+				})
+
+				delay(seconds: 0.7, completion: { () -> () in
+					self.currentPage++
+					self.addContent(page: self.currentPage, firstTime: false)
+				})
+
+			}
+
+			if title == .Next {
+				headerView.changePage(currentPage + 1)
+				jumpToPage(currentPage)
 			}
 
 		} else {
-			headerView.pageToTitle("Completed")
+			headerView.pageToTitle(Titles.completed)
 
 			let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
 			let finalView = FinalView(title: "共答对了\(rightCount)题\n总分" + score)

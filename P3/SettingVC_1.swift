@@ -36,11 +36,6 @@ class SettingVC_1: UITableViewController {
 		return cell
 	}
 
-//	override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-//		let cell = tableView.cellForRowAtIndexPath(indexPath)
-//		return cell?.accessoryType == .None ? indexPath : nil
-//	}
-
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let cell = tableView.cellForRowAtIndexPath(indexPath)
 		cell?.accessoryType = .Checkmark
