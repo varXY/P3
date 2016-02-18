@@ -17,9 +17,9 @@ extension UIView {
 		case .BecomeVisble:
 			self.alpha = 0.0
 
-			UIView.animateWithDuration(0.5, animations: { () -> Void in
+			UIView.animateWithDuration(0.5, delay: delay, options: [], animations: { () -> Void in
 				self.alpha = 1.0
-			})
+				}, completion: nil)
 
 		case .Appear:
 			self.alpha = 0.0
@@ -31,19 +31,19 @@ extension UIView {
 				}, completion: nil)
 
 		case .Disappear:
-
-			UIView.animateWithDuration(0.5, animations: { () -> Void in
+			UIView.animateWithDuration(0.5, delay: delay, options: [], animations: { () -> Void in
 				self.alpha = 0.0
-			})
+				}, completion: nil)
+
 			
 		default:
 			break
 		}
 	}
 
-	func addBorder(borderColor borderColor: UIColor) {
+	func addBorder(borderColor borderColor: UIColor, width: CGFloat) {
 		self.layer.borderColor = borderColor.CGColor
-		self.layer.borderWidth = 2.0
+		self.layer.borderWidth = width
 	}
 
 }

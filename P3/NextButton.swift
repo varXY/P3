@@ -37,15 +37,16 @@ class NextButton: UIButton {
 
 	init() {
 		super.init(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: 60))
-		self.backgroundColor = UIColor.whiteColor()
-		self.tintColor = UIColor.deepGray()
-		self.addTarget(self, action: "nextButtonTapped", forControlEvents: .TouchUpInside)
-		self.exclusiveTouch = true
+		backgroundColor = UIColor.whiteColor()
+		tintColor = UIColor.deepGray()
+		addTarget(self, action: "nextButtonTapped", forControlEvents: .TouchUpInside)
+		exclusiveTouch = true
+		userInteractionEnabled = false
 	}
 
 	func nextButtonTapped() {
 		if dismissAfterTapped { hide() }
-		self.delegate?.nextButtonTapped(titleType)
+		delegate?.nextButtonTapped(titleType)
 	}
 
 	func show(title: NextButtonTitle, dismissAfterTapped: Bool) {
@@ -65,8 +66,8 @@ class NextButton: UIButton {
 			UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.2, options: [], animations: { () -> Void in
 				self.frame.origin.y -= 60
 				}, completion: {(success) -> Void in
-					print(success)
 					self.showed = true
+					self.userInteractionEnabled = true
 			})
 		}
 
@@ -92,6 +93,7 @@ class NextButton: UIButton {
 			self.frame.origin.y += 60
 			}, completion: {(_) -> Void in
 				self.showed = false
+				self.userInteractionEnabled = false
 		})
 	}
 

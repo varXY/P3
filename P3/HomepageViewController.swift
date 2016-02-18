@@ -11,7 +11,7 @@ import CoreData
 
 class HomepageViewController: UIViewController {
 
-	var chinese = Chinese()
+	var chinese: Chinese!
 
 	var bigButtons = [UIButton]()
 
@@ -37,8 +37,8 @@ class HomepageViewController: UIViewController {
 
 		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 		dispatch_async(queue) {
-			self.chinese.getOneForSameOrNot()
-			self.chinese.getOneForSpell()
+			if self.chinese.forSameOrNot.count == 0 { self.chinese.getOneForSameOrNot() }
+			if self.chinese.forSpell.count == 0 { self.chinese.getOneForSpell() }
 
 			dispatch_async(dispatch_get_main_queue()) {
 				for i in 0..<self.bigButtons.count {
@@ -66,7 +66,7 @@ class HomepageViewController: UIViewController {
 		titleLabel.text = "Pinyin Comparison"
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = UIColor.blackColor()
-		titleLabel.font = UIFont.boldSystemFontOfSize(25)
+		titleLabel.font = UIFont.boldSystemFontOfSize(26)
 		view.addSubview(titleLabel)
 
 		let footerLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height - 130, width: view.frame.width, height: 60))
@@ -91,7 +91,7 @@ class HomepageViewController: UIViewController {
 			button.backgroundColor = UIColor.clearColor()
 			button.addTextLabel(Titles.homepageBigButtons[i], textColor: UIColor.whiteColor(), font: UIFont.systemFontOfSize(22), animated: false)
 			button.changeColorWhenTouchDown()
-			button.addBorder(borderColor: UIColor.whiteColor())
+			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
 
 			button.exclusiveTouch = true
 			button.tag = 10 + i
@@ -126,7 +126,7 @@ class HomepageViewController: UIViewController {
 		switch sender.tag {
 		case 10:
 			let sameOrNotVC = SameOrNotViewController()
-			sameOrNotVC.firstData = chinese.forSameOrNot
+			sameOrNotVC.chinese = chinese
 			sameOrNotVC.totalScore = scoreModel.totalScore
 
 			sameOrNotVC.sendBackScore = { (totalScore, score) -> Void in
@@ -138,7 +138,7 @@ class HomepageViewController: UIViewController {
 
 		case 11:
 			let selectTheSameVC = SelectTheSameViewController()
-			selectTheSameVC.firstData = chinese.forSelectTheSame
+			selectTheSameVC.chinese = chinese
 			selectTheSameVC.totalScore = scoreModel.totalScore
 
 			selectTheSameVC.sendBackScore = { (totalScore, score) -> Void in
@@ -146,15 +146,11 @@ class HomepageViewController: UIViewController {
 				self.scoreModel.scores.insert(score, atIndex: 0)
 			}
 
-			selectTheSameVC.sendBackGroup = { (group) -> Void in
-				self.chinese.forSelectTheSame = group
-			}
-
 			self.navigationController?.pushViewController(selectTheSameVC, animated: true)
 			
 		case 12:
 			let spellVC = SpellViewController()
-			spellVC.firstData = chinese.forSpell
+			spellVC.chinese = chinese
 			spellVC.totalScore = scoreModel.totalScore
 
 			spellVC.sendBackScore = { (totalScore, score) -> Void in

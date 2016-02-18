@@ -24,10 +24,10 @@ class FinalView: UIView {
 
 	init(title: String) {
 		super.init(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: ScreenHeight - 100))
-		self.backgroundColor = UIColor.whiteColor()
+		self.backgroundColor = UIColor.themeBlue()
 
 		let infoLabel = UILabel(frame: CGRect(x: 10, y: 10, width: self.frame.width - 20, height: 120))
-		infoLabel.textColor = UIColor.blackColor()
+		infoLabel.textColor = UIColor.deepGray()
 		infoLabel.font = UIFont.boldSystemFontOfSize(20)
 		infoLabel.textAlignment = .Center
 		infoLabel.numberOfLines = 0
@@ -38,9 +38,10 @@ class FinalView: UIView {
 			let button = UIButton(type: .System)
 			button.frame = CGRect(x: 20, y: (self.frame.height - 160) + 80 * CGFloat(i), width: self.frame.width - 40, height: 60)
 			button.backgroundColor = UIColor.clearColor()
-			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.deepGray(), font: UIFont.buttonTitleFont(22), animated: false)
+			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.whiteColor(), font: UIFont.buttonTitleFont(22), animated: false)
 			button.changeColorWhenTouchDown()
-			button.addBorder(borderColor: UIColor.deepGray())
+			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
+			button.tag = 9999 + i
 			button.addTarget(self, action: "finalChoice:", forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
 			self.addSubview(button)
@@ -60,7 +61,7 @@ class FinalView: UIView {
 		UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 			self.frame.origin.y += self.frame.height
 			}) { (_) -> Void in
-				let buttonType = sender.titleLabel!.text == Titles.finalChoices[0] ? FinalViewButtonType.Again : FinalViewButtonType.Quit
+				let buttonType = sender.tag == 9999 ? FinalViewButtonType.Again : FinalViewButtonType.Quit
 				self.delegate?.finalViewButtonTapped(buttonType)
 				self.removeFromSuperview()
 		}

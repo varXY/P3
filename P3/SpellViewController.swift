@@ -11,8 +11,7 @@ import UIKit
 
 class SpellViewController: UIViewController {
 
-	let chinese = Chinese()
-	var firstData = [String]()
+	var chinese: Chinese!
 
 	var scrollView = UIScrollView()
 	var blockViews = [BlockView]()
@@ -26,10 +25,10 @@ class SpellViewController: UIViewController {
 	var componentType = 0
 	let component_titles_0 = [" ", "b", "c", "ch", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "sh", "t", "w", "x", "y", "z", "zh", " "]
 	let component_titles_1 = [" ", "a", "e", "i", "o", "u", "v", " "]
+	let component_titles_2_0 = [" ", "a", "ai", "an", "ang", "ao", "e", "ei", "en", "eng", "i", "n", "ng", "o", "ong", "ou", "r", "u", " "]
 	let component_titles_2 = [" ", "a", "e", "i", "n", "o", "r", "u", " "]
 	let component_titles_3 = [" ", "g", "i", "n", "ng", "o", "u", " "]
 
-	let component_titles_2_0 = [" ", "a", "ai", "an", "ang", "ao", "e", "ei", "en", "eng", "i", "n", "ng", "o", "ong", "ou", "r", "u", " "]
 
 	var component_allTitles = [[String]]()
 
@@ -58,7 +57,7 @@ class SpellViewController: UIViewController {
 		componentType = amount == 3 ? 1 : 0
 		component_allTitles = componentType == 0 ? [component_titles_0, component_titles_1, component_titles_2, component_titles_3] : [component_titles_0, component_titles_1, component_titles_2_0]
 
-		headerView = HeaderView(page: 1, score: totalScore)
+		headerView = HeaderView(number: 1, totalScore: totalScore)
 		headerView.delegate = self
 		view.addSubview(headerView)
 
@@ -98,20 +97,15 @@ class SpellViewController: UIViewController {
 	}
 
 	func addContent(page: Int, firstTime: Bool) {
-		var data = [String]()
-		if firstTime {
-			data = firstData
-		} else {
-			chinese.getOneForSpell()
-			data = chinese.forSpell
-		}
+
+		if !firstTime { chinese.getOneForSpell() }
 
 		selectedIndex = 0
 		showed = false
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let point = CGPoint(x: positionInPage + (ScreenWidth - BlockWidth.spell) / 2, y: 60)
-		let blockView = BlockView(type: .Spell, origin: point, text: data)
+		let blockView = BlockView(type: .Spell, origin: point, text: chinese.forSpell)
 		blockView.changeColor(selectedIndex, colorType: .White, backToBlue: false)
 		blockViews.append(blockView)
 		scrollView.addSubview(blockViews[blockViews.count - 1])
@@ -141,24 +135,27 @@ class SpellViewController: UIViewController {
 			showed = true
 			blockView.changeColor(selectedIndex, colorType: .Green, backToBlue: true)
 
-			delay(seconds: 0.2, completion: { () -> () in
+			delay(seconds: 0.6, completion: { () -> () in
 				blockView.showPinyinAtIndex(self.selectedIndex)
 			})
 
 			if selectedIndex < blockView.colorfulViews.count - 1 {
-				delay(seconds: 0.6, completion: { () -> () in
+				delay(seconds: 0.8, completion: { () -> () in
 					self.showed = false
 					self.selectedIndex++
 					blockView.changeColor(self.selectedIndex, colorType: .White, backToBlue: false)
 				})
 			} else {
 				headerView.showAndAddScore(rightScore)
+				
+				delay(seconds: 0.8, completion: { () -> () in
+					let title: NextButtonTitle = self.currentPage == 10 ? .Done : .Next
+					self.nextButton.show(title, dismissAfterTapped: true)
+				})
 
-				delay(seconds: 0.4, completion: { () -> () in
+				delay(seconds: 0.85, completion: { () -> () in
 					self.currentPage++
 					self.addContent(self.currentPage, firstTime: false)
-					let title: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
-					self.nextButton.show(title, dismissAfterTapped: true)
 				})
 
 			}
@@ -190,18 +187,18 @@ extension SpellViewController: NextButtonDelegate {
 
 	func nextButtonTapped(title: NextButtonTitle) {
 
-		if self.currentPage <= 9 {
-			delay(seconds: 0.5, completion: { () -> () in
-				self.headerView.changePage(self.currentPage + 1)
+		if self.currentPage < 10 {
+			delay(seconds: Time.toNextPageWaitingTime, completion: {
+				self.headerView.changeNumber(toNumber: self.currentPage + 1)
 				self.jumpToPage(self.currentPage)
 			})
 		} else {
-			self.headerView.pageToTitle("Completed")
+			headerView.showAllNumbers()
 
 			let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
 			let finalView = FinalView(title: "Score: " + score)
 			finalView.delegate = self
-			self.view.addSubview(finalView)
+			view.addSubview(finalView)
 
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
 				self.scrollView.alpha = 0.0
@@ -225,8 +222,7 @@ extension SpellViewController: FinalViewDelegate {
 	func finalViewButtonTapped(buttonType: FinalViewButtonType) {
 
 		if buttonType == .Again {
-			headerView.clearCurrentScore()
-			headerView.changePage(1)
+			headerView.startAllOver()
 
 			UIView.animateWithDuration(0.5, animations: {
 				self.scrollView.frame.origin.x -= self.view.frame.width
@@ -249,14 +245,26 @@ extension SpellViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 	}
 
 	func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
-		return 35
+		return 40
 	}
 
-	func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-		let string = component_allTitles[component][row]
-		let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor(), NSFontAttributeName: UIFont.systemFontOfSize(18)]
-		let title = NSAttributedString(string: string, attributes: attributes)
-		return title
+//	func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+//		let string = component_allTitles[component][row]
+//		let attributes = [NSForegroundColorAttributeName: UIColor.themeGold(), NSFontAttributeName: UIFont.pickerFont(20)]
+//		let title = NSAttributedString(string: string, attributes: attributes)
+//		return title
+//	}
+
+	func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
+		let view = UIView(frame: CGRect(x: 0, y: 0, width: picker.frame.width / CGFloat(picker.numberOfComponents), height: 40))
+		view.backgroundColor = UIColor.themeGold()
+		let label = UILabel(frame: view.bounds)
+		label.text = component_allTitles[component][row]
+		label.textAlignment = .Center
+		label.textColor = UIColor.deepGray()
+		label.font = UIFont.pickerFont(25)
+		view.addSubview(label)
+		return view
 	}
 
 	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

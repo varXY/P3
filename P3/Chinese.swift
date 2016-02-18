@@ -120,7 +120,7 @@ class Chinese {
 		"ne nei",
 		"nen neng",
 		"nian niang",
-		"nie nve",
+//		"nie nve",
 		// join m
 		"nuo mou",
 

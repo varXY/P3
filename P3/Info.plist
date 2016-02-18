@@ -5,6 +5,12 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Tahoma.ttf</string>
+		<string>Tahoma Bold.ttf</string>
+		<string>Arial Rounded Bold.ttf</string>
+		<string>Arial Narrow.ttf</string>
+		<string>AmericanTypewriter.ttc</string>
+		<string>GillSans.ttc</string>
+		<string>ChalkboardSE.ttc</string>
 	</array>
 	<key>UIStatusBarHidden</key>
 	<false/>

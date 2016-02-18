@@ -225,8 +225,10 @@ class BlockView: UIView {
 	}
 
 	func showGreenBorder() {
-		button.layer.borderWidth = 4.0
-		button.layer.borderColor = ColorType.Green.color.CGColor
+		UIView.animateWithDuration(0.3) { () -> Void in
+			self.button.layer.borderWidth = 3.0
+			self.button.layer.borderColor = ColorType.Green.color.CGColor
+		}
 	}
 
 	func showAllPinyin() {
@@ -270,7 +272,7 @@ class BlockView: UIView {
 		}
 
 		if backToBlue {
-			delay(seconds: 0.3) { () -> () in
+			delay(seconds: 0.5) { () -> () in
 				self.textLabels[index].textColor = UIColor.whiteColor()
 				self.pinyinLabels[index].textColor = UIColor.whiteColor()
 				self.colorfulViews[index].backgroundColor = UIColor.themeBlue()

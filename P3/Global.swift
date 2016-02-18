@@ -22,11 +22,16 @@ let dateFormatter: NSDateFormatter = {
 	return formatter
 }()
 
-enum DuadType {
-    case Same
-    case Different
-}
+enum Outcome {
+	case Right, Wrong
 
+	var color: UIColor {
+		switch self {
+		case .Right: return UIColor.rightGreen()
+		case .Wrong: return UIColor.wrongRed()
+		}
+	}
+}
 enum AnimationType {
     case Appear
     case Disappear
@@ -39,7 +44,13 @@ enum AnimationType {
 
 struct Defaults {
 	static let sound = "Sound"
+	static let Vibration = "Vibration"
 	static let C_amount = "C_amount"
+}
+
+struct Time {
+	static let outcomeStayTime: Double = 0.3
+	static let toNextPageWaitingTime: Double = 0.4
 }
 
 struct Titles {
@@ -93,8 +104,8 @@ func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
 
 func alertOfStayOrQuit(viewController: UIViewController, title: String, message: String, quit: (() -> ())) {
 	let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-	let action = UIAlertAction(title: "确定", style: .Default, handler: ({ _ in quit() }))
-	let action1 = UIAlertAction(title: "取消", style: .Default, handler: nil)
+	let action = UIAlertAction(title: "Quit", style: .Default, handler: ({ _ in quit() }))
+	let action1 = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
 	alert.addAction(action)
 	alert.addAction(action1)
 	viewController.presentViewController(alert, animated: true, completion: nil)

@@ -15,8 +15,6 @@ class SameOrNotViewController: UIViewController {
 	var scrollView = UIScrollView()
 	var currentPage = 0
 
-	var firstData = [[String]]()
-
 	var chinese = Chinese()
 
 	var blockViews = [BlockView]()
@@ -31,7 +29,7 @@ class SameOrNotViewController: UIViewController {
 	let wrongScore = -2
 
 	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
-
+	
 	override func prefersStatusBarHidden() -> Bool {
 		return true
 	}
@@ -40,7 +38,7 @@ class SameOrNotViewController: UIViewController {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.deepGray()
 
-		headerView = HeaderView(page: 1, score: totalScore)
+		headerView = HeaderView(number: 1, totalScore: totalScore)
 		headerView.delegate = self
 		self.view.addSubview(headerView)
 
@@ -74,23 +72,14 @@ class SameOrNotViewController: UIViewController {
 
 	func addContent(page page: Int, firstTime: Bool) {
 
-		var data = [[String]]()
-		if firstTime {
-			data = self.firstData
-		} else {
-			chinese.getOneForSameOrNot()
-			data = chinese.forSameOrNot
-		}
-
-
+		if !firstTime { chinese.getOneForSameOrNot() }
 		let positionInPage = scrollView.frame.width * CGFloat(page)
-
 		let buttonSize = CGSize(width: scrollView.frame.width - 40, height: 60)
 
 		for i in 0..<2 {
 			let blockWidth = (ScreenWidth - 60) / 2
 			let point = CGPoint(x: positionInPage + 20 + (blockWidth + 20) * CGFloat(i), y: (ScreenHeight / 2 - blockWidth) / 2)
-			let blockView = BlockView(type: .SameOrNot, origin: point, text: data[i])
+			let blockView = BlockView(type: .SameOrNot, origin: point, text: chinese.forSameOrNot[i])
 			blockViews.append(blockView)
 			scrollView.addSubview(blockViews[blockViews.count - 1])
 
@@ -101,7 +90,7 @@ class SameOrNotViewController: UIViewController {
 			button.backgroundColor = UIColor.clearColor()
 			button.addTextLabel(Titles.sameOrNot[i], textColor: UIColor.whiteColor(), font: UIFont.buttonTitleFont(22), animated: true)
 			button.changeColorWhenTouchDown()
-			button.addBorder(borderColor: UIColor.whiteColor())
+			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
 
 			button.tag = 100 + i
 			button.addTarget(self, action: "sameOrNot:", forControlEvents: .TouchUpInside)
@@ -126,7 +115,7 @@ class SameOrNotViewController: UIViewController {
 		showRightOrWorng(sender)
 		delay(seconds: 0.6) { self.allShowPinyin() }
 		delay(seconds: 0.8) { self.addNextPageButton() }
-		delay(seconds: 1.0) { self.currentPage++; self.addContent(page: self.currentPage, firstTime: false) }
+		delay(seconds: 0.85) { self.currentPage++; self.addContent(page: self.currentPage, firstTime: false) }
 
 	}
 
@@ -211,13 +200,17 @@ extension SameOrNotViewController: NextButtonDelegate {
 
 	func nextButtonTapped(title: NextButtonTitle) {
 		if currentPage < 10 {
-			headerView.changePage(currentPage + 1)
-			delay(seconds: 0.1) { self.jumpToPage(self.currentPage) }
+			delay(seconds: Time.toNextPageWaitingTime, completion: {
+				self.headerView.changeNumber(toNumber: self.currentPage + 1)
+				self.jumpToPage(self.currentPage)
+			})
 		} else {
+			headerView.showAllNumbers()
+
 			let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
 			let finalView = FinalView(title: "共答对了\(rightCount)题\n总分" + score)
 			finalView.delegate = self
-			self.view.addSubview(finalView)
+			view.addSubview(finalView)
 
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
 				self.scrollView.alpha = 0.0
@@ -240,16 +233,15 @@ extension SameOrNotViewController: FinalViewDelegate {
 	func finalViewButtonTapped(buttonType: FinalViewButtonType) {
 
 		if buttonType == .Again {
-			self.headerView.clearCurrentScore()
-			self.headerView.changePage(1)
-			self.rightCount = 0
+			headerView.startAllOver()
+			rightCount = 0
 
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
 				self.scrollView.frame.origin.x -= self.view.frame.width
 			})
 
 		} else {
-			self.confirmToQuit()
+			confirmToQuit()
 		}
 	}
 }

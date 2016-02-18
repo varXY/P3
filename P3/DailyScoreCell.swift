@@ -21,12 +21,14 @@ class DailyScoreCell: UITableViewCell {
 		contentView.frame.size = CGSize(width: ScreenWidth, height: 60)
 		contentView.backgroundColor = UIColor.lightGray()
 
-		scoreLabel = UILabel(frame: CGRect(x: 10, y: 10, width: 80, height: contentView.frame.height - 20))
+		scoreLabel = UILabel(frame: CGRect(x: 10, y: 15, width: 80, height: contentView.frame.height - 20))
+		scoreLabel.textColor = UIColor.deepGray()
+		scoreLabel.font = UIFont.scoreFont(16)
 		contentView.addSubview(scoreLabel)
 
-		dateLabel = UILabel(frame: CGRect(x: contentView.frame.width / 2 - 50, y: 10, width: 100, height: contentView.frame.height - 20))
-		dateLabel.textColor = UIColor.themeBlue()
-		dateLabel.textAlignment = .Center
+		dateLabel = UILabel(frame: CGRect(x: contentView.frame.width - 110, y: 15, width: 100, height: contentView.frame.height - 20))
+		dateLabel.textColor = UIColor.deepGray()
+		dateLabel.textAlignment = .Right
 		contentView.addSubview(dateLabel)
 	}
 
@@ -37,15 +39,15 @@ class DailyScoreCell: UITableViewCell {
 		let maxWidth = contentView.frame.width * 0.9
 		let factor = maxWidth / CGFloat(max)
 		let width = positive ? number * factor : -number * factor
-		let x = positive ? 0 : ScreenWidth - width
+//		let x = positive ? 0 : ScreenWidth - width
 		let color = positive ? UIColor.rightGreen() : UIColor.wrongRed()
 
-		let colorView = UIView(frame: CGRect(x: x, y: 5, width: width, height: contentView.frame.height - 5))
+		let colorView = UIView(frame: CGRect(x: 0, y: 5, width: width, height: contentView.frame.height - 5))
 		colorView.backgroundColor = color
 		contentView.addSubview(colorView)
 
-		scoreLabel.frame.origin.x = positive ? 10 : contentView.frame.width - 90
-		scoreLabel.textAlignment = positive ? .Left : .Right
+//		scoreLabel.frame.origin.x = positive ? 10 : contentView.frame.width - 90
+//		scoreLabel.textAlignment = positive ? .Left : .Right
 		scoreLabel.text = positive ? "+" + String(dailyScore.score) : String(dailyScore.score)
 		contentView.bringSubviewToFront(scoreLabel)
 

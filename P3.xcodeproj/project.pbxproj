@@ -40,6 +40,11 @@
 		3175AF071C69B77C001BEACE /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF061C69B77C001BEACE /* NavigationController.swift */; };
 		3175AF0A1C69BDDF001BEACE /* BlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF091C69BDDF001BEACE /* BlockView.swift */; };
 		3175AF0C1C69CD19001BEACE /* SameOrNotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */; };
+		318950981C759BF600DB3BA6 /* Arial Rounded Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 318950971C759BF600DB3BA6 /* Arial Rounded Bold.ttf */; };
+		3189509A1C75A2DE00DB3BA6 /* AmericanTypewriter.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 318950991C75A2DE00DB3BA6 /* AmericanTypewriter.ttc */; };
+		3189509C1C75A57300DB3BA6 /* Arial Narrow.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3189509B1C75A57300DB3BA6 /* Arial Narrow.ttf */; };
+		3189509E1C75AD7F00DB3BA6 /* GillSans.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 3189509D1C75AD7F00DB3BA6 /* GillSans.ttc */; };
+		318950A01C75B47200DB3BA6 /* ChalkboardSE.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 3189509F1C75B47200DB3BA6 /* ChalkboardSE.ttc */; };
 		31C8B7A81C6DB0B60018DD9B /* Trash_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7A71C6DB0B60018DD9B /* Trash_1.swift */; };
 		31C8B7AA1C6DB7310018DD9B /* Trash_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7A91C6DB7310018DD9B /* Trash_2.swift */; };
 		31C8B7AC1C6DB9F00018DD9B /* Trash_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */; };
@@ -98,6 +103,11 @@
 		3175AF061C69B77C001BEACE /* NavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		3175AF091C69BDDF001BEACE /* BlockView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = BlockView.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SameOrNotViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		318950971C759BF600DB3BA6 /* Arial Rounded Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Arial Rounded Bold.ttf"; sourceTree = "<group>"; };
+		318950991C75A2DE00DB3BA6 /* AmericanTypewriter.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = AmericanTypewriter.ttc; sourceTree = "<group>"; };
+		3189509B1C75A57300DB3BA6 /* Arial Narrow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Arial Narrow.ttf"; sourceTree = "<group>"; };
+		3189509D1C75AD7F00DB3BA6 /* GillSans.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = GillSans.ttc; sourceTree = "<group>"; };
+		3189509F1C75B47200DB3BA6 /* ChalkboardSE.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChalkboardSE.ttc; sourceTree = "<group>"; };
 		31C8B7A71C6DB0B60018DD9B /* Trash_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_1.swift; sourceTree = "<group>"; };
 		31C8B7A91C6DB7310018DD9B /* Trash_2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_2.swift; sourceTree = "<group>"; };
 		31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_3.swift; sourceTree = "<group>"; };
@@ -148,8 +158,13 @@
 		3100970E1C72B249003C7FA6 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				3189509F1C75B47200DB3BA6 /* ChalkboardSE.ttc */,
+				3189509D1C75AD7F00DB3BA6 /* GillSans.ttc */,
+				318950991C75A2DE00DB3BA6 /* AmericanTypewriter.ttc */,
 				3100970F1C72B2A1003C7FA6 /* Tahoma Bold.ttf */,
 				310097101C72B2A1003C7FA6 /* Tahoma.ttf */,
+				3189509B1C75A57300DB3BA6 /* Arial Narrow.ttf */,
+				318950971C759BF600DB3BA6 /* Arial Rounded Bold.ttf */,
 			);
 			name = Font;
 			sourceTree = "<group>";
@@ -349,12 +364,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3189509A1C75A2DE00DB3BA6 /* AmericanTypewriter.ttc in Resources */,
 				C3CDD51B1C522DAE00209556 /* terms.plist in Resources */,
+				3189509E1C75AD7F00DB3BA6 /* GillSans.ttc in Resources */,
 				311A89F91C685ECE00257A26 /* SingleViewCoreData.sqlite-wal in Resources */,
 				C3CDD5131C522CFD00209556 /* LaunchScreen.storyboard in Resources */,
+				318950981C759BF600DB3BA6 /* Arial Rounded Bold.ttf in Resources */,
 				311A8A091C68654D00257A26 /* hanzi2pinyin_v2.txt in Resources */,
+				3189509C1C75A57300DB3BA6 /* Arial Narrow.ttf in Resources */,
 				311A89F81C685ECE00257A26 /* SingleViewCoreData.sqlite-shm in Resources */,
 				C3CDD5101C522CFD00209556 /* Assets.xcassets in Resources */,
+				318950A01C75B47200DB3BA6 /* ChalkboardSE.ttc in Resources */,
 				310097121C72B2A1003C7FA6 /* Tahoma.ttf in Resources */,
 				310097111C72B2A1003C7FA6 /* Tahoma Bold.ttf in Resources */,
 				311A89F71C685ECE00257A26 /* SingleViewCoreData.sqlite in Resources */,

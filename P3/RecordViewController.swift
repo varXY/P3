@@ -21,7 +21,7 @@ class RecordViewController: UIViewController {
 		view.backgroundColor = UIColor.deepGray()
 		title = "Score: \(totalScore)"
 
-		let quitButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss")
+		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
 		navigationItem.rightBarButtonItem = quitButton
 
 		tableView = UITableView(frame: view.bounds, style: .Plain)

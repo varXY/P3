@@ -14,4 +14,17 @@ extension UIFont {
 	class func buttonTitleFont(size: CGFloat) -> UIFont {
 		return UIFont(name: "Tahoma", size: size)!
 	}
+
+	class func pickerFont(size: CGFloat) -> UIFont {
+		return UIFont(name: "AmericanTypewriter", size: size)!
+		// Arial Rounded MT Bold
+		// Tahoma-Blod
+	}
+
+	class func scoreFont(size: CGFloat) -> UIFont {
+		return UIFont(name: "GillSans", size: size)!
+		// ArialNarrow
+		// GillSans
+		// ChalkboardSE-Regular
+	}
 }

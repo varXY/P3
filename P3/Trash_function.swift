@@ -7,6 +7,36 @@
 //
 
 
+//func confirm() {
+//
+//	if !answerShowed {
+//		answerShowed = true
+//		showRightOrWrong()
+//
+//		delay(seconds: 0.7, completion: {
+//			self.currentPage++
+//			self.addContent(page: self.currentPage, firstTime: false)
+//		})
+//
+//	} else {
+//		answerShowed = false
+//
+//		if currentPage != 10 {
+//			headerView.changeNumber(toNumber: currentPage + 1)
+//			jumpToPage(currentPage)
+//		}
+//
+//	}
+//
+//}
+
+//pageLabel = UILabel(frame: CGRect(x: (self.frame.width - 100) / 2, y: 15, width: 100, height: height))
+//pageLabel.textColor = UIColor.whiteColor()
+//pageLabel.textAlignment = .Center
+//pageLabel.font = UIFont.systemFontOfSize(18)
+//pageLabel.text = "\(page) / 10"
+//self.addSubview(pageLabel)
+
 //func removeThreeMainButtons() {
 //	for i in 0..<3 {
 //		if let button = self.view.viewWithTag(10 + i) {

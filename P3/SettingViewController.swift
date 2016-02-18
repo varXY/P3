@@ -13,16 +13,17 @@ import MessageUI
 class SettingViewController: UIViewController {
 
 	var tableView: UITableView!
-	var switchControl: UISwitch!
+	var switchControl_S: UISwitch!
+	var switchControl_V: UISwitch!
 
-	let titles = ["Sound & Vibration", "Spell Component Amount", "Feedback"]
+	let titles = ["Sound", "Vibration", "Spell Component Amount", "Feedback"]
 	var C_amount = Int()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.title = "Setting"
+		self.title = "Settings"
 
-		let quitButton = UIBarButtonItem(barButtonSystemItem: .Stop, target: self, action: "dismiss")
+		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
 		navigationItem.rightBarButtonItem = quitButton
 
 		tableView = UITableView(frame: view.bounds, style: .Grouped)
@@ -31,13 +32,22 @@ class SettingViewController: UIViewController {
 		tableView.delegate = self
 		view = tableView
 
-		switchControl = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
+		switchControl_S = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
+		switchControl_S.onTintColor = UIColor.rightGreen()
+		switchControl_V = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
+		switchControl_V.onTintColor = UIColor.rightGreen()
 
 		let userDefaults = NSUserDefaults.standardUserDefaults()
 		if let soundOn = userDefaults.valueForKey(Defaults.sound) as? Bool {
-			switchControl.setOn(soundOn, animated: true)
+			switchControl_S.setOn(soundOn, animated: true)
 		} else {
-			switchControl.setOn(true, animated: true)
+			switchControl_S.setOn(true, animated: true)
+		}
+
+		if let vibration = userDefaults.valueForKey(Defaults.Vibration) as? Bool {
+			switchControl_V.setOn(vibration, animated: true)
+		} else {
+			switchControl_V.setOn(true, animated: true)
 		}
 
 		C_amount = userDefaults.integerForKey(Defaults.C_amount)
@@ -58,7 +68,7 @@ class SettingViewController: UIViewController {
 		let deviceName = UIDevice.currentDevice().localizedModel
 		let iOSVersion = UIDevice.currentDevice().systemVersion
 
-		let messageBody = "\n\n\n" + appName + ": " + appVersion + "\n" + deviceName + ": " + iOSVersion
+		let messageBody = "\n\n\n" + appName + "_" + appVersion + "\n" + deviceName + "_" + iOSVersion
 
 		if MFMailComposeViewController.canSendMail() {
 			let controller = MFMailComposeViewController()
@@ -84,7 +94,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return section == 0 ? 2 : 1
+		return section == 0 ? 3 : 1
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -92,18 +102,23 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 		if indexPath.section == 0 && indexPath.row == 0 {
 			cell.textLabel?.text = titles[0]
-			cell.addSubview(switchControl)
+			cell.addSubview(switchControl_S)
 		}
 
 		if indexPath.section == 0 && indexPath.row == 1 {
-			cell = UITableViewCell(style: .Value1, reuseIdentifier: "Cell_1")
 			cell.textLabel?.text = titles[1]
+			cell.addSubview(switchControl_V)
+		}
+
+		if indexPath.section == 0 && indexPath.row == 2 {
+			cell = UITableViewCell(style: .Value1, reuseIdentifier: "Cell_1")
+			cell.textLabel?.text = titles[2]
 			cell.detailTextLabel?.text = String(C_amount)
 			cell.accessoryType = .DisclosureIndicator
 		}
 
 		if indexPath.section == 1 {
-			cell.textLabel?.text = titles[2]
+			cell.textLabel?.text = titles[3]
 			cell.textLabel?.textAlignment = .Center
 		}
 
@@ -114,11 +129,16 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		let userDefaults = NSUserDefaults.standardUserDefaults()
 
 		if indexPath.section == 0 && indexPath.row == 0 {
-			switchControl.on ? switchControl.setOn(false, animated: true) : switchControl.setOn(true, animated: true)
-			userDefaults.setBool(switchControl.on, forKey: Defaults.sound)
+			switchControl_S.on ? switchControl_S.setOn(false, animated: true) : switchControl_S.setOn(true, animated: true)
+			userDefaults.setBool(switchControl_S.on, forKey: Defaults.sound)
 		}
 
 		if indexPath.section == 0 && indexPath.row == 1 {
+			switchControl_V.on ? switchControl_V.setOn(false, animated: true) : switchControl_V.setOn(true, animated: true)
+			userDefaults.setBool(switchControl_V.on, forKey: Defaults.Vibration)
+		}
+
+		if indexPath.section == 0 && indexPath.row == 2 {
 			let settingVC_1 = SettingVC_1()
 			settingVC_1.selectedOne = C_amount
 			settingVC_1.sendBack = { (selected) -> Void in

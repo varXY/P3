@@ -14,13 +14,11 @@ class SelectTheSameViewController: UIViewController {
 	var scrollView = UIScrollView()
 	var currentPage = 0
 
-	let chinese = Chinese()
+	var chinese: Chinese!
 	var rightAnswer = String()
 	var rightCount = 0
 	var answerShowed = false
 
-	var firstData = [[String]]()
-	
 	var blockViews = [BlockView]()
 
 	var nextButton: NextButton!
@@ -33,7 +31,6 @@ class SelectTheSameViewController: UIViewController {
 	let wrongScore = -3
 
 	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
-	var sendBackGroup: ((group: [[String]]) -> Void)!
 
 	override func prefersStatusBarHidden() -> Bool {
 		return true
@@ -43,7 +40,7 @@ class SelectTheSameViewController: UIViewController {
 		super.viewDidLoad()
 		self.view.backgroundColor = UIColor.deepGray()
 
-		headerView = HeaderView(page: 1, score: totalScore)
+		headerView = HeaderView(number: 1, totalScore: totalScore)
 		headerView.delegate = self
 		self.view.addSubview(headerView)
 
@@ -77,17 +74,8 @@ class SelectTheSameViewController: UIViewController {
 
 	func addContent(page page: Int, firstTime: Bool) {
 
-		var group = [[String]]()
-
-		if firstTime {
-			group = self.firstData
-		} else {
-			chinese.getSixForSelectTheSame_1()
-			group = chinese.forSelectTheSame
-			sendBackGroup(group: group)
-		}
-
-		rightAnswer = group[0][0]
+		if !firstTime { chinese.getSixForSelectTheSame_1() }
+		rightAnswer = chinese.forSelectTheSame[0][0]
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let indexs = getRandomNumbers(6, lessThan: 6)
@@ -97,7 +85,7 @@ class SelectTheSameViewController: UIViewController {
 			let x = positionInPage + (ScreenWidth - BlockWidth.selectTheSame * 2) / 3 + (BlockWidth.selectTheSame + margin) * CGFloat(i % 2)
 			let y = blockY(i)
 
-			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: group[indexs[i]])
+			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: chinese.forSelectTheSame[indexs[i]])
 			blockView.delegate = self
 			blockViews.append(blockView)
 			scrollView.addSubview(blockViews[blockViews.count - 1])
@@ -119,65 +107,27 @@ class SelectTheSameViewController: UIViewController {
 	}
 
 	func removeContent() {
-
 		for i in 0..<5 {
 			blockViews[i].removeFromSuperview()
 		}
-
-	}
-
-	func confirm() {
-
-		if !answerShowed {
-			answerShowed = true
-			showRightOrWrong()
-
-			delay(seconds: 0.7, completion: {
-				self.currentPage++
-				self.addContent(page: self.currentPage, firstTime: false)
-			})
-
-		} else {
-			answerShowed = false
-
-			if currentPage != 10 {
-				headerView.changePage(currentPage + 1)
-				jumpToPage(currentPage)
-			}
-
-		}
-
 	}
 
 	func showRightOrWrong() {
 		let allTheSame = selectedBlocks.filter({ $0[0] == rightAnswer })
+		let right = allTheSame.count == 3 && selectedBlocks.count == 3
+		let color: ColorType = right ? .Green : .Red
+		let score = right ? rightScore : wrongScore
 
-		if allTheSame.count == 3 && selectedBlocks.count == 3 {
-			rightCount++
+		delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(score) })
 
-			for blockView in blockViews {
-				blockView.setSelectable(false)
-				blockView.allChangeColor(.Green)
-				delay(seconds: 0.5, completion: {
-					blockView.showAllPinyin()
-					if blockView.text[0] == self.rightAnswer { blockView.showGreenBorder() }
-				})
-			}
+		for blockView in blockViews {
+			blockView.setSelectable(false)
+			blockView.allChangeColor(color)
 
-			headerView.showAndAddScore(rightScore)
-
-		} else {
-
-			for blockView in blockViews {
-				blockView.setSelectable(false)
-				blockView.allChangeColor(.Red)
-				delay(seconds: 0.5, completion: {
-					blockView.showAllPinyin()
-					if blockView.text[0] == self.rightAnswer { blockView.showGreenBorder() }
-				})
-			}
-
-			headerView.showAndAddScore(wrongScore)
+			delay(seconds: 0.6, completion: {
+				blockView.showAllPinyin()
+				if blockView.text[0] == self.rightAnswer { blockView.showGreenBorder() }
+			})
 
 		}
 
@@ -214,9 +164,6 @@ extension SelectTheSameViewController: BlockViewDelegate {
 			selectedBlocks = selectedBlocks.filter({ $0[1] != text })
 		}
 
-		print(selectedBlocks.count)
-		print(nextButton.titleType)
-
 		if selectedBlocks.count > 2 && nextButton.titleType != .Confirm {
 			nextButton.show(.Confirm, dismissAfterTapped: false)
 		}
@@ -249,12 +196,12 @@ extension SelectTheSameViewController: NextButtonDelegate {
 			if title == .Confirm {
 				showRightOrWrong()
 
-				delay(seconds: 0.5, completion: { () -> () in
+				delay(seconds: 0.8, completion: {
 					let nextTitle: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
 					self.nextButton.changeTitle(nextTitle, dismissAfterTapped: true)
 				})
 
-				delay(seconds: 0.7, completion: { () -> () in
+				delay(seconds: 0.85, completion: {
 					self.currentPage++
 					self.addContent(page: self.currentPage, firstTime: false)
 				})
@@ -262,12 +209,15 @@ extension SelectTheSameViewController: NextButtonDelegate {
 			}
 
 			if title == .Next {
-				headerView.changePage(currentPage + 1)
-				jumpToPage(currentPage)
+				delay(seconds: Time.toNextPageWaitingTime, completion: {
+					self.headerView.changeNumber(toNumber: self.currentPage + 1)
+					self.jumpToPage(self.currentPage)
+				})
+
 			}
 
 		} else {
-			headerView.pageToTitle(Titles.completed)
+			headerView.showAllNumbers()
 
 			let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
 			let finalView = FinalView(title: "共答对了\(rightCount)题\n总分" + score)
@@ -295,9 +245,8 @@ extension SelectTheSameViewController: FinalViewDelegate {
 	func finalViewButtonTapped(buttonType: FinalViewButtonType) {
 
 		if buttonType == .Again {
-			self.headerView.clearCurrentScore()
-			self.headerView.changePage(1)
-			self.rightCount = 0
+			headerView.startAllOver()
+			rightCount = 0
 
 			UIView.animateWithDuration(0.5, animations: {
 				self.scrollView.frame.origin.x -= self.view.frame.width
