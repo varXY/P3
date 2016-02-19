@@ -167,7 +167,7 @@ class Chinese {
 		"cai zhi，cai shi",
 		"ce shi，ce zi",
 		"cha shi，chai shi",
-		"chai shu，chai shi",
+//		"chai shu，chai shi",
 		"chan shi，chang shi",
 		"cheng xian，cheng xiang",
 		"cheng shi，chen shi",

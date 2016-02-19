@@ -9,18 +9,9 @@
 import Foundation
 import UIKit
 
-class SpellViewController: UIViewController {
+class SpellViewController: TestViewController {
 
-	var chinese: Chinese!
-
-	var scrollView = UIScrollView()
-	var blockViews = [BlockView]()
 	var picker = UIPickerView()
-	var titleLabel = UILabel()
-	var quitButton = UIButton()
-
-	var nextButton: NextButton!
-	var headerView: HeaderView!
 
 	var componentType = 0
 	let component_titles_0 = [" ", "b", "c", "ch", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "sh", "t", "w", "x", "y", "z", "zh", " "]
@@ -29,28 +20,19 @@ class SpellViewController: UIViewController {
 	let component_titles_2 = [" ", "a", "e", "i", "n", "o", "r", "u", " "]
 	let component_titles_3 = [" ", "g", "i", "n", "ng", "o", "u", " "]
 
-
 	var component_allTitles = [[String]]()
 
-	var rightCount = 0
-	var currentPage = 0
 	var selectedPinyin = String()
 	var selectedIndex = 0
 	var showed = false
-
-	var totalScore = Int()
-	let rightScore = 2
-	let wrongScore = -2
-
-	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
-
-	override func prefersStatusBarHidden() -> Bool {
-		return true
-	}
+	
+	var staySeconds = 0
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.deepGray()
+
+		rightScore = 2
+		wrongScore = -2
 
 		let userDefaults = NSUserDefaults.standardUserDefaults()
 		let amount = userDefaults.integerForKey(Defaults.C_amount)
@@ -76,21 +58,10 @@ class SpellViewController: UIViewController {
 
 	}
 
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		self.navigationController?.setNavigationBarHidden(true, animated: true)
-
-	}
-
 	func prepareScrollView(firstTime firstTime: Bool) {
-		let x = firstTime ? 0 : self.view.frame.width
-		scrollView = UIScrollView(frame: CGRect(x: x, y: 0, width: self.view.frame.width, height: ScreenHeight / 2))
-		scrollView.contentSize = CGSize(width: scrollView.frame.width * 10, height: scrollView.frame.height)
-		scrollView.backgroundColor = UIColor.deepGray()
-		scrollView.pagingEnabled = true
-		scrollView.scrollEnabled = false
-		view.addSubview(scrollView)
-		view.bringSubviewToFront(headerView)
+		let x = firstTime ? 0 : view.frame.width
+		scrollView = UIScrollView(frame: CGRect(x: x, y: 0, width: ScreenWidth, height: ScreenHeight / 2))
+		setUpScrollView()
 		
 		currentPage = 0
 		addContent(currentPage, firstTime: firstTime)
@@ -107,24 +78,13 @@ class SpellViewController: UIViewController {
 		let point = CGPoint(x: positionInPage + (ScreenWidth - BlockWidth.spell) / 2, y: 60)
 		let blockView = BlockView(type: .Spell, origin: point, text: chinese.forSpell)
 		blockView.changeColor(selectedIndex, colorType: .White, backToBlue: false)
+		blockView.delegate = self
 		blockViews.append(blockView)
 		scrollView.addSubview(blockViews[blockViews.count - 1])
 	}
 
-	func removeContent() {
+	override func removeContent() {
 		blockViews[0].removeFromSuperview()
-	}
-
-
-	func jumpToPage(page: Int) {
-		let duration = Double(scrollView.frame.width / 640)
-
-		UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
-			self.scrollView.contentOffset = CGPoint(x: self.scrollView.bounds.size.width * CGFloat(page), y: 0.0)
-			}, completion: {(_) -> Void in
-				self.removeContent()
-		})
-
 	}
 
 	func changeStateBaseOnSelectedPinyin(selectedPinyin: String) {
@@ -147,9 +107,9 @@ class SpellViewController: UIViewController {
 				})
 			} else {
 				headerView.showAndAddScore(rightScore)
-				
+
 				delay(seconds: 0.8, completion: { () -> () in
-					let title: NextButtonTitle = self.currentPage == 10 ? .Done : .Next
+					let title: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
 					self.nextButton.show(title, dismissAfterTapped: true)
 				})
 
@@ -164,21 +124,25 @@ class SpellViewController: UIViewController {
 		}
 	}
 
-	func confirmToQuit() {
-		self.navigationController?.popViewControllerAnimated(true)
-	}
-
 }
 
-extension SpellViewController: HeaderViewDelegate {
+extension SpellViewController: BlockViewDelegate {
 
-	func backButtonTapped() {
-		if currentPage != 0 && currentPage != 10 {
-			alertOfStayOrQuit(self, title: "Sure to Quit?", message: "If you quit, current scores will lose.", quit: { self.confirmToQuit() })
-		} else {
-			navigationController?.popToRootViewControllerAnimated(true)
-		}
+	func blockViewSelected(selected: Bool, blockText: [String]) {
+	}
 
+	func answerShowedByQuestionMark() {
+
+		delay(seconds: 0.8, completion: { () -> () in
+			self.headerView.showAndAddScore(self.wrongScore)
+			let title: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
+			self.nextButton.show(title, dismissAfterTapped: true)
+		})
+
+		delay(seconds: 0.85, completion: { () -> () in
+			self.currentPage++
+			self.addContent(self.currentPage, firstTime: false)
+		})
 	}
 }
 
@@ -193,18 +157,13 @@ extension SpellViewController: NextButtonDelegate {
 				self.jumpToPage(self.currentPage)
 			})
 		} else {
-			headerView.showAllNumbers()
-
-			let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
-			let finalView = FinalView(title: "Score: " + score)
-			finalView.delegate = self
-			view.addSubview(finalView)
-
-			UIView.animateWithDuration(0.5, animations: { () -> Void in
+			UIView.animateWithDuration(0.3, animations: { () -> Void in
 				self.scrollView.alpha = 0.0
 				}, completion: { (_) -> Void in
+					self.headerView.showAllNumbers()
 					self.scrollView.removeFromSuperview()
-					finalView.show()
+					self.view.bringSubviewToFront(self.finalView)
+					self.finalView.show(self.headerView.currentScore, delay: 0.5)
 					self.prepareScrollView(firstTime: false)
 
 					let score = Score(score: self.headerView.currentScore, time: NSDate())
@@ -216,22 +175,6 @@ extension SpellViewController: NextButtonDelegate {
 	}
 }
 
-
-extension SpellViewController: FinalViewDelegate {
-
-	func finalViewButtonTapped(buttonType: FinalViewButtonType) {
-
-		if buttonType == .Again {
-			headerView.startAllOver()
-
-			UIView.animateWithDuration(0.5, animations: {
-				self.scrollView.frame.origin.x -= self.view.frame.width
-			})
-		} else {
-			confirmToQuit()
-		}
-	}
-}
 
 extension SpellViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 
@@ -247,13 +190,6 @@ extension SpellViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 	func pickerView(pickerView: UIPickerView, rowHeightForComponent component: Int) -> CGFloat {
 		return 40
 	}
-
-//	func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-//		let string = component_allTitles[component][row]
-//		let attributes = [NSForegroundColorAttributeName: UIColor.themeGold(), NSFontAttributeName: UIFont.pickerFont(20)]
-//		let title = NSAttributedString(string: string, attributes: attributes)
-//		return title
-//	}
 
 	func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
 		let view = UIView(frame: CGRect(x: 0, y: 0, width: picker.frame.width / CGFloat(picker.numberOfComponents), height: 40))

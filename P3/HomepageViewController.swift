@@ -17,6 +17,9 @@ class HomepageViewController: UIViewController {
 
 	var scoreModel = ScoreModel()
 
+	var sound: Bool!
+	var vibration: Bool!
+
 	override func preferredStatusBarStyle() -> UIStatusBarStyle {
 		return .LightContent
 	}
@@ -29,6 +32,7 @@ class HomepageViewController: UIViewController {
 		addThreeMainButtons()
 		addTwoLittleButtons()
 
+		setSoundAndVibration()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -90,7 +94,7 @@ class HomepageViewController: UIViewController {
 
 			button.backgroundColor = UIColor.clearColor()
 			button.addTextLabel(Titles.homepageBigButtons[i], textColor: UIColor.whiteColor(), font: UIFont.systemFontOfSize(22), animated: false)
-			button.changeColorWhenTouchDown()
+			button.changeColorWhenTouchDown(UIColor.whiteColor())
 			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
 
 			button.exclusiveTouch = true
@@ -121,52 +125,45 @@ class HomepageViewController: UIViewController {
 		}
 	}
 
-	func bigButtonTapped(sender: UIButton) {
+	func setSoundAndVibration() {
+		let defaults = NSUserDefaults.standardUserDefaults()
+		if let sound = defaults.valueForKey(Defaults.sound) as? Bool {
+			self.sound = sound
+		} else {
+			self.sound = true
+		}
 
-		switch sender.tag {
-		case 10:
-			let sameOrNotVC = SameOrNotViewController()
-			sameOrNotVC.chinese = chinese
-			sameOrNotVC.totalScore = scoreModel.totalScore
-
-			sameOrNotVC.sendBackScore = { (totalScore, score) -> Void in
-				self.scoreModel.totalScore = totalScore
-				self.scoreModel.scores.insert(score, atIndex: 0)
-			}
-
-			self.navigationController?.pushViewController(sameOrNotVC, animated: true)
-
-		case 11:
-			let selectTheSameVC = SelectTheSameViewController()
-			selectTheSameVC.chinese = chinese
-			selectTheSameVC.totalScore = scoreModel.totalScore
-
-			selectTheSameVC.sendBackScore = { (totalScore, score) -> Void in
-				self.scoreModel.totalScore = totalScore
-				self.scoreModel.scores.insert(score, atIndex: 0)
-			}
-
-			self.navigationController?.pushViewController(selectTheSameVC, animated: true)
-			
-		case 12:
-			let spellVC = SpellViewController()
-			spellVC.chinese = chinese
-			spellVC.totalScore = scoreModel.totalScore
-
-			spellVC.sendBackScore = { (totalScore, score) -> Void in
-				self.scoreModel.totalScore = totalScore
-				self.scoreModel.scores.insert(score, atIndex: 0)
-			}
-			
-			self.navigationController?.pushViewController(spellVC, animated: true)
-
-		default:
-			break
+		if let vibration = defaults.valueForKey(Defaults.vibration) as? Bool {
+			self.vibration = vibration
+		} else {
+			self.vibration = true
 		}
 	}
 
-	func smallButtonTapped(sender: UIButton) {
+	func bigButtonTapped(sender: UIButton) {
 
+		var viewController: TestViewController!
+
+		switch sender.tag {
+		case 10: viewController = SameOrNotViewController()
+		case 11: viewController = SelectTheSameViewController()
+		case 12: viewController = SpellViewController()
+		default: break
+		}
+
+		viewController.sound = sound
+		viewController.vibration = vibration
+		viewController.chinese = chinese
+		viewController.totalScore = scoreModel.totalScore
+		viewController.sendBackScore = { (totalScore, score) -> Void in
+			self.scoreModel.totalScore = totalScore
+			self.scoreModel.scores.insert(score, atIndex: 0)
+		}
+
+		navigationController?.pushViewController(viewController, animated: true)
+	}
+
+	func smallButtonTapped(sender: UIButton) {
 		let isRecord = sender.tag == 9111
 
 		if isRecord {
@@ -208,9 +205,7 @@ class HomepageViewController: UIViewController {
 			presentViewController(navi, animated: true, completion: nil)
 		}
 
-
 	}
-    
 
 }
 

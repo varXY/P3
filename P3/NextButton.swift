@@ -45,6 +45,7 @@ class NextButton: UIButton {
 	}
 
 	func nextButtonTapped() {
+		userInteractionEnabled = false
 		if dismissAfterTapped { hide() }
 		delegate?.nextButtonTapped(titleType)
 	}
@@ -84,6 +85,8 @@ class NextButton: UIButton {
 		case .Confirm, .Done:
 			self.addTextLabel(toTitle.title!, textColor: tintColor, font: UIFont.buttonTitleFont(22), animated: true)
 		}
+
+		userInteractionEnabled = true
 	}
 
 	func hide() {

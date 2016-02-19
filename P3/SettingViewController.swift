@@ -16,11 +16,12 @@ class SettingViewController: UIViewController {
 	var switchControl_S: UISwitch!
 	var switchControl_V: UISwitch!
 
-	let titles = ["Sound", "Vibration", "Spell Component Amount", "Feedback"]
+	let titles = ["Sound", "Vibration", "Number of components in spell", "Feedback"]
 	var C_amount = Int()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
+		navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.themeGold()]
 		self.title = "Settings"
 
 		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
@@ -44,7 +45,7 @@ class SettingViewController: UIViewController {
 			switchControl_S.setOn(true, animated: true)
 		}
 
-		if let vibration = userDefaults.valueForKey(Defaults.Vibration) as? Bool {
+		if let vibration = userDefaults.valueForKey(Defaults.vibration) as? Bool {
 			switchControl_V.setOn(vibration, animated: true)
 		} else {
 			switchControl_V.setOn(true, animated: true)
@@ -135,7 +136,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 		if indexPath.section == 0 && indexPath.row == 1 {
 			switchControl_V.on ? switchControl_V.setOn(false, animated: true) : switchControl_V.setOn(true, animated: true)
-			userDefaults.setBool(switchControl_V.on, forKey: Defaults.Vibration)
+			userDefaults.setBool(switchControl_V.on, forKey: Defaults.vibration)
 		}
 
 		if indexPath.section == 0 && indexPath.row == 2 {

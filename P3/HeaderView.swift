@@ -100,8 +100,6 @@ class HeaderView: UIView {
 	// MARK: - Functions
 
 	func changeNumber(toNumber toNumber: Int) {
-//		hideNumberLabel(showedNumber, textColor: UIColor.whiteColor())
-//		showNumberLabel(toNumber, textColor: UIColor.whiteColor())
 		UIView.animateWithDuration(0.3, animations: { () -> Void in
 			self.centerLabel.alpha = 0.0
 			}) { (_) -> Void in
@@ -114,11 +112,11 @@ class HeaderView: UIView {
 	}
 
 	func showAllNumbers() {
-		UIView.animateWithDuration(0.3) { () -> Void in
+		UIView.animateWithDuration(0.15) { () -> Void in
 			self.centerLabel.alpha = 0.0
 		}
 
-		delay(seconds: 0.3) { () -> () in
+		delay(seconds: 0.15) { () -> () in
 			for i in 0..<10 {
 				delay(seconds: 0.05 * Double(i), completion: { () -> () in
 					self.showNumberLabel(i + 1, textColor: self.numberColors[i])
@@ -161,10 +159,6 @@ class HeaderView: UIView {
 			delay(seconds: 0.05 * Double(i), completion: { () -> () in
 				self.hideNumberLabel(i + 1, textColor: UIColor.whiteColor())
 			})
-
-//			delay(seconds: 0.5, completion: { () -> () in
-//				self.showNumberLabel(1, textColor: UIColor.whiteColor())
-//			})
 		}
 
 		delay(seconds: 0.3, completion: { self.changeNumber(toNumber: 1) })

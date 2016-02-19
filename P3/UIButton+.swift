@@ -50,10 +50,12 @@ extension UIButton {
 		}
 	}
 
-	func changeColorWhenTouchDown() {
+	func changeColorWhenTouchDown(borderColor: UIColor) {
+		let selector = borderColor == UIColor.whiteColor() ? "changeColorBack" : "changeColorBack_D"
+
 		self.addTarget(self, action: "changeColor", forControlEvents: .TouchDown)
-		self.addTarget(self, action: "changeColorBack", forControlEvents: .TouchUpOutside)
-		self.addTarget(self, action: "changeColorBack", forControlEvents: .TouchUpInside)
+		self.addTarget(self, action: Selector(selector), forControlEvents: .TouchUpOutside)
+		self.addTarget(self, action: Selector(selector), forControlEvents: .TouchUpInside)
 	}
 
 	func addAnimation(animationType: AnimationType, delay: Double, distance: CGFloat) {
@@ -128,6 +130,11 @@ extension UIButton {
 	func changeColorBack() {
 		self.backgroundColor = UIColor.clearColor()
 		self.layer.borderColor = UIColor.whiteColor().CGColor
+	}
+
+	func changeColorBack_D() {
+		self.backgroundColor = UIColor.clearColor()
+		self.layer.borderColor = UIColor.deepGray().CGColor
 	}
 
 	

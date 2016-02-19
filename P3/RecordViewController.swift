@@ -19,7 +19,8 @@ class RecordViewController: UIViewController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = UIColor.deepGray()
-		title = "Score: \(totalScore)"
+		navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.themeGold()]
+		title = "Total Score: \(totalScore)"
 
 		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
 		navigationItem.rightBarButtonItem = quitButton

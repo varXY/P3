@@ -9,64 +9,35 @@
 import Foundation
 import UIKit
 
-class SelectTheSameViewController: UIViewController {
+class SelectTheSameViewController: TestViewController {
 
-	var scrollView = UIScrollView()
-	var currentPage = 0
-
-	var chinese: Chinese!
 	var rightAnswer = String()
-	var rightCount = 0
 	var answerShowed = false
-
-	var blockViews = [BlockView]()
-
-	var nextButton: NextButton!
-	var headerView: HeaderView!
-
 	var selectedBlocks = [[String]]()
 
-	var totalScore = Int()
-	let rightScore = 3
-	let wrongScore = -3
-
-	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
-
-	override func prefersStatusBarHidden() -> Bool {
-		return true
-	}
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.deepGray()
+
+		rightScore = 3
+		wrongScore = -3
 
 		headerView = HeaderView(number: 1, totalScore: totalScore)
 		headerView.delegate = self
-		self.view.addSubview(headerView)
+		view.addSubview(headerView)
 
 		nextButton = NextButton()
 		nextButton.delegate = self
-		self.view.addSubview(nextButton)
+		view.addSubview(nextButton)
 
 		prepareScrollView(firstTime: true)
 
 	}
 
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		self.navigationController?.setNavigationBarHidden(true, animated: true)
-	}
-
 	func prepareScrollView(firstTime firstTime: Bool) {
-		let frame = firstTime ? self.view.bounds : CGRect(x: self.view.frame.width, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-		scrollView = UIScrollView(frame: frame)
-		scrollView.contentSize = CGSize(width: scrollView.frame.width * 10, height: scrollView.frame.height)
-		scrollView.backgroundColor = UIColor.deepGray()
-		scrollView.pagingEnabled = true
-		scrollView.scrollEnabled = false
-		self.view.addSubview(scrollView)
-		self.view.bringSubviewToFront(headerView)
-		self.view.bringSubviewToFront(nextButton)
+		scrollView = UIScrollView(frame: view.bounds)
+		scrollView.frame.origin.x += firstTime ? 0 : view.frame.width
+		setUpScrollView()
 
 		currentPage = 0
 		addContent(page: currentPage, firstTime: firstTime)
@@ -106,7 +77,7 @@ class SelectTheSameViewController: UIViewController {
 		}
 	}
 
-	func removeContent() {
+	override func removeContent() {
 		for i in 0..<5 {
 			blockViews[i].removeFromSuperview()
 		}
@@ -134,22 +105,6 @@ class SelectTheSameViewController: UIViewController {
 		selectedBlocks.removeAll()
 	}
 
-	func jumpToPage(page: Int) {
-		let duration = Double(scrollView.frame.width / 640)
-
-		UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
-			self.scrollView.contentOffset = CGPoint(x: self.scrollView.bounds.size.width * CGFloat(page), y: 0.0)
-			}, completion: {(_) -> Void in
-				self.removeContent()
-		})
-
-	}
-
-
-	func confirmToQuit() {
-		self.navigationController?.popViewControllerAnimated(true)
-	}
-
 }
 
 
@@ -173,17 +128,8 @@ extension SelectTheSameViewController: BlockViewDelegate {
 		}
 
 	}
-}
 
-
-extension SelectTheSameViewController: HeaderViewDelegate {
-
-	func backButtonTapped() {
-		if currentPage != 0 && currentPage != 10 {
-			alertOfStayOrQuit(self, title: "Sure to Quit?", message: "If you quit, current scores will lose.", quit: { self.confirmToQuit() })
-		} else {
-			navigationController?.popToRootViewControllerAnimated(true)
-		}
+	func answerShowedByQuestionMark() {
 	}
 }
 
@@ -217,18 +163,13 @@ extension SelectTheSameViewController: NextButtonDelegate {
 			}
 
 		} else {
-			headerView.showAllNumbers()
-
-			let score = self.headerView.currentScore >= 0 ? "+" + "\(headerView.currentScore)" : "\(headerView.currentScore)"
-			let finalView = FinalView(title: "共答对了\(rightCount)题\n总分" + score)
-			finalView.delegate = self
-			self.view.addSubview(finalView)
-
-			UIView.animateWithDuration(0.5, animations: { () -> Void in
+			UIView.animateWithDuration(0.3, animations: { () -> Void in
 				self.scrollView.alpha = 0.0
 				}, completion: { (_) -> Void in
+					self.headerView.showAllNumbers()
 					self.scrollView.removeFromSuperview()
-					finalView.show()
+					self.view.bringSubviewToFront(self.finalView)
+					self.finalView.show(self.headerView.currentScore, delay: 0.5)
 					self.prepareScrollView(firstTime: false)
 
 					let score = Score(score: self.headerView.currentScore, time: NSDate())
@@ -239,23 +180,5 @@ extension SelectTheSameViewController: NextButtonDelegate {
 	}
 }
 
-
-extension SelectTheSameViewController: FinalViewDelegate {
-
-	func finalViewButtonTapped(buttonType: FinalViewButtonType) {
-
-		if buttonType == .Again {
-			headerView.startAllOver()
-			rightCount = 0
-
-			UIView.animateWithDuration(0.5, animations: {
-				self.scrollView.frame.origin.x -= self.view.frame.width
-			})
-
-		} else {
-			self.confirmToQuit()
-		}
-	}
-}
 
 

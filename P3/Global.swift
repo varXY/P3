@@ -44,7 +44,7 @@ enum AnimationType {
 
 struct Defaults {
 	static let sound = "Sound"
-	static let Vibration = "Vibration"
+	static let vibration = "Vibration"
 	static let C_amount = "C_amount"
 }
 
@@ -58,7 +58,7 @@ struct Titles {
 	static let confirm = "Confirm"
 	static let done = "Done"
 	static let completed = "Completed"
-	static let homepageBigButtons = ["SAME OR DIFFERENT", "SELECT THE SAME", "SPELL IT"]
+	static let homepageBigButtons = ["SAME OR NOT", "SELECT THE SAME", "SPELL IT"]
 	static let homepageSmallButtons = ["Records", "Settings"]
 	static let sameOrNot = ["Same", "Different"]
 	static let finalChoices = ["Again", "Quit"]

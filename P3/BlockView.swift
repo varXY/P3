@@ -36,8 +36,9 @@ enum ColorType {
 	}
 }
 
-protocol BlockViewDelegate: class {
+public protocol BlockViewDelegate: class {
 	func blockViewSelected(selected: Bool, blockText: [String])
+	func answerShowedByQuestionMark()
 }
 
 class BlockView: UIView {
@@ -53,6 +54,9 @@ class BlockView: UIView {
 
 	var pinyinVisble = false
 	var selected = false
+	var questionMarkVisble = false
+
+	var pinyinShowedIndexs = [Int]()
 
 	weak var delegate: BlockViewDelegate?
 
@@ -68,6 +72,7 @@ class BlockView: UIView {
 
 		if type == .Homepage { colorForHomepage(); showAllPinyin() }
 		if type == .SelectTheSame { addButton() }
+		if type == .Spell { addButtonForColorView() }
 	}
 
 	func addColorfulView(text: [String]) {
@@ -144,7 +149,7 @@ class BlockView: UIView {
 			let textLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: yPositions[0])
 			let textLabel = UILabel(frame: CGRect(origin: textLabelOrigin, size: labelSize))
 			textLabel.textColor = UIColor.whiteColor()
-			textLabel.font = UIFont.systemFontOfSize(20)
+			textLabel.font = UIFont.systemFontOfSize(21)
 			textLabel.textAlignment = .Center
 			textLabel.text = letters[i]
 			textLabels.append(textLabel)
@@ -152,7 +157,7 @@ class BlockView: UIView {
 			let pinyinLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: yPositions[1])
 			let pinyinLabel = UILabel(frame: CGRect(origin: pinyinLabelOrigin, size: labelSize))
 			pinyinLabel.textColor = UIColor.whiteColor()
-			pinyinLabel.font = UIFont.systemFontOfSize(18)
+			pinyinLabel.font = UIFont.systemFontOfSize(19)
 			pinyinLabel.textAlignment = .Center
 			pinyinLabel.text = pinyins[i]
 			pinyinLabel.adjustsFontSizeToFitWidth = true
@@ -166,7 +171,7 @@ class BlockView: UIView {
 
 		for pinyinLabel in pinyinLabels {
 			pinyinLabel.alpha = 0.0
-			self.addSubview(pinyinLabel)
+			addSubview(pinyinLabel)
 		}
 	}
 
@@ -174,33 +179,76 @@ class BlockView: UIView {
 		button = UIButton(frame: self.bounds)
 		button.backgroundColor = UIColor.clearColor()
 		button.addTarget(self, action: "selected:", forControlEvents: .TouchUpInside)
-		self.addSubview(button)
+		addSubview(button)
 	}
 
-	func homepageChanging(text: [String]) {
-
-		UIView.animateWithDuration(1.5, animations: { () -> Void in
-
-			for textLabel in self.textLabels { textLabel.alpha = 0.0 }
-			for pinyinLabel in self.pinyinLabels { pinyinLabel.alpha = 0.0 }
-
-			}) { (_) -> Void in
-
-				self.changeLabels(text)
-		}
-
-		delay(seconds: 2.5) { () -> () in
-
-			UIView.animateWithDuration(1.5, animations: { () -> Void in
-
-				for textLabel in self.textLabels { textLabel.alpha = 1.0 }
-				for pinyinLabel in self.pinyinLabels { pinyinLabel.alpha = 1.0 }
-
-				}, completion: nil)
-
-		}
-
+	func addButtonForColorView() {
+		let button = UIButton(frame: bounds)
+		button.addTarget(self, action: "colorViewTapped", forControlEvents: .TouchUpInside)
+		button.tag = 77
+		addSubview(button)
 	}
+
+	func colorViewTapped() {
+		if !questionMarkVisble {
+			questionMarkVisble = true
+			addQuestionButton()
+		} else {
+			questionMarkVisble = false
+			removeQustionButton()
+		}
+	}
+
+	func addQuestionButton() {
+		let button = UIButton(type: .System)
+		button.frame.size = CGSize(width: 40, height: 40)
+		button.center = CGPoint(x: CGRectGetMidX(bounds), y: CGRectGetMidY(bounds))
+		button.backgroundColor = UIColor.themeGold()
+		button.tintColor = UIColor.whiteColor()
+		button.setTitle("?", forState: .Normal)
+		button.titleLabel?.font = UIFont.systemFontOfSize(25)
+		button.exclusiveTouch = true
+		button.tag = 777
+		addSubview(button)
+
+		button.addTarget(self, action: "showAnwser:", forControlEvents: .TouchUpInside)
+		button.viewAddAnimation(.BecomeVisble, delay: 0.0, distance: 0.0)
+		UIView.animateWithDuration(0.5, animations: { () -> Void in
+			self.alpha = 0.5
+			}, completion: nil)
+	}
+
+	func removeQustionButton() {
+		if let view = self.viewWithTag(777) {
+			UIView.animateWithDuration(0.5, animations: { () -> Void in
+				view.alpha = 0.0
+				self.alpha = 1.0
+				}, completion: { (_) -> Void in
+					view.removeFromSuperview()
+			})
+		}
+	}
+
+	func showAnwser(sender: UIButton) {
+		sender.removeFromSuperview()
+
+		if let view = self.viewWithTag(77) {
+			view.removeFromSuperview()
+		}
+
+		UIView.animateWithDuration(0.5, animations: { () -> Void in
+			self.alpha = 1.0
+			}, completion: nil)
+
+		for i in 0..<colorfulViews.count {
+			changeColor(i, colorType: .Blue, backToBlue: false)
+			showPinyinAtIndex(i)
+		}
+
+		delegate?.answerShowedByQuestionMark()
+	}
+
+	
 
 	func selected(sender: UIButton) {
 
@@ -236,28 +284,57 @@ class BlockView: UIView {
 		if !pinyinVisble {
 			pinyinVisble = true
 
-			UIView.animateWithDuration(0.3) { () -> Void in
+//			UIView.animateWithDuration(0.3) { () -> Void in
+//				for textLabel in self.textLabels {
+//					textLabel.frame.origin.y -= self.frame.height / 5
+//				}
+//
+//				for pinyinLabel in self.pinyinLabels {
+//					pinyinLabel.alpha = 1.0
+//					pinyinLabel.frame.origin.y -= self.frame.height / 4
+//				}
+//			}
+
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [], animations: { () -> Void in
 				for textLabel in self.textLabels {
 					textLabel.frame.origin.y -= self.frame.height / 5
 				}
+				}, completion: nil)
 
+			UIView.animateWithDuration(0.3, delay: 0.07, options: [], animations: { () -> Void in
 				for pinyinLabel in self.pinyinLabels {
 					pinyinLabel.alpha = 1.0
 					pinyinLabel.frame.origin.y -= self.frame.height / 4
 				}
-			}
+				}, completion: nil)
 
 		}
 
 	}
 
 	func showPinyinAtIndex(index: Int) {
+		if let _ = pinyinShowedIndexs.indexOf(index) {
 
-		UIView.animateWithDuration(0.3) { () -> Void in
-			self.textLabels[index].frame.origin.y -= self.frame.height / 5
-			self.pinyinLabels[index].alpha = 1.0
-			self.pinyinLabels[index].frame.origin.y -= self.frame.height / 4
+		} else {
+			pinyinShowedIndexs.append(index)
+
+			UIView.animateWithDuration(0.3, delay: 0.0, options: [], animations: { () -> Void in
+				self.textLabels[index].frame.origin.y -= self.frame.height / 5
+				}, completion: nil)
+
+			UIView.animateWithDuration(0.3, delay: 0.07, options: [], animations: { () -> Void in
+				self.pinyinLabels[index].alpha = 1.0
+				self.pinyinLabels[index].frame.origin.y -= self.frame.height / 4
+				}, completion: nil)
 		}
+
+
+
+//		UIView.animateWithDuration(0.3) { () -> Void in
+//			self.textLabels[index].frame.origin.y -= self.frame.height / 5
+//			self.pinyinLabels[index].alpha = 1.0
+//			self.pinyinLabels[index].frame.origin.y -= self.frame.height / 4
+//		}
 	}
 
 	func changeColor(index: Int, colorType: ColorType, backToBlue: Bool) {

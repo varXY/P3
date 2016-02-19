@@ -32,6 +32,7 @@
 		311A8A151C6963F000257A26 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A141C6963F000257A26 /* UIButton+.swift */; };
 		311A8A171C6963F800257A26 /* Array+removeAtIndexes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A161C6963F800257A26 /* Array+removeAtIndexes.swift */; };
 		311A8A1A1C69737B00257A26 /* Chinese+SameOrNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */; };
+		311B7B131C76A14000B674DB /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311B7B121C76A14000B674DB /* TestViewController.swift */; };
 		317519D41C701001002223F1 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317519D31C701001002223F1 /* Score.swift */; };
 		317519D61C7041DF002223F1 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317519D51C7041DF002223F1 /* HeaderView.swift */; };
 		317519D81C704792002223F1 /* NextButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317519D71C704792002223F1 /* NextButton.swift */; };
@@ -95,6 +96,7 @@
 		311A8A141C6963F000257A26 /* UIButton+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		311A8A161C6963F800257A26 /* Array+removeAtIndexes.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+removeAtIndexes.swift"; sourceTree = "<group>"; };
 		311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+SameOrNot.swift"; sourceTree = "<group>"; };
+		311B7B121C76A14000B674DB /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		317519D31C701001002223F1 /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 		317519D51C7041DF002223F1 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		317519D71C704792002223F1 /* NextButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NextButton.swift; sourceTree = "<group>"; };
@@ -249,6 +251,7 @@
 			children = (
 				3175AF061C69B77C001BEACE /* NavigationController.swift */,
 				C3CDD5071C522CFC00209556 /* HomepageViewController.swift */,
+				311B7B121C76A14000B674DB /* TestViewController.swift */,
 				3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */,
 				31F09E171C6B239200196277 /* SelectTheSameViewController.swift */,
 				31F09E1D1C6C737D00196277 /* SpellViewController.swift */,
@@ -416,6 +419,7 @@
 				311A8A151C6963F000257A26 /* UIButton+.swift in Sources */,
 				311A8A0E1C69631000257A26 /* Trash.swift in Sources */,
 				311A89FF1C68647000257A26 /* Chinese.swift in Sources */,
+				311B7B131C76A14000B674DB /* TestViewController.swift in Sources */,
 				311A8A071C68654200257A26 /* NSString+PinYinConverter.m in Sources */,
 				31C8B7A81C6DB0B60018DD9B /* Trash_1.swift in Sources */,
 				317519DC1C706083002223F1 /* ScoreModel.swift in Sources */,

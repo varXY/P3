@@ -7,6 +7,45 @@
 //
 
 
+//	func addTimer() {
+//		timer =  NSTimer(timeInterval: 2.0, target: self, selector: "countDown", userInfo: nil, repeats: true)
+//		NSRunLoop.mainRunLoop().addTimer(timer, forMode: NSDefaultRunLoopMode)
+//	}
+
+//func homepageChanging(text: [String]) {
+//
+//	UIView.animateWithDuration(1.5, animations: { () -> Void in
+//
+//		for textLabel in self.textLabels { textLabel.alpha = 0.0 }
+//		for pinyinLabel in self.pinyinLabels { pinyinLabel.alpha = 0.0 }
+//
+//		}) { (_) -> Void in
+//
+//			self.changeLabels(text)
+//	}
+//
+//	delay(seconds: 2.5) { () -> () in
+//
+//		UIView.animateWithDuration(1.5, animations: { () -> Void in
+//
+//			for textLabel in self.textLabels { textLabel.alpha = 1.0 }
+//			for pinyinLabel in self.pinyinLabels { pinyinLabel.alpha = 1.0 }
+//
+//			}, completion: nil)
+//
+//	}
+//	
+//}
+
+
+//	func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
+//		let string = component_allTitles[component][row]
+//		let attributes = [NSForegroundColorAttributeName: UIColor.themeGold(), NSFontAttributeName: UIFont.pickerFont(20)]
+//		let title = NSAttributedString(string: string, attributes: attributes)
+//		return title
+//	}
+
+
 //func confirm() {
 //
 //	if !answerShowed {
