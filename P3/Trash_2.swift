@@ -1785,4 +1785,12 @@ class Trash_2 {
 	"nv shi",
 	"nv you",]
 
+	let FiH = ["huan -huang "]
+	let FiJ = ["jian -jiang ", "jian -jie ", "jin -jing ", "jiu -jue "]
+	let FiK = ["kan -kang ", "kuan -kuang "]
+	let FiL = ["lan -lang ", "lian -liang ", "lian -lie ", "lin -ling ", "lu -lv "]
+	let FiM = ["men -meng ", "min -ming ", "mo -mu "]
+	let FiN = ["nong -nv "]
+
+
 }

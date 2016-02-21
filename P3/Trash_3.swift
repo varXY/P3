@@ -1520,8 +1520,11 @@ class Trash_3 {
 	"tuo ye",]
 
 
-
-
+	let FiP = ["pen -peng ", "pin -ping "]
+	let FiQ = ["qian -qiang ", "qin -qing "]
+	let FiR = ["rong -rou ", "ru -rou "]
+	let FiS = ["san -sang ", "shan -shang ", "shen -sheng ", "si -shi ", "shu -su ", "shui -sui ", "shuang -suan "]
+	let FiT = ["tan -tang ", "tian -tie ", "tou -tu "]
 
 
 

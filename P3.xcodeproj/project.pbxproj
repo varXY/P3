@@ -46,6 +46,8 @@
 		3189509C1C75A57300DB3BA6 /* Arial Narrow.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3189509B1C75A57300DB3BA6 /* Arial Narrow.ttf */; };
 		3189509E1C75AD7F00DB3BA6 /* GillSans.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 3189509D1C75AD7F00DB3BA6 /* GillSans.ttc */; };
 		318950A01C75B47200DB3BA6 /* ChalkboardSE.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 3189509F1C75B47200DB3BA6 /* ChalkboardSE.ttc */; };
+		31AF16361C79A72900794531 /* hanzi2pinyin_v1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 31AF16351C79A72900794531 /* hanzi2pinyin_v1.txt */; };
+		31AF16381C79A75D00794531 /* NSString+resourceName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31AF16371C79A75D00794531 /* NSString+resourceName.swift */; };
 		31C8B7A81C6DB0B60018DD9B /* Trash_1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7A71C6DB0B60018DD9B /* Trash_1.swift */; };
 		31C8B7AA1C6DB7310018DD9B /* Trash_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7A91C6DB7310018DD9B /* Trash_2.swift */; };
 		31C8B7AC1C6DB9F00018DD9B /* Trash_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */; };
@@ -110,6 +112,8 @@
 		3189509B1C75A57300DB3BA6 /* Arial Narrow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Arial Narrow.ttf"; sourceTree = "<group>"; };
 		3189509D1C75AD7F00DB3BA6 /* GillSans.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = GillSans.ttc; sourceTree = "<group>"; };
 		3189509F1C75B47200DB3BA6 /* ChalkboardSE.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChalkboardSE.ttc; sourceTree = "<group>"; };
+		31AF16351C79A72900794531 /* hanzi2pinyin_v1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = hanzi2pinyin_v1.txt; sourceTree = "<group>"; };
+		31AF16371C79A75D00794531 /* NSString+resourceName.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSString+resourceName.swift"; sourceTree = "<group>"; };
 		31C8B7A71C6DB0B60018DD9B /* Trash_1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_1.swift; sourceTree = "<group>"; };
 		31C8B7A91C6DB7310018DD9B /* Trash_2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_2.swift; sourceTree = "<group>"; };
 		31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_3.swift; sourceTree = "<group>"; };
@@ -207,11 +211,13 @@
 		311A8A0A1C68655000257A26 /* Charcter Search */ = {
 			isa = PBXGroup;
 			children = (
+				31AF16351C79A72900794531 /* hanzi2pinyin_v1.txt */,
 				311A8A081C68654D00257A26 /* hanzi2pinyin_v2.txt */,
 				311A8A001C6864CC00257A26 /* NSArray+PinYinSearcher.h */,
 				311A8A021C68654200257A26 /* NSArray+PinYinSearcher.m */,
 				311A8A031C68654200257A26 /* NSString+PinYinConverter.h */,
 				311A8A041C68654200257A26 /* NSString+PinYinConverter.m */,
+				31AF16371C79A75D00794531 /* NSString+resourceName.swift */,
 				311A8A051C68654200257A26 /* SWPinYinHeader.h */,
 			);
 			name = "Charcter Search";
@@ -369,6 +375,7 @@
 			files = (
 				3189509A1C75A2DE00DB3BA6 /* AmericanTypewriter.ttc in Resources */,
 				C3CDD51B1C522DAE00209556 /* terms.plist in Resources */,
+				31AF16361C79A72900794531 /* hanzi2pinyin_v1.txt in Resources */,
 				3189509E1C75AD7F00DB3BA6 /* GillSans.ttc in Resources */,
 				311A89F91C685ECE00257A26 /* SingleViewCoreData.sqlite-wal in Resources */,
 				C3CDD5131C522CFD00209556 /* LaunchScreen.storyboard in Resources */,
@@ -430,6 +437,7 @@
 				311A8A0C1C688A2600257A26 /* Global.swift in Sources */,
 				31F09E201C6C73F400196277 /* Chinese+Spell.swift in Sources */,
 				3100970D1C72A423003C7FA6 /* UIFont+CustomFont.swift in Sources */,
+				31AF16381C79A75D00794531 /* NSString+resourceName.swift in Sources */,
 				317519D81C704792002223F1 /* NextButton.swift in Sources */,
 				31F09E1A1C6B26C900196277 /* Chinese+SelectTheSame.swift in Sources */,
 				310097061C7197B7003C7FA6 /* DailyScore.swift in Sources */,

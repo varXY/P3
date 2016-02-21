@@ -45,6 +45,7 @@ enum AnimationType {
 struct Defaults {
 	static let sound = "Sound"
 	static let vibration = "Vibration"
+	static let pronunciations = "Pronunciations"
 	static let C_amount = "C_amount"
 }
 

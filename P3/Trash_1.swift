@@ -8,6 +8,28 @@
 
 import Foundation
 
+//let trash = Trash_4()
+//
+////		let confusables = [trash.FiB, trash.FiC, trash.FiD, trash.FiE, trash.FiF, trash.FiG]
+////		let contents = [trash.B, trash.C, trash.D, trash.E, trash.F, trash.G]
+//
+////		let confusables = [trash.FiH, trash.FiN, trash.FiJ, trash.FiK, trash.FiL, trash.FiM]
+////		let contents = [trash.H, trash.N, trash.J, trash.K, trash.L, trash.M]
+//
+////		let confusables = [trash.FiP, trash.FiQ, trash.FiQ, trash.FiS, trash.FiT]
+////		let contents = [trash.P, trash.Q, trash.R, trash.S, trash.T]
+//
+//let confusables = [trash.FiW, trash.FiX, trash.FiY, trash.FiZ]
+//let contents = [trash.W, trash.X, trash.Y, trash.Z]
+//
+//for content in contents {
+//	for confusable in confusables {
+//		for i in confusable {
+//			findDifferent(content, differents: [i])
+//		}
+//	}
+//}
+
 class Trash_1 {
 
 	let A = ["ai hao",
@@ -2208,34 +2230,34 @@ class Trash_1 {
 	"guo yu",
 ]
 
-let confusableFirstInB = [
-	"ban ，bang ",
+let FiB = [
+	"ban -bang ",
 
 	]
 
-let confusableFirstInC = [
-		"can ，cang ",
-		"chan ，chang ",
-	"chen ，cheng ",
-	"chuan ，chuang ",
+let FiC = [
+		"can -cang ",
+		"chan -chang ",
+	"chen -cheng ",
+	"chuan -chuang ",
 	]
 
-let confusableFirstInD = [
-		"dan ，dang ",
+let FiD = [
+		"dan -dang ",
 	]
 
-	let confusableFirstInE = [
-		"e ，er ",
+	let FiE = [
+		"e -er ",
 	]
 
-	let confusableFirstInF = [
-		"fan ，fang ",
-		"fen ，feng "
+	let FiF = [
+		"fan -fang ",
+		"fen -feng "
 	]
 
-	let confusableFirstInG = [
-		"gan ，gang ",
-		"guan ，guang ",
+	let FiG = [
+		"gan -gang ",
+		"guan -guang ",
 	]
 
 	// the way--------------------
@@ -2254,7 +2276,7 @@ let confusableFirstInD = [
 	//
 	//			for j in 0..<confusables[i].count {
 	//				let confusable = confusables[i][j]
-	//				let yins = confusable.componentsSeparatedByString("，")
+	//				let yins = confusable.componentsSeparatedByString("-")
 	//				var a = ""
 	//				var b = ""
 	//
@@ -2291,52 +2313,6 @@ let confusableFirstInD = [
 	//		}
 
 
-
-	// Treasure from Trash 1
-//	["gan ，gang ", "guan ，guang "]
-//	gan cai
-//	cai
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	gan jing
-//	jing
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	gan huo
-//	huo
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	gan zi
-//	zi
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	gan dang
-//	dang
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	gan hua
-//	hua
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	gan yan
-//	yan
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	guan zi
-//	zi
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	guan fu
-//	fu
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	guan cai
-//	cai
-//	--------
-//	["gan ，gang ", "guan ，guang "]
-//	guan xian
-//	xian
-//	--------
 
 
 }

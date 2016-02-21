@@ -66,7 +66,7 @@ extension Chinese {
 
 		if characterOrWord[0] == 1 {
 			let index = getRandomNumbers(1, lessThan: confusablePinyinOfWord_Different.count)
-			let differentPinyinOfWords = confusablePinyinOfWord_Different[index[0]].componentsSeparatedByString("，")
+			let differentPinyinOfWords = confusablePinyinOfWord_Different[index[0]].componentsSeparatedByString("-")
 
 			let index_1 = getRandomNumbers(2, lessThan: differentPinyinOfWords.count)
 
@@ -91,9 +91,6 @@ extension Chinese {
 		let characterOrWord = getRandomNumbers(1, lessThan: 2)
 
 		if characterOrWord[0] == 0 {
-
-
-//				let pinyin = randomPinyin()
 
 			let chinese_1 = Chinese_1()
 			let pinyin = chinese_1.randomPinyin()

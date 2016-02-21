@@ -15,8 +15,11 @@ class SettingViewController: UIViewController {
 	var tableView: UITableView!
 	var switchControl_S: UISwitch!
 	var switchControl_V: UISwitch!
+	var switchControl_P: UISwitch!
 
-	let titles = ["Sound", "Vibration", "Number of components in spell", "Feedback"]
+	let defaults = [Defaults.sound, Defaults.vibration, Defaults.pronunciations]
+
+	let titles = ["Sound", "Vibration", "include uncommon pinyin", "Number of components in spell", "Feedback"]
 	var C_amount = Int()
 
 	override func viewDidLoad() {
@@ -35,10 +38,18 @@ class SettingViewController: UIViewController {
 
 		switchControl_S = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
 		switchControl_S.onTintColor = UIColor.rightGreen()
+		switchControl_S.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+
 		switchControl_V = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
 		switchControl_V.onTintColor = UIColor.rightGreen()
+		switchControl_V.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+
+		switchControl_P = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
+		switchControl_P.onTintColor = UIColor.rightGreen()
+		switchControl_P.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
 
 		let userDefaults = NSUserDefaults.standardUserDefaults()
+
 		if let soundOn = userDefaults.valueForKey(Defaults.sound) as? Bool {
 			switchControl_S.setOn(soundOn, animated: true)
 		} else {
@@ -51,13 +62,36 @@ class SettingViewController: UIViewController {
 			switchControl_V.setOn(true, animated: true)
 		}
 
+		if let pronunciations = userDefaults.valueForKey(Defaults.pronunciations) as? Bool {
+			switchControl_P.setOn(pronunciations, animated: true)
+		} else {
+			switchControl_P.setOn(false, animated: true)
+		}
+
 		C_amount = userDefaults.integerForKey(Defaults.C_amount)
+
 
 	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		tableView.reloadData()
+	}
+
+	func switched(sender: UISwitch) {
+		let userDefaults = NSUserDefaults.standardUserDefaults()
+
+		if sender == switchControl_S {
+			userDefaults.setBool(sender.on, forKey: Defaults.sound)
+		}
+
+		if sender == switchControl_V {
+			userDefaults.setBool(sender.on, forKey: Defaults.vibration)
+		}
+
+		if sender == switchControl_P {
+			userDefaults.setBool(sender.on, forKey: Defaults.pronunciations)
+		}
 	}
 
 	func menuViewControllerSendSupportEmail() {
@@ -91,35 +125,42 @@ class SettingViewController: UIViewController {
 extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 2
+		return 3
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return section == 0 ? 3 : 1
+		switch section {
+		case 0: return 2
+		case 1: return 2
+		case 2: return 1
+		default: return 0
+		}
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
 
-		if indexPath.section == 0 && indexPath.row == 0 {
-			cell.textLabel?.text = titles[0]
-			cell.addSubview(switchControl_S)
+		if indexPath.section == 0 {
+			cell.textLabel?.text = titles[indexPath.row]
+
+			let switchControl = indexPath.row == 0 ? switchControl_S : switchControl_V
+			cell.addSubview(switchControl)
 		}
 
-		if indexPath.section == 0 && indexPath.row == 1 {
-			cell.textLabel?.text = titles[1]
-			cell.addSubview(switchControl_V)
+		if indexPath.section == 1 && indexPath.row == 0 {
+			cell.textLabel?.text = titles[indexPath.row + 2]
+			cell.addSubview(switchControl_P)
 		}
 
-		if indexPath.section == 0 && indexPath.row == 2 {
+		if indexPath.section == 1 && indexPath.row == 1 {
 			cell = UITableViewCell(style: .Value1, reuseIdentifier: "Cell_1")
-			cell.textLabel?.text = titles[2]
+			cell.textLabel?.text = titles[indexPath.row + 2]
 			cell.detailTextLabel?.text = String(C_amount)
 			cell.accessoryType = .DisclosureIndicator
 		}
 
-		if indexPath.section == 1 {
-			cell.textLabel?.text = titles[3]
+		if indexPath.section == 2 {
+			cell.textLabel?.text = titles[indexPath.row + 4]
 			cell.textLabel?.textAlignment = .Center
 		}
 
@@ -139,7 +180,12 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 			userDefaults.setBool(switchControl_V.on, forKey: Defaults.vibration)
 		}
 
-		if indexPath.section == 0 && indexPath.row == 2 {
+		if indexPath.section == 1 && indexPath.row == 0 {
+			switchControl_P.on ? switchControl_P.setOn(false, animated: true) : switchControl_P.setOn(true, animated: true)
+			userDefaults.setBool(switchControl_P.on, forKey: Defaults.pronunciations)
+		}
+
+		if indexPath.section == 1 && indexPath.row == 1 {
 			let settingVC_1 = SettingVC_1()
 			settingVC_1.selectedOne = C_amount
 			settingVC_1.sendBack = { (selected) -> Void in
@@ -149,7 +195,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 			navigationController?.pushViewController(settingVC_1, animated: true)
 		}
 
-		if indexPath.section == 1 && indexPath.row == 0 {
+		if indexPath.section == 2 && indexPath.row == 0 {
 			menuViewControllerSendSupportEmail()
 		}
 
@@ -161,7 +207,6 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 extension SettingViewController: MFMailComposeViewControllerDelegate {
 
 	func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
-//		self.doneWithMail!(controller)
 		controller.dismissViewControllerAnimated(true, completion: nil)
 	}
 

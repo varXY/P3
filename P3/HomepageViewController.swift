@@ -33,7 +33,38 @@ class HomepageViewController: UIViewController {
 		addTwoLittleButtons()
 
 		setSoundAndVibration()
+
+
+
     }
+
+	func findDifferent(contents: [String], differents: [String]) {
+		var allOneHave = [String]()
+
+		var returnString = [String]()
+
+		let pinyins = differents[0].componentsSeparatedByString("-")
+
+		for content in contents {
+			if let range = content.rangeOfString(pinyins[0]) {
+				var result = content
+				result.replaceRange(range, with: "")
+				allOneHave.append(result)
+			}
+		}
+
+		for content in contents {
+			if let range = content.rangeOfString(pinyins[1]) {
+				var result = content
+				result.replaceRange(range, with: "")
+				if let _ = allOneHave.indexOf(result) {
+					returnString.append(pinyins[0] + result + "-" + pinyins[1] + result)
+				}
+			}
+		}
+
+		print(returnString)
+	}
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)

@@ -2161,4 +2161,9 @@ class Trash_4 {
 	"zuo mei",
 	"zuo sheng",
 	"zuo zhu",]
+
+	let FiW = ["wan -wang ", "wai -wei ", "wo -wu "]
+	let FiX = ["xian -xiang ", "xin -xing ", "xu -xiu ", "xie -xue ", ]
+	let FiY = ["yan -yang ", "ya -ye ", "ye -yi ", "yin -ying ", "you -yu "]
+	let FiZ = ["za -zha ", "zai -zhai ", "zan -zhan ", "zhan -zhang ", "zao -zhao ", "zhen -zheng ", "zhi -zi ", "zhuan -zhuang ", "zhong -zong ", "zhu -zu ", "zhui -zui ", "zuo -zhuo "]
 }
