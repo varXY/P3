@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 class SpellViewController: TestViewController {
 
 	var picker = UIPickerView()
 
 	var componentType = 0
+	var pickerinitialRows = [Int]()
 	let component_titles_0 = [" ", "b", "c", "ch", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "sh", "t", "w", "x", "y", "z", "zh", " "]
 	let component_titles_1 = [" ", "a", "e", "i", "o", "u", "v", " "]
 	let component_titles_2_0 = [" ", "a", "ai", "an", "ang", "ao", "e", "ei", "en", "eng", "i", "n", "ng", "o", "ong", "ou", "r", "u", " "]
@@ -34,9 +36,16 @@ class SpellViewController: TestViewController {
 		rightScore = 2
 		wrongScore = -2
 
+		var amount = 3
 		let userDefaults = NSUserDefaults.standardUserDefaults()
-		let amount = userDefaults.integerForKey(Defaults.C_amount)
+		if let defaultsAmount = userDefaults.valueForKey(Defaults.C_amount) as? Int {
+			amount = defaultsAmount
+		} else {
+			userDefaults.setInteger(amount, forKey: Defaults.C_amount)
+		}
+		pickerinitialRows = amount == 3 ? [13, 3, 11] : [13, 3, 8, 3]
 		componentType = amount == 3 ? 1 : 0
+
 		component_allTitles = componentType == 0 ? [component_titles_0, component_titles_1, component_titles_2, component_titles_3] : [component_titles_0, component_titles_1, component_titles_2_0]
 
 		headerView = HeaderView(number: 1, totalScore: totalScore)
@@ -54,8 +63,24 @@ class SpellViewController: TestViewController {
 		picker.tintColor = UIColor.whiteColor()
 		picker.dataSource = self
 		picker.delegate = self
+		picker.alpha = 0.0
 		view.addSubview(picker)
 
+	}
+
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+
+	}
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
+
+		for i in 0..<picker.numberOfComponents {
+			picker.selectRow(pickerinitialRows[i], inComponent: i, animated: false)
+		}
+
+		picker.viewAddAnimation(.BecomeVisble, delay: 0.0, distance: 0.0)
 	}
 
 	func prepareScrollView(firstTime firstTime: Bool) {
@@ -132,6 +157,8 @@ extension SpellViewController: BlockViewDelegate {
 	}
 
 	func answerShowedByQuestionMark() {
+
+		if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 
 		delay(seconds: 0.8, completion: { () -> () in
 			self.headerView.showAndAddScore(self.wrongScore)

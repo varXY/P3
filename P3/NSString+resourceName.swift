@@ -12,7 +12,6 @@ import Foundation
 extension NSString {
 
 	func resourceName() -> NSString {
-		print(__FUNCTION__)
 		let defaults = NSUserDefaults.standardUserDefaults()
 		if let pinyin = defaults.valueForKey(Defaults.pronunciations) as? Bool {
 			return pinyin ? "hanzi2pinyin_v2" : "hanzi2pinyin_v1"

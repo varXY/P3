@@ -110,7 +110,7 @@ class SameOrNotViewController: TestViewController {
 		} else {
 			
 			for blockView in blockViews { blockView.allChangeColor(.Red) }
-			AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate))
+			if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 			sender.changeColorBack()
 			sender.enabled = false
 

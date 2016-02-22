@@ -12,14 +12,14 @@ import UIKit
 class RecordViewController: UIViewController {
 
 	var totalScore: Int!
-	var dailyScores: [DailyScore]!
+	var dailyScores = [DailyScore]()
 	var maxDailyNumber: UInt!
 	var tableView: UITableView!
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = UIColor.deepGray()
-		navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.themeGold()]
+//		navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.themeGold()]
 		title = "Total Score: \(totalScore)"
 
 		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
@@ -43,7 +43,7 @@ class RecordViewController: UIViewController {
 extension RecordViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		return dailyScores.count
+		return dailyScores.count == 0 ? 1 : dailyScores.count
 	}
 
 	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -52,7 +52,14 @@ extension RecordViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = DailyScoreCell(style: .Default, reuseIdentifier: "DailyScoreCell")
-		cell.configureForCell(dailyScores[indexPath.row], max: maxDailyNumber)
+
+		if dailyScores.count == 0 {
+			cell.showNoData()
+		} else {
+			cell.configureForCell(dailyScores[indexPath.row], max: maxDailyNumber)
+		}
+		
 		return cell
+
 	}
 }

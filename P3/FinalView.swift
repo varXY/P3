@@ -58,7 +58,7 @@ class FinalView: UIView {
 //		alpha = 0.0
 		let win = currentScore >= 0
 		titleLabel.textColor = win ? UIColor.rightGreen() : UIColor.wrongRed()
-		titleLabel.text = win ? "You Win" : "You Lose"
+		titleLabel.text = win ? "You win:" : "You lose:"
 		numberLabel.text = "\(abs(currentScore))"
 
 		UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in

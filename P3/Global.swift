@@ -63,6 +63,10 @@ struct Titles {
 	static let homepageSmallButtons = ["Records", "Settings"]
 	static let sameOrNot = ["Same", "Different"]
 	static let finalChoices = ["Again", "Quit"]
+	static let settingTitles = ["Sound", "Vibration", "Include uncommon pinyin", "Number of components in spell", "Feedback"]
+	static let noRecords = "No Records"
+	static let notFinished = "Haven't Finished Fet"
+	static let warming = "If you quit, current score will be lost."
 }
 
 struct ImageName {
@@ -72,10 +76,18 @@ struct ImageName {
 	static let Setting = "Setting"
 }
 
+
+
 struct BlockWidth {
 	static let homepage: CGFloat = (ScreenWidth - 60) / 2
 	static let sameOrNot: CGFloat = (ScreenWidth - 60) / 2 + 4
-	static let selectTheSame: CGFloat = (ScreenHeight - 240) / 3
+	static let selectTheSame: CGFloat = {
+		if ScreenHeight == 480 {
+			return (ScreenHeight - 140) / 3
+		} else {
+			return (ScreenHeight - 240) / 3
+		}
+	}()
 	static let spell: CGFloat = ScreenHeight / 2 - 80
 }
 

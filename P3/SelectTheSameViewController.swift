@@ -8,6 +8,8 @@
 
 import Foundation
 import UIKit
+import AVFoundation
+
 
 class SelectTheSameViewController: TestViewController {
 
@@ -53,7 +55,7 @@ class SelectTheSameViewController: TestViewController {
 
 		for i in 0..<6 {
 			let margin = (ScreenWidth - BlockWidth.selectTheSame * 2) / 3
-			let x = positionInPage + (ScreenWidth - BlockWidth.selectTheSame * 2) / 3 + (BlockWidth.selectTheSame + margin) * CGFloat(i % 2)
+			let x = positionInPage + margin + (BlockWidth.selectTheSame + margin) * CGFloat(i % 2)
 			let y = blockY(i)
 
 			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: chinese.forSelectTheSame[indexs[i]])
@@ -65,15 +67,17 @@ class SelectTheSameViewController: TestViewController {
 	}
 
 	func blockY(number: Int) -> CGFloat {
+		let initalY: CGFloat = ScreenHeight == 480 ? 50 : 90
+		let margin: CGFloat = ScreenHeight == 480 ? 10 : 30
 		switch number {
 		case 0, 1:
-			return 90
+			return initalY
 		case 2, 3:
-			return 90 + (self.view.frame.width - 90) / 2 + 30
+			return initalY + BlockWidth.selectTheSame + margin
 		case 4, 5:
-			return 90 + ((self.view.frame.width - 90) / 2 + 30) * 2
+			return initalY + (BlockWidth.selectTheSame + margin) * 2
 		default:
-			return 90
+			return initalY
 		}
 	}
 
@@ -88,6 +92,7 @@ class SelectTheSameViewController: TestViewController {
 		let right = allTheSame.count == 3 && selectedBlocks.count == 3
 		let color: ColorType = right ? .Green : .Red
 		let score = right ? rightScore : wrongScore
+		if !right && vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 
 		delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(score) })
 

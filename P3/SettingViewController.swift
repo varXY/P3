@@ -19,12 +19,11 @@ class SettingViewController: UIViewController {
 
 	let defaults = [Defaults.sound, Defaults.vibration, Defaults.pronunciations]
 
-	let titles = ["Sound", "Vibration", "include uncommon pinyin", "Number of components in spell", "Feedback"]
-	var C_amount = Int()
+	var C_amount = 3
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.themeGold()]
+//		navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.themeGold()]
 		self.title = "Settings"
 
 		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
@@ -68,7 +67,12 @@ class SettingViewController: UIViewController {
 			switchControl_P.setOn(false, animated: true)
 		}
 
-		C_amount = userDefaults.integerForKey(Defaults.C_amount)
+		if let amount = userDefaults.valueForKey(Defaults.C_amount) as? Int {
+			C_amount = amount
+		} else {
+			C_amount = 3
+			userDefaults.setInteger(C_amount, forKey: Defaults.C_amount)
+		}
 
 
 	}
@@ -141,26 +145,26 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		var cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
 
 		if indexPath.section == 0 {
-			cell.textLabel?.text = titles[indexPath.row]
+			cell.textLabel?.text = Titles.settingTitles[indexPath.row]
 
 			let switchControl = indexPath.row == 0 ? switchControl_S : switchControl_V
 			cell.addSubview(switchControl)
 		}
 
 		if indexPath.section == 1 && indexPath.row == 0 {
-			cell.textLabel?.text = titles[indexPath.row + 2]
+			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 2]
 			cell.addSubview(switchControl_P)
 		}
 
 		if indexPath.section == 1 && indexPath.row == 1 {
 			cell = UITableViewCell(style: .Value1, reuseIdentifier: "Cell_1")
-			cell.textLabel?.text = titles[indexPath.row + 2]
+			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 2]
 			cell.detailTextLabel?.text = String(C_amount)
 			cell.accessoryType = .DisclosureIndicator
 		}
 
 		if indexPath.section == 2 {
-			cell.textLabel?.text = titles[indexPath.row + 4]
+			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 4]
 			cell.textLabel?.textAlignment = .Center
 		}
 

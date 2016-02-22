@@ -21,15 +21,19 @@ class DailyScoreCell: UITableViewCell {
 		contentView.frame.size = CGSize(width: ScreenWidth, height: 60)
 		contentView.backgroundColor = UIColor.lightGray()
 
-		scoreLabel = UILabel(frame: CGRect(x: 10, y: 15, width: 80, height: contentView.frame.height - 20))
+		scoreLabel = UILabel(frame: CGRect(x: 10, y: 15, width: 180, height: contentView.frame.height - 20))
 		scoreLabel.textColor = UIColor.deepGray()
-		scoreLabel.font = UIFont.scoreFont(16)
+		scoreLabel.font = UIFont.scoreFont(18)
 		contentView.addSubview(scoreLabel)
 
 		dateLabel = UILabel(frame: CGRect(x: contentView.frame.width - 110, y: 15, width: 100, height: contentView.frame.height - 20))
 		dateLabel.textColor = UIColor.deepGray()
 		dateLabel.textAlignment = .Right
 		contentView.addSubview(dateLabel)
+	}
+
+	func showNoData() {
+		scoreLabel.text = Titles.noRecords
 	}
 
 	func configureForCell(dailyScore: DailyScore, max: UInt) {

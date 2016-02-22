@@ -22,8 +22,8 @@ class TestViewController: UIViewController {
 	var nextButton: NextButton!
 	var finalView: FinalView!
 	
-	var sound: Bool!
-	var vibration: Bool!
+	var sound = true
+	var vibration = true
 
 	var currentPage = 0
 	var rightScore: Int!
@@ -83,7 +83,7 @@ extension TestViewController: HeaderViewDelegate {
 
 	func backButtonTapped() {
 		if currentPage != 0 && currentPage != 10 {
-			alertOfStayOrQuit(self, title: "Sure to Quit?", message: "If you quit, current scores will lose.", quit: { self.confirmToQuit() })
+			alertOfStayOrQuit(self, title: Titles.notFinished, message: Titles.warming, quit: { self.confirmToQuit() })
 		} else {
 			navigationController?.popToRootViewControllerAnimated(true)
 		}

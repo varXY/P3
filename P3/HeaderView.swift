@@ -39,8 +39,8 @@ class HeaderView: UIView {
 		self.totalScore = totalScore
 		showedNumber = page
 
-		addBackButton(CGRect(x: -10, y: 0, width: 60, height: frame.height))
-		addScoreLabel(CGRect(x: frame.width - 55, y: 0, width: 60, height: frame.height))
+		addBackButton(CGRect(x: -13, y: 0, width: 60, height: frame.height))
+		addScoreLabel(CGRect(x: frame.width - 70, y: 0, width: 60, height: frame.height))
 		addOneToTenLabels()
 		addcenterLabel(1, frame: CGRect(x: (frame.width - 60) / 2, y: 0, width: 60, height: frame.height))
 	}
@@ -79,8 +79,9 @@ class HeaderView: UIView {
 	func addScoreLabel(frame: CGRect) {
 		scoreLabel = UILabel(frame: frame)
 		scoreLabel.textColor = UIColor.whiteColor()
-		scoreLabel.textAlignment = .Center
+		scoreLabel.textAlignment = .Right
 		scoreLabel.font = UIFont.scoreFont(17)
+		scoreLabel.adjustsFontSizeToFitWidth = true
 		scoreLabel.text = "\(totalScore)"
 		self.addSubview(scoreLabel)
 	}

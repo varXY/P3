@@ -32,43 +32,14 @@ class HomepageViewController: UIViewController {
 		addThreeMainButtons()
 		addTwoLittleButtons()
 
-		setSoundAndVibration()
-
-
-
     }
 
-	func findDifferent(contents: [String], differents: [String]) {
-		var allOneHave = [String]()
-
-		var returnString = [String]()
-
-		let pinyins = differents[0].componentsSeparatedByString("-")
-
-		for content in contents {
-			if let range = content.rangeOfString(pinyins[0]) {
-				var result = content
-				result.replaceRange(range, with: "")
-				allOneHave.append(result)
-			}
-		}
-
-		for content in contents {
-			if let range = content.rangeOfString(pinyins[1]) {
-				var result = content
-				result.replaceRange(range, with: "")
-				if let _ = allOneHave.indexOf(result) {
-					returnString.append(pinyins[0] + result + "-" + pinyins[1] + result)
-				}
-			}
-		}
-
-		print(returnString)
-	}
+	
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-		self.navigationController?.setNavigationBarHidden(true, animated: true)
+		navigationController?.setNavigationBarHidden(true, animated: true)
+		setSoundAndVibration()
 
 		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 		dispatch_async(queue) {
@@ -97,34 +68,63 @@ class HomepageViewController: UIViewController {
 
 
 	func addTwoDescribeLabels() {
-		let titleLabel = UILabel(frame: CGRect(x: 0, y: 55, width: view.frame.width, height: 60))
+		let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight / 2 - (AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight)))
 		titleLabel.text = "Pinyin Comparison"
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = UIColor.blackColor()
-		titleLabel.font = UIFont.boldSystemFontOfSize(26)
+		titleLabel.font = UIFont.boldSystemFontOfSize(fontSizesForDescribleLabels()[0])
 		view.addSubview(titleLabel)
 
-		let footerLabel = UILabel(frame: CGRect(x: 0, y: view.frame.height - 130, width: view.frame.width, height: 60))
+		let footerLabel = UILabel(frame: CGRect(x: 0, y: ScreenHeight / 2 + AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight, width: ScreenWidth, height: titleLabel.frame.height - 80))
 		footerLabel.text = "Efficient ways to learn Pinyin and Chinese"
 		footerLabel.textAlignment = .Center
 		footerLabel.textColor = UIColor.deepGray()
-		footerLabel.font = UIFont.italicSystemFontOfSize(15)
+		footerLabel.font = UIFont.italicSystemFontOfSize(fontSizesForDescribleLabels()[1])
 		view.addSubview(footerLabel)
 	}
 
+	func fontSizesForDescribleLabels() -> [CGFloat] {
+		switch ScreenWidth {
+		case 320: return [28, 15, 22]
+		case 375: return [32, 17, 22]
+		case 414: return [35, 19, 22]
+		default:return [26, 15, 22]
+		}
+	}
+
+	struct AutoSize {
+		static let bigButtonHeight: CGFloat = {
+			switch ScreenHeight {
+			case 480, 568: return 60 // 60 70 78
+			case 667: return 60
+			case 736: return 60
+			default: return 60
+			}
+		}()
+
+		static let gapHeight: CGFloat = {
+			switch ScreenHeight {
+			case 480, 568: return 30
+			case 667: return 44
+			case 736: return 50
+			default: return 30
+			}
+		}()
+	}
 
 	func addThreeMainButtons() {
 
-		let buttonHeight: CGFloat = 60
-		let center = CGPoint(x: ScreenWidth / 2, y: ScreenHeight / 2 - 90)
+		let buttonHeight: CGFloat = AutoSize.bigButtonHeight
+		let center = CGPoint(x: ScreenWidth / 2, y: ScreenHeight / 2 - (AutoSize.bigButtonHeight + AutoSize.gapHeight))
 
 		for i in 0..<3 {
 			let button = UIButton(type: .System)
 			button.frame.size = CGSize(width: ScreenWidth - 40, height: buttonHeight)
-			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + 30) * CGFloat(i))
+			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + AutoSize.gapHeight) * CGFloat(i))
 
 			button.backgroundColor = UIColor.clearColor()
-			button.addTextLabel(Titles.homepageBigButtons[i], textColor: UIColor.whiteColor(), font: UIFont.systemFontOfSize(22), animated: false)
+			let size = fontSizesForDescribleLabels()[2]
+			button.addTextLabel(Titles.homepageBigButtons[i], textColor: UIColor.whiteColor(), font: UIFont.systemFontOfSize(size), animated: false)
 			button.changeColorWhenTouchDown(UIColor.whiteColor())
 			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
 
@@ -142,11 +142,11 @@ class HomepageViewController: UIViewController {
 
 	func addTwoLittleButtons() {
 
-		let xPositons: [CGFloat] = [20, self.view.frame.width - 50]
+		let xPositons: [CGFloat] = [0, self.view.frame.width - 80]
 		let images = [UIImage(named: ImageName.Record), UIImage(named: ImageName.Setting)]
 		for i in 0..<2 {
 			let button = UIButton(type: .System)
-			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 50, width: 30, height: 30)
+			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 80, width: 80, height: 80)
 			button.tintColor = UIColor.whiteColor()
 			button.setImage(images[i], forState: .Normal)
 			button.exclusiveTouch = true
@@ -221,7 +221,11 @@ class HomepageViewController: UIViewController {
 			}
 
 			let sorted = numbers.sort({ $0 > $1 })
-			maxDailyNumber = UInt(sorted[0])
+			if sorted.count != 0 {
+				maxDailyNumber = UInt(sorted[0])
+			} else {
+				maxDailyNumber = 0
+			}
 
 			let recordVC = RecordViewController()
 			recordVC.totalScore = scoreModel.totalScore
