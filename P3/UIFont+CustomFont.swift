@@ -11,6 +11,11 @@ import UIKit
 
 extension UIFont {
 
+	class func homepageTitleFont(size: CGFloat) -> UIFont {
+		return UIFont(name: "Geneva", size: size)!
+		// SignPainter-HouseScript
+	}
+
 	class func buttonTitleFont(size: CGFloat) -> UIFont {
 		return UIFont(name: "Tahoma", size: size)!
 	}
@@ -26,5 +31,6 @@ extension UIFont {
 		// ArialNarrow
 		// GillSans
 		// ChalkboardSE-Regular
+		// Georgia
 	}
 }

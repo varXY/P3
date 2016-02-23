@@ -52,6 +52,13 @@
 		31C8B7AA1C6DB7310018DD9B /* Trash_2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7A91C6DB7310018DD9B /* Trash_2.swift */; };
 		31C8B7AC1C6DB9F00018DD9B /* Trash_3.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */; };
 		31C8B7AE1C6DBB150018DD9B /* Trash_4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8B7AD1C6DBB150018DD9B /* Trash_4.swift */; };
+		31C8D1D71C7BE168006B2279 /* SupportProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8D1D61C7BE168006B2279 /* SupportProducts.swift */; };
+		31C8D1D91C7BE203006B2279 /* IAPHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31C8D1D81C7BE203006B2279 /* IAPHelper.swift */; };
+		31C8D1E01C7C32FD006B2279 /* right.caf in Resources */ = {isa = PBXBuildFile; fileRef = 31C8D1DE1C7C32FD006B2279 /* right.caf */; };
+		31C8D1E11C7C32FD006B2279 /* wrong.caf in Resources */ = {isa = PBXBuildFile; fileRef = 31C8D1DF1C7C32FD006B2279 /* wrong.caf */; };
+		31C8D1E31C7C45EB006B2279 /* Georgia.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 31C8D1E21C7C45EB006B2279 /* Georgia.ttf */; };
+		31C8D1E51C7C473E006B2279 /* SignPainter.otf in Resources */ = {isa = PBXBuildFile; fileRef = 31C8D1E41C7C473E006B2279 /* SignPainter.otf */; };
+		31C8D1E71C7C4AE9006B2279 /* Geneva.dfont in Resources */ = {isa = PBXBuildFile; fileRef = 31C8D1E61C7C4AE8006B2279 /* Geneva.dfont */; };
 		31EC4FFF1C740E9A006240EC /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31EC4FFE1C740E9A006240EC /* UIView+.swift */; };
 		31F09E181C6B239200196277 /* SelectTheSameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E171C6B239200196277 /* SelectTheSameViewController.swift */; };
 		31F09E1A1C6B26C900196277 /* Chinese+SelectTheSame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */; };
@@ -64,7 +71,6 @@
 		C3CDD5081C522CFC00209556 /* HomepageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5071C522CFC00209556 /* HomepageViewController.swift */; };
 		C3CDD50E1C522CFD00209556 /* P3.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD50C1C522CFD00209556 /* P3.xcdatamodeld */; };
 		C3CDD5101C522CFD00209556 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C3CDD50F1C522CFD00209556 /* Assets.xcassets */; };
-		C3CDD5131C522CFD00209556 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C3CDD5111C522CFD00209556 /* LaunchScreen.storyboard */; };
 		C3CDD51B1C522DAE00209556 /* terms.plist in Resources */ = {isa = PBXBuildFile; fileRef = C3CDD51A1C522DAE00209556 /* terms.plist */; };
 /* End PBXBuildFile section */
 
@@ -118,6 +124,13 @@
 		31C8B7A91C6DB7310018DD9B /* Trash_2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_2.swift; sourceTree = "<group>"; };
 		31C8B7AB1C6DB9F00018DD9B /* Trash_3.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_3.swift; sourceTree = "<group>"; };
 		31C8B7AD1C6DBB150018DD9B /* Trash_4.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Trash_4.swift; sourceTree = "<group>"; };
+		31C8D1D61C7BE168006B2279 /* SupportProducts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupportProducts.swift; sourceTree = "<group>"; };
+		31C8D1D81C7BE203006B2279 /* IAPHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IAPHelper.swift; sourceTree = "<group>"; };
+		31C8D1DE1C7C32FD006B2279 /* right.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = right.caf; sourceTree = "<group>"; };
+		31C8D1DF1C7C32FD006B2279 /* wrong.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = wrong.caf; sourceTree = "<group>"; };
+		31C8D1E21C7C45EB006B2279 /* Georgia.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Georgia.ttf; sourceTree = "<group>"; };
+		31C8D1E41C7C473E006B2279 /* SignPainter.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SignPainter.otf; sourceTree = "<group>"; };
+		31C8D1E61C7C4AE8006B2279 /* Geneva.dfont */ = {isa = PBXFileReference; lastKnownFileType = file; path = Geneva.dfont; sourceTree = "<group>"; };
 		31EC4FFE1C740E9A006240EC /* UIView+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		31F09E171C6B239200196277 /* SelectTheSameViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; lineEnding = 0; path = SelectTheSameViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+SelectTheSame.swift"; sourceTree = "<group>"; };
@@ -131,7 +144,6 @@
 		C3CDD5071C522CFC00209556 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		C3CDD50D1C522CFD00209556 /* P3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = P3.xcdatamodel; sourceTree = "<group>"; };
 		C3CDD50F1C522CFD00209556 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		C3CDD5121C522CFD00209556 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C3CDD5141C522CFD00209556 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C3CDD51A1C522DAE00209556 /* terms.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = terms.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -164,6 +176,9 @@
 		3100970E1C72B249003C7FA6 /* Font */ = {
 			isa = PBXGroup;
 			children = (
+				31C8D1E61C7C4AE8006B2279 /* Geneva.dfont */,
+				31C8D1E41C7C473E006B2279 /* SignPainter.otf */,
+				31C8D1E21C7C45EB006B2279 /* Georgia.ttf */,
 				3189509F1C75B47200DB3BA6 /* ChalkboardSE.ttc */,
 				3189509D1C75AD7F00DB3BA6 /* GillSans.ttc */,
 				318950991C75A2DE00DB3BA6 /* AmericanTypewriter.ttc */,
@@ -175,7 +190,7 @@
 			name = Font;
 			sourceTree = "<group>";
 		};
-		311A89F31C685E4300257A26 /* sqlite */ = {
+		311A89F31C685E4300257A26 /* Word Search */ = {
 			isa = PBXGroup;
 			children = (
 				C372483B1C561B9100EDD735 /* Term.swift */,
@@ -187,28 +202,31 @@
 				311A89FA1C68619D00257A26 /* libsqlite3.0.tbd */,
 				C3CDD51A1C522DAE00209556 /* terms.plist */,
 			);
-			name = sqlite;
+			name = "Word Search";
 			sourceTree = "<group>";
 		};
 		311A89FC1C6863A400257A26 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				C3CDD50F1C522CFD00209556 /* Assets.xcassets */,
-				C3CDD5111C522CFD00209556 /* LaunchScreen.storyboard */,
+				3100970E1C72B249003C7FA6 /* Font */,
+				31C8D1DD1C7C32AE006B2279 /* Sound */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		311A89FD1C6863FF00257A26 /* Support File */ = {
+		311A89FD1C6863FF00257A26 /* Global */ = {
 			isa = PBXGroup;
 			children = (
+				C3CDD5051C522CFC00209556 /* AppDelegate.swift */,
+				311A8A0B1C688A2600257A26 /* Global.swift */,
 				C3CDD5141C522CFD00209556 /* Info.plist */,
 				311A8A011C6864D700257A26 /* P3-Bridging-Header.h */,
 			);
-			name = "Support File";
+			name = Global;
 			sourceTree = "<group>";
 		};
-		311A8A0A1C68655000257A26 /* Charcter Search */ = {
+		311A8A0A1C68655000257A26 /* Character Search */ = {
 			isa = PBXGroup;
 			children = (
 				31AF16351C79A72900794531 /* hanzi2pinyin_v1.txt */,
@@ -220,7 +238,7 @@
 				31AF16371C79A75D00794531 /* NSString+resourceName.swift */,
 				311A8A051C68654200257A26 /* SWPinYinHeader.h */,
 			);
-			name = "Charcter Search";
+			name = "Character Search";
 			sourceTree = "<group>";
 		};
 		311A8A0F1C69639D00257A26 /* Extension */ = {
@@ -280,6 +298,24 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		31C8D1DA1C7C00E6006B2279 /* Purchase */ = {
+			isa = PBXGroup;
+			children = (
+				31C8D1D61C7BE168006B2279 /* SupportProducts.swift */,
+				31C8D1D81C7BE203006B2279 /* IAPHelper.swift */,
+			);
+			name = Purchase;
+			sourceTree = "<group>";
+		};
+		31C8D1DD1C7C32AE006B2279 /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				31C8D1DE1C7C32FD006B2279 /* right.caf */,
+				31C8D1DF1C7C32FD006B2279 /* wrong.caf */,
+			);
+			name = Sound;
+			sourceTree = "<group>";
+		};
 		C3CDD4F91C522CFC00209556 = {
 			isa = PBXGroup;
 			children = (
@@ -299,18 +335,16 @@
 		C3CDD5041C522CFC00209556 /* P3 */ = {
 			isa = PBXGroup;
 			children = (
-				C3CDD5051C522CFC00209556 /* AppDelegate.swift */,
-				311A8A0B1C688A2600257A26 /* Global.swift */,
+				311A89FD1C6863FF00257A26 /* Global */,
 				3175AF081C69BDCA001BEACE /* View */,
 				3175AF051C69B690001BEACE /* Controller */,
 				311A8A181C69643E00257A26 /* Model */,
 				311A8A0F1C69639D00257A26 /* Extension */,
-				311A8A0A1C68655000257A26 /* Charcter Search */,
-				311A89FD1C6863FF00257A26 /* Support File */,
-				3100970E1C72B249003C7FA6 /* Font */,
-				3100970B1C729E00003C7FA6 /* Trash */,
 				311A89FC1C6863A400257A26 /* Resources */,
-				311A89F31C685E4300257A26 /* sqlite */,
+				3100970B1C729E00003C7FA6 /* Trash */,
+				31C8D1DA1C7C00E6006B2279 /* Purchase */,
+				311A8A0A1C68655000257A26 /* Character Search */,
+				311A89F31C685E4300257A26 /* Word Search */,
 			);
 			path = P3;
 			sourceTree = "<group>";
@@ -376,18 +410,22 @@
 				3189509A1C75A2DE00DB3BA6 /* AmericanTypewriter.ttc in Resources */,
 				C3CDD51B1C522DAE00209556 /* terms.plist in Resources */,
 				31AF16361C79A72900794531 /* hanzi2pinyin_v1.txt in Resources */,
+				31C8D1E71C7C4AE9006B2279 /* Geneva.dfont in Resources */,
 				3189509E1C75AD7F00DB3BA6 /* GillSans.ttc in Resources */,
 				311A89F91C685ECE00257A26 /* SingleViewCoreData.sqlite-wal in Resources */,
-				C3CDD5131C522CFD00209556 /* LaunchScreen.storyboard in Resources */,
 				318950981C759BF600DB3BA6 /* Arial Rounded Bold.ttf in Resources */,
 				311A8A091C68654D00257A26 /* hanzi2pinyin_v2.txt in Resources */,
+				31C8D1E51C7C473E006B2279 /* SignPainter.otf in Resources */,
 				3189509C1C75A57300DB3BA6 /* Arial Narrow.ttf in Resources */,
 				311A89F81C685ECE00257A26 /* SingleViewCoreData.sqlite-shm in Resources */,
+				31C8D1E11C7C32FD006B2279 /* wrong.caf in Resources */,
 				C3CDD5101C522CFD00209556 /* Assets.xcassets in Resources */,
 				318950A01C75B47200DB3BA6 /* ChalkboardSE.ttc in Resources */,
 				310097121C72B2A1003C7FA6 /* Tahoma.ttf in Resources */,
 				310097111C72B2A1003C7FA6 /* Tahoma Bold.ttf in Resources */,
+				31C8D1E31C7C45EB006B2279 /* Georgia.ttf in Resources */,
 				311A89F71C685ECE00257A26 /* SingleViewCoreData.sqlite in Resources */,
+				31C8D1E01C7C32FD006B2279 /* right.caf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,6 +449,7 @@
 				3100970A1C71B07B003C7FA6 /* String+.swift in Sources */,
 				31C8B7AE1C6DBB150018DD9B /* Trash_4.swift in Sources */,
 				31C8B7AC1C6DB9F00018DD9B /* Trash_3.swift in Sources */,
+				31C8D1D91C7BE203006B2279 /* IAPHelper.swift in Sources */,
 				C3CDD5081C522CFC00209556 /* HomepageViewController.swift in Sources */,
 				311A8A111C6963DD00257A26 /* UIImage+ColorImage.swift in Sources */,
 				317519D41C701001002223F1 /* Score.swift in Sources */,
@@ -423,6 +462,7 @@
 				311A8A061C68654200257A26 /* NSArray+PinYinSearcher.m in Sources */,
 				C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */,
 				3175AF071C69B77C001BEACE /* NavigationController.swift in Sources */,
+				31C8D1D71C7BE168006B2279 /* SupportProducts.swift in Sources */,
 				311A8A151C6963F000257A26 /* UIButton+.swift in Sources */,
 				311A8A0E1C69631000257A26 /* Trash.swift in Sources */,
 				311A89FF1C68647000257A26 /* Chinese.swift in Sources */,
@@ -445,17 +485,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		C3CDD5111C522CFD00209556 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				C3CDD5121C522CFD00209556 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		C3CDD5151C522CFD00209556 /* Debug */ = {
@@ -543,9 +572,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = P3/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = myname.P3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyao.PinyinComparison;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/P3-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -556,9 +586,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = "Brand Assets";
 				INFOPLIST_FILE = P3/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = myname.P3;
+				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyao.PinyinComparison;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/P3-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;

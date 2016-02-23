@@ -12,6 +12,13 @@ import CoreData
 
 class Chinese {
 
+	init() {
+		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+		dispatch_async(queue) {
+			self.getSixForSelectTheSame_1()
+		}
+	}
+
 	var forSameOrNot = [[String]]()
 	var forSelectTheSame = [[String]]()
 	var forSpell = [String]()
@@ -54,7 +61,7 @@ class Chinese {
 		"cu chu",
 		"ci chi",
 		"cen chen",
-		"ceng, cheng",
+		"ceng cheng",
 		"chan chang",
 
 		// - g
@@ -476,7 +483,7 @@ class Chinese {
 		"gan jing-gang jing",
 		"gan zi-gang zi",
 		"gan cai-gang cai",
-		"gan dang-gang dang",
+//		"gan dang-gang dang",
 		"gan huo-gang huo",
 		"gan hua-gang hua",
 //		"gan yan-gang yan",
@@ -1166,7 +1173,35 @@ class Chinese {
 	}
 
 	
+	//MARK: - Test
 
+	func confusablePinyin_Different_Test() {
+		for couple in confusablePinyin_Different {
+			let pinyins = couple.componentsSeparatedByString(" ")
+
+			let words_0 = charactersFromPinyin(pinyins[0])
+			if words_0.count == 0 { print(pinyins[0]) }
+
+			let words_1 = charactersFromPinyin(pinyins[1])
+			if words_1.count == 0 { print(pinyins[1]) }
+
+			if pinyins.count != 2 { print(pinyins) }
+		}
+	}
+
+	func confusablePinyinOfWord_Different_Test() {
+		for couple in confusablePinyinOfWord_Different {
+			let wordPinyins = couple.componentsSeparatedByString("-")
+
+			let words_0 = wordsFromPinyin(wordPinyins[0])
+			if words_0.count == 0 { print(wordPinyins[0]) }
+
+			let words_1 = wordsFromPinyin(wordPinyins[1])
+			if words_1.count == 0 { print(wordPinyins[1]) }
+
+			if wordPinyins.count != 2 { print(wordPinyins) }
+		}
+	}
 
 
 

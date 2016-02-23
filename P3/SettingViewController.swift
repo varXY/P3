@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import MessageUI
+import StoreKit
 
 class SettingViewController: UIViewController {
 
@@ -17,9 +18,9 @@ class SettingViewController: UIViewController {
 	var switchControl_V: UISwitch!
 	var switchControl_P: UISwitch!
 
-	let defaults = [Defaults.sound, Defaults.vibration, Defaults.pronunciations]
-
 	var C_amount = 3
+
+	let userDefaults = NSUserDefaults.standardUserDefaults()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
@@ -33,38 +34,59 @@ class SettingViewController: UIViewController {
 		tableView.backgroundColor = UIColor.lightGray()
 		tableView.dataSource = self
 		tableView.delegate = self
+//		tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
 		view = tableView
 
-		switchControl_S = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
-		switchControl_S.onTintColor = UIColor.rightGreen()
-		switchControl_S.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+		switchControl_S = initialSwitchControl()
+		switchControl_V = initialSwitchControl()
+		switchControl_P = initialSwitchControl()
 
-		switchControl_V = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
-		switchControl_V.onTintColor = UIColor.rightGreen()
-		switchControl_V.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+//		switchControl_S = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
+//		switchControl_S.onTintColor = UIColor.rightGreen()
+//		switchControl_S.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+//
+//		switchControl_V = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
+//		switchControl_V.onTintColor = UIColor.rightGreen()
+//		switchControl_V.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+//
+//		switchControl_P = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
+//		switchControl_P.onTintColor = UIColor.rightGreen()
+//		switchControl_P.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
 
-		switchControl_P = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
-		switchControl_P.onTintColor = UIColor.rightGreen()
-		switchControl_P.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
 
-		let userDefaults = NSUserDefaults.standardUserDefaults()
+	}
 
-		if let soundOn = userDefaults.valueForKey(Defaults.sound) as? Bool {
-			switchControl_S.setOn(soundOn, animated: true)
-		} else {
-			switchControl_S.setOn(true, animated: true)
-		}
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+		getSettings()
+		tableView.reloadData()
+	}
 
-		if let vibration = userDefaults.valueForKey(Defaults.vibration) as? Bool {
-			switchControl_V.setOn(vibration, animated: true)
-		} else {
-			switchControl_V.setOn(true, animated: true)
-		}
+	override func viewWillDisappear(animated: Bool) {
+		super.viewWillDisappear(animated)
+		userDefaults.synchronize()
+	}
+
+	func initialSwitchControl() -> UISwitch {
+		let switchControl = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
+		switchControl.onTintColor = UIColor.rightGreen()
+		switchControl.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+		return switchControl
+	}
+
+	func getSettings() {
+		let sound = userDefaults.boolForKey(Defaults.sound)
+		switchControl_S.setOn(sound, animated: false)
+
+		let vibration = userDefaults.boolForKey(Defaults.vibration)
+		switchControl_V.setOn(vibration, animated: false)
 
 		if let pronunciations = userDefaults.valueForKey(Defaults.pronunciations) as? Bool {
 			switchControl_P.setOn(pronunciations, animated: true)
 		} else {
 			switchControl_P.setOn(false, animated: true)
+			userDefaults.setBool(false, forKey: Defaults.pronunciations)
 		}
 
 		if let amount = userDefaults.valueForKey(Defaults.C_amount) as? Int {
@@ -73,17 +95,9 @@ class SettingViewController: UIViewController {
 			C_amount = 3
 			userDefaults.setInteger(C_amount, forKey: Defaults.C_amount)
 		}
-
-
-	}
-
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-		tableView.reloadData()
 	}
 
 	func switched(sender: UISwitch) {
-		let userDefaults = NSUserDefaults.standardUserDefaults()
 
 		if sender == switchControl_S {
 			userDefaults.setBool(sender.on, forKey: Defaults.sound)
@@ -104,7 +118,7 @@ class SettingViewController: UIViewController {
 		let appName = appInfoDict!["CFBundleName"] as! String
 		let appVersion = appInfoDict!["CFBundleShortVersionString"] as! String
 
-		let deviceName = UIDevice.currentDevice().localizedModel
+		let deviceName = UIDevice.currentDevice().model
 		let iOSVersion = UIDevice.currentDevice().systemVersion
 
 		let messageBody = "\n\n\n" + appName + "_" + appVersion + "\n" + deviceName + "_" + iOSVersion
@@ -122,7 +136,61 @@ class SettingViewController: UIViewController {
 	}
 
 	func dismiss() {
+		let userdefaults = NSUserDefaults.standardUserDefaults()
+		userdefaults.synchronize()
 		dismissViewControllerAnimated(true, completion: nil)
+	}
+
+	// MARK: - Purchase
+
+	func connectToStore() {
+
+		let indicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+		indicator.startAnimating()
+		indicator.frame = self.view.bounds
+		indicator.frame.size.height += 64
+		indicator.frame.origin.y -= 64
+		UIView.animateWithDuration(0.3, animations: { indicator.backgroundColor = UIColor(red: 45/255, green: 47/255, blue: 56/255, alpha: 0.45) })
+		tableView.addSubview(indicator)
+		tableView.userInteractionEnabled = false
+
+		SupportProducts.store.requestProductsWithCompletionHandler({ (success, products) -> () in
+			indicator.removeFromSuperview()
+			self.tableView.userInteractionEnabled = true
+			if success {
+				priceFormatter.locale = products[0].priceLocale
+
+				let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
+
+				let action_0 = UIAlertAction(title: priceFormatter.stringFromNumber(products[0].price), style: .Default, handler: { (_) -> () in self.purchaseProduct(products[0]) })
+				let action_1 = UIAlertAction(title: priceFormatter.stringFromNumber(products[1].price), style: .Default, handler: { (_) -> () in self.purchaseProduct(products[1]) })
+				let action_2 = UIAlertAction(title: priceFormatter.stringFromNumber(products[2].price), style: .Default, handler: { (_) -> () in self.purchaseProduct(products[2]) })
+
+				let action_cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+
+				alertSheet.addAction(action_0)
+				alertSheet.addAction(action_2)
+				alertSheet.addAction(action_1)
+				alertSheet.addAction(action_cancel)
+				self.presentViewController(alertSheet, animated: true, completion: nil)
+
+			} else {
+				let alertController = UIAlertController(title: "Failed To Connect", message: "Please check your settings and try again.", preferredStyle: .Alert)
+				let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+				alertController.addAction(action)
+				self.presentViewController(alertController, animated: true, completion: nil)
+			}
+		})
+	}
+
+	func purchaseProduct(product: SKProduct) {
+		SupportProducts.store.purchaseProduct(product)
+	}
+
+	func productPurchased(notification: NSNotification) {
+		let productIdentifier = notification.object as! String
+		print(__FUNCTION__)
+		print(productIdentifier)
 	}
 }
 
@@ -133,10 +201,11 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+		let section_2_rows = IAPHelper.canMakePayments() ? 2 : 1
 		switch section {
 		case 0: return 2
 		case 1: return 2
-		case 2: return 1
+		case 2: return section_2_rows
 		default: return 0
 		}
 	}
@@ -152,15 +221,15 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		}
 
 		if indexPath.section == 1 && indexPath.row == 0 {
-			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 2]
-			cell.addSubview(switchControl_P)
-		}
-
-		if indexPath.section == 1 && indexPath.row == 1 {
 			cell = UITableViewCell(style: .Value1, reuseIdentifier: "Cell_1")
 			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 2]
 			cell.detailTextLabel?.text = String(C_amount)
 			cell.accessoryType = .DisclosureIndicator
+		}
+
+		if indexPath.section == 1 && indexPath.row == 1 {
+			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 2]
+			cell.addSubview(switchControl_P)
 		}
 
 		if indexPath.section == 2 {
@@ -172,7 +241,6 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-		let userDefaults = NSUserDefaults.standardUserDefaults()
 
 		if indexPath.section == 0 && indexPath.row == 0 {
 			switchControl_S.on ? switchControl_S.setOn(false, animated: true) : switchControl_S.setOn(true, animated: true)
@@ -185,27 +253,32 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		}
 
 		if indexPath.section == 1 && indexPath.row == 0 {
-			switchControl_P.on ? switchControl_P.setOn(false, animated: true) : switchControl_P.setOn(true, animated: true)
-			userDefaults.setBool(switchControl_P.on, forKey: Defaults.pronunciations)
-		}
-
-		if indexPath.section == 1 && indexPath.row == 1 {
 			let settingVC_1 = SettingVC_1()
 			settingVC_1.selectedOne = C_amount
 			settingVC_1.sendBack = { (selected) -> Void in
 				self.C_amount = selected
-				userDefaults.setInteger(self.C_amount, forKey: Defaults.C_amount)
+				self.userDefaults.setInteger(self.C_amount, forKey: Defaults.C_amount)
 			}
 			navigationController?.pushViewController(settingVC_1, animated: true)
+		}
+
+		if indexPath.section == 1 && indexPath.row == 1 {
+			switchControl_P.on ? switchControl_P.setOn(false, animated: true) : switchControl_P.setOn(true, animated: true)
+			userDefaults.setBool(switchControl_P.on, forKey: Defaults.pronunciations)
 		}
 
 		if indexPath.section == 2 && indexPath.row == 0 {
 			menuViewControllerSendSupportEmail()
 		}
 
+		if indexPath.section == 2 && indexPath.row == 1 {
+			connectToStore()
+		}
+
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
 	}
+
 }
 
 extension SettingViewController: MFMailComposeViewControllerDelegate {

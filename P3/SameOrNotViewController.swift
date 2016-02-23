@@ -48,8 +48,9 @@ class SameOrNotViewController: TestViewController {
 		let buttonSize = CGSize(width: scrollView.frame.width - 40, height: 60)
 
 		for i in 0..<2 {
-			let blockWidth = (ScreenWidth - 60) / 2
-			let point = CGPoint(x: positionInPage + 20 + (blockWidth + 20) * CGFloat(i), y: (ScreenHeight / 2 - blockWidth) / 2)
+			let blockWidth = BlockWidth.sameOrNot
+			let gapWidth = (ScreenWidth - blockWidth * 2) / 3
+			let point = CGPoint(x: positionInPage + gapWidth + (blockWidth + gapWidth) * CGFloat(i), y: (ScreenHeight / 2 - blockWidth) / 2)
 			let blockView = BlockView(type: .SameOrNot, origin: point, text: chinese.forSameOrNot[i])
 			blockViews.append(blockView)
 			scrollView.addSubview(blockViews[blockViews.count - 1])
@@ -96,6 +97,7 @@ class SameOrNotViewController: TestViewController {
 
 		if ChosenSame == trulySame {
 			rightCount++
+			if sound { rightSound.play() }
 			for blockView in blockViews { blockView.allChangeColor(.Green) }
 			sender.changeToColor(UIColor.rightGreen())
 
@@ -110,6 +112,7 @@ class SameOrNotViewController: TestViewController {
 		} else {
 			
 			for blockView in blockViews { blockView.allChangeColor(.Red) }
+			if sound { wrongSound.play() }
 			if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 			sender.changeColorBack()
 			sender.enabled = false

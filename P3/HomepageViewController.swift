@@ -72,7 +72,7 @@ class HomepageViewController: UIViewController {
 		titleLabel.text = "Pinyin Comparison"
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = UIColor.blackColor()
-		titleLabel.font = UIFont.boldSystemFontOfSize(fontSizesForDescribleLabels()[0])
+		titleLabel.font = UIFont.homepageTitleFont(fontSizesForDescribleLabels()[0])
 		view.addSubview(titleLabel)
 
 		let footerLabel = UILabel(frame: CGRect(x: 0, y: ScreenHeight / 2 + AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight, width: ScreenWidth, height: titleLabel.frame.height - 80))
@@ -85,10 +85,10 @@ class HomepageViewController: UIViewController {
 
 	func fontSizesForDescribleLabels() -> [CGFloat] {
 		switch ScreenWidth {
-		case 320: return [28, 15, 22]
-		case 375: return [32, 17, 22]
-		case 414: return [35, 19, 22]
-		default:return [26, 15, 22]
+		case 320: return [32, 15, 22]
+		case 375: return [37, 17, 22]
+		case 414: return [40, 19, 22]
+		default:return [38, 15, 22]
 		}
 	}
 
@@ -142,11 +142,11 @@ class HomepageViewController: UIViewController {
 
 	func addTwoLittleButtons() {
 
-		let xPositons: [CGFloat] = [0, self.view.frame.width - 80]
+		let xPositons: [CGFloat] = [0, self.view.frame.width - 70]
 		let images = [UIImage(named: ImageName.Record), UIImage(named: ImageName.Setting)]
 		for i in 0..<2 {
 			let button = UIButton(type: .System)
-			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 80, width: 80, height: 80)
+			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 70, width: 70, height: 70)
 			button.tintColor = UIColor.whiteColor()
 			button.setImage(images[i], forState: .Normal)
 			button.exclusiveTouch = true
@@ -162,12 +162,14 @@ class HomepageViewController: UIViewController {
 			self.sound = sound
 		} else {
 			self.sound = true
+			defaults.setBool(true, forKey: Defaults.sound)
 		}
 
 		if let vibration = defaults.valueForKey(Defaults.vibration) as? Bool {
 			self.vibration = vibration
 		} else {
 			self.vibration = true
+			defaults.setBool(true, forKey: Defaults.vibration)
 		}
 	}
 

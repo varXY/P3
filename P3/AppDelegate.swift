@@ -8,23 +8,20 @@
 
 import UIKit
 import CoreData
+import AVFoundation
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-	var scoreModel = ScoreModel()
-	var chinese = Chinese()
+	let scoreModel = ScoreModel()
+	let chinese = Chinese()
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
 		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
 		self.window!.backgroundColor = UIColor.whiteColor()
-
-		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-		dispatch_async(queue) {
-			self.chinese.getSixForSelectTheSame_1()
-		}
 
 		let homepageVC = HomepageViewController()
 		homepageVC.scoreModel = scoreModel
@@ -32,6 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		let navi = NavigationController(rootViewController: homepageVC)
 		navi.setNavigationBarHidden(true, animated: true)
 		self.window?.rootViewController = navi
+
+		try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
 
 		self.window?.makeKeyAndVisible()
 

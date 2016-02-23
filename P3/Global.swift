@@ -22,6 +22,13 @@ let dateFormatter: NSDateFormatter = {
 	return formatter
 }()
 
+var priceFormatter: NSNumberFormatter = {
+	let pf = NSNumberFormatter()
+	pf.formatterBehavior = .Behavior10_4
+	pf.numberStyle = .CurrencyStyle
+	return pf
+}()
+
 enum Outcome {
 	case Right, Wrong
 
@@ -63,9 +70,9 @@ struct Titles {
 	static let homepageSmallButtons = ["Records", "Settings"]
 	static let sameOrNot = ["Same", "Different"]
 	static let finalChoices = ["Again", "Quit"]
-	static let settingTitles = ["Sound", "Vibration", "Include uncommon pinyin", "Number of components in spell", "Feedback"]
+	static let settingTitles = ["Sound", "Vibration", "Number of wheels to spell with", "Include uncommon pinyin", "Feedback", "Contribute"]
 	static let noRecords = "No Records"
-	static let notFinished = "Haven't Finished Fet"
+	static let notFinished = "Haven't Finished Yet"
 	static let warming = "If you quit, current score will be lost."
 }
 

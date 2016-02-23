@@ -149,7 +149,7 @@ class BlockView: UIView {
 			let textLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: yPositions[0])
 			let textLabel = UILabel(frame: CGRect(origin: textLabelOrigin, size: labelSize))
 			textLabel.textColor = UIColor.whiteColor()
-			textLabel.font = UIFont.systemFontOfSize(21)
+			textLabel.font = UIFont.systemFontOfSize(autoFontSize()[0])
 			textLabel.textAlignment = .Center
 			textLabel.text = letters[i]
 			textLabel.adjustsFontSizeToFitWidth = true
@@ -158,7 +158,7 @@ class BlockView: UIView {
 			let pinyinLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: yPositions[1])
 			let pinyinLabel = UILabel(frame: CGRect(origin: pinyinLabelOrigin, size: labelSize))
 			pinyinLabel.textColor = UIColor.whiteColor()
-			pinyinLabel.font = UIFont.systemFontOfSize(19)
+			pinyinLabel.font = UIFont.systemFontOfSize(autoFontSize()[1])
 			pinyinLabel.textAlignment = .Center
 			pinyinLabel.text = pinyins[i]
 			pinyinLabel.adjustsFontSizeToFitWidth = true
@@ -173,6 +173,15 @@ class BlockView: UIView {
 		for pinyinLabel in pinyinLabels {
 			pinyinLabel.alpha = 0.0
 			addSubview(pinyinLabel)
+		}
+	}
+
+	func autoFontSize() -> [CGFloat] {
+		switch ScreenHeight {
+		case 480, 568: return [21, 19]
+		case  667: return [21, 19]
+		case 736: return [22, 20]
+		default: return [21, 19]
 		}
 	}
 
@@ -282,7 +291,7 @@ class BlockView: UIView {
 //	}
 
 	func showGreenBorder() {
-		UIView.animateWithDuration(0.5) { () -> Void in
+		UIView.animateWithDuration(2.0) { () -> Void in
 			self.button.layer.borderWidth = 2.5
 			self.button.layer.borderColor = ColorType.Green.color.CGColor
 		}

@@ -92,7 +92,8 @@ class SelectTheSameViewController: TestViewController {
 		let right = allTheSame.count == 3 && selectedBlocks.count == 3
 		let color: ColorType = right ? .Green : .Red
 		let score = right ? rightScore : wrongScore
-		if !right && vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
+		if sound { right ? rightSound.play() : wrongSound.play() }
+		if vibration && !right { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 
 		delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(score) })
 

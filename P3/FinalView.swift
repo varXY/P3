@@ -44,7 +44,7 @@ class FinalView: UIView {
 			let button = UIButton(type: .System)
 			button.frame = CGRect(x: 20, y: (self.frame.height - 160) + 80 * CGFloat(i), width: self.frame.width - 40, height: 60)
 			button.backgroundColor = UIColor.clearColor()
-			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.deepGray(), font: UIFont.buttonTitleFont(22), animated: false)
+			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.deepGray(), font: UIFont.systemFontOfSize(22), animated: false)
 			button.changeColorWhenTouchDown(UIColor.deepGray())
 			button.addBorder(borderColor: UIColor.deepGray(), width: 2.0)
 			button.tag = 9999 + i

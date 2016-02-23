@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import AVFoundation
 
 
 class TestViewController: UIViewController {
@@ -23,6 +24,9 @@ class TestViewController: UIViewController {
 	var finalView: FinalView!
 	
 	var sound = true
+	var rightSound = AVAudioPlayer()
+	var wrongSound = AVAudioPlayer()
+
 	var vibration = true
 
 	var currentPage = 0
@@ -41,11 +45,20 @@ class TestViewController: UIViewController {
 		finalView = FinalView()
 		finalView.delegate = self
 		view.addSubview(finalView)
+
+		prepareAudios()
 	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
 		self.navigationController?.setNavigationBarHidden(true, animated: true)
+	}
+
+	func prepareAudios() {
+		let rightSoundFile = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("right", ofType: "caf")!)
+		try! rightSound = AVAudioPlayer(contentsOfURL: rightSoundFile)
+		let wrongSoundFile = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("wrong", ofType: "caf")!)
+		try! wrongSound = AVAudioPlayer(contentsOfURL: wrongSoundFile)
 	}
 
 	func setUpScrollView() {
