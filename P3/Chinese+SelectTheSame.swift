@@ -116,11 +116,10 @@ extension Chinese {
 	}
 
 	func coupleOfConfusablePinyin_1() -> [String] {
-		let chinese_1 = Chinese_1()
 		var results = [String]()
 
-		let one = getRandomNumbers(1, lessThan: chinese_1.confusablePinyinsForSelectTheSame.count)
-		let all = chinese_1.confusablePinyinsForSelectTheSame[one[0]]
+		let one = getRandomNumbers(1, lessThan: confusablePinyinsForSelectTheSame.count)
+		let all = confusablePinyinsForSelectTheSame[one[0]]
 
 		let numbers = getRandomNumbers(4, lessThan: all.count)
 

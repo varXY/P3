@@ -28,11 +28,61 @@ class HomepageViewController: UIViewController {
         super.viewDidLoad()
 		self.view.backgroundColor = UIColor.themeBlue()
 
-		addTwoDescribeLabels()
-		addThreeMainButtons()
-		addTwoLittleButtons()
+//		addTwoDescribeLabels()
+//		addThreeMainButtons()
+//		addTwoLittleButtons()
+
+//		let chinese_3 = Chinese_3()
+//
+//		let olds = [
+//			chinese_3.pinyin_characters_A,
+//			chinese_3.pinyin_characters_B,
+//			chinese_3.pinyin_characters_C,
+//			chinese_3.pinyin_characters_D,
+//			chinese_3.pinyin_characters_E,
+//			chinese_3.pinyin_characters_F,
+//			chinese_3.pinyin_characters_G,
+//			chinese_3.pinyin_characters_H,
+//			chinese_3.pinyin_characters_J,
+//			chinese_3.pinyin_characters_K,
+//			chinese_3.pinyin_characters_L,
+//			chinese_3.pinyin_characters_M,
+//			chinese_3.pinyin_characters_N,
+//			chinese_3.pinyin_characters_O,
+//			chinese_3.pinyin_characters_P,
+//			chinese_3.pinyin_characters_Q,
+//			chinese_3.pinyin_characters_R,
+//			chinese_3.pinyin_characters_S,
+//			chinese_3.pinyin_characters_T,
+//			chinese_3.pinyin_characters_W,
+//			chinese_3.pinyin_characters_X,
+//			chinese_3.pinyin_characters_Y,
+//			chinese_3.pinyin_characters_Z,
+//		]
+
+		var letter = [[String]]()
+		letter = temp1.sort({ $0[0] < $1[0] })
+
+		print(letter)
 
     }
+
+	var pinyins = ["nai", "ban", "cen", "hei", "pei", "me", "ne", "ni", "niang", "sui", "o", "piao", "ti", "a", "ai", "ba", "bai", "bang", "beng", "bei", "bi", "pian", "bian", "bo", "tian", "can", "cang", "zang", "ce", "chai", "chan", "zhang", "che", "deng", "chi", "chou", "chuan", "chao", "chuo", "cuo", "da", "dai", "tan", "de", "di", "dian", "diao", "tiao", "ding", "dong", "tong", "dou", "du", "dui", "tun", "dun", "duo", "e", "er", "fan", "feng", "fo", "fou", "fu", "hao", "gao", "ge", "gei", "gong", "guang", "ha", "heng", "hong", "hu", "hua", "huai", "huan", "hai", "kuai", "hui", "hun", "huo", "gu", "gai", "jie", "jin", "geng", "jing", "jiong", "jue", "jun", "ga", "ka", "kai", "gang", "kang", "ke", "keng", "kui", "kuo", "la", "lan", "lei", "leng", "liang", "ling", "lian", "lao", "le", "liao", "lou", "liu", "lu", "lv", "guan", "lun", "luo", "mai", "man", "mang", "mao", "meng", "mei", "mi", "mian", "ma", "mo", "mou", "mu", "nei", "na", "nuo", "niao", "long", "nong", "nu", "nv", "nve", "pa", "pang", "pan", "pao", "pi", "bing", "ping", "pai", "po", "pou", "bu", "bao", "pu", "qi", "qia", "gan", "jian", "kan", "jiang", "qiang", "jia", "qie", "qing", "qin", "ou", "qu", "juan", "quan", "gui", "qiao", "que", "ru", "ruo", "sai", "se", "shai", "chang", "sao", "chen", "shen", "xing", "cheng", "sheng", "dan", "shou", "zhu", "shu", "shuo", "shuai", "shui", "si", "sou", "xiu", "suo", "su", "shang", "tang", "tao", "ting", "tui", "ta", "tuo", "wan", "wang", "wei", "guo", "wo", "wu", "ji", "xi", "sha", "he", "xia", "qian", "xian", "hang", "xiang", "jiao", "xiao", "xin", "chu", "xue", "xun", "ya", "xie", "yi", "yan", "yin", "yong", "tu", "xu", "yu", "yuan", "yun", "yue", "yao", "cuan", "zan", "zao", "ze", "zen", "ceng", "za", "cha", "shan", "zhai", "nian", "zhan", "shao", "she", "zhe", "shi", "zhi", "chong", "zhong", "zhou", "zhao", "zhua", "ye", "zhuai", "zhuan", "zhuang", "chui", "zhui", "zhuo", "ci", "zai", "zi", "zeng", "zong", "ju", "cu", "zu", "zha", "zuo"]
+
+	func getNewABC(old: [[String]]) {
+		for couple in old {
+			var newCouple = [String]()
+			newCouple.append(couple[0])
+			for i in 1..<couple.count {
+				if let index = newCouple.indexOf(couple[i]) {
+					newCouple.removeAtIndex(index)
+				}
+
+				newCouple.append(couple[i])
+			}
+			print(newCouple)
+		}
+	}
 
 	
 

@@ -13,10 +13,7 @@ import CoreData
 class Chinese {
 
 	init() {
-		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-		dispatch_async(queue) {
-			self.getSixForSelectTheSame_1()
-		}
+		getSixForSelectTheSame_1()
 	}
 
 	var forSameOrNot = [[String]]()
@@ -1072,6 +1069,30 @@ class Chinese {
 
 	]
 
+	let confusablePinyinsForSelectTheSame = [
+		["a", "ai", "an", "ang", "ao"],
+		["ba", "bai", "ban", "bang", "bao", "bei", "ben", "beng", "bi", "bian", "biao", "bie", "bin", "bing", "bo", "bu"],
+		["cai", "can", "cang", "cao", "ce", "ceng", "cha", "chai", "chan", "chang", "chao", "che", "chen", "cheng", "chi", "chong", "chou", "chu", "chuan", "chuang", "chui", "chun", "ci", "cong", "cu", "cuan", "cui", "cun", "cuo"],
+		["da", "dai", "dan", "dang", "dao", "de", "deng", "di", "dian", "diao", "die", "ding", "dong", "dou", "du", "duan", "dui", "dun", "duo"],
+		["fa", "fan", "fang", "fei", "fen", "feng", "fu"],
+		["ga", "gai", "gan", "gang", "gao", "ge", "geng", "gong", "gou", "gu", "gua", "guai", "guan", "guang", "gui", "gun", "guo"],
+		["ha", "hai", "han", "hang", "hao", "he", "hen", "heng", "hong", "hou", "hu", "hua", "huai", "huan", "huang", "hui", "hun", "huo"],
+		["ji", "jia", "jian", "jiang", "jiao", "jie", "jin", "jing", "jiu", "ju", "juan", "jue", "jun"],
+		["ka", "kai", "kan", "kang", "kao", "ke", "ken", "kong", "kou", "ku", "kua", "kuai", "kuang", "kui", "kun", "kuo"],
+		["la", "lai", "lan", "lang", "lao", "le", "lei", "leng", "li", "lian", "liang", "liao", "lie", "lin", "ling", "liu", "long", "lou", "lu", "lv", "luan", "lun", "luo"],
+		["ma", "mai", "man", "mang", "mao", "mei", "men", "meng", "mi", "mian", "miao", "min", "ming", "mo", "mou", "mu"],
+		["na", "nai", "nan", "nao", "ne", "nei", "ni", "nian", "niao", "nie", "ning", "niu", "nong", "nu", "nv", "nuo"],
+		["pa", "pai", "pan", "pang", "pao", "pei", "peng", "pi", "pian", "piao", "pin", "ping", "po", "pu"],
+		["qi", "qia", "qian", "qiang", "qiao", "qie", "qin", "qing", "qiu", "qu", "quan", "que"],
+		["ran", "rang", "rao", "re", "ren", "rong", "rou", "ru", "ruan", "rui"],
+		["sa", "sai", "san", "sang", "sao", "se", "sha", "shai", "shan", "shang", "shao", "she", "shen", "sheng", "shi", "shou", "shu", "shuai", "shuang", "shui", "shun", "shuo", "si", "song", "sou", "su", "suan", "sui", "sun", "suo"],
+		["ta", "tai", "tan", "tang", "tao", "teng", "ti", "tian", "tiao", "tie", "ting", "tong", "tou", "tu", "tui", "tun", "tuo"],
+		["wa", "wan", "wang", "wei", "wen", "weng", "wo", "wu"],
+		["xi", "xia", "xian", "xiang", "xiao", "xie", "xin", "xing", "xiong", "xiu", "xu", "xuan", "xue", "xun"],
+		["ya", "yan", "yang", "yao", "ye", "yi", "yin", "ying", "yong", "you", "yu", "yuan", "yue", "yun"],
+		["za", "zai", "zan", "zang", "zao", "ze", "zeng", "zha", "zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuai", "zhuan", "zhuang", "zhui", "zhun", "zhuo", "zi", "zong", "zou", "zu", "zuan", "zui", "zun", "zuo"],
+	]
+
 	func randomPinyin() -> String {
 		let randomNumber = getRandomNumbers(1, lessThan: allPossiblePinyin.count)
 		return allPossiblePinyin[randomNumber[0]]
@@ -1110,18 +1131,7 @@ class Chinese {
 		return results
 	}
 
-	func printAllCharctersHaveSamePinyin(wordsCount: Int) {
-		var results = [String]()
-		for pinyin in allPossiblePinyin {
-			let words = charactersFromPinyin(pinyin)
-			if words.count >= wordsCount {
-				results.append(pinyin)
-			}
-		}
-		print(results)
-		print(results.count)
-	}
-
+	
 	func wordsFromPinyin(pinyin: String) -> [String] {
 		var words = [String]()
 
@@ -1170,37 +1180,6 @@ class Chinese {
 		}
 
 		return pinyin
-	}
-
-	
-	//MARK: - Test
-
-	func confusablePinyin_Different_Test() {
-		for couple in confusablePinyin_Different {
-			let pinyins = couple.componentsSeparatedByString(" ")
-
-			let words_0 = charactersFromPinyin(pinyins[0])
-			if words_0.count == 0 { print(pinyins[0]) }
-
-			let words_1 = charactersFromPinyin(pinyins[1])
-			if words_1.count == 0 { print(pinyins[1]) }
-
-			if pinyins.count != 2 { print(pinyins) }
-		}
-	}
-
-	func confusablePinyinOfWord_Different_Test() {
-		for couple in confusablePinyinOfWord_Different {
-			let wordPinyins = couple.componentsSeparatedByString("-")
-
-			let words_0 = wordsFromPinyin(wordPinyins[0])
-			if words_0.count == 0 { print(wordPinyins[0]) }
-
-			let words_1 = wordsFromPinyin(wordPinyins[1])
-			if words_1.count == 0 { print(wordPinyins[1]) }
-
-			if wordPinyins.count != 2 { print(wordPinyins) }
-		}
 	}
 
 
