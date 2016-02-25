@@ -14,6 +14,7 @@ import AVFoundation
 class TestViewController: UIViewController {
 
 	var chinese: Chinese!
+	var data: [[[String]]]!
 	var totalScore: Int!
 	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
 

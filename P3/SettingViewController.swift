@@ -20,6 +20,8 @@ class SettingViewController: UIViewController {
 
 	var C_amount = 3
 
+	let titles = ["Sound", "Vibration", "Number of wheels to spell with", "Include uncommon pinyin", "Feedback", "Contribute"]
+
 	let userDefaults = NSUserDefaults.standardUserDefaults()
 
 	override func viewDidLoad() {
@@ -214,7 +216,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		var cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
 
 		if indexPath.section == 0 {
-			cell.textLabel?.text = Titles.settingTitles[indexPath.row]
+			cell.textLabel?.text = titles[indexPath.row]
 
 			let switchControl = indexPath.row == 0 ? switchControl_S : switchControl_V
 			cell.addSubview(switchControl)
@@ -222,18 +224,18 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 		if indexPath.section == 1 && indexPath.row == 0 {
 			cell = UITableViewCell(style: .Value1, reuseIdentifier: "Cell_1")
-			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 2]
+			cell.textLabel?.text = titles[indexPath.row + 2]
 			cell.detailTextLabel?.text = String(C_amount)
 			cell.accessoryType = .DisclosureIndicator
 		}
 
 		if indexPath.section == 1 && indexPath.row == 1 {
-			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 2]
+			cell.textLabel?.text = titles[indexPath.row + 2]
 			cell.addSubview(switchControl_P)
 		}
 
 		if indexPath.section == 2 {
-			cell.textLabel?.text = Titles.settingTitles[indexPath.row + 4]
+			cell.textLabel?.text = titles[indexPath.row + 4]
 			cell.textLabel?.textAlignment = .Center
 		}
 

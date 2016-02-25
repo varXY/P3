@@ -11,82 +11,9 @@ import Foundation
 
 extension Chinese {
 
-	func getSixForSelectTheSame(complete: () -> Void) {
-		sixPinyinAndCharacters()
-		complete()
-	}
-
-	func sixPinyinAndCharacters() {
+	func getSixForSelectTheSame() {
 		forSelectTheSame.removeAll()
-
-		var pinyins = coupleOfconfusablePinyin()
-
-
-		var sameWords = [String]()
-
-		repeat {
-			let index = getRandomNumbers(1, lessThan: pinyins.count)
-
-			let words = charactersFromPinyin(pinyins[index[0]])
-
-			if words.count >= 3 {
-				sameWords = numberOfWords(3, words: words)
-
-				for i in 0..<3 {
-					var block = [pinyins[index[0]]]
-					block.append(sameWords[i])
-					forSelectTheSame.append(block)
-				}
-
-				if let index = pinyins.indexOf(pinyins[index[0]]) {
-					pinyins.removeAtIndex(index)
-
-					for pinyin in pinyins {
-						let words = charactersFromPinyin(pinyin)
-
-						var block = [pinyin]
-						block.append(numberOfWords(1, words: words)[0])
-						forSelectTheSame.append(block)
-					}
-				}
-
-			}
-		} while sameWords.count < 3
-
-	}
-
-	func numberOfWords(number: Int, words: [String]) -> [String] {
-		var resultWords = [String]()
-
-		let indexs = getRandomNumbers(number, lessThan: words.count)
-
-		for i in 0..<indexs.count {
-			resultWords.append(words[indexs[i]])
-		}
-
-		return resultWords
-	}
-
-	func coupleOfconfusablePinyin() -> [String] {
-		var allFour = [String]()
-
-		let indexs = getRandomNumbers(2, lessThan: confusablePinyin_Different.count)
-
-		let two_0 = confusablePinyin_Different[indexs[0]].componentsSeparatedByString(" ")
-		let two_1 = confusablePinyin_Different[indexs[1]].componentsSeparatedByString(" ")
-
-		for i in 0..<2 {
-			allFour.append(two_0[i])
-			allFour.append(two_1[i])
-		}
-
-		return allFour
-	}
-
-	func getSixForSelectTheSame_1() {
-		forSelectTheSame.removeAll()
-
-		var pinyins = coupleOfConfusablePinyin_1()
+		var pinyins = coupleOfConfusablePinyin()
 
 		let index = getRandomNumbers(1, lessThan: pinyins.count)[0]
 
@@ -115,12 +42,13 @@ extension Chinese {
 		}
 	}
 
-	func coupleOfConfusablePinyin_1() -> [String] {
+	func coupleOfConfusablePinyin() -> [String] {
 		var results = [String]()
 
-		let one = getRandomNumbers(1, lessThan: confusablePinyinsForSelectTheSame.count)
-		let all = confusablePinyinsForSelectTheSame[one[0]]
-
+		let one = getRandomNumbers(1, lessThan: 23)
+		let all = pinyinsWithSeveralCharacters(3, index: one[0])
+		// all 的数量必须大于等于4
+		
 		let numbers = getRandomNumbers(4, lessThan: all.count)
 
 		for number in numbers {

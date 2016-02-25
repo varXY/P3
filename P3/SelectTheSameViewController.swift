@@ -47,7 +47,7 @@ class SelectTheSameViewController: TestViewController {
 
 	func addContent(page page: Int, firstTime: Bool) {
 
-		if !firstTime { chinese.getSixForSelectTheSame_1() }
+		if !firstTime { chinese.getSixForSelectTheSame() }
 		rightAnswer = chinese.forSelectTheSame[0][0]
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)

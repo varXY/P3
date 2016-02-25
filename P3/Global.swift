@@ -16,6 +16,7 @@ let ScreenHeight = ScreenBounds.height
 
 let BarHeight = UIApplication.sharedApplication().statusBarFrame.height
 
+
 let dateFormatter: NSDateFormatter = {
 	let formatter = NSDateFormatter()
 	formatter.dateFormat = "MM/dd/yy"
@@ -70,7 +71,6 @@ struct Titles {
 	static let homepageSmallButtons = ["Records", "Settings"]
 	static let sameOrNot = ["Same", "Different"]
 	static let finalChoices = ["Again", "Quit"]
-	static let settingTitles = ["Sound", "Vibration", "Number of wheels to spell with", "Include uncommon pinyin", "Feedback", "Contribute"]
 	static let noRecords = "No Records"
 	static let notFinished = "Haven't Finished Yet"
 	static let warming = "If you quit, current score will be lost."
@@ -106,6 +106,7 @@ func delay(seconds seconds: Double, completion:()->()) {
     }
     
 }
+
 
 func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
     var result = [Int]()

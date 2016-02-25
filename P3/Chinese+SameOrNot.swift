@@ -13,6 +13,7 @@ extension Chinese {
 
 	func getOneForSameOrNot() {
 		forSameOrNot.removeAll()
+		
 		let sameOrNot = getRandomNumbers(1, lessThan: 2)
 		let oneForSameOrNot = sameOrNot[0] == 0 ? sameCharactersOrWords() : differentCharactersOrWords()
 
@@ -92,8 +93,9 @@ extension Chinese {
 
 		if characterOrWord[0] == 0 {
 
-			let chinese_1 = Chinese_1()
-			let pinyin = chinese_1.randomPinyin()
+			let pinyins = pinyinsWithSeveralCharacters(2, index: 0)
+			let index = getRandomNumbers(1, lessThan: pinyins.count)
+			let pinyin = pinyins[index[0]]
 
 			let charcters = charactersFromPinyin(pinyin)
 
@@ -110,7 +112,7 @@ extension Chinese {
 			repeat {
 
 				let randomIndex = getRandomNumbers(1, lessThan: 52936)
-				let pinyin = pinyinFromIndex(Double(randomIndex[0]))
+				let pinyin = wordPinyinFromIndex(Double(randomIndex[0]))
 
 				let words = wordsFromPinyin(pinyin)
 

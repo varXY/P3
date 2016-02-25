@@ -76,7 +76,7 @@ static NSDictionary *hanzi2pinyin;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         hanzi2pinyin = [[NSDictionary alloc] init];
-        NSString *resourceName =[[NSBundle mainBundle] pathForResource:[self resourceName] ofType:@"txt"];
+        NSString *resourceName =[[NSBundle mainBundle] pathForResource:@"hanzi2pinyin_v2" ofType:@"txt"];
         NSString *dictionaryText=[NSString stringWithContentsOfFile:resourceName encoding:NSUTF8StringEncoding error:nil];
         NSAssert(dictionaryText.length > 0, @"no such file! ");
         NSArray *lines = [dictionaryText componentsSeparatedByString:@"\r\n"];

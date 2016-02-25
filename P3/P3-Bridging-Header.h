@@ -9,6 +9,6 @@
 #ifndef Header_h
 #define Header_h
 
-#import "SWPinYinHeader.h"
+//#import "SWPinYinHeader.h"
 
 #endif /* Header_h */

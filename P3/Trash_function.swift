@@ -6,6 +6,111 @@
 //  Copyright © 2016 myname. All rights reserved.
 //
 
+//func charactersFromPinyin(pinyin: String) -> [String] {
+//	var results = [String]()
+//
+//	for i in oftenUsedCharacters.characters {
+//		let value = String(i) as NSString
+//		if let all = value.toPinyinArray() as? [String] {
+//			if let _ = all.indexOf(pinyin) {
+//				results.append(value as String)
+//			}
+//		}
+//	}
+//
+//	return results
+//}
+
+
+//	func randomPinyinOfWord() -> String {
+//		let AOrB = arc4random_uniform(10)
+//		let amount = AOrB == 2 ? 3 : 2
+//		let randomNumubers = getRandomNumbers(amount, lessThan: allPossiblePinyin.count)
+//
+//		var pinyin = String()
+//		for i in randomNumubers {
+//			if pinyin.characters.count == 0 {
+//				pinyin += allPossiblePinyin[i]
+//			} else {
+//				pinyin += " " + allPossiblePinyin[i]
+//			}
+//
+//		}
+//
+//		return pinyin
+//	}
+
+//func getSixForSelectTheSame(complete: () -> Void) {
+//	sixPinyinAndCharacters()
+//	complete()
+//}
+//
+//func sixPinyinAndCharacters() {
+//	forSelectTheSame.removeAll()
+//
+//	var pinyins = coupleOfconfusablePinyin()
+//
+//
+//	var sameWords = [String]()
+//
+//	repeat {
+//		let index = getRandomNumbers(1, lessThan: pinyins.count)
+//
+//		let words = charactersFromPinyin(pinyins[index[0]])
+//
+//		if words.count >= 3 {
+//			sameWords = numberOfWords(3, words: words)
+//
+//			for i in 0..<3 {
+//				var block = [pinyins[index[0]]]
+//				block.append(sameWords[i])
+//				forSelectTheSame.append(block)
+//			}
+//
+//			if let index = pinyins.indexOf(pinyins[index[0]]) {
+//				pinyins.removeAtIndex(index)
+//
+//				for pinyin in pinyins {
+//					let words = charactersFromPinyin(pinyin)
+//
+//					var block = [pinyin]
+//					block.append(numberOfWords(1, words: words)[0])
+//					forSelectTheSame.append(block)
+//				}
+//			}
+//
+//		}
+//	} while sameWords.count < 3
+//
+//}
+//
+//func numberOfWords(number: Int, words: [String]) -> [String] {
+//	var resultWords = [String]()
+//
+//	let indexs = getRandomNumbers(number, lessThan: words.count)
+//
+//	for i in 0..<indexs.count {
+//		resultWords.append(words[indexs[i]])
+//	}
+//
+//	return resultWords
+//}
+//
+//func coupleOfconfusablePinyin() -> [String] {
+//	var allFour = [String]()
+//
+//	let indexs = getRandomNumbers(2, lessThan: confusablePinyin_Different.count)
+//
+//	let two_0 = confusablePinyin_Different[indexs[0]].componentsSeparatedByString(" ")
+//	let two_1 = confusablePinyin_Different[indexs[1]].componentsSeparatedByString(" ")
+//
+//	for i in 0..<2 {
+//		allFour.append(two_0[i])
+//		allFour.append(two_1[i])
+//	}
+//
+//	return allFour
+//}
 
 //	func addTimer() {
 //		timer =  NSTimer(timeInterval: 2.0, target: self, selector: "countDown", userInfo: nil, repeats: true)

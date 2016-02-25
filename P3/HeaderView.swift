@@ -91,7 +91,8 @@ class HeaderView: UIView {
 		label.backgroundColor = UIColor.clearColor()
 		label.textColor = UIColor.themeGold()
 		label.textAlignment = .Center
-		label.font = UIFont.systemFontOfSize(18)
+		let size: CGFloat = ScreenHeight == 736 ? 21 : 20
+		label.font = UIFont.systemFontOfSize(size)
 		label.text = titles[number - 1]
 		centerLabel = label
 		addSubview(centerLabel)
