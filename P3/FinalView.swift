@@ -22,19 +22,20 @@ class FinalView: UIView {
 
 	var titleLabel: UILabel!
 	var numberLabel: UILabel!
+	var bottomLabel: UILabel!
 
 	weak var delegate: FinalViewDelegate?
 
 	init() {
 		super.init(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: ScreenHeight - 60))
-		self.backgroundColor = UIColor.lightGray()
+		self.backgroundColor = UIColor.whiteColor()
 
 		titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 50))
 		titleLabel.textAlignment = .Center
 		titleLabel.font = UIFont.systemFontOfSize(20)
 		addSubview(titleLabel)
 
-		numberLabel = UILabel(frame: CGRect(x: 0, y: titleLabel.frame.height, width: frame.width, height: frame.height - 160 - 50))
+		numberLabel = UILabel(frame: CGRect(x: 0, y: titleLabel.frame.height - 20, width: frame.width, height: frame.height - 160 - 60 - 50))
 		numberLabel.textColor = UIColor.themeGold()
 		numberLabel.textAlignment = .Center
 		numberLabel.font = UIFont.scoreFont(90)
@@ -42,7 +43,7 @@ class FinalView: UIView {
 
 		for i in 0..<2 {
 			let button = UIButton(type: .System)
-			button.frame = CGRect(x: 20, y: (self.frame.height - 160) + 80 * CGFloat(i), width: self.frame.width - 40, height: 60)
+			button.frame = CGRect(x: 20, y: (self.frame.height - 160 - 60) + 80 * CGFloat(i), width: self.frame.width - 40, height: 60)
 			button.backgroundColor = UIColor.clearColor()
 			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.deepGray(), font: UIFont.systemFontOfSize(22), animated: false)
 			button.changeColorWhenTouchDown(UIColor.deepGray())
@@ -52,17 +53,26 @@ class FinalView: UIView {
 			button.exclusiveTouch = true
 			addSubview(button)
 		}
+
+		bottomLabel = UILabel(frame: CGRect(x: 0, y: frame.height - 60, width: frame.width, height: 60))
+		bottomLabel.textColor =  UIColor.whiteColor()
+		bottomLabel.font = UIFont.systemFontOfSize(22)
+		bottomLabel.textAlignment = .Center
+		bottomLabel.backgroundColor = UIColor.themeGold()
+		addSubview(bottomLabel)
 	}
 
 	func show(currentScore: Int, delay: Double) {
-//		alpha = 0.0
 		let win = currentScore >= 0
 		titleLabel.textColor = win ? UIColor.rightGreen() : UIColor.wrongRed()
 		titleLabel.text = win ? "You win:" : "You lose:"
 		numberLabel.text = "\(abs(currentScore))"
 
+		let formatter = NSDateFormatter()
+		formatter.dateFormat = "HH:mm, MM/dd/yyyy"
+		bottomLabel.text = formatter.stringFromDate(NSDate())
+		
 		UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
-//			self.alpha = 1.0
 			self.frame.origin.y -= self.frame.height
 			}, completion: nil)
 
@@ -71,7 +81,6 @@ class FinalView: UIView {
 	func finalChoice(sender: UIButton) {
 
 		UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
-//			self.alpha = 0.0
 			self.frame.origin.y += self.frame.height
 			}) { (_) -> Void in
 				let buttonType = sender.tag == 9999 ? FinalViewButtonType.Again : FinalViewButtonType.Quit

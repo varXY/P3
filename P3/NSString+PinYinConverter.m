@@ -7,7 +7,6 @@
 //
 
 #import "NSString+PinYinConverter.h"
-#import "P3-Swift.h"
 
 static NSDictionary *hanzi2pinyin;
 

@@ -26,7 +26,7 @@ extension Chinese {
 			case 3:
 				return ["da", "dai", "dan", "dang", "dao", "de", "deng", "di", "dian", "diao", "die", "ding", "dong", "dou", "du", "duan", "dui", "dun", "duo"]
 			case 4:
-				return ["a", "ai", "an", "ang", "ao"]
+				return ["cai", "can", "cang", "cao", "ce", "ceng", "cha", "chai", "chan", "chang", "chao", "che", "chen", "cheng", "chi", "chong", "chou", "chu", "chuan", "chuang", "chui", "chun", "ci", "cong", "cu", "cuan", "cui", "cun", "cuo"]
 			case 5:
 				return ["fa", "fan", "fang", "fei", "fen", "feng", "fu"]
 			case 6:
@@ -44,7 +44,7 @@ extension Chinese {
 			case 12:
 				return ["na", "nai", "nan", "nao", "nei", "ni", "nian", "nie", "ning", "niu", "nong", "nu", "nuo"]
 			case 13:
-				return ["wa", "wan", "wang", "wei", "wen", "weng", "wo", "wu"]
+				return ["la", "lai", "lan", "lang", "lao", "le", "lei", "leng", "li", "lian", "liang", "liao", "lie", "lin", "ling", "liu", "long", "lou", "lu", "lv", "luan", "lun", "luo"]
 			case 14:
 				return ["pa", "pai", "pan", "pang", "pao", "pei", "peng", "pi", "pian", "piao", "pin", "ping", "po", "pu"]
 			case 15:
@@ -64,10 +64,10 @@ extension Chinese {
 			case 22:
 				return ["za", "zai", "zan", "zang", "zao", "ze", "zeng", "zha", "zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhuan", "zhuang", "zhui", "zhuo", "zi", "zong", "zou", "zu", "zui", "zuo"]
 			default:
-				return ["wa", "wan", "wang", "wei", "wen", "weng", "wo", "wu"]
+				return ["za", "zai", "zan", "zang", "zao", "ze", "zeng", "zha", "zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhuan", "zhuang", "zhui", "zhuo", "zi", "zong", "zou", "zu", "zui", "zuo"]
 			}
 		default:
-			return ["wa", "wan", "wang", "wei", "wen", "weng", "wo", "wu"]
+			return ["za", "zai", "zan", "zang", "zao", "ze", "zeng", "zha", "zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhuan", "zhuang", "zhui", "zhuo", "zi", "zong", "zou", "zu", "zui", "zuo"]
 		}
 	}
 }

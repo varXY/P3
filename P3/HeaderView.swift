@@ -35,7 +35,6 @@ class HeaderView: UIView {
 	init(number: Int, totalScore: Int) {
 		super.init(frame: CGRect(x: 2, y: 2, width: ScreenWidth - 4, height: 60))
 		backgroundColor = UIColor.clearColor()
-//		addBorder(borderColor: UIColor.whiteColor())
 		self.totalScore = totalScore
 		showedNumber = page
 
@@ -163,7 +162,7 @@ class HeaderView: UIView {
 			})
 		}
 
-		delay(seconds: 0.3, completion: { self.changeNumber(toNumber: 1) })
+		delay(seconds: 0.5, completion: { self.changeNumber(toNumber: 1) })
 	}
 
 
@@ -192,15 +191,6 @@ class HeaderView: UIView {
 	func backButtonTapped() {
 		delegate?.backButtonTapped()
 	}
-
-//	func changePage(toPage: Int) {
-//		pageLabel.text = "\(toPage) / 10"
-//	}
-//
-//	func pageToTitle(title: String) {
-//		pageLabel.text = title
-//	}
-//
 
 
 	required init?(coder aDecoder: NSCoder) {

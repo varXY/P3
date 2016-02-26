@@ -65,32 +65,6 @@ class HomepageViewController: UIViewController {
 		}
 	}
 
-
-	func addTwoDescribeLabels() {
-		let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight / 2 - (AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight)))
-		titleLabel.text = "Pinyin Comparison"
-		titleLabel.textAlignment = .Center
-		titleLabel.textColor = UIColor.blackColor()
-		titleLabel.font = UIFont.homepageTitleFont(fontSizesForDescribleLabels()[0])
-		view.addSubview(titleLabel)
-
-		let footerLabel = UILabel(frame: CGRect(x: 0, y: ScreenHeight / 2 + AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight, width: ScreenWidth, height: titleLabel.frame.height - 80))
-		footerLabel.text = "Efficient ways to learn Pinyin and Chinese"
-		footerLabel.textAlignment = .Center
-		footerLabel.textColor = UIColor.deepGray()
-		footerLabel.font = UIFont.italicSystemFontOfSize(fontSizesForDescribleLabels()[1])
-		view.addSubview(footerLabel)
-	}
-
-	func fontSizesForDescribleLabels() -> [CGFloat] {
-		switch ScreenWidth {
-		case 320: return [32, 15, 22]
-		case 375: return [37, 17, 22]
-		case 414: return [40, 19, 22]
-		default:return [38, 15, 22]
-		}
-	}
-
 	struct AutoSize {
 		static let bigButtonHeight: CGFloat = {
 			switch ScreenHeight {
@@ -109,6 +83,31 @@ class HomepageViewController: UIViewController {
 			default: return 30
 			}
 		}()
+
+		static let fontSize: [CGFloat] = {
+			switch ScreenWidth {
+			case 320: return [32, 15, 22]
+			case 375: return [37, 17, 22]
+			case 414: return [40, 19, 22]
+			default:return [38, 15, 22]
+			}
+		}()
+	}
+
+	func addTwoDescribeLabels() {
+		let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight / 2 - (AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight)))
+		titleLabel.text = "Pinyin Comparison"
+		titleLabel.textAlignment = .Center
+		titleLabel.textColor = UIColor.blackColor()
+		titleLabel.font = UIFont.homepageTitleFont(AutoSize.fontSize[0])
+		view.addSubview(titleLabel)
+
+		let footerLabel = UILabel(frame: CGRect(x: 0, y: ScreenHeight / 2 + AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight, width: ScreenWidth, height: titleLabel.frame.height - 80))
+		footerLabel.text = "Efficient ways to learn Pinyin and Chinese"
+		footerLabel.textAlignment = .Center
+		footerLabel.textColor = UIColor.deepGray()
+		footerLabel.font = UIFont.systemFontOfSize(AutoSize.fontSize[1])
+		view.addSubview(footerLabel)
 	}
 
 	func addThreeMainButtons() {
@@ -122,7 +121,7 @@ class HomepageViewController: UIViewController {
 			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + AutoSize.gapHeight) * CGFloat(i))
 
 			button.backgroundColor = UIColor.clearColor()
-			let size = fontSizesForDescribleLabels()[2]
+			let size = AutoSize.fontSize[2]
 			button.addTextLabel(Titles.homepageBigButtons[i], textColor: UIColor.whiteColor(), font: UIFont.systemFontOfSize(size), animated: false)
 			button.changeColorWhenTouchDown(UIColor.whiteColor())
 			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
@@ -157,6 +156,7 @@ class HomepageViewController: UIViewController {
 
 	func setSoundAndVibration() {
 		let defaults = NSUserDefaults.standardUserDefaults()
+
 		if let sound = defaults.valueForKey(Defaults.sound) as? Bool {
 			self.sound = sound
 		} else {
@@ -170,10 +170,11 @@ class HomepageViewController: UIViewController {
 			self.vibration = true
 			defaults.setBool(true, forKey: Defaults.vibration)
 		}
+
+		defaults.synchronize()
 	}
 
 	func bigButtonTapped(sender: UIButton) {
-
 		var viewController: TestViewController!
 
 		switch sender.tag {

@@ -14,7 +14,6 @@ import AVFoundation
 class TestViewController: UIViewController {
 
 	var chinese: Chinese!
-	var data: [[[String]]]!
 	var totalScore: Int!
 	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
 
@@ -97,7 +96,9 @@ extension TestViewController: HeaderViewDelegate {
 
 	func backButtonTapped() {
 		if currentPage != 0 && currentPage != 10 {
-			alertOfStayOrQuit(self, title: Titles.notFinished, message: Titles.warming, quit: { self.confirmToQuit() })
+			let notFinished = "Not Finish Yet"
+			let warming = "If you quit, current score will be lost."
+			alertOfStayOrQuit(self, title: notFinished, message: warming, quit: { self.confirmToQuit() })
 		} else {
 			navigationController?.popToRootViewControllerAnimated(true)
 		}

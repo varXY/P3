@@ -45,6 +45,7 @@
 		3189509C1C75A57300DB3BA6 /* Arial Narrow.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3189509B1C75A57300DB3BA6 /* Arial Narrow.ttf */; };
 		3189509E1C75AD7F00DB3BA6 /* GillSans.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 3189509D1C75AD7F00DB3BA6 /* GillSans.ttc */; };
 		318950A01C75B47200DB3BA6 /* ChalkboardSE.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 3189509F1C75B47200DB3BA6 /* ChalkboardSE.ttc */; };
+		318C7FB61C7FD21C00FCC9C1 /* HudView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318C7FB51C7FD21C00FCC9C1 /* HudView.swift */; };
 		3197AB0D1C7EC2F100A5A340 /* Chinese+CharactersFromPinyin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197AB0C1C7EC2F100A5A340 /* Chinese+CharactersFromPinyin.swift */; };
 		3197AB0F1C7EC67B00A5A340 /* Chinese+PinyinsWithSeveralCharacters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197AB0E1C7EC67B00A5A340 /* Chinese+PinyinsWithSeveralCharacters.swift */; };
 		3197AB331C7EE77100A5A340 /* Struct_A.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3197AB321C7EE77100A5A340 /* Struct_A.swift */; };
@@ -109,7 +110,7 @@
 		311A89FA1C68619D00257A26 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		311A89FE1C68647000257A26 /* Chinese.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chinese.swift; sourceTree = "<group>"; };
 		311A8A001C6864CC00257A26 /* NSArray+PinYinSearcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+PinYinSearcher.h"; sourceTree = "<group>"; };
-		311A8A011C6864D700257A26 /* P3-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "P3-Bridging-Header.h"; sourceTree = "<group>"; };
+		311A8A011C6864D700257A26 /* Pinyin_Comparison-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Pinyin_Comparison-Bridging-Header.h"; sourceTree = "<group>"; };
 		311A8A021C68654200257A26 /* NSArray+PinYinSearcher.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+PinYinSearcher.m"; sourceTree = "<group>"; };
 		311A8A031C68654200257A26 /* NSString+PinYinConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+PinYinConverter.h"; sourceTree = "<group>"; };
 		311A8A041C68654200257A26 /* NSString+PinYinConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+PinYinConverter.m"; sourceTree = "<group>"; };
@@ -135,6 +136,7 @@
 		3189509B1C75A57300DB3BA6 /* Arial Narrow.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Arial Narrow.ttf"; sourceTree = "<group>"; };
 		3189509D1C75AD7F00DB3BA6 /* GillSans.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = GillSans.ttc; sourceTree = "<group>"; };
 		3189509F1C75B47200DB3BA6 /* ChalkboardSE.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = ChalkboardSE.ttc; sourceTree = "<group>"; };
+		318C7FB51C7FD21C00FCC9C1 /* HudView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HudView.swift; sourceTree = "<group>"; };
 		3197AB0C1C7EC2F100A5A340 /* Chinese+CharactersFromPinyin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+CharactersFromPinyin.swift"; sourceTree = "<group>"; };
 		3197AB0E1C7EC67B00A5A340 /* Chinese+PinyinsWithSeveralCharacters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+PinyinsWithSeveralCharacters.swift"; sourceTree = "<group>"; };
 		3197AB321C7EE77100A5A340 /* Struct_A.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Struct_A.swift; sourceTree = "<group>"; };
@@ -175,7 +177,7 @@
 		31F09E1F1C6C73F400196277 /* Chinese+Spell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+Spell.swift"; sourceTree = "<group>"; };
 		C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Term+CoreDataProperties.swift"; path = "../Term+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C372483B1C561B9100EDD735 /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Term.swift; path = ../Term.swift; sourceTree = "<group>"; };
-		C3CDD5021C522CFC00209556 /* P3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = P3.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3CDD5021C522CFC00209556 /* Pinyin Comparison.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pinyin Comparison.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C3CDD5051C522CFC00209556 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C3CDD5071C522CFC00209556 /* HomepageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomepageViewController.swift; sourceTree = "<group>"; };
 		C3CDD50D1C522CFD00209556 /* P3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = P3.xcdatamodel; sourceTree = "<group>"; };
@@ -200,6 +202,7 @@
 			isa = PBXGroup;
 			children = (
 				310096FD1C7155C1003C7FA6 /* Trash_function.swift */,
+				311A8A0A1C68655000257A26 /* Character Store */,
 			);
 			name = Trash;
 			sourceTree = "<group>";
@@ -236,14 +239,14 @@
 			name = "Word Store";
 			sourceTree = "<group>";
 		};
-		311A89FC1C6863A400257A26 /* Resources */ = {
+		311A89FC1C6863A400257A26 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
 				C3CDD50F1C522CFD00209556 /* Assets.xcassets */,
 				3100970E1C72B249003C7FA6 /* Font */,
 				31C8D1DD1C7C32AE006B2279 /* Sound */,
 			);
-			name = Resources;
+			name = Resource;
 			sourceTree = "<group>";
 		};
 		311A89FD1C6863FF00257A26 /* Global */ = {
@@ -252,7 +255,7 @@
 				C3CDD5051C522CFC00209556 /* AppDelegate.swift */,
 				311A8A0B1C688A2600257A26 /* Global.swift */,
 				C3CDD5141C522CFD00209556 /* Info.plist */,
-				311A8A011C6864D700257A26 /* P3-Bridging-Header.h */,
+				311A8A011C6864D700257A26 /* Pinyin_Comparison-Bridging-Header.h */,
 			);
 			name = Global;
 			sourceTree = "<group>";
@@ -288,14 +291,13 @@
 			isa = PBXGroup;
 			children = (
 				311A89FE1C68647000257A26 /* Chinese.swift */,
-				3197AB0C1C7EC2F100A5A340 /* Chinese+CharactersFromPinyin.swift */,
-				3197AB311C7EE75400A5A340 /* Struct */,
-				3197AB0E1C7EC67B00A5A340 /* Chinese+PinyinsWithSeveralCharacters.swift */,
 				311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */,
 				31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */,
 				31F09E1F1C6C73F400196277 /* Chinese+Spell.swift */,
 				31BDEE081C7D2C86007A1EFA /* Chinese+Find&Test.swift */,
-				311A8A0A1C68655000257A26 /* Character Store */,
+				3197AB0E1C7EC67B00A5A340 /* Chinese+PinyinsWithSeveralCharacters.swift */,
+				3197AB0C1C7EC2F100A5A340 /* Chinese+CharactersFromPinyin.swift */,
+				3197AB311C7EE75400A5A340 /* Character Struct */,
 				311A89F31C685E4300257A26 /* Word Store */,
 				317519DB1C706083002223F1 /* ScoreModel.swift */,
 				317519D31C701001002223F1 /* Score.swift */,
@@ -328,11 +330,12 @@
 				317519D71C704792002223F1 /* NextButton.swift */,
 				317519D91C7053BA002223F1 /* FinalView.swift */,
 				310097071C719C6A003C7FA6 /* DailyScoreCell.swift */,
+				318C7FB51C7FD21C00FCC9C1 /* HudView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
 		};
-		3197AB311C7EE75400A5A340 /* Struct */ = {
+		3197AB311C7EE75400A5A340 /* Character Struct */ = {
 			isa = PBXGroup;
 			children = (
 				3197AB321C7EE77100A5A340 /* Struct_A.swift */,
@@ -359,7 +362,7 @@
 				3197AB5C1C7EEB3400A5A340 /* Struct_Y.swift */,
 				3197AB5E1C7EEB3E00A5A340 /* Struct_Z.swift */,
 			);
-			name = Struct;
+			name = "Character Struct";
 			sourceTree = "<group>";
 		};
 		31C8D1DA1C7C00E6006B2279 /* Purchase */ = {
@@ -391,7 +394,7 @@
 		C3CDD5031C522CFC00209556 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C3CDD5021C522CFC00209556 /* P3.app */,
+				C3CDD5021C522CFC00209556 /* Pinyin Comparison.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -404,7 +407,7 @@
 				3175AF051C69B690001BEACE /* Controller */,
 				311A8A181C69643E00257A26 /* Model */,
 				311A8A0F1C69639D00257A26 /* Extension */,
-				311A89FC1C6863A400257A26 /* Resources */,
+				311A89FC1C6863A400257A26 /* Resource */,
 				31C8D1DA1C7C00E6006B2279 /* Purchase */,
 				3100970B1C729E00003C7FA6 /* Trash */,
 			);
@@ -414,9 +417,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C3CDD5011C522CFC00209556 /* P3 */ = {
+		C3CDD5011C522CFC00209556 /* Pinyin Comparison */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C3CDD5171C522CFD00209556 /* Build configuration list for PBXNativeTarget "P3" */;
+			buildConfigurationList = C3CDD5171C522CFD00209556 /* Build configuration list for PBXNativeTarget "Pinyin Comparison" */;
 			buildPhases = (
 				C3CDD4FE1C522CFC00209556 /* Sources */,
 				C3CDD4FF1C522CFC00209556 /* Frameworks */,
@@ -426,9 +429,9 @@
 			);
 			dependencies = (
 			);
-			name = P3;
+			name = "Pinyin Comparison";
 			productName = P3;
-			productReference = C3CDD5021C522CFC00209556 /* P3.app */;
+			productReference = C3CDD5021C522CFC00209556 /* Pinyin Comparison.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -446,7 +449,7 @@
 					};
 				};
 			};
-			buildConfigurationList = C3CDD4FD1C522CFC00209556 /* Build configuration list for PBXProject "P3" */;
+			buildConfigurationList = C3CDD4FD1C522CFC00209556 /* Build configuration list for PBXProject "Pinyin Comparison" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -459,7 +462,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C3CDD5011C522CFC00209556 /* P3 */,
+				C3CDD5011C522CFC00209556 /* Pinyin Comparison */,
 			);
 		};
 /* End PBXProject section */
@@ -548,6 +551,7 @@
 				311B7B131C76A14000B674DB /* TestViewController.swift in Sources */,
 				311A8A071C68654200257A26 /* NSString+PinYinConverter.m in Sources */,
 				3197AB5D1C7EEB3400A5A340 /* Struct_Y.swift in Sources */,
+				318C7FB61C7FD21C00FCC9C1 /* HudView.swift in Sources */,
 				317519DC1C706083002223F1 /* ScoreModel.swift in Sources */,
 				311A8A131C6963E700257A26 /* UIColor+CustomColor.swift in Sources */,
 				3197AB0F1C7EC67B00A5A340 /* Chinese+PinyinsWithSeveralCharacters.swift in Sources */,
@@ -656,8 +660,8 @@
 				INFOPLIST_FILE = P3/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyao.PinyinComparison;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/P3-Bridging-Header.h";
+				PRODUCT_NAME = "Pinyin Comparison";
+				SWIFT_OBJC_BRIDGING_HEADER = "P3/Pinyin_Comparison-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -670,8 +674,8 @@
 				INFOPLIST_FILE = P3/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.xiaoyao.PinyinComparison;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "$(PRODUCT_NAME)/P3-Bridging-Header.h";
+				PRODUCT_NAME = "Pinyin Comparison";
+				SWIFT_OBJC_BRIDGING_HEADER = "P3/Pinyin_Comparison-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -679,7 +683,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C3CDD4FD1C522CFC00209556 /* Build configuration list for PBXProject "P3" */ = {
+		C3CDD4FD1C522CFC00209556 /* Build configuration list for PBXProject "Pinyin Comparison" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C3CDD5151C522CFD00209556 /* Debug */,
@@ -688,7 +692,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C3CDD5171C522CFD00209556 /* Build configuration list for PBXNativeTarget "P3" */ = {
+		C3CDD5171C522CFD00209556 /* Build configuration list for PBXNativeTarget "Pinyin Comparison" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C3CDD5181C522CFD00209556 /* Debug */,

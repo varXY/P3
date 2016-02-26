@@ -16,17 +16,15 @@ class SettingViewController: UIViewController {
 	var tableView: UITableView!
 	var switchControl_S: UISwitch!
 	var switchControl_V: UISwitch!
-	var switchControl_P: UISwitch!
 
 	var C_amount = 3
 
-	let titles = ["Sound", "Vibration", "Number of wheels to spell with", "Include uncommon pinyin", "Feedback", "Contribute"]
+	let titles = ["Sound", "Vibration", "Number of wheels to spell with", "Feedback", "Contribute"]
 
 	let userDefaults = NSUserDefaults.standardUserDefaults()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-//		navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.themeGold()]
 		self.title = "Settings"
 
 		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
@@ -41,19 +39,6 @@ class SettingViewController: UIViewController {
 
 		switchControl_S = initialSwitchControl()
 		switchControl_V = initialSwitchControl()
-		switchControl_P = initialSwitchControl()
-
-//		switchControl_S = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
-//		switchControl_S.onTintColor = UIColor.rightGreen()
-//		switchControl_S.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
-//
-//		switchControl_V = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
-//		switchControl_V.onTintColor = UIColor.rightGreen()
-//		switchControl_V.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
-//
-//		switchControl_P = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
-//		switchControl_P.onTintColor = UIColor.rightGreen()
-//		switchControl_P.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
 
@@ -84,13 +69,6 @@ class SettingViewController: UIViewController {
 		let vibration = userDefaults.boolForKey(Defaults.vibration)
 		switchControl_V.setOn(vibration, animated: false)
 
-		if let pronunciations = userDefaults.valueForKey(Defaults.pronunciations) as? Bool {
-			switchControl_P.setOn(pronunciations, animated: true)
-		} else {
-			switchControl_P.setOn(false, animated: true)
-			userDefaults.setBool(false, forKey: Defaults.pronunciations)
-		}
-
 		if let amount = userDefaults.valueForKey(Defaults.C_amount) as? Int {
 			C_amount = amount
 		} else {
@@ -109,9 +87,6 @@ class SettingViewController: UIViewController {
 			userDefaults.setBool(sender.on, forKey: Defaults.vibration)
 		}
 
-		if sender == switchControl_P {
-			userDefaults.setBool(sender.on, forKey: Defaults.pronunciations)
-		}
 	}
 
 	func menuViewControllerSendSupportEmail() {
@@ -187,12 +162,12 @@ class SettingViewController: UIViewController {
 
 	func purchaseProduct(product: SKProduct) {
 		SupportProducts.store.purchaseProduct(product)
+		let hudView = HudView.hudInView(self.view, animated: true)
+		hudView.text = "Thank you!"
 	}
 
 	func productPurchased(notification: NSNotification) {
-		let productIdentifier = notification.object as! String
-		print(__FUNCTION__)
-		print(productIdentifier)
+		_ = notification.object as! String
 	}
 }
 
@@ -206,7 +181,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		let section_2_rows = IAPHelper.canMakePayments() ? 2 : 1
 		switch section {
 		case 0: return 2
-		case 1: return 2
+		case 1: return 1
 		case 2: return section_2_rows
 		default: return 0
 		}
@@ -229,13 +204,8 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 			cell.accessoryType = .DisclosureIndicator
 		}
 
-		if indexPath.section == 1 && indexPath.row == 1 {
-			cell.textLabel?.text = titles[indexPath.row + 2]
-			cell.addSubview(switchControl_P)
-		}
-
 		if indexPath.section == 2 {
-			cell.textLabel?.text = titles[indexPath.row + 4]
+			cell.textLabel?.text = titles[indexPath.row + 3]
 			cell.textLabel?.textAlignment = .Center
 		}
 
@@ -262,11 +232,6 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 				self.userDefaults.setInteger(self.C_amount, forKey: Defaults.C_amount)
 			}
 			navigationController?.pushViewController(settingVC_1, animated: true)
-		}
-
-		if indexPath.section == 1 && indexPath.row == 1 {
-			switchControl_P.on ? switchControl_P.setOn(false, animated: true) : switchControl_P.setOn(true, animated: true)
-			userDefaults.setBool(switchControl_P.on, forKey: Defaults.pronunciations)
 		}
 
 		if indexPath.section == 2 && indexPath.row == 0 {

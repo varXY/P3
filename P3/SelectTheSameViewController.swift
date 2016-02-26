@@ -90,7 +90,7 @@ class SelectTheSameViewController: TestViewController {
 	func showRightOrWrong() {
 		let allTheSame = selectedBlocks.filter({ $0[0] == rightAnswer })
 		let right = allTheSame.count == 3 && selectedBlocks.count == 3
-		let color: ColorType = right ? .Green : .Red
+		let color: UIColor = right ? UIColor.rightGreen() : UIColor.wrongRed()
 		let score = right ? rightScore : wrongScore
 		if sound { right ? rightSound.play() : wrongSound.play() }
 		if vibration && !right { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
@@ -100,12 +100,11 @@ class SelectTheSameViewController: TestViewController {
 		for blockView in blockViews {
 			blockView.setSelectable(false)
 			blockView.allChangeColor(color)
-
+			
 			delay(seconds: 0.6, completion: {
-				blockView.showAllPinyin()
 				if blockView.text[0] == self.rightAnswer { blockView.showGreenBorder() }
+				blockView.allShowPinyin()
 			})
-
 		}
 
 		selectedBlocks.removeAll()
@@ -121,8 +120,7 @@ extension SelectTheSameViewController: BlockViewDelegate {
 		if selected {
 			selectedBlocks.append(blockText)
 		} else {
-			let text = blockText[1]
-			selectedBlocks = selectedBlocks.filter({ $0[1] != text })
+			selectedBlocks = selectedBlocks.filter({ $0[1] != blockText[1] })
 		}
 
 		if selectedBlocks.count > 2 && nextButton.titleType != .Confirm {

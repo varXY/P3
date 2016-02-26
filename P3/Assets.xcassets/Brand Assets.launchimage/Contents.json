@@ -13,7 +13,7 @@
       "extent" : "full-screen",
       "idiom" : "iphone",
       "subtype" : "667h",
-      "filename" : "lunch1334.png",
+      "filename" : "P_LaunchScreen_750*1334.001.png",
       "minimum-system-version" : "8.0",
       "orientation" : "portrait",
       "scale" : "2x"
@@ -21,7 +21,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "filename" : "lunch960.png",
+      "filename" : "P_LaunchScreen_640*960.001.png",
       "extent" : "full-screen",
       "minimum-system-version" : "7.0",
       "scale" : "2x"
@@ -44,7 +44,7 @@
     {
       "orientation" : "portrait",
       "idiom" : "iphone",
-      "filename" : "lunch960-1.png",
+      "filename" : "P_LaunchScreen_640*960.001-1.png",
       "extent" : "full-screen",
       "scale" : "2x"
     },

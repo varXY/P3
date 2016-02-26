@@ -16,11 +16,7 @@ class SpellViewController: TestViewController {
 
 	var componentType = 0
 	var pickerinitialRows = [Int]()
-	let component_titles_0 = [" ", "b", "c", "ch", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "sh", "t", "w", "x", "y", "z", "zh", " "]
-	let component_titles_1 = [" ", "a", "e", "i", "o", "u", "v", " "]
-	let component_titles_2_0 = [" ", "a", "ai", "an", "ang", "ao", "e", "ei", "en", "eng", "i", "n", "ng", "o", "ong", "ou", "r", "u", " "]
-	let component_titles_2 = [" ", "a", "e", "i", "n", "o", "r", "u", " "]
-	let component_titles_3 = [" ", "g", "i", "n", "ng", "o", "u", " "]
+
 
 	var component_allTitles = [[String]]()
 
@@ -30,11 +26,39 @@ class SpellViewController: TestViewController {
 	
 	var staySeconds = 0
 
+	private let component_titles_0 = [" ", "b", "c", "ch", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "sh", "t", "w", "x", "y", "z", "zh", " "]
+	private let component_titles_1 = [" ", "a", "e", "i", "o", "u", "v", " "]
+	private let component_titles_2_0 = [" ", "a", "ai", "an", "ang", "ao", "e", "ei", "en", "eng", "i", "n", "ng", "o", "ong", "ou", "r", "u", " "]
+	private let component_titles_2 = [" ", "a", "e", "i", "n", "o", "r", "u", " "]
+	private let component_titles_3 = [" ", "g", "i", "n", "ng", "o", "u", " "]
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
 		rightScore = 2
 		wrongScore = -2
+
+		headerView = HeaderView(number: 1, totalScore: totalScore)
+		headerView.delegate = self
+		view.addSubview(headerView)
+
+		nextButton = NextButton()
+		nextButton.delegate = self
+		view.addSubview(nextButton)
+
+		prepareScrollView(firstTime: true)
+
+
+
+	}
+
+	override func viewWillAppear(animated: Bool) {
+		super.viewWillAppear(animated)
+
+	}
+
+	override func viewDidAppear(animated: Bool) {
+		super.viewDidAppear(animated)
 
 		var amount = 3
 		let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -48,33 +72,11 @@ class SpellViewController: TestViewController {
 
 		component_allTitles = componentType == 0 ? [component_titles_0, component_titles_1, component_titles_2, component_titles_3] : [component_titles_0, component_titles_1, component_titles_2_0]
 
-		headerView = HeaderView(number: 1, totalScore: totalScore)
-		headerView.delegate = self
-		view.addSubview(headerView)
-
-		nextButton = NextButton()
-		nextButton.delegate = self
-		view.addSubview(nextButton)
-
-		prepareScrollView(firstTime: true)
-
 		picker.frame = CGRect(x: 30, y: ScreenHeight / 2 - 10, width: ScreenWidth - 60, height: ScreenHeight / 2 - 60)
-		picker.showsSelectionIndicator = true
-		picker.tintColor = UIColor.whiteColor()
 		picker.dataSource = self
 		picker.delegate = self
 		picker.alpha = 0.0
 		view.addSubview(picker)
-
-	}
-
-	override func viewWillAppear(animated: Bool) {
-		super.viewWillAppear(animated)
-
-	}
-
-	override func viewDidAppear(animated: Bool) {
-		super.viewDidAppear(animated)
 
 		for i in 0..<picker.numberOfComponents {
 			picker.selectRow(pickerinitialRows[i], inComponent: i, animated: false)
@@ -102,7 +104,7 @@ class SpellViewController: TestViewController {
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let point = CGPoint(x: positionInPage + (ScreenWidth - BlockWidth.spell) / 2, y: 60)
 		let blockView = BlockView(type: .Spell, origin: point, text: chinese.forSpell)
-		blockView.changeColor(selectedIndex, colorType: .White, backToBlue: false)
+		blockView.changeColorAtIndex(selectedIndex, color: UIColor.whiteColor(), backToBlue: false)
 		blockView.delegate = self
 		blockViews.append(blockView)
 		scrollView.addSubview(blockViews[blockViews.count - 1])
@@ -119,9 +121,9 @@ class SpellViewController: TestViewController {
 		if pinyins[selectedIndex] == selectedPinyin && !showed {
 			showed = true
 			if sound { rightSound.play() }
-			blockView.changeColor(selectedIndex, colorType: .Green, backToBlue: true)
+			blockView.changeColorAtIndex(selectedIndex, color: UIColor.rightGreen(), backToBlue: true)
 
-			delay(seconds: 0.6, completion: { () -> () in
+			delay(seconds: 0.5, completion: { () -> () in
 				blockView.showPinyinAtIndex(self.selectedIndex)
 			})
 
@@ -129,17 +131,18 @@ class SpellViewController: TestViewController {
 				delay(seconds: 0.8, completion: { () -> () in
 					self.showed = false
 					self.selectedIndex++
-					blockView.changeColor(self.selectedIndex, colorType: .White, backToBlue: false)
+					blockView.changeColorAtIndex(self.selectedIndex, color: UIColor.whiteColor(), backToBlue: false)
 				})
 			} else {
-				headerView.showAndAddScore(rightScore)
+				blockView.setSelectable(false)
+				delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(self.rightScore) })
 
 				delay(seconds: 0.8, completion: { () -> () in
 					let title: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
 					self.nextButton.show(title, dismissAfterTapped: true)
 				})
 
-				delay(seconds: 1.0, completion: { () -> () in
+				delay(seconds: 0.85, completion: { () -> () in
 					self.currentPage++
 					self.addContent(self.currentPage, firstTime: false)
 				})
@@ -160,9 +163,9 @@ extension SpellViewController: BlockViewDelegate {
 	func answerShowedByQuestionMark() {
 		if sound { wrongSound.play() }
 		if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
+		delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(self.wrongScore) })
 
 		delay(seconds: 0.8, completion: { () -> () in
-			self.headerView.showAndAddScore(self.wrongScore)
 			let title: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
 			self.nextButton.show(title, dismissAfterTapped: true)
 		})
@@ -233,18 +236,25 @@ extension SpellViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 
 	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 
-		selectedPinyin = ""
-		var indexs = [Int]()
-		for i in 0..<picker.numberOfComponents {
-			indexs.append(picker.selectedRowInComponent(i))
+		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+		dispatch_async(queue) {
+			self.selectedPinyin = ""
+			var indexs = [Int]()
+			for i in 0..<self.picker.numberOfComponents {
+				indexs.append(self.picker.selectedRowInComponent(i))
+			}
+
+			for i in 0..<indexs.count {
+				let string = self.yinFromIndex(i, index: indexs[i])
+				self.selectedPinyin += string
+			}
+
+			dispatch_async(dispatch_get_main_queue()) {
+				self.changeStateBaseOnSelectedPinyin(self.selectedPinyin)
+			}
 		}
 
-		for i in 0..<indexs.count {
-			let string = yinFromIndex(i, index: indexs[i])
-			selectedPinyin += string
-		}
 
-		changeStateBaseOnSelectedPinyin(selectedPinyin)
 	}
 
 	func yinFromIndex(component: Int, index: Int) -> String {

@@ -145,6 +145,9 @@ class Chinese {
 		"lu lv",
 		"lie lv",
 
+		// join n
+		"long nong",
+
 		// - g
 		"lan lang",
 		"lian liang",

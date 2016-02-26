@@ -30,24 +30,8 @@ var priceFormatter: NSNumberFormatter = {
 	return pf
 }()
 
-enum Outcome {
-	case Right, Wrong
-
-	var color: UIColor {
-		switch self {
-		case .Right: return UIColor.rightGreen()
-		case .Wrong: return UIColor.wrongRed()
-		}
-	}
-}
 enum AnimationType {
-    case Appear
-    case Disappear
-    case Touched
-    case IsRightAnswer
-	case Bigger
-	case BecomeVisble
-    case Other
+    case Appear, Disappear, Touched, IsRightAnswer, Bigger, BecomeVisble, Other
 }
 
 struct Defaults {
@@ -58,22 +42,18 @@ struct Defaults {
 }
 
 struct Time {
-	static let outcomeStayTime: Double = 0.3
 	static let toNextPageWaitingTime: Double = 0.4
 }
 
 struct Titles {
-	static let next = ">"
 	static let confirm = "Confirm"
 	static let done = "Done"
-	static let completed = "Completed"
 	static let homepageBigButtons = ["SAME OR NOT", "SELECT THE SAME", "SPELL IT"]
 	static let homepageSmallButtons = ["Records", "Settings"]
 	static let sameOrNot = ["Same", "Different"]
 	static let finalChoices = ["Again", "Quit"]
-	static let noRecords = "No Records"
-	static let notFinished = "Haven't Finished Yet"
-	static let warming = "If you quit, current score will be lost."
+	static let noRecords = "No Record"
+	
 }
 
 struct ImageName {
@@ -81,9 +61,8 @@ struct ImageName {
 	static let Next = "Next"
 	static let Record = "Record"
 	static let Setting = "Setting"
+	static let Smile = "Smile"
 }
-
-
 
 struct BlockWidth {
 	static let homepage: CGFloat = (ScreenWidth - 60) / 2
@@ -107,7 +86,6 @@ func delay(seconds seconds: Double, completion:()->()) {
     
 }
 
-
 func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
     var result = [Int]()
     
@@ -124,9 +102,11 @@ func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
 }
 
 func alertOfStayOrQuit(viewController: UIViewController, title: String, message: String, quit: (() -> ())) {
+	let quitTitle = "Quit"
+	let resumeTitle = "Resume"
 	let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-	let action = UIAlertAction(title: "Quit", style: .Default, handler: ({ _ in quit() }))
-	let action1 = UIAlertAction(title: "Cancel", style: .Default, handler: nil)
+	let action = UIAlertAction(title: quitTitle, style: .Default, handler: ({ _ in quit() }))
+	let action1 = UIAlertAction(title: resumeTitle, style: .Default, handler: nil)
 	alert.addAction(action)
 	alert.addAction(action1)
 	viewController.presentViewController(alert, animated: true, completion: nil)

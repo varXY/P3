@@ -98,7 +98,7 @@ class SameOrNotViewController: TestViewController {
 		if ChosenSame == trulySame {
 			rightCount++
 			if sound { rightSound.play() }
-			for blockView in blockViews { blockView.allChangeColor(.Green) }
+			for blockView in blockViews { blockView.allChangeColor(UIColor.rightGreen()) }
 			sender.changeToColor(UIColor.rightGreen())
 
 			for button in buttons {
@@ -111,7 +111,7 @@ class SameOrNotViewController: TestViewController {
 
 		} else {
 			
-			for blockView in blockViews { blockView.allChangeColor(.Red) }
+			for blockView in blockViews { blockView.allChangeColor(UIColor.wrongRed()) }
 			if sound { wrongSound.play() }
 			if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 			sender.changeColorBack()
@@ -129,7 +129,7 @@ class SameOrNotViewController: TestViewController {
 	}
 
 	func allShowPinyin() {
-		for blockView in blockViews { blockView.showAllPinyin() }
+		for blockView in blockViews { blockView.allShowPinyin() }
 	}
 
 	func addNextPageButton() {

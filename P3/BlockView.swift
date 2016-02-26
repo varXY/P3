@@ -22,19 +22,7 @@ enum TestType {
 	}
 }
 
-enum ColorType {
-	case Blue, White, Red, Green, Gold
 
-	var color: UIColor {
-		switch self {
-		case .Blue: return UIColor.themeBlue()
-		case .White: return UIColor.whiteColor()
-		case .Red: return UIColor.wrongRed()
-		case .Green: return UIColor.rightGreen()
-		case .Gold: return UIColor.themeGold()
-		}
-	}
-}
 
 public protocol BlockViewDelegate: class {
 	func blockViewSelected(selected: Bool, blockText: [String])
@@ -65,12 +53,11 @@ class BlockView: UIView {
 
 		let blockSize = CGSize(width: type.blockWidth, height: type.blockWidth)
 		super.init(frame: CGRect(origin: origin, size: blockSize))
+
 		backgroundColor = UIColor.themeBlue()
-//		addBorder()
 		addColorfulView(text)
 		addLabels(text)
 
-//		if type == .Homepage { colorForHomepage(); showAllPinyin() }
 		if type == .SelectTheSame { addButton() }
 		if type == .Spell { addButtonForColorView() }
 	}
@@ -92,29 +79,9 @@ class BlockView: UIView {
 	}
 
 	func addLabels(text: [String]) {
-
 		handleText(text)
 		genLabels(letters.count, hidePinyin: true)
-
 	}
-
-//	func changeLabels(text: [String]) {
-//
-//		for textLabel in textLabels {
-//			textLabel.removeFromSuperview()
-//		}
-//
-//		for pinyinLabel in pinyinLabels {
-//			pinyinLabel.removeFromSuperview()
-//		}
-//		textLabels.removeAll()
-//		pinyinLabels.removeAll()
-//
-//		handleText(text)
-//		genLabels(letters.count, hidePinyin: false)
-//		colorForHomepage()
-//
-//	}
 
 	func handleText(text: [String]) {
 		pinyins.removeAll()
@@ -133,9 +100,7 @@ class BlockView: UIView {
 	}
 
 	func genLabels(amount: Int, hidePinyin: Bool) {
-
 		let labelSize = CGSize(width: self.frame.width / CGFloat(amount), height: self.frame.height / 2)
-
 		var yPositions = [CGFloat]()
 
 		if hidePinyin {
@@ -226,7 +191,7 @@ class BlockView: UIView {
 		button.addTarget(self, action: "showAnwser:", forControlEvents: .TouchUpInside)
 		button.viewAddAnimation(.BecomeVisble, delay: 0.0, distance: 0.0)
 		UIView.animateWithDuration(0.5, animations: { () -> Void in
-			self.changeSubViewsAlpha(0.5)
+			self.changeSubViewsAlpha(0.3)
 			}, completion: nil)
 	}
 
@@ -253,7 +218,7 @@ class BlockView: UIView {
 			}, completion: nil)
 
 		for i in 0..<colorfulViews.count {
-			changeColor(i, colorType: .Blue, backToBlue: false)
+			changeColorAtIndex(i, color: UIColor.themeBlue(), backToBlue: false)
 			showPinyinAtIndex(i)
 		}
 
@@ -263,7 +228,6 @@ class BlockView: UIView {
 	func changeSubViewsAlpha(alpha: CGFloat) {
 		for colorView in colorfulViews { colorView.alpha = alpha }
 		for textLabel in textLabels { textLabel.alpha = alpha }
-//		for pinyinLabel in pinyinLabels { pinyinLabel.alpha = alpha }
 	}
 
 	// MARK:
@@ -273,7 +237,7 @@ class BlockView: UIView {
 		if !selected {
 			selected = true
 			sender.layer.borderWidth = 2.0
-			sender.layer.borderColor = ColorType.White.color.CGColor
+			sender.layer.borderColor = UIColor.whiteColor().CGColor
 		} else {
 			selected = false
 			sender.layer.borderWidth = 0.0
@@ -282,49 +246,19 @@ class BlockView: UIView {
 		delegate?.blockViewSelected(selected, blockText: text)
 	}
 
-//	func showResultAndPinyin(resultColorType: ColorType) {
-//		for i in 0..<colorfulViews.count {
-//			changeColor(i, colorType: resultColorType, backToBlue: true)
-//		}
-//
-//		delay(seconds: 0.5, completion: { self.showAllPinyin() })
-//	}
-
 	func showGreenBorder() {
-		UIView.animateWithDuration(2.0) { () -> Void in
-			self.button.layer.borderWidth = 2.5
-			self.button.layer.borderColor = ColorType.Green.color.CGColor
-		}
+		button.layer.borderWidth = 2.5
+		button.layer.borderColor = UIColor.rightGreen().CGColor
 	}
 
-	func showAllPinyin() {
+	func allShowPinyin() {
 
 		if !pinyinVisble {
 			pinyinVisble = true
 
-//			UIView.animateWithDuration(0.3) { () -> Void in
-//				for textLabel in self.textLabels {
-//					textLabel.frame.origin.y -= self.frame.height / 5
-//				}
-//
-//				for pinyinLabel in self.pinyinLabels {
-//					pinyinLabel.alpha = 1.0
-//					pinyinLabel.frame.origin.y -= self.frame.height / 4
-//				}
-//			}
-
-			UIView.animateWithDuration(0.3, delay: 0.0, options: [], animations: { () -> Void in
-				for textLabel in self.textLabels {
-					textLabel.frame.origin.y -= self.frame.height / 5
-				}
-				}, completion: nil)
-
-			UIView.animateWithDuration(0.3, delay: 0.07, options: [], animations: { () -> Void in
-				for pinyinLabel in self.pinyinLabels {
-					pinyinLabel.alpha = 1.0
-					pinyinLabel.frame.origin.y -= self.frame.height / 4
-				}
-				}, completion: nil)
+			for i in 0..<textLabels.count {
+				showPinyinAtIndex(i)
+			}
 
 		}
 
@@ -346,19 +280,20 @@ class BlockView: UIView {
 				}, completion: nil)
 		}
 
-
-
-//		UIView.animateWithDuration(0.3) { () -> Void in
-//			self.textLabels[index].frame.origin.y -= self.frame.height / 5
-//			self.pinyinLabels[index].alpha = 1.0
-//			self.pinyinLabels[index].frame.origin.y -= self.frame.height / 4
-//		}
 	}
 
-	func changeColor(index: Int, colorType: ColorType, backToBlue: Bool) {
-		colorfulViews[index].backgroundColor = colorType.color
+	func allChangeColor(color: UIColor) {
 
-		if colorType.color == UIColor.whiteColor() {
+		for i in 0..<colorfulViews.count {
+			changeColorAtIndex(i, color: color, backToBlue: true)
+		}
+
+	}
+
+	func changeColorAtIndex(index: Int, color: UIColor, backToBlue: Bool) {
+		colorfulViews[index].backgroundColor = color
+
+		if color == UIColor.whiteColor() {
 			textLabels[index].textColor = UIColor.deepGray()
 			pinyinLabels[index].textColor = UIColor.deepGray()
 		} else {
@@ -376,29 +311,15 @@ class BlockView: UIView {
 
 	}
 
-//	func colorForHomepage() {
-//		for view in colorfulViews { view.backgroundColor = UIColor.whiteColor() }
-//		for label in textLabels { label.textColor = UIColor.deepGray() }
-//		for label in pinyinLabels { label.textColor = UIColor.deepGray() }
-//	}
-
 	func setSelectable(canSelect: Bool) {
 		button.userInteractionEnabled = canSelect
+
+		if let button = viewWithTag(77) as? UIButton {
+			button.userInteractionEnabled = canSelect
+		}
 	}
 
-	func allChangeColor(colorType: ColorType) {
 
-		for colorView in colorfulViews {
-			colorView.backgroundColor = colorType.color
-		}
-
-		delay(seconds: 0.5) { () -> () in
-			for colorView in self.colorfulViews {
-				colorView.backgroundColor = UIColor.themeBlue()
-			}
-		}
-
-	}
 
 	required init?(coder aDecoder: NSCoder) {
 	    fatalError("init(coder:) has not been implemented")
