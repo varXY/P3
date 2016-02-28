@@ -1,0 +1,9 @@
+/* 
+  InfoPlist.strings
+  Pinyin Comparison
+
+  Created by 文川术 on 2/28/16.
+  Copyright © 2016 myname. All rights reserved.
+*/
+
+CFBundleDisplayName = "Comparison";

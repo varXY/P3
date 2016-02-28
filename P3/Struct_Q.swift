@@ -24,13 +24,12 @@ struct Struct_Q {
 		case "qin":  characters = ["钦", "侵", "秦", "琴", "勤", "芹", "擒", "禽", "寝", "亲", "沁"]
 		case "qing":  characters = ["青", "轻", "氢", "倾", "卿", "清", "擎", "晴", "氰", "情", "顷", "请", "庆", "亲"]
 		case "qiong":  characters = ["琼", "穷"]
-		case "qiu":  characters = ["秋", "穷"]
 		case "qiu":  characters = ["秋", "丘", "邱", "球", "求", "囚", "酋", "泅"]
 		case "qu":  characters = ["趋", "曲", "躯", "屈", "驱", "渠", "取", "娶", "龋", "去", "区", "蛆", "趣"]
 		case "quan":  characters = ["颧", "权", "醛", "泉", "全", "痊", "拳", "犬", "券", "劝", "卷", "圈"]
 		case "que":  characters = ["缺", "瘸", "却", "鹊", "榷", "确", "炔", "雀"]
 		case "qun":  characters = ["裙", "群"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

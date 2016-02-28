@@ -11,6 +11,33 @@ import Foundation
 
 extension Chinese {
 
+//	func selectTheSameTest(type: Int) {
+//		switch type {
+//		case 2:
+//			let pinyins = pinyinsWithSeveralCharacters(2, index: 0)
+//			for pinyin in pinyins {
+//				let characters = charactersFromPinyin(pinyin)
+//				if characters.count <= 1 {
+//					print(pinyin)
+//				}
+//			}
+//
+//		case 3:
+//			for i in 0..<23 {
+//				let pinyins = pinyinsWithSeveralCharacters(3, index: i)
+//				for pinyin in pinyins {
+//					let characters = charactersFromPinyin(pinyin)
+//					if characters.count <= 2 {
+//						print(pinyin)
+//					}
+//				}
+//			}
+//
+//		default: break
+//		}
+//
+//	}
+
 //	func pinyinFromCharacter(character: String) {
 //		let str = NSMutableString(string: character) as CFMutableStringRef
 //		CFStringTransform(str, nil, kCFStringTransformMandarinLatin, false)

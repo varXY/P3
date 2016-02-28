@@ -29,7 +29,7 @@ struct Struct_X {
 		case "xuan":  characters = ["轩", "喧", "宣", "悬", "旋", "玄", "选", "癣", "眩", "绚"]
 		case "xue":  characters = ["靴", "薛", "学", "穴", "雪", "削", "血"]
 		case "xun":  characters = ["勋", "熏", "循", "旬", "询", "驯", "巡", "殉", "汛", "训", "讯", "逊", "迅", "浚", "寻"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

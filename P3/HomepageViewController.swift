@@ -48,6 +48,7 @@ class HomepageViewController: UIViewController {
 			dispatch_async(dispatch_get_main_queue()) {
 				for i in 0..<self.bigButtons.count {
 					self.bigButtons[i].userInteractionEnabled = true
+					self.bigButtons[i].changeToColor(UIColor.clearColor())
 					self.bigButtons[i].viewAddAnimation(.Appear, delay: 0.1 * Double(i), distance: 40 + 30 * CGFloat(i))
 				}
 			}
@@ -96,14 +97,14 @@ class HomepageViewController: UIViewController {
 
 	func addTwoDescribeLabels() {
 		let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight / 2 - (AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight)))
-		titleLabel.text = "Pinyin Comparison"
+		titleLabel.text = NSLocalizedString("Pinyin Comparison", comment: "Homepage")
 		titleLabel.textAlignment = .Center
 		titleLabel.textColor = UIColor.blackColor()
 		titleLabel.font = UIFont.homepageTitleFont(AutoSize.fontSize[0])
 		view.addSubview(titleLabel)
 
-		let footerLabel = UILabel(frame: CGRect(x: 0, y: ScreenHeight / 2 + AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight, width: ScreenWidth, height: titleLabel.frame.height - 80))
-		footerLabel.text = "Efficient ways to learn Pinyin and Chinese"
+		let footerLabel = UILabel(frame: CGRect(x: 0, y: ScreenHeight / 2 + AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight, width: ScreenWidth, height: titleLabel.frame.height - 70))
+		footerLabel.text = NSLocalizedString("Efficient ways to learn Pinyin and Chinese", comment: "Homepage")
 		footerLabel.textAlignment = .Center
 		footerLabel.textColor = UIColor.deepGray()
 		footerLabel.font = UIFont.systemFontOfSize(AutoSize.fontSize[1])

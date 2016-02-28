@@ -96,8 +96,8 @@ extension TestViewController: HeaderViewDelegate {
 
 	func backButtonTapped() {
 		if currentPage != 0 && currentPage != 10 {
-			let notFinished = "Not Finish Yet"
-			let warming = "If you quit, current score will be lost."
+			let notFinished = NSLocalizedString("Not Finish Yet", comment: "TestVC")
+			let warming = NSLocalizedString("If you quit, current score will be lost.", comment: "TestVC")
 			alertOfStayOrQuit(self, title: notFinished, message: warming, quit: { self.confirmToQuit() })
 		} else {
 			navigationController?.popToRootViewControllerAnimated(true)

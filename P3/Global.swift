@@ -46,13 +46,22 @@ struct Time {
 }
 
 struct Titles {
-	static let confirm = "Confirm"
-	static let done = "Done"
-	static let homepageBigButtons = ["SAME OR NOT", "SELECT THE SAME", "SPELL IT"]
-	static let homepageSmallButtons = ["Records", "Settings"]
-	static let sameOrNot = ["Same", "Different"]
-	static let finalChoices = ["Again", "Quit"]
-	static let noRecords = "No Record"
+	static let confirm = NSLocalizedString("Confirm", comment: "NextButton")
+	static let done = NSLocalizedString("Done", comment: "NextButton")
+	static let homepageBigButtons = [
+		NSLocalizedString("SAME OR NOT", comment: "HomepageVC"),
+		NSLocalizedString("SELECT THE SAME", comment: "HomepageVC"),
+		NSLocalizedString("SPELL IT", comment: "HomepageVC")
+	]
+	static let sameOrNot = [
+		NSLocalizedString("Same", comment: "SameOrNotVC"),
+		NSLocalizedString("Different", comment: "SameOrNotVC")
+	]
+	static let finalChoices = [
+		NSLocalizedString("Again", comment: "FinalView"),
+		NSLocalizedString("Quit", comment: "FinalView")
+	]
+	static let noRecords = NSLocalizedString("No Record", comment: "RecordVC")
 	
 }
 
@@ -88,22 +97,26 @@ func delay(seconds seconds: Double, completion:()->()) {
 
 func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
     var result = [Int]()
-    
-    repeat {
-        let range = UInt32(lessThan)
-        let number = Int(arc4random_uniform(range))
-        if let sameAtIndex = result.indexOf(number) {
-            result.removeAtIndex(sameAtIndex)
-        }
-        result.append(number)
-    } while result.count < amount
-    
+
+	if lessThan <= 1 {
+		result = [0]
+	} else {
+		repeat {
+			let range = UInt32(lessThan)
+			let number = Int(arc4random_uniform(range))
+			if let sameAtIndex = result.indexOf(number) {
+				result.removeAtIndex(sameAtIndex)
+			}
+			result.append(number)
+		} while result.count < amount
+	}
+
     return result
 }
 
 func alertOfStayOrQuit(viewController: UIViewController, title: String, message: String, quit: (() -> ())) {
-	let quitTitle = "Quit"
-	let resumeTitle = "Resume"
+	let quitTitle = NSLocalizedString("Quit", comment: "FinalView")
+	let resumeTitle = NSLocalizedString("Resume", comment: "TestVC")
 	let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
 	let action = UIAlertAction(title: quitTitle, style: .Default, handler: ({ _ in quit() }))
 	let action1 = UIAlertAction(title: resumeTitle, style: .Default, handler: nil)

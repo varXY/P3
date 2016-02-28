@@ -51,7 +51,7 @@ struct Struct_Z {
 		case "zui":  characters = ["嘴", "醉", "最", "罪"]
 		case "zun":  characters = ["尊", "遵"]
 		case "zuo":  characters = ["昨", "左", "佐", "做", "作", "坐", "座", "撮", "琢", "柞"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

@@ -38,7 +38,7 @@ struct Struct_L {
 		case "luan":  characters = ["峦", "挛", "孪", "滦", "卵", "乱"]
 		case "lun":  characters = ["抡", "轮", "伦", "仑", "沦", "论", "纶"]
 		case "luo":  characters = ["萝", "螺", "罗", "逻", "锣", "箩", "骡", "裸", "洛", "骆", "烙", "络", "落", "咯"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

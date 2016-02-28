@@ -29,7 +29,7 @@ struct Struct_Y {
 		case "yuan":  characters = ["鸳", "渊", "冤", "元", "垣", "袁", "原", "援", "辕", "园", "圆", "猿", "源", "缘", "远", "苑", "愿", "怨", "院", "员"]
 		case "yue":  characters = ["曰", "越", "跃", "岳", "粤", "月", "悦", "阅", "乐", "约", "钥"]
 		case "yun":  characters = ["耘", "云", "郧", "匀", "陨", "允", "运", "蕴", "酝", "晕", "韵", "孕", "均", "员"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

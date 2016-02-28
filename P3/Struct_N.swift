@@ -38,7 +38,7 @@ struct Struct_N {
 		case "nve":  characters = ["虐", "疟"]
 		case "nuan":  characters = ["暖"]
 		case "nuo":  characters = ["挪", "懦", "糯", "诺", "娜"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

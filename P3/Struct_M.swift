@@ -34,7 +34,7 @@ struct Struct_M {
 		case "mo":  characters = ["摸", "摹", "蘑", "膜", "磨", "魔", "末", "莫", "墨", "默", "沫", "漠", "寞", "陌", "脉", "没", "模", "摩", "抹"]
 		case "mou":  characters = ["谋", "某", "牟"]
 		case "mu":  characters = ["拇", "牡", "亩", "姆", "母", "墓", "暮", "幕", "募", "慕", "木", "目", "睦", "牧", "穆", "姥", "模", "牟"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

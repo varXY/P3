@@ -32,6 +32,27 @@ class DailyScoreCell: UITableViewCell {
 		contentView.addSubview(dateLabel)
 	}
 
+	func showFakeData(data: [AnyObject]) {
+		let max = 109
+		let number = CGFloat(data[0] as! Int)
+		let positive = number >= 0
+
+		let maxWidth = contentView.frame.width * 0.9
+		let factor = maxWidth / CGFloat(max)
+		let width = positive ? number * factor : -number * factor
+		let color = positive ? UIColor.rightGreen() : UIColor.wrongRed()
+
+		let colorView = UIView(frame: CGRect(x: 0, y: 5, width: width, height: contentView.frame.height - 5))
+		colorView.backgroundColor = color
+		contentView.addSubview(colorView)
+
+		scoreLabel.text = positive ? "+" + String(data[0] as! Int) : String(data[0] as! Int)
+		contentView.bringSubviewToFront(scoreLabel)
+
+		dateLabel.text = data[1] as? String
+		contentView.bringSubviewToFront(dateLabel)
+	}
+
 	func showNoData() {
 		scoreLabel.text = Titles.noRecords
 	}

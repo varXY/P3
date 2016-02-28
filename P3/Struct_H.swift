@@ -34,7 +34,7 @@ struct Struct_H {
 		case "hui":  characters = ["灰", "挥", "辉", "徽", "恢", "蛔", "回", "毁", "悔", "慧", "卉", "惠", "晦", "贿", "秽", "烩", "汇", "讳", "诲", "绘", "会"]
 		case "hun":  characters = ["昏", "婚", "魂", "浑", "混", "荤"]
 		case "huo":  characters = ["活", "伙", "火", "获", "或", "惑", "霍", "货", "祸", "豁", "和"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

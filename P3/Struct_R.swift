@@ -28,7 +28,7 @@ struct Struct_R {
 		case "rui":  characters = ["蕊", "瑞", "锐"]
 		case "run":  characters = ["闰", "润"]
 		case "ruo":  characters = ["弱", "若"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

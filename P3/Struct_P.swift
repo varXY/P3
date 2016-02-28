@@ -32,7 +32,7 @@ struct Struct_P {
 		case "po":  characters = ["坡", "泼", "颇", "婆", "破", "粕", "泊", "迫", "魄", "朴"]
 		case "pou":  characters = ["剖"]
 		case "pu":  characters = ["扑", "铺", "仆", "莆", "葡", "菩", "蒲", "圃", "普", "浦", "谱", "脯", "埔", "曝", "瀑", "堡", "朴"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

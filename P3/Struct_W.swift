@@ -24,7 +24,7 @@ struct Struct_W {
 		case "weng":  characters = ["嗡", "翁", "瓮"]
 		case "wo":  characters = ["挝", "蜗", "窝", "我", "斡", "卧", "握", "沃", "涡"]
 		case "wu":  characters = ["巫", "呜", "钨", "乌", "污", "诬", "屋", "芜", "梧", "吾", "吴", "毋", "武", "五", "捂", "午", "舞", "伍", "侮", "坞", "戊", "雾", "晤", "物", "勿", "务", "悟", "误", "恶", "无"]
-		default:  characters = ["shit"]
+		default:  characters = ["无"]
 		}
 	}
 }

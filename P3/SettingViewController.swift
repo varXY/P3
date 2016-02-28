@@ -19,13 +19,19 @@ class SettingViewController: UIViewController {
 
 	var C_amount = 3
 
-	let titles = ["Sound", "Vibration", "Number of wheels to spell with", "Feedback", "Contribute"]
+	let titles = [
+		NSLocalizedString("Sound", comment: "SettingVC"),
+		NSLocalizedString("Vibration", comment: "SettingVC"),
+		NSLocalizedString("Number of wheels to spell with", comment: "SettingVC"),
+		NSLocalizedString("Feedback", comment: "SettingVC"),
+		NSLocalizedString("Contribute", comment: "SettingVC")
+	]
 
 	let userDefaults = NSUserDefaults.standardUserDefaults()
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.title = "Settings"
+		self.title = NSLocalizedString("Settings", comment: "SettingVC")
 
 		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
 		navigationItem.rightBarButtonItem = quitButton
@@ -104,7 +110,7 @@ class SettingViewController: UIViewController {
 			let controller = MFMailComposeViewController()
 			controller.navigationBar.tintColor = UIColor.themeBlue()
 			controller.mailComposeDelegate = self
-			controller.setSubject("反馈")
+			controller.setSubject(NSLocalizedString("Feedback", comment: "SettingVC"))
 			controller.setToRecipients(["pmlcfwcs@foxmail.com"])
 			controller.setMessageBody(messageBody, isHTML: false)
 			presentViewController(controller, animated: true, completion: nil)
@@ -143,7 +149,7 @@ class SettingViewController: UIViewController {
 				let action_1 = UIAlertAction(title: priceFormatter.stringFromNumber(products[1].price), style: .Default, handler: { (_) -> () in self.purchaseProduct(products[1]) })
 				let action_2 = UIAlertAction(title: priceFormatter.stringFromNumber(products[2].price), style: .Default, handler: { (_) -> () in self.purchaseProduct(products[2]) })
 
-				let action_cancel = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
+				let action_cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: "SettingVC"), style: .Cancel, handler: nil)
 
 				alertSheet.addAction(action_0)
 				alertSheet.addAction(action_2)
@@ -152,8 +158,11 @@ class SettingViewController: UIViewController {
 				self.presentViewController(alertSheet, animated: true, completion: nil)
 
 			} else {
-				let alertController = UIAlertController(title: "Failed To Connect", message: "Please check your settings and try again.", preferredStyle: .Alert)
-				let action = UIAlertAction(title: "OK", style: .Default, handler: nil)
+				let title = NSLocalizedString("Failed To Connect", comment: "SettingVC")
+				let message = NSLocalizedString("Please check your settings and try again.", comment: "SettingVC")
+				let ok = NSLocalizedString("OK", comment: "SettingVC")
+				let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+				let action = UIAlertAction(title: ok, style: .Default, handler: nil)
 				alertController.addAction(action)
 				self.presentViewController(alertController, animated: true, completion: nil)
 			}
@@ -163,7 +172,7 @@ class SettingViewController: UIViewController {
 	func purchaseProduct(product: SKProduct) {
 		SupportProducts.store.purchaseProduct(product)
 		let hudView = HudView.hudInView(self.view, animated: true)
-		hudView.text = "Thank you!"
+		hudView.text = NSLocalizedString("Thank you!", comment: "SettingVC")
 	}
 
 	func productPurchased(notification: NSNotification) {
@@ -206,6 +215,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 		if indexPath.section == 2 {
 			cell.textLabel?.text = titles[indexPath.row + 3]
+			cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
 			cell.textLabel?.textAlignment = .Center
 		}
 

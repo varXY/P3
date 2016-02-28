@@ -16,15 +16,35 @@ class RecordViewController: UIViewController {
 	var maxDailyNumber: UInt!
 	var tableView: UITableView!
 
+//	let fakeData = [
+//		[109, "02/25/16"],
+//		[96, "02/24/16"],
+//		[-47, "02/23/16"],
+//		[52, "02/22/16"],
+//		[-30, "02/21/16"],
+//		[36, "02/20/16"],
+//		[60, "02/19/16"],
+//		[55, "02/18/16"],
+//		[-40, "02/17/16"],
+//		[-52, "02/16/16"],
+//		[20, "02/15/16"],
+//		[34, "02/14/16"],
+//		[42, "02/13/16"],
+//		[66, "02/12/16"],
+//
+//	]
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		view.backgroundColor = UIColor.deepGray()
-		title = "Total score: \(totalScore)"
+//		title = NSLocalizedString("Total score:", comment: "RecordVC") + " 82"
+		title = NSLocalizedString("Total score:", comment: "RecordVC") + " \(totalScore)"
 
 		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
 		navigationItem.rightBarButtonItem = quitButton
 
 		tableView = UITableView(frame: view.bounds, style: .Plain)
+		tableView.frame.size.height -= 64
 		tableView.backgroundColor = UIColor.lightGray()
 		tableView.separatorStyle = .None
 		tableView.allowsSelection = false
@@ -42,6 +62,7 @@ class RecordViewController: UIViewController {
 extension RecordViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//		return fakeData.count
 		return dailyScores.count == 0 ? 1 : dailyScores.count
 	}
 
@@ -51,13 +72,14 @@ extension RecordViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = DailyScoreCell(style: .Default, reuseIdentifier: "DailyScoreCell")
+//		cell.showFakeData(fakeData[indexPath.row])
 
 		if dailyScores.count == 0 {
 			cell.showNoData()
 		} else {
 			cell.configureForCell(dailyScores[indexPath.row], max: maxDailyNumber)
 		}
-		
+
 		return cell
 
 	}
