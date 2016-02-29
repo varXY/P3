@@ -20,19 +20,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-		self.window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		self.window!.backgroundColor = UIColor.whiteColor()
+		window = UIWindow(frame: UIScreen.mainScreen().bounds)
+		window!.backgroundColor = UIColor.whiteColor()
 
 		let homepageVC = HomepageViewController()
 		homepageVC.scoreModel = scoreModel
 		homepageVC.chinese = chinese
 		let navi = NavigationController(rootViewController: homepageVC)
 		navi.setNavigationBarHidden(true, animated: true)
-		self.window?.rootViewController = navi
+		window?.rootViewController = navi
 
 		try! AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
 
-		self.window?.makeKeyAndVisible()
+		window?.makeKeyAndVisible()
 
         return true
     }
