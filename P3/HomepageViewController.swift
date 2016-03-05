@@ -38,7 +38,6 @@ class HomepageViewController: UIViewController {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 		navigationController?.setNavigationBarHidden(true, animated: true)
-		setSoundAndVibration()
 
 		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 		dispatch_async(queue) {
@@ -53,8 +52,6 @@ class HomepageViewController: UIViewController {
 				}
 			}
 		}
-
-
 
     }
 
@@ -176,12 +173,17 @@ class HomepageViewController: UIViewController {
 	}
 
 	func bigButtonTapped(sender: UIButton) {
+		goToPageBaseOnTag(sender.tag - 10)
+	}
+
+	func goToPageBaseOnTag(tag: Int) {
+		setSoundAndVibration()
 		var viewController: TestViewController!
 
-		switch sender.tag {
-		case 10: viewController = SameOrNotViewController()
-		case 11: viewController = SelectTheSameViewController()
-		case 12: viewController = SpellViewController()
+		switch tag {
+		case 0: viewController = SameOrNotViewController()
+		case 1: viewController = SelectTheSameViewController()
+		case 2: viewController = SpellViewController()
 		default: break
 		}
 

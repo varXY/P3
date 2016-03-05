@@ -24,6 +24,7 @@ class SettingViewController: UIViewController {
 		NSLocalizedString("Vibration", comment: "SettingVC"),
 		NSLocalizedString("Number of wheels to spell with", comment: "SettingVC"),
 		NSLocalizedString("Feedback", comment: "SettingVC"),
+		NSLocalizedString("Rate this app", comment: "SettingVC"),
 		NSLocalizedString("Contribute", comment: "SettingVC")
 	]
 
@@ -183,15 +184,15 @@ class SettingViewController: UIViewController {
 extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 3
+		return IAPHelper.canMakePayments() ? 4 : 3
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		let section_2_rows = IAPHelper.canMakePayments() ? 2 : 1
 		switch section {
 		case 0: return 2
 		case 1: return 1
-		case 2: return section_2_rows
+		case 2: return 2
+		case 3: return 1
 		default: return 0
 		}
 	}
@@ -215,6 +216,12 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 		if indexPath.section == 2 {
 			cell.textLabel?.text = titles[indexPath.row + 3]
+			cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
+			cell.textLabel?.textAlignment = .Center
+		}
+
+		if indexPath.section == 3 {
+			cell.textLabel?.text = titles[indexPath.row + 5]
 			cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
 			cell.textLabel?.textAlignment = .Center
 		}
@@ -249,6 +256,10 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		}
 
 		if indexPath.section == 2 && indexPath.row == 1 {
+			UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086816660&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!)
+		}
+
+		if indexPath.section == 3 {
 			connectToStore()
 		}
 

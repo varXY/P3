@@ -50,7 +50,6 @@ class Chinese {
 
 		//--------------------------- c
 
-//		"deng dei",
 		"dou diu",
 
 		// - h
@@ -130,6 +129,9 @@ class Chinese {
 		"ka ke",
 		"kong kou",
 		"kui kuo",
+
+		// join h
+		"kuai huai",
 
 		// - g
 		"kan kang",
@@ -236,6 +238,7 @@ class Chinese {
 
 		// join y
 		"ruan yuan",
+		"ren yin",
 
 		//--------------------------- s
 
@@ -309,7 +312,6 @@ class Chinese {
 		"zang zhang",
 		"zao zhao",
 		"ze zhe",
-//		"zei zhei",
 		"zen zhen",
 		"zeng zheng",
 		"zi zhi",
