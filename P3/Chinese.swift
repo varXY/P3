@@ -48,6 +48,9 @@ class Chinese {
 		"ben beng",
 		"bin bing",
 
+		// join t
+		"bo tuo",
+
 		//--------------------------- c
 
 		"dou diu",
@@ -120,6 +123,9 @@ class Chinese {
 		// - g
 		"jin jing",
 		"jian jiang",
+
+		// join z
+		"ji zhi",
 
 
 		//--------------------------- k
@@ -239,6 +245,7 @@ class Chinese {
 		// join y
 		"ruan yuan",
 		"ren yin",
+		"re ye",
 
 		//--------------------------- s
 

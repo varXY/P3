@@ -237,14 +237,14 @@
 			name = "Word Store";
 			sourceTree = "<group>";
 		};
-		311A89FC1C6863A400257A26 /* Resource */ = {
+		311A89FC1C6863A400257A26 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 				C3CDD50F1C522CFD00209556 /* Assets.xcassets */,
 				3100970E1C72B249003C7FA6 /* Font */,
 				31C8D1DD1C7C32AE006B2279 /* Sound */,
 			);
-			name = Resource;
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		311A89FD1C6863FF00257A26 /* Global */ = {
@@ -394,7 +394,7 @@
 				3175AF051C69B690001BEACE /* Controller */,
 				311A8A181C69643E00257A26 /* Model */,
 				311A8A0F1C69639D00257A26 /* Extension */,
-				311A89FC1C6863A400257A26 /* Resource */,
+				311A89FC1C6863A400257A26 /* Resources */,
 				31C8D1DA1C7C00E6006B2279 /* Purchase */,
 				3100970B1C729E00003C7FA6 /* Trash */,
 			);

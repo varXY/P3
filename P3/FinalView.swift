@@ -69,7 +69,7 @@ class FinalView: UIView {
 		numberLabel.text = "\(abs(currentScore))"
 
 		let formatter = NSDateFormatter()
-		formatter.dateFormat = "HH:mm, MM/dd/yyyy"
+		formatter.dateFormat = "HH:mm, MM-dd-yyyy"
 		bottomLabel.text = formatter.stringFromDate(NSDate())
 		
 		UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in

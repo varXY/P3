@@ -34,7 +34,6 @@ class HomepageViewController: UIViewController {
 
     }
 
-
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
 		navigationController?.setNavigationBarHidden(true, animated: true)
@@ -217,9 +216,7 @@ class HomepageViewController: UIViewController {
 			}
 
 			for day in days {
-				let scoresInSameDay = scoreModel.scores.filter({ dateFormatter.stringFromDate($0.time) == day })
-				var dailyNumber = 0
-				for score in scoresInSameDay { dailyNumber += score.score }
+				let dailyNumber = scoreModel.scores.filter({ dateFormatter.stringFromDate($0.time) == day }).reduce(0, combine: { $0 + $1.score })
 				let result = DailyScore(date: day, score: dailyNumber)
 				dailyScores.append(result)
 				numbers.append(abs(dailyNumber))

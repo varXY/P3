@@ -24,10 +24,11 @@ class TestViewController: UIViewController {
 	var finalView: FinalView!
 	
 	var sound = true
+	var vibration = true
+
 	var rightSound = AVAudioPlayer()
 	var wrongSound = AVAudioPlayer()
 
-	var vibration = true
 
 	var currentPage = 0
 	var rightScore: Int!
@@ -97,8 +98,8 @@ extension TestViewController: HeaderViewDelegate {
 	func backButtonTapped() {
 		if currentPage != 0 && currentPage != 10 {
 			let notFinished = NSLocalizedString("Not Finish Yet", comment: "TestVC")
-			let warming = NSLocalizedString("If you quit, current score will be lost.", comment: "TestVC")
-			alertOfStayOrQuit(self, title: notFinished, message: warming, quit: { self.confirmToQuit() })
+			let warning = NSLocalizedString("If you quit, current score will be lost.", comment: "TestVC")
+			alertOfStayOrQuit(self, title: notFinished, message: warning, quit: { self.confirmToQuit() })
 		} else {
 			navigationController?.popToRootViewControllerAnimated(true)
 		}
@@ -112,9 +113,14 @@ extension TestViewController: FinalViewDelegate {
 		if buttonType == .Again {
 			headerView.startAllOver()
 
-			UIView.animateWithDuration(0.5, animations: {
+			let duration = Double(scrollView.frame.width / 640)
+
+			UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 				self.scrollView.frame.origin.x -= self.view.frame.width
+				}, completion: {(_) -> Void in
+					self.removeContent()
 			})
+
 		} else {
 			confirmToQuit()
 		}
