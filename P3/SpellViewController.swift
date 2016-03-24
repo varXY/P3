@@ -130,7 +130,7 @@ class SpellViewController: TestViewController {
 			if selectedIndex < blockView.colorfulViews.count - 1 {
 				delay(seconds: 0.8, completion: { () -> () in
 					self.showed = false
-					self.selectedIndex++
+					self.selectedIndex += 1
 					blockView.changeColorAtIndex(self.selectedIndex, color: UIColor.whiteColor(), backToBlue: false)
 				})
 			} else {
@@ -143,7 +143,7 @@ class SpellViewController: TestViewController {
 				})
 
 				delay(seconds: 0.85, completion: { () -> () in
-					self.currentPage++
+					self.currentPage += 1
 					self.addContent(self.currentPage, firstTime: false)
 				})
 
@@ -171,7 +171,7 @@ extension SpellViewController: BlockViewDelegate {
 		})
 
 		delay(seconds: 0.85, completion: { () -> () in
-			self.currentPage++
+			self.currentPage += 1
 			self.addContent(self.currentPage, firstTime: false)
 		})
 	}

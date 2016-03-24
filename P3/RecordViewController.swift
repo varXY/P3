@@ -40,7 +40,7 @@ class RecordViewController: UIViewController {
 //		title = NSLocalizedString("Total score:", comment: "RecordVC") + " 82"
 		title = NSLocalizedString("Total score:", comment: "RecordVC") + " \(totalScore)"
 
-		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
+		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(dismiss))
 		navigationItem.rightBarButtonItem = quitButton
 
 		tableView = UITableView(frame: view.bounds, style: .Plain)

@@ -65,7 +65,7 @@ class SameOrNotViewController: TestViewController {
 			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
 
 			button.tag = 100 + i
-			button.addTarget(self, action: "sameOrNot:", forControlEvents: .TouchUpInside)
+			button.addTarget(self, action: #selector(SameOrNotViewController.sameOrNot(_:)), forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
 			buttons.append(button)
 			scrollView.addSubview(buttons[buttons.count - 1])
@@ -87,7 +87,7 @@ class SameOrNotViewController: TestViewController {
 		showRightOrWorng(sender)
 		delay(seconds: 0.6) { self.allShowPinyin() }
 		delay(seconds: 0.8) { self.addNextPageButton() }
-		delay(seconds: 0.85) { self.currentPage++; self.addContent(page: self.currentPage, firstTime: false) }
+		delay(seconds: 0.85) { self.currentPage += 1; self.addContent(page: self.currentPage, firstTime: false) }
 
 	}
 
@@ -96,7 +96,7 @@ class SameOrNotViewController: TestViewController {
 		let trulySame = blockViews[blockViews.count - 2].text[0] == blockViews[blockViews.count - 1].text[0]
 
 		if ChosenSame == trulySame {
-			rightCount++
+			rightCount += 1
 			if sound { rightSound.play() }
 			for blockView in blockViews { blockView.allChangeColor(UIColor.rightGreen()) }
 			sender.changeToColor(UIColor.rightGreen())

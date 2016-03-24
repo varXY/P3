@@ -153,13 +153,13 @@ class BlockView: UIView {
 	func addButton() {
 		button = UIButton(frame: self.bounds)
 		button.backgroundColor = UIColor.clearColor()
-		button.addTarget(self, action: "selected:", forControlEvents: .TouchUpInside)
+		button.addTarget(self, action: #selector(selected(_:)), forControlEvents: .TouchUpInside)
 		addSubview(button)
 	}
 
 	func addButtonForColorView() {
 		let button = UIButton(frame: bounds)
-		button.addTarget(self, action: "colorViewTapped", forControlEvents: .TouchUpInside)
+		button.addTarget(self, action: #selector(colorViewTapped), forControlEvents: .TouchUpInside)
 		button.tag = 77
 		addSubview(button)
 	}
@@ -188,7 +188,7 @@ class BlockView: UIView {
 		button.tag = 777
 		addSubview(button)
 
-		button.addTarget(self, action: "showAnwser:", forControlEvents: .TouchUpInside)
+		button.addTarget(self, action: #selector(showAnwser(_:)), forControlEvents: .TouchUpInside)
 		button.viewAddAnimation(.BecomeVisble, delay: 0.0, distance: 0.0)
 		UIView.animateWithDuration(0.5, animations: { () -> Void in
 			self.changeSubViewsAlpha(0.3)

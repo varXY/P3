@@ -49,7 +49,7 @@ class FinalView: UIView {
 			button.changeColorWhenTouchDown(UIColor.deepGray())
 			button.addBorder(borderColor: UIColor.deepGray(), width: 2.0)
 			button.tag = 9999 + i
-			button.addTarget(self, action: "finalChoice:", forControlEvents: .TouchUpInside)
+			button.addTarget(self, action: #selector(finalChoice(_:)), forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
 			addSubview(button)
 		}

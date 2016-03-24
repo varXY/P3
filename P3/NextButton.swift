@@ -39,7 +39,7 @@ class NextButton: UIButton {
 		super.init(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: 60))
 		backgroundColor = UIColor.whiteColor()
 		tintColor = UIColor.deepGray()
-		addTarget(self, action: "nextButtonTapped", forControlEvents: .TouchUpInside)
+		addTarget(self, action: #selector(nextButtonTapped), forControlEvents: .TouchUpInside)
 		exclusiveTouch = true
 		userInteractionEnabled = false
 	}

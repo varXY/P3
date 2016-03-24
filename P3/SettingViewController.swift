@@ -34,7 +34,7 @@ class SettingViewController: UIViewController {
 		super.viewDidLoad()
 		self.title = NSLocalizedString("Settings", comment: "SettingVC")
 
-		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: "dismiss")
+		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(dismiss))
 		navigationItem.rightBarButtonItem = quitButton
 
 		tableView = UITableView(frame: view.bounds, style: .Grouped)
@@ -47,7 +47,7 @@ class SettingViewController: UIViewController {
 		switchControl_S = initialSwitchControl()
 		switchControl_V = initialSwitchControl()
 
-		NSNotificationCenter.defaultCenter().addObserver(self, selector: "productPurchased:", name: IAPHelperProductPurchasedNotification, object: nil)
+		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(productPurchased(_:)), name: IAPHelperProductPurchasedNotification, object: nil)
 
 	}
 
@@ -65,7 +65,7 @@ class SettingViewController: UIViewController {
 	func initialSwitchControl() -> UISwitch {
 		let switchControl = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
 		switchControl.onTintColor = UIColor.rightGreen()
-		switchControl.addTarget(self, action: "switched:", forControlEvents: UIControlEvents.ValueChanged)
+		switchControl.addTarget(self, action: #selector(switched(_:)), forControlEvents: UIControlEvents.ValueChanged)
 		return switchControl
 	}
 

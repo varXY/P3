@@ -53,7 +53,7 @@ extension UIButton {
 	func changeColorWhenTouchDown(borderColor: UIColor) {
 		let selector = borderColor == UIColor.whiteColor() ? "changeColorBack" : "changeColorBack_D"
 
-		addTarget(self, action: "changeColor", forControlEvents: .TouchDown)
+		addTarget(self, action: #selector(changeColor), forControlEvents: .TouchDown)
 		addTarget(self, action: Selector(selector), forControlEvents: .TouchUpOutside)
 		addTarget(self, action: Selector(selector), forControlEvents: .TouchUpInside)
 	}

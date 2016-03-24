@@ -125,7 +125,7 @@ class HomepageViewController: UIViewController {
 
 			button.exclusiveTouch = true
 			button.tag = 10 + i
-			button.addTarget(self, action: "bigButtonTapped:", forControlEvents: .TouchUpInside)
+			button.addTarget(self, action: #selector(HomepageViewController.bigButtonTapped(_:)), forControlEvents: .TouchUpInside)
 
 			button.alpha = 0.0
 			button.userInteractionEnabled = false
@@ -146,7 +146,7 @@ class HomepageViewController: UIViewController {
 			button.setImage(images[i], forState: .Normal)
 			button.exclusiveTouch = true
 			button.tag = 9111 + i
-			button.addTarget(self, action: "smallButtonTapped:", forControlEvents: .TouchUpInside)
+			button.addTarget(self, action: #selector(smallButtonTapped(_:)), forControlEvents: .TouchUpInside)
 			view.addSubview(button)
 		}
 	}

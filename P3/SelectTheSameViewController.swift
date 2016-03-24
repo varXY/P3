@@ -152,7 +152,7 @@ extension SelectTheSameViewController: NextButtonDelegate {
 				})
 
 				delay(seconds: 0.85, completion: {
-					self.currentPage++
+					self.currentPage += 1
 					self.addContent(page: self.currentPage, firstTime: false)
 				})
 

@@ -52,7 +52,7 @@ class HeaderView: UIView {
 		backButton.tintColor = UIColor.whiteColor()
 		backButton.frame = frame
 		backButton.setImage(UIImage(named: ImageName.Back), forState: .Normal)
-		backButton.addTarget(self, action: "backButtonTapped", forControlEvents: .TouchUpInside)
+		backButton.addTarget(self, action: #selector(backButtonTapped), forControlEvents: .TouchUpInside)
 		backButton.exclusiveTouch = true
 		addSubview(backButton)
 	}
