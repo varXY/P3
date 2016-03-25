@@ -190,9 +190,9 @@ class HomepageViewController: UIViewController {
 		viewController.vibration = vibration
 		viewController.chinese = chinese
 		viewController.totalScore = scoreModel.totalScore
-		viewController.sendBackScore = { (totalScore, score) -> Void in
-			self.scoreModel.totalScore = totalScore
-			self.scoreModel.scores.insert(score, atIndex: 0)
+		viewController.sendBackScore = { [weak self] totalScore, score -> Void in
+			self!.scoreModel.totalScore = totalScore
+			self!.scoreModel.scores.insert(score, atIndex: 0)
 		}
 
 		navigationController?.pushViewController(viewController, animated: true)

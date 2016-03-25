@@ -64,9 +64,10 @@ class FinalView: UIView {
 
 	func show(currentScore: Int, delay: Double) {
 		let win = currentScore >= 0
+		let numberToShow = win ? currentScore : -currentScore
 		titleLabel.textColor = win ? UIColor.rightGreen() : UIColor.wrongRed()
 		titleLabel.text = win ? NSLocalizedString("You win:", comment: "FinalView") : NSLocalizedString("You lose:", comment: "FinalView")
-		numberLabel.text = "\(abs(currentScore))"
+		numberLabel.text = "\(numberToShow)"
 
 		let formatter = NSDateFormatter()
 		formatter.dateFormat = "HH:mm, MM-dd-yyyy"

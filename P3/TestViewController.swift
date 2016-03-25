@@ -33,8 +33,7 @@ class TestViewController: UIViewController {
 	var currentPage = 0
 	var rightScore: Int!
 	var wrongScore: Int!
-	var rightCount = 0
-	
+
 	override func prefersStatusBarHidden() -> Bool {
 		return true
 	}

@@ -24,6 +24,7 @@ class SettingViewController: UIViewController {
 		NSLocalizedString("Vibration", comment: "SettingVC"),
 		NSLocalizedString("Number of wheels to spell with", comment: "SettingVC"),
 		NSLocalizedString("Feedback", comment: "SettingVC"),
+		NSLocalizedString("Share", comment: "SettingVC"),
 		NSLocalizedString("Rate this app", comment: "SettingVC"),
 		NSLocalizedString("Contribute", comment: "SettingVC")
 	]
@@ -41,7 +42,6 @@ class SettingViewController: UIViewController {
 		tableView.backgroundColor = UIColor.lightGray()
 		tableView.dataSource = self
 		tableView.delegate = self
-//		tableView.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
 		view = tableView
 
 		switchControl_S = initialSwitchControl()
@@ -94,6 +94,19 @@ class SettingViewController: UIViewController {
 			userDefaults.setBool(sender.on, forKey: Defaults.vibration)
 		}
 
+	}
+
+	func shareContent() {
+		let text: String = NSLocalizedString("App Store: Pinyin Comparsion", comment: "SettingVC")
+		let link = NSURL(string: "https://itunes.apple.com/cn/app/pinyin-comparison/id1086816660?l=en&mt=8")!
+
+		let arr: [AnyObject] = [text, link]
+
+		let shareVC = UIActivityViewController(activityItems: arr, applicationActivities: [])
+		shareVC.completionWithItemsHandler = { (type:String?, complete:Bool, arr:[AnyObject]?, error:NSError?) -> Void in
+		}
+
+		presentViewController(shareVC, animated: true, completion: nil)
 	}
 
 	func menuViewControllerSendSupportEmail() {
@@ -184,7 +197,7 @@ class SettingViewController: UIViewController {
 extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return IAPHelper.canMakePayments() ? 4 : 3
+		return 4
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -192,7 +205,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		case 0: return 2
 		case 1: return 1
 		case 2: return 2
-		case 3: return 1
+		case 3: return IAPHelper.canMakePayments() ? 2 : 1
 		default: return 0
 		}
 	}
@@ -231,37 +244,74 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-		if indexPath.section == 0 && indexPath.row == 0 {
-			switchControl_S.on ? switchControl_S.setOn(false, animated: true) : switchControl_S.setOn(true, animated: true)
-			userDefaults.setBool(switchControl_S.on, forKey: Defaults.sound)
-		}
+		switch indexPath.section {
+		case 0:
+			let switchControl = indexPath.row == 0 ? switchControl_S : switchControl_V
+			let defaults = indexPath.row == 0 ? Defaults.sound : Defaults.vibration
+			switchControl.on ? switchControl.setOn(false, animated: true) : switchControl.setOn(true, animated: true)
+			userDefaults.setBool(switchControl.on, forKey: defaults)
 
-		if indexPath.section == 0 && indexPath.row == 1 {
-			switchControl_V.on ? switchControl_V.setOn(false, animated: true) : switchControl_V.setOn(true, animated: true)
-			userDefaults.setBool(switchControl_V.on, forKey: Defaults.vibration)
-		}
-
-		if indexPath.section == 1 && indexPath.row == 0 {
+		case 1:
 			let settingVC_1 = SettingVC_1()
 			settingVC_1.selectedOne = C_amount
-			settingVC_1.sendBack = { (selected) -> Void in
-				self.C_amount = selected
-				self.userDefaults.setInteger(self.C_amount, forKey: Defaults.C_amount)
+			settingVC_1.sendBack = { [weak self] selected -> Void in
+				self!.C_amount = selected
+				self!.userDefaults.setInteger(self!.C_amount, forKey: Defaults.C_amount)
 			}
 			navigationController?.pushViewController(settingVC_1, animated: true)
+
+		case 2:
+			switch indexPath.row {
+			case 0: menuViewControllerSendSupportEmail()
+			case 1: shareContent()
+			default: break
+			}
+
+		case 3:
+			switch indexPath.row {
+			case 0:
+				UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086816660&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!)
+			case 1:
+				connectToStore()
+			default:
+				break
+			}
+
+		default:
+			break
 		}
 
-		if indexPath.section == 2 && indexPath.row == 0 {
-			menuViewControllerSendSupportEmail()
-		}
+//		if indexPath.section == 0 && indexPath.row == 0 {
+//			switchControl_S.on ? switchControl_S.setOn(false, animated: true) : switchControl_S.setOn(true, animated: true)
+//			userDefaults.setBool(switchControl_S.on, forKey: Defaults.sound)
+//		}
+//
+//		if indexPath.section == 0 && indexPath.row == 1 {
+//			switchControl_V.on ? switchControl_V.setOn(false, animated: true) : switchControl_V.setOn(true, animated: true)
+//			userDefaults.setBool(switchControl_V.on, forKey: Defaults.vibration)
+//		}
 
-		if indexPath.section == 2 && indexPath.row == 1 {
-			UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086816660&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!)
-		}
+//		if indexPath.section == 1 && indexPath.row == 0 {
+//			let settingVC_1 = SettingVC_1()
+//			settingVC_1.selectedOne = C_amount
+//			settingVC_1.sendBack = { (selected) -> Void in
+//				self.C_amount = selected
+//				self.userDefaults.setInteger(self.C_amount, forKey: Defaults.C_amount)
+//			}
+//			navigationController?.pushViewController(settingVC_1, animated: true)
+//		}
 
-		if indexPath.section == 3 {
-			connectToStore()
-		}
+//		if indexPath.section == 2 && indexPath.row == 0 {
+//			menuViewControllerSendSupportEmail()
+//		}
+//
+//		if indexPath.section == 2 && indexPath.row == 1 {
+//			UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086816660&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!)
+//		}
+//
+//		if indexPath.section == 3 {
+//			connectToStore()
+//		}
 
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 

@@ -92,10 +92,10 @@ class SelectTheSameViewController: TestViewController {
 		let right = allTheSame.count == 3 && selectedBlocks.count == 3
 		let color: UIColor = right ? UIColor.rightGreen() : UIColor.wrongRed()
 		let score = right ? rightScore : wrongScore
+		headerView.showAndAddScore(score)
 		if sound { right ? rightSound.play() : wrongSound.play() }
 		if vibration && !right { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 
-		delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(score) })
 
 		for blockView in blockViews {
 			blockView.setSelectable(false)
@@ -141,6 +141,7 @@ extension SelectTheSameViewController: BlockViewDelegate {
 extension SelectTheSameViewController: NextButtonDelegate {
 
 	func nextButtonTapped(title: NextButtonTitle) {
+		
 		if currentPage < 10 {
 
 			if title == .Confirm {

@@ -96,7 +96,7 @@ class SameOrNotViewController: TestViewController {
 		let trulySame = blockViews[blockViews.count - 2].text[0] == blockViews[blockViews.count - 1].text[0]
 
 		if ChosenSame == trulySame {
-			rightCount += 1
+			headerView.showAndAddScore(rightScore)
 			if sound { rightSound.play() }
 			for blockView in blockViews { blockView.allChangeColor(UIColor.rightGreen()) }
 			sender.changeToColor(UIColor.rightGreen())
@@ -106,11 +106,10 @@ class SameOrNotViewController: TestViewController {
 					button.enabled = false
 				}
 			}
-			delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(self.rightScore) })
 
 
 		} else {
-			
+			headerView.showAndAddScore(wrongScore)
 			for blockView in blockViews { blockView.allChangeColor(UIColor.wrongRed()) }
 			if sound { wrongSound.play() }
 			if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
@@ -123,9 +122,9 @@ class SameOrNotViewController: TestViewController {
 				}
 			}
 
-			delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(self.wrongScore) })
 
 		}
+
 	}
 
 	func allShowPinyin() {

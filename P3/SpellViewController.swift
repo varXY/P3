@@ -135,7 +135,7 @@ class SpellViewController: TestViewController {
 				})
 			} else {
 				blockView.setSelectable(false)
-				delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(self.rightScore) })
+				headerView.showAndAddScore(rightScore)
 
 				delay(seconds: 0.8, completion: { () -> () in
 					let title: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
@@ -161,9 +161,9 @@ extension SpellViewController: BlockViewDelegate {
 	}
 
 	func answerShowedByQuestionMark() {
+		headerView.showAndAddScore(wrongScore)
 		if sound { wrongSound.play() }
 		if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
-		delay(seconds: 0.1, completion: { self.headerView.showAndAddScore(self.wrongScore) })
 
 		delay(seconds: 0.8, completion: { () -> () in
 			let title: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
