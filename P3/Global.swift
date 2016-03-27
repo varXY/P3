@@ -15,7 +15,8 @@ let ScreenWidth = ScreenBounds.width
 let ScreenHeight = ScreenBounds.height
 
 let BarHeight = UIApplication.sharedApplication().statusBarFrame.height
-
+let AppStoreLink = "https://itunes.apple.com/cn/app/pinyin-comparison/id1086816660?l=en&mt=8"
+let iTunesViewLink = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086816660&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 
 let dateFormatter: NSDateFormatter = {
 	let formatter = NSDateFormatter()

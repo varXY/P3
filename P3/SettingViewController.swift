@@ -23,9 +23,8 @@ class SettingViewController: UIViewController {
 		NSLocalizedString("Sound", comment: "SettingVC"),
 		NSLocalizedString("Vibration", comment: "SettingVC"),
 		NSLocalizedString("Number of wheels to spell with", comment: "SettingVC"),
-		NSLocalizedString("Feedback", comment: "SettingVC"),
-		NSLocalizedString("Share", comment: "SettingVC"),
 		NSLocalizedString("Rate this app", comment: "SettingVC"),
+		NSLocalizedString("Share", comment: "SettingVC"),
 		NSLocalizedString("Contribute", comment: "SettingVC")
 	]
 
@@ -98,7 +97,7 @@ class SettingViewController: UIViewController {
 
 	func shareContent() {
 		let text: String = NSLocalizedString("App Store: Pinyin Comparsion", comment: "SettingVC")
-		let link = NSURL(string: "https://itunes.apple.com/cn/app/pinyin-comparison/id1086816660?l=en&mt=8")!
+		let link = NSURL(string: AppStoreLink)!
 
 		let arr: [AnyObject] = [text, link]
 
@@ -197,7 +196,7 @@ class SettingViewController: UIViewController {
 extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 	func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-		return 4
+		return IAPHelper.canMakePayments() ? 4 : 3
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -205,7 +204,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		case 0: return 2
 		case 1: return 1
 		case 2: return 2
-		case 3: return IAPHelper.canMakePayments() ? 2 : 1
+		case 3: return 1
 		default: return 0
 		}
 	}
@@ -262,56 +261,17 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 		case 2:
 			switch indexPath.row {
-			case 0: menuViewControllerSendSupportEmail()
+			case 0: UIApplication.sharedApplication().openURL(NSURL(string: iTunesViewLink)!)
 			case 1: shareContent()
 			default: break
 			}
 
 		case 3:
-			switch indexPath.row {
-			case 0:
-				UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086816660&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!)
-			case 1:
-				connectToStore()
-			default:
-				break
-			}
+			connectToStore()
 
 		default:
 			break
 		}
-
-//		if indexPath.section == 0 && indexPath.row == 0 {
-//			switchControl_S.on ? switchControl_S.setOn(false, animated: true) : switchControl_S.setOn(true, animated: true)
-//			userDefaults.setBool(switchControl_S.on, forKey: Defaults.sound)
-//		}
-//
-//		if indexPath.section == 0 && indexPath.row == 1 {
-//			switchControl_V.on ? switchControl_V.setOn(false, animated: true) : switchControl_V.setOn(true, animated: true)
-//			userDefaults.setBool(switchControl_V.on, forKey: Defaults.vibration)
-//		}
-
-//		if indexPath.section == 1 && indexPath.row == 0 {
-//			let settingVC_1 = SettingVC_1()
-//			settingVC_1.selectedOne = C_amount
-//			settingVC_1.sendBack = { (selected) -> Void in
-//				self.C_amount = selected
-//				self.userDefaults.setInteger(self.C_amount, forKey: Defaults.C_amount)
-//			}
-//			navigationController?.pushViewController(settingVC_1, animated: true)
-//		}
-
-//		if indexPath.section == 2 && indexPath.row == 0 {
-//			menuViewControllerSendSupportEmail()
-//		}
-//
-//		if indexPath.section == 2 && indexPath.row == 1 {
-//			UIApplication.sharedApplication().openURL(NSURL(string: "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086816660&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8")!)
-//		}
-//
-//		if indexPath.section == 3 {
-//			connectToStore()
-//		}
 
 		tableView.deselectRowAtIndexPath(indexPath, animated: true)
 
