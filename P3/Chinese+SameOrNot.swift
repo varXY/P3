@@ -11,11 +11,11 @@ import Foundation
 
 extension Chinese {
 
-	func getOneForSameOrNot() {
+	mutating func getOneForSameOrNot() {
 		forSameOrNot.removeAll()
 		
-		let sameOrNot = getRandomNumbers(1, lessThan: 2)
-		let oneForSameOrNot = sameOrNot[0] == 0 ? sameCharactersOrWords() : differentCharactersOrWords()
+		let sameOrNot = getRandomNumbers(1, lessThan: 2)[0]
+		let oneForSameOrNot = sameOrNot == 0 ? sameCharactersOrWords() : differentCharactersOrWords()
 
 		if oneForSameOrNot.count == 3 {
 			var text_0 = [String]()
@@ -48,38 +48,38 @@ extension Chinese {
 		let characterOrWord = getRandomNumbers(1, lessThan: 2)
 
 		if characterOrWord[0] == 0 {
-			let index = getRandomNumbers(1, lessThan: confusablePinyin_Different.count)
-			let differentPinyins = confusablePinyin_Different[index[0]].componentsSeparatedByString(" ")
+			let index = getRandomNumbers(1, lessThan: pinyins.confusablePinyin_Different.count)[0]
+			let differentPinyins = pinyins.confusablePinyin_Different[index].componentsSeparatedByString(" ")
 
-			let index_1 = getRandomNumbers(2, lessThan: differentPinyins.count)
+			let indexs_1 = getRandomNumbers(2, lessThan: differentPinyins.count)
 
-			couple.append(differentPinyins[index_1[0]])
+			couple.append(differentPinyins[indexs_1[0]])
 			let pinyins_1_0 = charactersFromPinyin(couple[0])
-			let random_1_0 = getRandomNumbers(1, lessThan: pinyins_1_0.count)
-			couple.append(pinyins_1_0[random_1_0[0]])
+			let random_1_0 = getRandomNumbers(1, lessThan: pinyins_1_0.count)[0]
+			couple.append(pinyins_1_0[random_1_0])
 
-			couple.append(differentPinyins[index_1[1]])
+			couple.append(differentPinyins[indexs_1[1]])
 			let pinyins_1_1 = charactersFromPinyin(couple[2])
-			let random_1_1 = getRandomNumbers(1, lessThan: pinyins_1_1.count)
-			couple.append(pinyins_1_1[random_1_1[0]])
+			let random_1_1 = getRandomNumbers(1, lessThan: pinyins_1_1.count)[0]
+			couple.append(pinyins_1_1[random_1_1])
 		}
 
 
 		if characterOrWord[0] == 1 {
-			let index = getRandomNumbers(1, lessThan: confusablePinyinOfWord_Different.count)
-			let differentPinyinOfWords = confusablePinyinOfWord_Different[index[0]].componentsSeparatedByString("-")
+			let index = getRandomNumbers(1, lessThan: pinyins.confusablePinyinOfWord_Different.count)[0]
+			let differentPinyinOfWords = pinyins.confusablePinyinOfWord_Different[index].componentsSeparatedByString("-")
 
-			let index_1 = getRandomNumbers(2, lessThan: differentPinyinOfWords.count)
+			let indexs_1 = getRandomNumbers(2, lessThan: differentPinyinOfWords.count)
 
-			couple.append(differentPinyinOfWords[index_1[0]])
+			couple.append(differentPinyinOfWords[indexs_1[0]])
 			let words_1_0 = wordsFromPinyin(couple[0])
-			let random_1_0 = getRandomNumbers(1, lessThan: words_1_0.count)
-			couple.append(words_1_0[random_1_0[0]])
+			let random_1_0 = getRandomNumbers(1, lessThan: words_1_0.count)[0]
+			couple.append(words_1_0[random_1_0])
 
-			couple.append(differentPinyinOfWords[index_1[1]])
+			couple.append(differentPinyinOfWords[indexs_1[1]])
 			let words_1_1 = wordsFromPinyin(couple[2])
-			let random_1_1 = getRandomNumbers(1, lessThan: words_1_1.count)
-			couple.append(words_1_1[random_1_1[0]])
+			let random_1_1 = getRandomNumbers(1, lessThan: words_1_1.count)[0]
+			couple.append(words_1_1[random_1_1])
 			
 		}
 
@@ -89,13 +89,13 @@ extension Chinese {
 
 	func sameCharactersOrWords() -> [String] {
 		var couple = [String]()
-		let characterOrWord = getRandomNumbers(1, lessThan: 2)
+		let characterOrWord = getRandomNumbers(1, lessThan: 2)[0]
 
-		if characterOrWord[0] == 0 {
+		if characterOrWord == 0 {
 
 			let pinyins = pinyinsWithSeveralCharacters(2, index: 0)
-			let index = getRandomNumbers(1, lessThan: pinyins.count)
-			let pinyin = pinyins[index[0]]
+			let index = getRandomNumbers(1, lessThan: pinyins.count)[0]
+			let pinyin = pinyins[index]
 
 			let charcters = charactersFromPinyin(pinyin)
 
@@ -107,19 +107,19 @@ extension Chinese {
 
 		}
 
-		if characterOrWord[0] == 1 {
+		if characterOrWord == 1 {
 
 			repeat {
 
-				let randomIndex = getRandomNumbers(1, lessThan: 52936)
-				let pinyin = wordPinyinFromIndex(Double(randomIndex[0]))
+				let randomIndex = getRandomNumbers(1, lessThan: 52936)[0]
+				let pinyin = wordPinyinFromIndex(Double(randomIndex))
 
 				let words = wordsFromPinyin(pinyin)
 
 				if words.count >= 2 {
 					couple.append(pinyin)
-					let randomIndex = getRandomNumbers(2, lessThan: words.count)
-					for index in randomIndex {
+					let randomIndexs = getRandomNumbers(2, lessThan: words.count)
+					for index in randomIndexs {
 						couple.append(words[index])
 					}
 				}

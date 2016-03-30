@@ -1,15 +1,109 @@
 //
-//  Chinese+1.swift
-//  P3
+//  WordCharacterPinyin.swift
+//  Pinyin Comparison
 //
-//  Created by 文川术 on 2/25/16.
+//  Created by 文川术 on 3/30/16.
 //  Copyright © 2016 myname. All rights reserved.
 //
 
 import Foundation
+import UIKit
+import CoreData
 
+protocol WordCharacterPinyin {
+	func wordsFromPinyin(pinyin: String) -> [String]
+	func wordPinyinFromIndex(index: Double) -> String
+	func charactersFromPinyin(pinyin: String) -> [String]
+	func pinyinsWithSeveralCharacters(numberOfCharacters: Int, index: Int) -> [String]
+}
 
-extension Chinese {
+extension WordCharacterPinyin {
+
+	func wordsFromPinyin(pinyin: String) -> [String] {
+		var words = [String]()
+
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let managedContext = appDelegate.managedObjectContext
+
+		let fetchRequest = NSFetchRequest(entityName: "Term")
+		fetchRequest.predicate = NSPredicate(format:"pinyin == %@", pinyin + " ")
+
+		do {
+			let fetchedResults = try managedContext.executeFetchRequest(fetchRequest)
+
+			if let results = fetchedResults as? [Term] {
+				for i in results {
+					words.append(i.word!)
+				}
+			}
+
+		} catch let error as NSError {
+			print("Counld not fetch \(error), \(error.userInfo)")
+		}
+
+		return words
+	}
+
+	func wordPinyinFromIndex(index: Double) -> String {
+		var pinyin = ""
+
+		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let managedContext = appDelegate.managedObjectContext
+
+		let fetchRequest = NSFetchRequest(entityName: "Term")
+		fetchRequest.predicate = NSPredicate(format:"index == %f", index)
+
+		do {
+			let fetchedResults = try managedContext.executeFetchRequest(fetchRequest)
+
+			if let results = fetchedResults as? [Term] {
+				if results[0].pinyin != nil {
+					pinyin = String(results[0].pinyin!.characters.dropLast())
+				}
+			}
+
+		} catch let error as NSError {
+			print("Counld not fetch \(error), \(error.userInfo)")
+		}
+		
+		return pinyin
+	}
+
+	func charactersFromPinyin(pinyin: String) -> [String] {
+		let index = pinyin.startIndex.advancedBy(0)
+		let letter = String(pinyin[index])
+
+		var result: Characters
+
+		switch letter {
+		case "a": result = Struct_A(pinyin: pinyin)
+		case "b": result = Struct_B(pinyin: pinyin)
+		case "c": result = Struct_C(pinyin: pinyin)
+		case "d": result = Struct_D(pinyin: pinyin)
+		case "e": result = Struct_E(pinyin: pinyin)
+		case "f": result = Struct_F(pinyin: pinyin)
+		case "g": result = Struct_G(pinyin: pinyin)
+		case "h": result = Struct_H(pinyin: pinyin)
+		case "j": result = Struct_J(pinyin: pinyin)
+		case "k": result = Struct_K(pinyin: pinyin)
+		case "l": result = Struct_L(pinyin: pinyin)
+		case "m": result = Struct_M(pinyin: pinyin)
+		case "n": result = Struct_N(pinyin: pinyin)
+		case "o": result = Struct_O(pinyin: pinyin)
+		case "p": result = Struct_P(pinyin: pinyin)
+		case "q": result = Struct_Q(pinyin: pinyin)
+		case "r": result = Struct_R(pinyin: pinyin)
+		case "s": result = Struct_S(pinyin: pinyin)
+		case "t": result = Struct_T(pinyin: pinyin)
+		case "w": result = Struct_W(pinyin: pinyin)
+		case "x": result = Struct_X(pinyin: pinyin)
+		case "y": result = Struct_Y(pinyin: pinyin)
+		case "z": result = Struct_Z(pinyin: pinyin)
+		default: return ["wrong"]
+		}
+
+		return result.characters
+	}
 
 	func pinyinsWithSeveralCharacters(numberOfCharacters: Int, index: Int) -> [String] {
 		switch numberOfCharacters {

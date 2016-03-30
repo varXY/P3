@@ -11,10 +11,11 @@ import Foundation
 
 extension Chinese {
 
-	func getSixForSelectTheSame() {
-		forSelectTheSame.removeAll()
-		var pinyins = coupleOfConfusablePinyin()
+	mutating func getSixForSelectTheSame() {
 
+		forSelectTheSame.removeAll()
+
+		var pinyins = coupleOfConfusablePinyin()
 		let index = getRandomNumbers(1, lessThan: pinyins.count)[0]
 
 		let words = charactersFromPinyin(pinyins[index])

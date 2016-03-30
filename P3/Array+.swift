@@ -9,7 +9,9 @@
 import Foundation
 
 extension Array {
+
     mutating func removeAtIndexes(incs: [Int]) {
         incs.sort(>).forEach { removeAtIndex($0) }
     }
+	
 }

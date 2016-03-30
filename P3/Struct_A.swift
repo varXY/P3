@@ -8,9 +8,13 @@
 
 import Foundation
 
+protocol Characters {
+	var characters: [String] { get }
+}
 
-struct Struct_A {
-	var characters: [String]!
+struct Struct_A: Characters {
+
+	var characters: [String]
 
 	init(pinyin: String) {
 		switch pinyin {

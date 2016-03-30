@@ -10,8 +10,8 @@ import Foundation
 
 
 
-struct Struct_O {
-	var characters: [String]!
+struct Struct_O: Characters {
+	var characters: [String]
 
 	init(pinyin: String) {
 		switch pinyin {

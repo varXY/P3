@@ -11,7 +11,7 @@ import Foundation
 
 extension Chinese {
 
-	func getOneForSpell() {
+	mutating func getOneForSpell() {
 
 		forSpell.removeAll()
 
