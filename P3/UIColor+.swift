@@ -9,39 +9,30 @@
 import Foundation
 import UIKit
 
+struct MyColors {
+
+	static let P_blue: [CGFloat] = [25, 120, 203, 1.0]
+	static let P_darkBlue: [CGFloat] = [61, 67, 82, 1.0]
+	static let P_gold: [CGFloat] = [221, 183, 116, 1.0]
+	static let P_lightGray: [CGFloat] = [240, 240, 240, 1.0]
+	static let P_rightGreen: [CGFloat] = [40, 197, 101, 1.0]
+	static let P_wrongRed: [CGFloat] = [226, 67, 54, 1.0]
+
+// 1.1.1老颜色
+//	static let P_blue: [CGFloat] = [21, 108, 196, 1.0]
+//	static let P_darkBlue: [CGFloat] = [60, 65, 80, 1.0]
+//	static let P_gold: [CGFloat] = [215, 177, 112, 1.0]
+//	static let P_lightGray: [CGFloat] = [240, 240, 240, 1.0]
+//	static let P_rightGreen: [CGFloat] = [40, 197, 101, 1.0]
+//	static let P_wrongRed: [CGFloat] = [226, 67, 54, 1.0]
+
+}
 
 extension UIColor {
-    
-    class func darkerWhite() -> UIColor {
-        return UIColor(red: 236/255, green: 235/255, blue: 243/255, alpha: 1.0)
-    }
 
-	class func lightGray() -> UIColor {
-		return UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
-	}
-
-	class func deepGray() -> UIColor {
-		return UIColor(red: 60/255, green: 65/255, blue: 80/255, alpha: 1.0)
-	}
-
-	class func deepGrayLighter() -> UIColor {
-		return UIColor(red: 67/255, green: 72/255, blue: 85/255, alpha: 1.0)
-	}
-
-	class func themeBlue() -> UIColor {
-		return UIColor(red: 21/255, green: 108/255, blue: 196/255, alpha: 1.0)
-	}
-
-	class func themeGold() -> UIColor {
-		return UIColor(red: 215/255, green: 177/255, blue: 112/255, alpha: 1.0)
-	}
-
-	class func rightGreen() -> UIColor {
-		return UIColor(red: 40/255, green: 197/255, blue: 101/255, alpha: 1.0)
-	}
-
-	class func wrongRed() -> UIColor {
-		return UIColor(red: 226/255, green: 67/255, blue: 54/255, alpha: 1.0)
+	// 简化RGB颜色生成
+	class func colorWithValues(values: [CGFloat]) -> UIColor {
+		return UIColor(red: values[0]/255, green: values[1]/255, blue: values[2]/255, alpha: values[3])
 	}
 
 }

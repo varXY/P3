@@ -36,7 +36,7 @@ class RecordViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		view.backgroundColor = UIColor.deepGray()
+		view.backgroundColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 //		title = NSLocalizedString("Total score:", comment: "RecordVC") + " 82"
 		title = NSLocalizedString("Total score:", comment: "RecordVC") + " \(totalScore)"
 
@@ -45,12 +45,16 @@ class RecordViewController: UIViewController {
 
 		tableView = UITableView(frame: view.bounds, style: .Plain)
 		tableView.frame.size.height -= 64
-		tableView.backgroundColor = UIColor.lightGray()
+		tableView.backgroundColor = UIColor.colorWithValues(MyColors.P_lightGray)
 		tableView.separatorStyle = .None
 		tableView.allowsSelection = false
 		tableView.dataSource = self
 		tableView.delegate = self
 		view.addSubview(tableView)
+
+		let footer = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 5))
+		footer.backgroundColor = UIColor.clearColor()
+		tableView.tableFooterView = footer
 
 	}
 

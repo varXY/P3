@@ -38,7 +38,7 @@ class SettingViewController: UIViewController {
 		navigationItem.rightBarButtonItem = quitButton
 
 		tableView = UITableView(frame: view.bounds, style: .Grouped)
-		tableView.backgroundColor = UIColor.lightGray()
+		tableView.backgroundColor = UIColor.colorWithValues(MyColors.P_lightGray)
 		tableView.dataSource = self
 		tableView.delegate = self
 		view = tableView
@@ -63,7 +63,7 @@ class SettingViewController: UIViewController {
 
 	func initialSwitchControl() -> UISwitch {
 		let switchControl = UISwitch(frame: CGRect(origin: CGPoint(x: view.frame.width - 60, y: 7), size: CGSize.zero))
-		switchControl.onTintColor = UIColor.rightGreen()
+		switchControl.onTintColor = UIColor.colorWithValues(MyColors.P_rightGreen)
 		switchControl.addTarget(self, action: #selector(switched(_:)), forControlEvents: UIControlEvents.ValueChanged)
 		return switchControl
 	}
@@ -121,7 +121,7 @@ class SettingViewController: UIViewController {
 
 		if MFMailComposeViewController.canSendMail() {
 			let controller = MFMailComposeViewController()
-			controller.navigationBar.tintColor = UIColor.themeBlue()
+			controller.navigationBar.tintColor = UIColor.colorWithValues(MyColors.P_blue)
 			controller.mailComposeDelegate = self
 			controller.setSubject(NSLocalizedString("Feedback", comment: "SettingVC"))
 			controller.setToRecipients(["pmlcfwcs@foxmail.com"])

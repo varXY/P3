@@ -60,7 +60,7 @@ extension NavigationController: UINavigationControllerDelegate {
     
     func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
 
-		self.navigationBar.barTintColor = UIColor.deepGray()
+		self.navigationBar.barTintColor = UIColor.colorWithValues(MyColors.P_darkBlue)
         
 //        if viewController.isKindOfClass(InfoViewController) {
 //            self.setNavigationBarHidden(true, animated: true)

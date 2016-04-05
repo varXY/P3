@@ -121,7 +121,7 @@ class SpellViewController: TestViewController {
 		if pinyins[selectedIndex] == selectedPinyin && !showed {
 			showed = true
 			if sound { rightSound.play() }
-			blockView.changeColorAtIndex(selectedIndex, color: UIColor.rightGreen(), backToBlue: true)
+			blockView.changeColorAtIndex(selectedIndex, color: UIColor.colorWithValues(MyColors.P_rightGreen), backToBlue: true)
 
 			delay(seconds: 0.5, completion: { () -> () in
 				blockView.showPinyinAtIndex(self.selectedIndex)
@@ -224,11 +224,11 @@ extension SpellViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 
 	func pickerView(pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusingView view: UIView?) -> UIView {
 		let view = UIView(frame: CGRect(x: 0, y: 0, width: picker.frame.width / CGFloat(picker.numberOfComponents), height: 40))
-		view.backgroundColor = UIColor.themeGold()
+		view.backgroundColor = UIColor.colorWithValues(MyColors.P_gold)
 		let label = UILabel(frame: view.bounds)
 		label.text = component_allTitles[component][row]
 		label.textAlignment = .Center
-		label.textColor = UIColor.deepGray()
+		label.textColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 		label.font = UIFont.pickerFont(25)
 		view.addSubview(label)
 		return view

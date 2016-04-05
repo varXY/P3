@@ -11,7 +11,7 @@ import Foundation
 
 extension Chinese {
 
-//	func selectTheSameTest(type: Int) {
+//	func selectTheSame_Test(type: Int) {
 //		switch type {
 //		case 2:
 //			let pinyins = pinyinsWithSeveralCharacters(2, index: 0)
@@ -37,29 +37,9 @@ extension Chinese {
 //		}
 //
 //	}
-
-//	func pinyinFromCharacter(character: String) {
-//		let str = NSMutableString(string: character) as CFMutableStringRef
-//		CFStringTransform(str, nil, kCFStringTransformMandarinLatin, false)
-//		CFStringTransform(str, nil, kCFStringTransformStripDiacritics, false)
-//		print(str)
-//	}
-//
-//	func getAllPinyinsHaveTwoCharacters() {
-//		var result = [String]()
-//
-//		for pinyin in allPossiblePinyin {
-//			let characters = charactersFromPinyin(pinyin)
-//			if characters.count >= 2 {
-//				result.append(pinyin)
-//			}
-//		}
-//
-//		print(result)
-//	}
 //
 //	func confusablePinyin_Different_Test() {
-//		for couple in confusablePinyin_Different {
+//		for couple in pinyins.confusablePinyin_Different {
 //			let pinyins = couple.componentsSeparatedByString(" ")
 //
 //			let words_0 = charactersFromPinyin(pinyins[0])
@@ -73,7 +53,7 @@ extension Chinese {
 //	}
 //
 //	func confusablePinyinOfWord_Different_Test() {
-//		for couple in confusablePinyinOfWord_Different {
+//		for couple in pinyins.confusablePinyinOfWord_Different {
 //			let wordPinyins = couple.componentsSeparatedByString("-")
 //
 //			let words_0 = wordsFromPinyin(wordPinyins[0])
@@ -85,6 +65,27 @@ extension Chinese {
 //			if wordPinyins.count != 2 { print(wordPinyins) }
 //		}
 //	}
+//
+//	func pinyinFromCharacter(character: String) {
+//		let str = NSMutableString(string: character) as CFMutableStringRef
+//		CFStringTransform(str, nil, kCFStringTransformMandarinLatin, false)
+//		CFStringTransform(str, nil, kCFStringTransformStripDiacritics, false)
+//		print(str)
+//	}
+//
+//	func getAllPinyinsHaveTwoCharacters() {
+//		var result = [String]()
+//
+//		for pinyin in pinyins.allPossiblePinyin {
+//			let characters = charactersFromPinyin(pinyin)
+//			if characters.count >= 2 {
+//				result.append(pinyin)
+//			}
+//		}
+//
+//		print(result)
+//	}
+
 
 }
 

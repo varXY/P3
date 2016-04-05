@@ -40,7 +40,7 @@ class TestViewController: UIViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		self.view.backgroundColor = UIColor.deepGray()
+		self.view.backgroundColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 
 		finalView = FinalView()
 		finalView.delegate = self
@@ -63,7 +63,7 @@ class TestViewController: UIViewController {
 
 	func setUpScrollView() {
 		scrollView.contentSize = CGSize(width: scrollView.frame.width * 10, height: scrollView.frame.height)
-		scrollView.backgroundColor = UIColor.deepGray()
+		scrollView.backgroundColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 		scrollView.pagingEnabled = true
 		scrollView.scrollEnabled = false
 		view.addSubview(scrollView)

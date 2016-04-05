@@ -19,15 +19,15 @@ class DailyScoreCell: UITableViewCell {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
 		contentView.frame.size = CGSize(width: ScreenWidth, height: 60)
-		contentView.backgroundColor = UIColor.lightGray()
+		contentView.backgroundColor = UIColor.colorWithValues(MyColors.P_lightGray)
 
 		scoreLabel = UILabel(frame: CGRect(x: 10, y: 5, width: 180, height: contentView.frame.height - 5))
-		scoreLabel.textColor = UIColor.deepGray()
+		scoreLabel.textColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 		scoreLabel.font = UIFont.scoreFont(18)
 		contentView.addSubview(scoreLabel)
 
 		dateLabel = UILabel(frame: CGRect(x: contentView.frame.width - 110, y: 5, width: 100, height: contentView.frame.height - 5))
-		dateLabel.textColor = UIColor.deepGray()
+		dateLabel.textColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 		dateLabel.textAlignment = .Right
 		contentView.addSubview(dateLabel)
 	}
@@ -40,7 +40,7 @@ class DailyScoreCell: UITableViewCell {
 		let maxWidth = contentView.frame.width * 0.9
 		let factor = maxWidth / CGFloat(max)
 		let width = positive ? number * factor : -number * factor
-		let color = positive ? UIColor.rightGreen() : UIColor.wrongRed()
+		let color = positive ? UIColor.colorWithValues(MyColors.P_rightGreen) : UIColor.colorWithValues(MyColors.P_wrongRed)
 
 		let colorView = UIView(frame: CGRect(x: 0, y: 5, width: width, height: contentView.frame.height - 5))
 		colorView.backgroundColor = color
@@ -62,10 +62,10 @@ class DailyScoreCell: UITableViewCell {
 		let positive = number >= 0
 
 		let maxWidth = contentView.frame.width * 0.9
-		let factor = maxWidth / CGFloat(max)
+		let factor = max == 0 ? 0 : maxWidth / CGFloat(max)
 		let width = positive ? number * factor : -number * factor
 //		let x = positive ? 0 : ScreenWidth - width
-		let color = positive ? UIColor.rightGreen() : UIColor.wrongRed()
+		let color = positive ? UIColor.colorWithValues(MyColors.P_rightGreen) : UIColor.colorWithValues(MyColors.P_wrongRed)
 
 		let colorView = UIView(frame: CGRect(x: 0, y: 5, width: width, height: contentView.frame.height - 5))
 		colorView.backgroundColor = color

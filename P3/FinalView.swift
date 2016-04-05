@@ -36,7 +36,7 @@ class FinalView: UIView {
 		addSubview(titleLabel)
 
 		numberLabel = UILabel(frame: CGRect(x: 0, y: titleLabel.frame.height - 20, width: frame.width, height: frame.height - 160 - 60 - 50))
-		numberLabel.textColor = UIColor.themeGold()
+		numberLabel.textColor = UIColor.colorWithValues(MyColors.P_gold)
 		numberLabel.textAlignment = .Center
 		numberLabel.font = UIFont.scoreFont(90)
 		addSubview(numberLabel)
@@ -45,9 +45,9 @@ class FinalView: UIView {
 			let button = UIButton(type: .System)
 			button.frame = CGRect(x: 20, y: (self.frame.height - 160 - 60) + 80 * CGFloat(i), width: self.frame.width - 40, height: 60)
 			button.backgroundColor = UIColor.clearColor()
-			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.deepGray(), font: UIFont.systemFontOfSize(22), animated: false)
-			button.changeColorWhenTouchDown(UIColor.deepGray())
-			button.addBorder(borderColor: UIColor.deepGray(), width: 2.0)
+			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.colorWithValues(MyColors.P_darkBlue), font: UIFont.systemFontOfSize(22), animated: false)
+			button.changeColorWhenTouchDown(UIColor.colorWithValues(MyColors.P_darkBlue))
+			button.addBorder(borderColor: UIColor.colorWithValues(MyColors.P_darkBlue), width: 2.0)
 			button.tag = 9999 + i
 			button.addTarget(self, action: #selector(finalChoice(_:)), forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
@@ -58,19 +58,19 @@ class FinalView: UIView {
 		bottomLabel.textColor =  UIColor.whiteColor()
 		bottomLabel.font = UIFont.systemFontOfSize(22)
 		bottomLabel.textAlignment = .Center
-		bottomLabel.backgroundColor = UIColor.themeGold()
+		bottomLabel.backgroundColor = UIColor.colorWithValues(MyColors.P_gold)
 		addSubview(bottomLabel)
 	}
 
 	func show(currentScore: Int, delay: Double) {
 		let win = currentScore >= 0
 		let numberToShow = win ? currentScore : -currentScore
-		titleLabel.textColor = win ? UIColor.rightGreen() : UIColor.wrongRed()
+		titleLabel.textColor = win ? UIColor.colorWithValues(MyColors.P_rightGreen) : UIColor.colorWithValues(MyColors.P_wrongRed)
 		titleLabel.text = win ? NSLocalizedString("You win:", comment: "FinalView") : NSLocalizedString("You lose:", comment: "FinalView")
 		numberLabel.text = "\(numberToShow)"
 
 		let formatter = NSDateFormatter()
-		formatter.dateFormat = "HH:mm, MM-dd-yyyy"
+		formatter.dateFormat = "HH:mm MM-dd-yyyy"
 		bottomLabel.text = formatter.stringFromDate(NSDate())
 		
 		UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in

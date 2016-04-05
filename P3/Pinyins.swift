@@ -137,6 +137,7 @@ struct Pinyins {
 
 		//--------------------------- l
 
+		"lie lian",
 		"le lei",
 		"lian liao",
 		"le lie",
@@ -144,15 +145,13 @@ struct Pinyins {
 		"lu lv",
 		"lie lv",
 
-		// join n
-		"long nong",
-
 		// - g
 		"lan lang",
 		"lian liang",
 		"lin ling",
 
 		// join n
+		"long nong",
 		"liu niu",
 		"ling ning",
 		"lin ning",
@@ -164,6 +163,7 @@ struct Pinyins {
 		"liao niao",
 		"luan nuan",
 		"le ne",
+		"lie nian",
 
 		//--------------------------- m
 
@@ -186,6 +186,7 @@ struct Pinyins {
 		"ne nei",
 		"nu nv",
 		"nu nuo",
+		"nie nian",
 
 		// - g
 		"nan nang",
@@ -195,6 +196,9 @@ struct Pinyins {
 
 		// join m
 		"nuo mou",
+
+		// join l
+		"nie lian",
 
 		//--------------------------- o
 
@@ -224,6 +228,10 @@ struct Pinyins {
 		// - g
 		"qian qiang",
 		"qin qing",
+
+		// join c
+		"quan cuan",
+		"quan chuan",
 
 		//--------------------------- r
 

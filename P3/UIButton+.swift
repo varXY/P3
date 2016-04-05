@@ -123,8 +123,8 @@ extension UIButton {
 	}
 
 	func changeColor() {
-		self.backgroundColor = UIColor.themeGold()
-		self.layer.borderColor = UIColor.themeGold().CGColor
+		self.backgroundColor = UIColor.colorWithValues(MyColors.P_gold)
+		self.layer.borderColor = UIColor.colorWithValues(MyColors.P_gold).CGColor
 	}
 
 	func changeColorBack() {
@@ -134,7 +134,7 @@ extension UIButton {
 
 	func changeColorBack_D() {
 		self.backgroundColor = UIColor.clearColor()
-		self.layer.borderColor = UIColor.deepGray().CGColor
+		self.layer.borderColor = UIColor.colorWithValues(MyColors.P_darkBlue).CGColor
 	}
 
 	

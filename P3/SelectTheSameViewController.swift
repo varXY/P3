@@ -90,7 +90,7 @@ class SelectTheSameViewController: TestViewController {
 	func showRightOrWrong() {
 		let allTheSame = selectedBlocks.filter({ $0[0] == rightAnswer })
 		let right = allTheSame.count == 3 && selectedBlocks.count == 3
-		let color: UIColor = right ? UIColor.rightGreen() : UIColor.wrongRed()
+		let color: UIColor = right ? UIColor.colorWithValues(MyColors.P_rightGreen) : UIColor.colorWithValues(MyColors.P_wrongRed)
 		let score = right ? rightScore : wrongScore
 		headerView.showAndAddScore(score)
 		if sound { right ? rightSound.play() : wrongSound.play() }

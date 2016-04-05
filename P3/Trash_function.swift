@@ -12,11 +12,11 @@
 //
 //	var color: UIColor {
 //		switch self {
-//		case .Blue: return UIColor.themeBlue()
+//		case .Blue: return UIColor.colorWithValues(MyColors.P_blue)
 //		case .White: return UIColor.whiteColor()
-//		case .Red: return UIColor.wrongRed()
-//		case .Green: return UIColor.rightGreen()
-//		case .Gold: return UIColor.themeGold()
+//		case .Red: return UIColor.colorWithValues(MyColors.P_wrongRed)
+//		case .Green: return UIColor.colorWithValues(MyColors.P_rightGreen)
+//		case .Gold: return UIColor.colorWithValues(MyColors.P_gold)
 //		}
 //	}
 //}
@@ -113,7 +113,7 @@
 
 //	func pickerView(pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
 //		let string = component_allTitles[component][row]
-//		let attributes = [NSForegroundColorAttributeName: UIColor.themeGold(), NSFontAttributeName: UIFont.pickerFont(20)]
+//		let attributes = [NSForegroundColorAttributeName: UIColor.colorWithValues(MyColors.P_gold), NSFontAttributeName: UIFont.pickerFont(20)]
 //		let title = NSAttributedString(string: string, attributes: attributes)
 //		return title
 //	}

@@ -13,6 +13,22 @@ extension Chinese {
 
 	mutating func getSixForSelectTheSame() {
 
+		func coupleOfConfusablePinyin() -> [String] {
+			var results = [String]()
+
+			let one = getRandomNumbers(1, lessThan: 23)[0]
+			let all = pinyinsWithSeveralCharacters(3, index: one)
+			// all 的数量必须大于等于4
+
+			let numbers = getRandomNumbers(4, lessThan: all.count)
+
+			for number in numbers {
+				results.append(all[number])
+			}
+
+			return results
+		}
+
 		forSelectTheSame.removeAll()
 
 		var pinyins = coupleOfConfusablePinyin()
@@ -43,21 +59,7 @@ extension Chinese {
 		}
 	}
 
-	func coupleOfConfusablePinyin() -> [String] {
-		var results = [String]()
 
-		let one = getRandomNumbers(1, lessThan: 23)[0]
-		let all = pinyinsWithSeveralCharacters(3, index: one)
-		// all 的数量必须大于等于4
-		
-		let numbers = getRandomNumbers(4, lessThan: all.count)
-
-		for number in numbers {
-			results.append(all[number])
-		}
-
-		return results
-	}
 }
 
 

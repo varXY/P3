@@ -121,27 +121,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 		guard let shortCutType = shortcutItem.type as String? else { return false }
 
+		var index  = 0
 		switch (shortCutType) {
 		case ShortcutIdentifier.First.type:
 			chinese.getOneForSameOrNot()
-			homePageVC.goToPageBaseOnTag(0)
-			handled = true
-			break
+
 		case ShortcutIdentifier.Second.type:
-			homePageVC.goToPageBaseOnTag(1)
-			handled = true
-			break
+			index = 1
+
 		case ShortcutIdentifier.Third.type:
+			index = 2
 			chinese.getOneForSpell()
-			homePageVC.goToPageBaseOnTag(2)
-			handled = true
-			break
+
 		default:
 			break
 		}
-		
-		
-		
+
+		homePageVC.chinese = chinese
+		homePageVC.goToPageBaseOnTag(index)
+		handled = true
+
 		return handled
 	}
 

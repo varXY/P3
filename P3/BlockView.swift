@@ -54,7 +54,7 @@ class BlockView: UIView {
 		let blockSize = CGSize(width: type.blockWidth, height: type.blockWidth)
 		super.init(frame: CGRect(origin: origin, size: blockSize))
 
-		backgroundColor = UIColor.themeBlue()
+		backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
 		addColorfulView(text)
 		addLabels(text)
 
@@ -69,7 +69,7 @@ class BlockView: UIView {
 		for i in 0..<amount {
 			let viewOrigin = CGPoint(x: viewSize.width * CGFloat(i), y: 0)
 			let view = UIView(frame: CGRect(origin: viewOrigin, size: viewSize))
-			view.backgroundColor = UIColor.themeBlue()
+			view.backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
 			colorfulViews.append(view)
 		}
 
@@ -180,7 +180,7 @@ class BlockView: UIView {
 		let button = UIButton(type: .System)
 		button.frame.size = CGSize(width: 40, height: 40)
 		button.center = CGPoint(x: CGRectGetMidX(bounds), y: CGRectGetMidY(bounds))
-		button.backgroundColor = UIColor.themeGold()
+		button.backgroundColor = UIColor.colorWithValues(MyColors.P_gold)
 		button.tintColor = UIColor.whiteColor()
 		button.setTitle("?", forState: .Normal)
 		button.titleLabel?.font = UIFont.systemFontOfSize(25)
@@ -218,7 +218,7 @@ class BlockView: UIView {
 			}, completion: nil)
 
 		for i in 0..<colorfulViews.count {
-			changeColorAtIndex(i, color: UIColor.themeBlue(), backToBlue: false)
+			changeColorAtIndex(i, color: UIColor.colorWithValues(MyColors.P_blue), backToBlue: false)
 			showPinyinAtIndex(i)
 		}
 
@@ -248,7 +248,7 @@ class BlockView: UIView {
 
 	func showGreenBorder() {
 		button.layer.borderWidth = 2.5
-		button.layer.borderColor = UIColor.rightGreen().CGColor
+		button.layer.borderColor = UIColor.colorWithValues(MyColors.P_rightGreen).CGColor
 	}
 
 	func allShowPinyin() {
@@ -294,8 +294,8 @@ class BlockView: UIView {
 		colorfulViews[index].backgroundColor = color
 
 		if color == UIColor.whiteColor() {
-			textLabels[index].textColor = UIColor.deepGray()
-			pinyinLabels[index].textColor = UIColor.deepGray()
+			textLabels[index].textColor = UIColor.colorWithValues(MyColors.P_darkBlue)
+			pinyinLabels[index].textColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 		} else {
 			textLabels[index].textColor = UIColor.whiteColor()
 			pinyinLabels[index].textColor = UIColor.whiteColor()
@@ -305,7 +305,7 @@ class BlockView: UIView {
 			delay(seconds: 0.5) { () -> () in
 				self.textLabels[index].textColor = UIColor.whiteColor()
 				self.pinyinLabels[index].textColor = UIColor.whiteColor()
-				self.colorfulViews[index].backgroundColor = UIColor.themeBlue()
+				self.colorfulViews[index].backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
 			}
 		}
 

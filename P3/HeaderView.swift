@@ -88,7 +88,7 @@ class HeaderView: UIView {
 	func addcenterLabel(number: Int, frame: CGRect) {
 		let label = UILabel(frame: frame)
 		label.backgroundColor = UIColor.clearColor()
-		label.textColor = UIColor.themeGold()
+		label.textColor = UIColor.colorWithValues(MyColors.P_gold)
 		label.textAlignment = .Center
 		let size: CGFloat = ScreenHeight == 736 ? 21 : 20
 		label.font = UIFont.systemFontOfSize(size)

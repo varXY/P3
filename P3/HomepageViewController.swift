@@ -25,7 +25,7 @@ class HomepageViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-		view.backgroundColor = UIColor.themeBlue()
+		view.backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
 
 		addTwoDescribeLabels()
 		addThreeMainButtons()
@@ -94,14 +94,14 @@ class HomepageViewController: UIViewController {
 		let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight / 2 - (AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight)))
 		titleLabel.text = NSLocalizedString("Pinyin Comparison", comment: "Homepage")
 		titleLabel.textAlignment = .Center
-		titleLabel.textColor = UIColor.blackColor()
+		titleLabel.textColor = UIColor.colorWithValues(MyColors.P_gold)
 		titleLabel.font = UIFont.homepageTitleFont(AutoSize.fontSize[0])
 		view.addSubview(titleLabel)
 
 		let footerLabel = UILabel(frame: CGRect(x: 0, y: ScreenHeight / 2 + AutoSize.bigButtonHeight * 1.5 + AutoSize.gapHeight, width: ScreenWidth, height: titleLabel.frame.height - 70))
 		footerLabel.text = NSLocalizedString("Efficient ways to learn Pinyin and Chinese", comment: "Homepage")
 		footerLabel.textAlignment = .Center
-		footerLabel.textColor = UIColor.deepGray()
+		footerLabel.textColor = UIColor.colorWithValues(MyColors.P_gold)
 		footerLabel.font = UIFont.systemFontOfSize(AutoSize.fontSize[1])
 		view.addSubview(footerLabel)
 	}
