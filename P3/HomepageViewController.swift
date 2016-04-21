@@ -11,10 +11,9 @@ import UIKit
 class HomepageViewController: UIViewController {
 
 	var chinese: Chinese!
+	var scoreModel = ScoreModel()
 
 	var bigButtons = [UIButton]()
-
-	var scoreModel = ScoreModel()
 
 	var sound: Bool!
 	var vibration: Bool!
@@ -43,11 +42,17 @@ class HomepageViewController: UIViewController {
 			if self.chinese.forSpell.count == 0 { self.chinese.getOneForSpell() }
 
 			dispatch_async(dispatch_get_main_queue()) {
-				for i in 0..<self.bigButtons.count {
-					self.bigButtons[i].userInteractionEnabled = true
-					self.bigButtons[i].changeToColor(UIColor.clearColor())
-					self.bigButtons[i].viewAddAnimation(.Appear, delay: 0.1 * Double(i), distance: 40 + 30 * CGFloat(i))
-				}
+				self.bigButtons.forEach({
+					$0.userInteractionEnabled = true
+					$0.changeToColor(UIColor.clearColor())
+					let i = self.bigButtons.indexOf($0)!
+					$0.viewAddAnimation(.Appear, delay: 0.1 * Double(i), distance: 40 + 30 * CGFloat(i))
+				})
+//				for i in 0..<self.bigButtons.count {
+//					self.bigButtons[i].userInteractionEnabled = true
+//					self.bigButtons[i].changeToColor(UIColor.clearColor())
+//					self.bigButtons[i].viewAddAnimation(.Appear, delay: 0.1 * Double(i), distance: 40 + 30 * CGFloat(i))
+//				}
 			}
 		}
 
@@ -55,10 +60,10 @@ class HomepageViewController: UIViewController {
 
 	override func viewWillDisappear(animated: Bool) {
 		super.viewWillDisappear(animated)
-
-		for i in 0..<self.bigButtons.count {
-			self.bigButtons[i].viewAddAnimation(.Disappear, delay: 0.0, distance: 0.0)
-		}
+		bigButtons.forEach({ $0.viewAddAnimation(.Disappear, delay: 0.0, distance: 0.0) })
+//		for i in 0..<self.bigButtons.count {
+//			self.bigButtons[i].viewAddAnimation(.Disappear, delay: 0.0, distance: 0.0)
+//		}
 	}
 
 	struct AutoSize {
@@ -110,44 +115,76 @@ class HomepageViewController: UIViewController {
 
 		let buttonHeight: CGFloat = AutoSize.bigButtonHeight
 		let center = CGPoint(x: ScreenWidth / 2, y: ScreenHeight / 2 - (AutoSize.bigButtonHeight + AutoSize.gapHeight))
-
-		for i in 0..<3 {
+		let indexes = [0, 1, 2]
+		bigButtons = indexes.map({
 			let button = UIButton(type: .System)
 			button.frame.size = CGSize(width: ScreenWidth - 40, height: buttonHeight)
-			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + AutoSize.gapHeight) * CGFloat(i))
+			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + AutoSize.gapHeight) * CGFloat($0))
 
 			button.backgroundColor = UIColor.clearColor()
 			let size = AutoSize.fontSize[2]
-			button.addTextLabel(Titles.homepageBigButtons[i], textColor: UIColor.whiteColor(), font: UIFont.systemFontOfSize(size), animated: false)
+			button.addTextLabel(Titles.homepageBigButtons[$0], textColor: UIColor.whiteColor(), font: UIFont.systemFontOfSize(size), animated: false)
 			button.changeColorWhenTouchDown(UIColor.whiteColor())
 			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
 
 			button.exclusiveTouch = true
-			button.tag = 10 + i
-			button.addTarget(self, action: #selector(HomepageViewController.bigButtonTapped(_:)), forControlEvents: .TouchUpInside)
-
 			button.alpha = 0.0
 			button.userInteractionEnabled = false
+			button.tag = 10 + $0
+			button.addTarget(self, action: #selector(HomepageViewController.bigButtonTapped(_:)), forControlEvents: .TouchUpInside)
 
-			bigButtons.append(button)
 			view.addSubview(button)
-		}
+			return button
+		})
+//		for i in 0..<3 {
+//			let button = UIButton(type: .System)
+//			button.frame.size = CGSize(width: ScreenWidth - 40, height: buttonHeight)
+//			button.center = CGPoint(x: center.x, y: center.y + (buttonHeight + AutoSize.gapHeight) * CGFloat(i))
+//
+//			button.backgroundColor = UIColor.clearColor()
+//			let size = AutoSize.fontSize[2]
+//			button.addTextLabel(Titles.homepageBigButtons[i], textColor: UIColor.whiteColor(), font: UIFont.systemFontOfSize(size), animated: false)
+//			button.changeColorWhenTouchDown(UIColor.whiteColor())
+//			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
+//
+//			button.exclusiveTouch = true
+//			button.tag = 10 + i
+//			button.addTarget(self, action: #selector(HomepageViewController.bigButtonTapped(_:)), forControlEvents: .TouchUpInside)
+//
+//			button.alpha = 0.0
+//			button.userInteractionEnabled = false
+//
+//			bigButtons.append(button)
+//			view.addSubview(button)
+//		}
 	}
 
 	func addTwoLittleButtons() {
 
 		let xPositons: [CGFloat] = [0, self.view.frame.width - 70]
 		let images = [UIImage(named: ImageName.Record), UIImage(named: ImageName.Setting)]
-		for i in 0..<2 {
+		let indexes = [0, 1]
+		let _: [UIButton] = indexes.map({
 			let button = UIButton(type: .System)
-			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 70, width: 70, height: 70)
+			button.frame = CGRect(x: xPositons[$0], y: self.view.frame.height - 70, width: 70, height: 70)
 			button.tintColor = UIColor.whiteColor()
-			button.setImage(images[i], forState: .Normal)
+			button.setImage(images[$0], forState: .Normal)
 			button.exclusiveTouch = true
-			button.tag = 9111 + i
+			button.tag = 9111 + $0
 			button.addTarget(self, action: #selector(smallButtonTapped(_:)), forControlEvents: .TouchUpInside)
 			view.addSubview(button)
-		}
+			return button
+		})
+//		for i in 0..<2 {
+//			let button = UIButton(type: .System)
+//			button.frame = CGRect(x: xPositons[i], y: self.view.frame.height - 70, width: 70, height: 70)
+//			button.tintColor = UIColor.whiteColor()
+//			button.setImage(images[i], forState: .Normal)
+//			button.exclusiveTouch = true
+//			button.tag = 9111 + i
+//			button.addTarget(self, action: #selector(smallButtonTapped(_:)), forControlEvents: .TouchUpInside)
+//			view.addSubview(button)
+//		}
 	}
 
 	func setSoundAndVibration() {
@@ -206,27 +243,41 @@ class HomepageViewController: UIViewController {
 			var maxDailyNumber: UInt = 0
 			var dailyScores = [DailyScore]()
 
-			for score in scoreModel.scores {
-				let day = dateFormatter.stringFromDate(score.time)
-				if let index = days.indexOf(day) {
-					days.removeAtIndex(index)
-				}
-				days.append(day)
-			}
+			days = scoreModel.scores.map({
+				let day = dateFormatter.stringFromDate($0.time)
+				if let index = days.indexOf(day) { days.removeAtIndex(index) }
+				return day
+			})
+//			for score in scoreModel.scores {
+//				let day = dateFormatter.stringFromDate(score.time)
+//				if let index = days.indexOf(day) {
+//					days.removeAtIndex(index)
+//				}
+//				days.append(day)
+//			}
 
-			for day in days {
+			numbers = days.map({
+				let day = $0
 				let dailyNumber = scoreModel.scores.filter({ dateFormatter.stringFromDate($0.time) == day }).reduce(0, combine: { $0 + $1.score })
 				let result = DailyScore(date: day, score: dailyNumber)
 				dailyScores.append(result)
-				numbers.append(abs(dailyNumber))
-			}
+				return dailyNumber
+			})
+
+//			for day in days {
+//				let dailyNumber = scoreModel.scores.filter({ dateFormatter.stringFromDate($0.time) == day }).reduce(0, combine: { $0 + $1.score })
+//				let result = DailyScore(date: day, score: dailyNumber)
+//				dailyScores.append(result)
+//				numbers.append(abs(dailyNumber))
+//			}
 
 			let sorted = numbers.sort({ $0 > $1 })
-			if sorted.count != 0 {
-				maxDailyNumber = UInt(sorted[0])
-			} else {
-				maxDailyNumber = 0
-			}
+			maxDailyNumber = sorted.count != 0 ? UInt(sorted[0]) : 0
+//			if sorted.count != 0 {
+//				maxDailyNumber = UInt(sorted[0])
+//			} else {
+//				maxDailyNumber = 0
+//			}
 
 			let recordVC = RecordViewController()
 			recordVC.totalScore = scoreModel.totalScore
@@ -236,8 +287,8 @@ class HomepageViewController: UIViewController {
 			presentViewController(navi, animated: true, completion: nil)
 
 		} else {
-			let settingVC = SettingViewController()
-			let navi = NavigationController(rootViewController: settingVC)
+//			let settingVC = SettingViewController()
+			let navi = NavigationController(rootViewController: SettingViewController())
 			presentViewController(navi, animated: true, completion: nil)
 		}
 

@@ -41,18 +41,33 @@ class FinalView: UIView {
 		numberLabel.font = UIFont.scoreFont(90)
 		addSubview(numberLabel)
 
-		for i in 0..<2 {
+		let indexes = [0, 1]
+		let _: [UIButton] = indexes.map({
 			let button = UIButton(type: .System)
-			button.frame = CGRect(x: 20, y: (self.frame.height - 160 - 60) + 80 * CGFloat(i), width: self.frame.width - 40, height: 60)
+			button.frame = CGRect(x: 20, y: (self.frame.height - 160 - 60) + 80 * CGFloat($0), width: self.frame.width - 40, height: 60)
 			button.backgroundColor = UIColor.clearColor()
-			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.colorWithValues(MyColors.P_darkBlue), font: UIFont.systemFontOfSize(22), animated: false)
+			button.addTextLabel(Titles.finalChoices[$0], textColor: UIColor.colorWithValues(MyColors.P_darkBlue), font: UIFont.systemFontOfSize(22), animated: false)
 			button.changeColorWhenTouchDown(UIColor.colorWithValues(MyColors.P_darkBlue))
 			button.addBorder(borderColor: UIColor.colorWithValues(MyColors.P_darkBlue), width: 2.0)
-			button.tag = 9999 + i
+			button.tag = 9999 + $0
 			button.addTarget(self, action: #selector(finalChoice(_:)), forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
 			addSubview(button)
-		}
+			return button
+		})
+
+//		for i in 0..<2 {
+//			let button = UIButton(type: .System)
+//			button.frame = CGRect(x: 20, y: (self.frame.height - 160 - 60) + 80 * CGFloat(i), width: self.frame.width - 40, height: 60)
+//			button.backgroundColor = UIColor.clearColor()
+//			button.addTextLabel(Titles.finalChoices[i], textColor: UIColor.colorWithValues(MyColors.P_darkBlue), font: UIFont.systemFontOfSize(22), animated: false)
+//			button.changeColorWhenTouchDown(UIColor.colorWithValues(MyColors.P_darkBlue))
+//			button.addBorder(borderColor: UIColor.colorWithValues(MyColors.P_darkBlue), width: 2.0)
+//			button.tag = 9999 + i
+//			button.addTarget(self, action: #selector(finalChoice(_:)), forControlEvents: .TouchUpInside)
+//			button.exclusiveTouch = true
+//			addSubview(button)
+//		}
 
 		bottomLabel = UILabel(frame: CGRect(x: 0, y: frame.height - 60, width: frame.width, height: 60))
 		bottomLabel.textColor =  UIColor.whiteColor()

@@ -85,7 +85,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationWillTerminate(application: UIApplication) {
         scoreModel.saveScores()
-        self.saveContext()
+        saveContext()
     }
 
 	// MARK: Shortcut

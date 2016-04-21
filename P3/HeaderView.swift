@@ -60,19 +60,33 @@ class HeaderView: UIView {
 
 	func addOneToTenLabels() {
 		let littleLabelWidth = (frame.width - 120) / 10
-		for i in 0..<10 {
-			let frame = CGRect(x: 60 + littleLabelWidth * CGFloat(i), y: 0, width: littleLabelWidth, height: self.frame.height)
-			let label = UILabel(frame: frame)
-			label.text = titles[i]
-			label.textAlignment = .Center
-			label.textColor = UIColor.whiteColor()
-			label.adjustsFontSizeToFitWidth = true
-			label.tag = 123456789 + i
-			addSubview(label)
+		let indexes = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+		let frames = indexes.map({ CGRect(x: 60 + littleLabelWidth * CGFloat($0), y: 0, width: littleLabelWidth, height: frame.height) })
+		let labels = frames.map({ UILabel(frame: $0) })
+		labels.forEach({
+			let i = labels.indexOf($0)!
+			$0.text = titles[i]
+			$0.textAlignment = .Center
+			$0.textColor = UIColor.whiteColor()
+			$0.adjustsFontSizeToFitWidth = true
+			$0.alpha = 0.0
+			$0.tag = 123456789 + i
+			addSubview($0)
+		})
 
-			label.alpha = 0.0
-
-		}
+//		for i in 0..<10 {
+//			let frame = CGRect(x: 60 + littleLabelWidth * CGFloat(i), y: 0, width: littleLabelWidth, height: self.frame.height)
+//			let label = UILabel(frame: frame)
+//			label.text = titles[i]
+//			label.textAlignment = .Center
+//			label.textColor = UIColor.whiteColor()
+//			label.adjustsFontSizeToFitWidth = true
+//			label.tag = 123456789 + i
+//			addSubview(label)
+//
+//			label.alpha = 0.0
+//
+//		}
 	}
 
 	func addScoreLabel(frame: CGRect) {
@@ -82,7 +96,7 @@ class HeaderView: UIView {
 		scoreLabel.font = UIFont.scoreFont(18)
 		scoreLabel.adjustsFontSizeToFitWidth = true
 		scoreLabel.text = "\(totalScore)"
-		self.addSubview(scoreLabel)
+		addSubview(scoreLabel)
 	}
 
 	func addcenterLabel(number: Int, frame: CGRect) {
@@ -119,7 +133,7 @@ class HeaderView: UIView {
 
 		delay(seconds: 0.15) { () -> () in
 			for i in 0..<10 {
-				delay(seconds: 0.05 * Double(i), completion: { () -> () in
+				delay(seconds: 0.05 * Double(i), completion: {
 					self.showNumberLabel(i + 1, textColor: self.numberColors[i])
 				})
 			}
@@ -134,14 +148,14 @@ class HeaderView: UIView {
 		let textColor = number > 0 ? UIColor.greenColor() : UIColor.redColor()
 		numberColors.append(textColor)
 
-		delay(seconds: 0.2) { () -> () in
+		delay(seconds: 0.2) {
 			UIView.animateWithDuration(0.5, animations: { () -> Void in
 				self.scoreLabel.textColor = textColor
 				self.scoreLabel.text = numberForShow
 			})
 		}
 
-		delay(seconds: 1.0) { () -> () in
+		delay(seconds: 1.0) {
 			self.scoreLabel.text = ""
 
 			UIView.animateWithDuration(0.5, animations: { () -> Void in

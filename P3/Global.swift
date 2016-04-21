@@ -87,6 +87,14 @@ struct BlockWidth {
 	static let spell: CGFloat = ScreenHeight / 2 - 80
 }
 
+func getIndexArrayFromAmount(amount: Int) -> [Int] {
+	var array = [0]
+	repeat {
+		array.append(array[array.count - 1] + 1)
+	} while array.count < amount
+	return amount == 1 ? [0] : array
+}
+
 func delay(seconds seconds: Double, completion:()->()) {
     let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
     

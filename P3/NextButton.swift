@@ -53,7 +53,6 @@ class NextButton: UIButton {
 	func show(title: NextButtonTitle, dismissAfterTapped: Bool) {
 		titleType = title
 		self.dismissAfterTapped = dismissAfterTapped
-		
 		removeSubview(animated: false)
 
 		switch title {
