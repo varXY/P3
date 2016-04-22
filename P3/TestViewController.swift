@@ -29,7 +29,6 @@ class TestViewController: UIViewController {
 	var rightSound = AVAudioPlayer()
 	var wrongSound = AVAudioPlayer()
 
-
 	var currentPage = 0
 	var rightScore: Int!
 	var wrongScore: Int!
@@ -73,13 +72,11 @@ class TestViewController: UIViewController {
 
 	func jumpToPage(page: Int) {
 		let duration = Double(scrollView.frame.width / 640)
-
 		UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 			self.scrollView.contentOffset = CGPoint(x: self.scrollView.bounds.size.width * CGFloat(page), y: 0.0)
 			}, completion: {(_) -> Void in
 				self.removeContent()
 		})
-
 	}
 
 	func removeContent() {
@@ -113,7 +110,6 @@ extension TestViewController: FinalViewDelegate {
 			headerView.startAllOver()
 
 			let duration = Double(scrollView.frame.width / 640)
-
 			UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 				self.scrollView.frame.origin.x -= self.view.frame.width
 				}, completion: {(_) -> Void in

@@ -36,7 +36,7 @@ extension UIButton {
 	}
 
 	func removeSubview(animated animated: Bool) {
-		for view in self.subviews {
+		subviews.forEach({ view in
 			if animated {
 				UIView.animateWithDuration(0.5, animations: { () -> Void in
 					view.alpha = 0.0
@@ -46,13 +46,11 @@ extension UIButton {
 			} else {
 				view.removeFromSuperview()
 			}
-
-		}
+		})
 	}
 
 	func changeColorWhenTouchDown(borderColor: UIColor) {
 		let selector = borderColor == UIColor.whiteColor() ? "changeColorBack" : "changeColorBack_D"
-
 		addTarget(self, action: #selector(changeColor), forControlEvents: .TouchDown)
 		addTarget(self, action: Selector(selector), forControlEvents: .TouchUpOutside)
 		addTarget(self, action: Selector(selector), forControlEvents: .TouchUpInside)

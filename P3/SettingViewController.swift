@@ -20,12 +20,19 @@ class SettingViewController: UIViewController {
 	var C_amount = 3
 
 	let titles = [
-		NSLocalizedString("Sound", comment: "SettingVC"),
-		NSLocalizedString("Vibration", comment: "SettingVC"),
-		NSLocalizedString("Number of wheels to spell with", comment: "SettingVC"),
-		NSLocalizedString("Rate this app", comment: "SettingVC"),
-		NSLocalizedString("Share", comment: "SettingVC"),
-		NSLocalizedString("Contribute", comment: "SettingVC")
+		[
+			NSLocalizedString("Sound", comment: "SettingVC"),
+			NSLocalizedString("Vibration", comment: "SettingVC")
+		],
+
+		[NSLocalizedString("Number of wheels to spell with", comment: "SettingVC")],
+
+		[
+			NSLocalizedString("Rate this app", comment: "SettingVC"),
+			NSLocalizedString("Share", comment: "SettingVC")
+		],
+
+		[NSLocalizedString("Contribute", comment: "SettingVC")]
 	]
 
 	let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -84,39 +91,24 @@ class SettingViewController: UIViewController {
 	}
 
 	func switched(sender: UISwitch) {
-
-		if sender == switchControl_S {
-			userDefaults.setBool(sender.on, forKey: Defaults.sound)
-		}
-
-		if sender == switchControl_V {
-			userDefaults.setBool(sender.on, forKey: Defaults.vibration)
-		}
-
+		let key = sender == switchControl_S ? Defaults.sound : Defaults.vibration
+		userDefaults.setBool(sender.on, forKey: key)
 	}
 
 	func shareContent() {
 		let text: String = NSLocalizedString("App Store: Pinyin Comparsion", comment: "SettingVC")
 		let link = NSURL(string: AppStoreLink)!
-
 		let arr: [AnyObject] = [text, link]
-
-		let shareVC = UIActivityViewController(activityItems: arr, applicationActivities: [])
-		shareVC.completionWithItemsHandler = { (type:String?, complete:Bool, arr:[AnyObject]?, error:NSError?) -> Void in
-		}
-
-		presentViewController(shareVC, animated: true, completion: nil)
+		presentViewController(UIActivityViewController(activityItems: arr, applicationActivities: []), animated: true, completion: nil)
 	}
 
 	func menuViewControllerSendSupportEmail() {
-
 		let appInfoDict = NSBundle.mainBundle().infoDictionary
 		let appName = appInfoDict!["CFBundleName"] as! String
 		let appVersion = appInfoDict!["CFBundleShortVersionString"] as! String
 
 		let deviceName = UIDevice.currentDevice().model
 		let iOSVersion = UIDevice.currentDevice().systemVersion
-
 		let messageBody = "\n\n\n" + appName + "_" + appVersion + "\n" + deviceName + "_" + iOSVersion
 
 		if MFMailComposeViewController.canSendMail() {
@@ -132,20 +124,15 @@ class SettingViewController: UIViewController {
 	}
 
 	func dismiss() {
-		let userdefaults = NSUserDefaults.standardUserDefaults()
-		userdefaults.synchronize()
 		dismissViewControllerAnimated(true, completion: nil)
 	}
 
 	// MARK: - Purchase
 
 	func connectToStore() {
-
 		let indicator = UIActivityIndicatorView(activityIndicatorStyle: .WhiteLarge)
+		indicator.frame = CGRectMake(0, -128, ScreenWidth, ScreenHeight + 128)
 		indicator.startAnimating()
-		indicator.frame = self.view.bounds
-		indicator.frame.size.height += 64
-		indicator.frame.origin.y -= 64
 		UIView.animateWithDuration(0.3, animations: { indicator.backgroundColor = UIColor(red: 45/255, green: 47/255, blue: 56/255, alpha: 0.45) })
 		tableView.addSubview(indicator)
 		tableView.userInteractionEnabled = false
@@ -157,11 +144,9 @@ class SettingViewController: UIViewController {
 				priceFormatter.locale = products[0].priceLocale
 
 				let alertSheet = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-
 				let action_0 = UIAlertAction(title: priceFormatter.stringFromNumber(products[0].price), style: .Default, handler: { (_) -> () in self.purchaseProduct(products[0]) })
 				let action_1 = UIAlertAction(title: priceFormatter.stringFromNumber(products[1].price), style: .Default, handler: { (_) -> () in self.purchaseProduct(products[1]) })
 				let action_2 = UIAlertAction(title: priceFormatter.stringFromNumber(products[2].price), style: .Default, handler: { (_) -> () in self.purchaseProduct(products[2]) })
-
 				let action_cancel = UIAlertAction(title: NSLocalizedString("Cancel", comment: "SettingVC"), style: .Cancel, handler: nil)
 
 				alertSheet.addAction(action_0)
@@ -200,42 +185,30 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 	}
 
 	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-		switch section {
-		case 0: return 2
-		case 1: return 1
-		case 2: return 2
-		case 3: return 1
-		default: return 0
-		}
+		return titles[section].count
 	}
 
 	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		var cell = UITableViewCell(style: .Default, reuseIdentifier: "Cell")
+		cell.textLabel?.text = titles[indexPath.section][indexPath.row]
 
-		if indexPath.section == 0 {
-			cell.textLabel?.text = titles[indexPath.row]
-
+		switch indexPath.section {
+		case 0:
 			let switchControl = indexPath.row == 0 ? switchControl_S : switchControl_V
 			cell.addSubview(switchControl)
-		}
 
-		if indexPath.section == 1 && indexPath.row == 0 {
+		case 1:
 			cell = UITableViewCell(style: .Value1, reuseIdentifier: "Cell_1")
-			cell.textLabel?.text = titles[indexPath.row + 2]
+			cell.textLabel?.text = titles[indexPath.section][indexPath.row]
 			cell.detailTextLabel?.text = String(C_amount)
 			cell.accessoryType = .DisclosureIndicator
-		}
 
-		if indexPath.section == 2 {
-			cell.textLabel?.text = titles[indexPath.row + 3]
+		case 2, 3:
 			cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
 			cell.textLabel?.textAlignment = .Center
-		}
 
-		if indexPath.section == 3 {
-			cell.textLabel?.text = titles[indexPath.row + 5]
-			cell.separatorInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 15)
-			cell.textLabel?.textAlignment = .Center
+		default:
+			break
 		}
 
 		return cell

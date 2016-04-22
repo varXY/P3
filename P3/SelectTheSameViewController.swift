@@ -17,10 +17,8 @@ class SelectTheSameViewController: TestViewController {
 	var answerShowed = false
 	var selectedBlocks = [[String]]()
 
-
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 		rightScore = 3
 		wrongScore = -3
 
@@ -46,23 +44,22 @@ class SelectTheSameViewController: TestViewController {
 	}
 
 	func addContent(page page: Int, firstTime: Bool) {
-
 		if !firstTime { chinese.getSixForSelectTheSame() }
 		rightAnswer = chinese.forSelectTheSame[0][0]
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
-		let indexs = getRandomNumbers(6, lessThan: 6)
-
-		for i in 0..<6 {
+		let indexes = getRandomNumbers(6, lessThan: 6)
+		blockViews += indexes.map({
+			let i = indexes.indexOf($0)!
 			let margin = (ScreenWidth - BlockWidth.selectTheSame * 2) / 3
 			let x = positionInPage + margin + (BlockWidth.selectTheSame + margin) * CGFloat(i % 2)
 			let y = blockY(i)
 
-			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: chinese.forSelectTheSame[indexs[i]])
+			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: chinese.forSelectTheSame[indexes[i]])
 			blockView.delegate = self
-			blockViews.append(blockView)
-			scrollView.addSubview(blockViews[blockViews.count - 1])
-		}
+			scrollView.addSubview(blockView)
+			return blockView
+		})
 
 	}
 
@@ -82,9 +79,7 @@ class SelectTheSameViewController: TestViewController {
 	}
 
 	override func removeContent() {
-		for i in 0..<5 {
-			blockViews[i].removeFromSuperview()
-		}
+		blockViews.forEach({ if blockViews.indexOf($0) < 6 { $0.removeFromSuperview() } })
 	}
 
 	func showRightOrWrong() {
@@ -96,16 +91,11 @@ class SelectTheSameViewController: TestViewController {
 		if sound { right ? rightSound.play() : wrongSound.play() }
 		if vibration && !right { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 
-
-		for blockView in blockViews {
-			blockView.setSelectable(false)
-			blockView.allChangeColor(color)
-			
-			delay(seconds: 0.6, completion: {
-				if blockView.text[0] == self.rightAnswer { blockView.showGreenBorder() }
-				blockView.allShowPinyin()
-			})
-		}
+		blockViews.forEach({
+			$0.setSelectable(false)
+			$0.allChangeColor(color)
+			if $0.text[0] == self.rightAnswer { $0.showGreenBorder() }
+		})
 
 		selectedBlocks.removeAll()
 	}
@@ -116,12 +106,7 @@ class SelectTheSameViewController: TestViewController {
 extension SelectTheSameViewController: BlockViewDelegate {
 
 	func blockViewSelected(selected: Bool, blockText: [String]) {
-
-		if selected {
-			selectedBlocks.append(blockText)
-		} else {
-			selectedBlocks = selectedBlocks.filter({ $0[1] != blockText[1] })
-		}
+		selectedBlocks = selected ? selectedBlocks + [blockText] : selectedBlocks.filter({ $0[1] != blockText[1] })
 
 		if selectedBlocks.count > 2 && nextButton.titleType != .Confirm {
 			nextButton.show(.Confirm, dismissAfterTapped: false)

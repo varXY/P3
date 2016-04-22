@@ -73,20 +73,6 @@ class HeaderView: UIView {
 			$0.tag = 123456789 + i
 			addSubview($0)
 		})
-
-//		for i in 0..<10 {
-//			let frame = CGRect(x: 60 + littleLabelWidth * CGFloat(i), y: 0, width: littleLabelWidth, height: self.frame.height)
-//			let label = UILabel(frame: frame)
-//			label.text = titles[i]
-//			label.textAlignment = .Center
-//			label.textColor = UIColor.whiteColor()
-//			label.adjustsFontSizeToFitWidth = true
-//			label.tag = 123456789 + i
-//			addSubview(label)
-//
-//			label.alpha = 0.0
-//
-//		}
 	}
 
 	func addScoreLabel(frame: CGRect) {

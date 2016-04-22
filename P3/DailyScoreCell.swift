@@ -64,15 +64,12 @@ class DailyScoreCell: UITableViewCell {
 		let maxWidth = contentView.frame.width * 0.9
 		let factor = max == 0 ? 0 : maxWidth / CGFloat(max)
 		let width = positive ? number * factor : -number * factor
-//		let x = positive ? 0 : ScreenWidth - width
 		let color = positive ? UIColor.colorWithValues(MyColors.P_rightGreen) : UIColor.colorWithValues(MyColors.P_wrongRed)
 
 		let colorView = UIView(frame: CGRect(x: 0, y: 5, width: width, height: contentView.frame.height - 5))
 		colorView.backgroundColor = color
 		contentView.addSubview(colorView)
 
-//		scoreLabel.frame.origin.x = positive ? 10 : contentView.frame.width - 90
-//		scoreLabel.textAlignment = positive ? .Left : .Right
 		scoreLabel.text = positive ? "+" + String(dailyScore.score) : String(dailyScore.score)
 		contentView.bringSubviewToFront(scoreLabel)
 

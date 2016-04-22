@@ -12,23 +12,18 @@ import Foundation
 extension Chinese {
 
 	mutating func getOneForSpell() {
-
 		forSpell.removeAll()
 
 		repeat {
-			
 			let randomIndex = getRandomNumbers(1, lessThan: 52936)
 			let pinyin = wordPinyinFromIndex(Double(randomIndex[0]))
-
 			let yins = pinyin.componentsSeparatedByString(" ")
 			let words = wordsFromPinyin(pinyin)
 
 			if words.count >= 1 {
 				let index = getRandomNumbers(1, lessThan: words.count)[0]
 				if words[index].characters.count == yins.count {
-					forSpell.append(pinyin)
-					forSpell.append(words[index])
-
+					forSpell = [pinyin, words[index]]
 				}
 			}
 

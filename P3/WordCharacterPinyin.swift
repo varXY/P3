@@ -30,11 +30,8 @@ extension WordCharacterPinyin {
 
 		do {
 			let fetchedResults = try managedContext.executeFetchRequest(fetchRequest)
-
 			if let results = fetchedResults as? [Term] {
-				for i in results {
-					words.append(i.word!)
-				}
+				words = results.map({ $0.word! })
 			}
 
 		} catch let error as NSError {

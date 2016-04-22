@@ -6,7 +6,6 @@
 //  Copyright © 2016 myname. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 enum TestType {
@@ -21,8 +20,6 @@ enum TestType {
 		}
 	}
 }
-
-
 
 public protocol BlockViewDelegate: class {
 	func blockViewSelected(selected: Bool, blockText: [String])
@@ -63,7 +60,6 @@ class BlockView: UIView {
 	}
 
 	func addColorfulView(text: [String]) {
-//		let amount = text[1].characters.count
 		let strings = text[1].characters.map({ String($0) })
 		let viewSize = CGSize(width: self.frame.width / CGFloat(strings.count), height: self.frame.height)
 
@@ -74,17 +70,7 @@ class BlockView: UIView {
 			addSubview(view)
 			return view
 		})
-//
-//		for i in 0..<amount {
-//			let viewOrigin = CGPoint(x: viewSize.width * CGFloat(i), y: 0)
-//			let view = UIView(frame: CGRect(origin: viewOrigin, size: viewSize))
-//			view.backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
-//			colorfulViews.append(view)
-//		}
-//
-//		for view in colorfulViews {
-//			self.addSubview(view)
-//		}
+
 	}
 
 	func addLabels(text: [String]) {
@@ -96,17 +82,8 @@ class BlockView: UIView {
 		pinyins.removeAll()
 		letters.removeAll()
 
-//		if text[1].characters.count == 1 {
-//			pinyins.append(text[0])
-//		} else {
-//			pinyins = text[0].componentsSeparatedByString(" ")
-//		}
-
 		pinyins = text[1].characters.count == 1 ? pinyins + [text[0]] : text[0].componentsSeparatedByString(" ")
 		text[1].characters.forEach({ letters.append(String($0)) })
-//		for letter in text[1].characters {
-//			letters.append(String(letter))
-//		}
 
 	}
 
@@ -141,36 +118,6 @@ class BlockView: UIView {
 			return pinyinLabel
 		})
 
-//		for i in 0..<amount {
-//
-//			let textLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: yPositions[0])
-//			let textLabel = UILabel(frame: CGRect(origin: textLabelOrigin, size: labelSize))
-//			textLabel.textColor = UIColor.whiteColor()
-//			textLabel.font = UIFont.systemFontOfSize(autoFontSize()[0])
-//			textLabel.textAlignment = .Center
-//			textLabel.text = letters[i]
-//			textLabel.adjustsFontSizeToFitWidth = true
-//			textLabels.append(textLabel)
-//
-//			let pinyinLabelOrigin = CGPoint(x: labelSize.width * CGFloat(i), y: yPositions[1])
-//			let pinyinLabel = UILabel(frame: CGRect(origin: pinyinLabelOrigin, size: labelSize))
-//			pinyinLabel.textColor = UIColor.whiteColor()
-//			pinyinLabel.font = UIFont.systemFontOfSize(autoFontSize()[1])
-//			pinyinLabel.textAlignment = .Center
-//			pinyinLabel.text = pinyins[i]
-//			pinyinLabel.adjustsFontSizeToFitWidth = true
-//			pinyinLabels.append(pinyinLabel)
-//		}
-
-//		for textLabel in textLabels {
-//			textLabel.alpha = hidePinyin ? 1.0 : 0.0
-//			self.addSubview(textLabel)
-//		}
-//
-//		for pinyinLabel in pinyinLabels {
-//			pinyinLabel.alpha = 0.0
-//			addSubview(pinyinLabel)
-//		}
 	}
 
 	func autoFontSize() -> [CGFloat] {
@@ -199,13 +146,6 @@ class BlockView: UIView {
 	func colorViewTapped() {
 		questionMarkVisble = !questionMarkVisble
 		questionMarkVisble ? addQuestionButton() : removeQustionButton()
-//		if !questionMarkVisble {
-//			questionMarkVisble = true
-//			addQuestionButton()
-//		} else {
-//			questionMarkVisble = false
-//			removeQustionButton()
-//		}
 	}
 
 	// MARK: - Question Mark
@@ -254,19 +194,12 @@ class BlockView: UIView {
 			showPinyinAtIndex(i)
 		})
 
-//		for i in 0..<colorfulViews.count {
-//			changeColorAtIndex(i, color: UIColor.colorWithValues(MyColors.P_blue), backToBlue: false)
-//			showPinyinAtIndex(i)
-//		}
-
 		delegate?.answerShowedByQuestionMark()
 	}
 
 	func changeSubViewsAlpha(alpha: CGFloat) {
 		colorfulViews.forEach({ $0.alpha = alpha })
 		textLabels.forEach({ $0.alpha = alpha })
-//		for colorView in colorfulViews { colorView.alpha = alpha }
-//		for textLabel in textLabels { textLabel.alpha = alpha }
 	}
 
 	// MARK:
@@ -274,16 +207,6 @@ class BlockView: UIView {
 	func selected(sender: UIButton) {
 		selected = !selected
 		selected ? sender.addBorder(borderColor: UIColor.whiteColor(), width: 2.0) : sender.addBorder(borderColor: UIColor.whiteColor(), width: 0.0)
-//
-//		if !selected {
-//			selected = true
-//			sender.layer.borderWidth = 2.0
-//			sender.layer.borderColor = UIColor.whiteColor().CGColor
-//		} else {
-//			selected = false
-//			sender.layer.borderWidth = 0.0
-//		}
-
 		delegate?.blockViewSelected(selected, blockText: text)
 	}
 
@@ -293,16 +216,10 @@ class BlockView: UIView {
 	}
 
 	func allShowPinyin() {
-
 		if !pinyinVisble {
 			pinyinVisble = true
 			textLabels.forEach({ let i = textLabels.indexOf($0)!; showPinyinAtIndex(i) })
-//			for i in 0..<textLabels.count {
-//				showPinyinAtIndex(i)
-//			}
-
 		}
-
 	}
 
 	func showPinyinAtIndex(index: Int) {
@@ -324,13 +241,7 @@ class BlockView: UIView {
 	}
 
 	func allChangeColor(color: UIColor) {
-//
-//		for i in 0..<colorfulViews.count {
-//			changeColorAtIndex(i, color: color, backToBlue: true)
-//		}
-
 		colorfulViews.forEach({ changeColorAtIndex(colorfulViews.indexOf($0)!, color: color, backToBlue: true) })
-
 	}
 
 	func changeColorAtIndex(index: Int, color: UIColor, backToBlue: Bool) {
@@ -356,10 +267,7 @@ class BlockView: UIView {
 
 	func setSelectable(canSelect: Bool) {
 		button.userInteractionEnabled = canSelect
-
-		if let button = viewWithTag(77) as? UIButton {
-			button.userInteractionEnabled = canSelect
-		}
+		if let button = viewWithTag(77) as? UIButton { button.userInteractionEnabled = canSelect }
 	}
 
 

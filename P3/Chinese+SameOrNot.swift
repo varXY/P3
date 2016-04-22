@@ -62,36 +62,26 @@ extension Chinese {
 			let characterOrWord = getRandomNumbers(1, lessThan: 2)[0]
 
 			if characterOrWord == 0 {
-
 				let pinyins = pinyinsWithSeveralCharacters(2, index: 0)
 				let index = getRandomNumbers(1, lessThan: pinyins.count)[0]
 				let pinyin = pinyins[index]
-
 				let charcters = charactersFromPinyin(pinyin)
 
 				couple.append(pinyin)
 				let randomIndex = getRandomNumbers(2, lessThan: charcters.count)
-				for index in randomIndex {
-					couple.append(charcters[index])
-				}
-
+				randomIndex.forEach({ couple.append(charcters[$0]) })
 			}
 
 			if characterOrWord == 1 {
-
 				repeat {
-
 					let randomIndex = getRandomNumbers(1, lessThan: 52936)[0]
 					let pinyin = wordPinyinFromIndex(Double(randomIndex))
-
 					let words = wordsFromPinyin(pinyin)
 
 					if words.count >= 2 {
 						couple.append(pinyin)
-						let randomIndexs = getRandomNumbers(2, lessThan: words.count)
-						for index in randomIndexs {
-							couple.append(words[index])
-						}
+						let randomIndexes = getRandomNumbers(2, lessThan: words.count)
+						randomIndexes.forEach({ couple.append(words[$0]) })
 					}
 					
 				} while couple.count < 3

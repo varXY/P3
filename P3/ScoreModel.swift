@@ -40,14 +40,12 @@ class ScoreModel {
 		let path = dataFilePath()
 
 		if NSFileManager.defaultManager().fileExistsAtPath(path) {
-
 			if let data = NSData(contentsOfFile: path) {
 				let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
 				totalScore = unarchiver.decodeIntegerForKey("TotalScore")
 				scores = unarchiver.decodeObjectForKey("Scores") as! [Score]
 				unarchiver.finishDecoding()
 			}
-			
 		}
 		
 	}

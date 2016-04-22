@@ -16,17 +16,16 @@ class SameOrNotViewController: TestViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-
 		rightScore = 2
 		wrongScore = -2
 
 		headerView = HeaderView(number: 1, totalScore: totalScore)
 		headerView.delegate = self
-		self.view.addSubview(headerView)
+		view.addSubview(headerView)
 
 		nextButton = NextButton()
 		nextButton.delegate = self
-		self.view.addSubview(nextButton)
+		view.addSubview(nextButton)
 
 		prepareScrollView(firstTime: true)
 
@@ -42,35 +41,36 @@ class SameOrNotViewController: TestViewController {
 	}
 
 	func addContent(page page: Int, firstTime: Bool) {
-
 		if !firstTime { chinese.getOneForSameOrNot() }
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let buttonSize = CGSize(width: scrollView.frame.width - 40, height: 60)
+		let indexes = [0, 1]
 
-		for i in 0..<2 {
+		blockViews += indexes.map({
 			let blockWidth = BlockWidth.sameOrNot
 			let gapWidth = (ScreenWidth - blockWidth * 2) / 3
-			let point = CGPoint(x: positionInPage + gapWidth + (blockWidth + gapWidth) * CGFloat(i), y: (ScreenHeight / 2 - blockWidth) / 2)
-			let blockView = BlockView(type: .SameOrNot, origin: point, text: chinese.forSameOrNot[i])
-			blockViews.append(blockView)
-			scrollView.addSubview(blockViews[blockViews.count - 1])
+			let point = CGPoint(x: positionInPage + gapWidth + (blockWidth + gapWidth) * CGFloat($0), y: (ScreenHeight / 2 - blockWidth) / 2)
+			let blockView = BlockView(type: .SameOrNot, origin: point, text: chinese.forSameOrNot[$0])
+			scrollView.addSubview(blockView)
+			return blockView
+		})
 
+		buttons += indexes.map({
 			let buttonY = ScreenHeight / 2
-			let buttonOrigin = CGPoint(x: positionInPage + 20, y: buttonY + (buttonSize.height + 20) * CGFloat(i))
+			let buttonOrigin = CGPoint(x: positionInPage + 20, y: buttonY + (buttonSize.height + 20) * CGFloat($0))
 			let button = UIButton(type: .System)
 			button.frame = CGRect(origin: buttonOrigin, size: buttonSize)
 			button.backgroundColor = UIColor.clearColor()
-			button.addTextLabel(Titles.sameOrNot[i], textColor: UIColor.whiteColor(), font: UIFont.buttonTitleFont(22), animated: true)
+			button.addTextLabel(Titles.sameOrNot[$0], textColor: UIColor.whiteColor(), font: UIFont.buttonTitleFont(22), animated: true)
 			button.changeColorWhenTouchDown(UIColor.whiteColor())
 			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
 
-			button.tag = 100 + i
+			button.tag = 100 + $0
 			button.addTarget(self, action: #selector(SameOrNotViewController.sameOrNot(_:)), forControlEvents: .TouchUpInside)
 			button.exclusiveTouch = true
-			buttons.append(button)
-			scrollView.addSubview(buttons[buttons.count - 1])
-
-		}
+			scrollView.addSubview(button)
+			return button
+		})
 
 	}
 
@@ -82,13 +82,11 @@ class SameOrNotViewController: TestViewController {
 	}
 
 	func sameOrNot(sender: UIButton) {
-		for button in buttons { button.userInteractionEnabled = false }
-
+		buttons.forEach({ $0.userInteractionEnabled = false })
 		showRightOrWorng(sender)
-		delay(seconds: 0.6) { self.allShowPinyin() }
-		delay(seconds: 0.8) { self.addNextPageButton() }
+		delay(seconds: 0.6) { self.blockViews.forEach({ $0.allShowPinyin() }) }
+		delay(seconds: 0.8) { self.nextButton.show(self.currentPage < 9 ? .Next : .Done, dismissAfterTapped: true) }
 		delay(seconds: 0.85) { self.currentPage += 1; self.addContent(page: self.currentPage, firstTime: false) }
-
 	}
 
 	func showRightOrWorng(sender: UIButton) {
@@ -98,42 +96,20 @@ class SameOrNotViewController: TestViewController {
 		if ChosenSame == trulySame {
 			headerView.showAndAddScore(rightScore)
 			if sound { rightSound.play() }
-			for blockView in blockViews { blockView.allChangeColor(UIColor.colorWithValues(MyColors.P_rightGreen)) }
+			blockViews.forEach({ $0.allChangeColor(UIColor.colorWithValues(MyColors.P_rightGreen)) })
 			sender.changeToColor(UIColor.colorWithValues(MyColors.P_rightGreen))
-
-			for button in buttons {
-				if button != sender {
-					button.enabled = false
-				}
-			}
-
+			buttons.forEach({ if $0 != sender { $0.enabled = false }})
 
 		} else {
 			headerView.showAndAddScore(wrongScore)
-			for blockView in blockViews { blockView.allChangeColor(UIColor.colorWithValues(MyColors.P_wrongRed)) }
+			blockViews.forEach({ $0.allChangeColor(UIColor.colorWithValues(MyColors.P_wrongRed)) })
 			if sound { wrongSound.play() }
 			if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 			sender.changeColorBack()
 			sender.enabled = false
-
-			for button in buttons {
-				if button != sender {
-					button.changeToColor(UIColor.colorWithValues(MyColors.P_rightGreen))
-				}
-			}
-
-
+			buttons.forEach({ if $0 != sender { $0.changeToColor(UIColor.colorWithValues(MyColors.P_rightGreen)) } })
 		}
 
-	}
-
-	func allShowPinyin() {
-		for blockView in blockViews { blockView.allShowPinyin() }
-	}
-
-	func addNextPageButton() {
-		let title: NextButtonTitle = currentPage < 9 ? .Next : .Done
-		nextButton.show(title, dismissAfterTapped: true)
 	}
 
 }

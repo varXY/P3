@@ -29,7 +29,6 @@
 		311A8A171C6963F800257A26 /* Array+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A161C6963F800257A26 /* Array+.swift */; };
 		311A8A1A1C69737B00257A26 /* Chinese+SameOrNot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */; };
 		311B7B131C76A14000B674DB /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 311B7B121C76A14000B674DB /* TestViewController.swift */; };
-		312331981CAA9CD70069A4A1 /* TestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312331971CAA9CD70069A4A1 /* TestProtocol.swift */; };
 		3123319A1CAB85880069A4A1 /* WordCharacterPinyin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 312331991CAB85880069A4A1 /* WordCharacterPinyin.swift */; };
 		3123319C1CAB89C50069A4A1 /* Pinyins.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3123319B1CAB89C50069A4A1 /* Pinyins.swift */; };
 		317519D41C701001002223F1 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 317519D31C701001002223F1 /* Score.swift */; };
@@ -117,7 +116,6 @@
 		311A8A161C6963F800257A26 /* Array+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+.swift"; sourceTree = "<group>"; };
 		311A8A191C69737B00257A26 /* Chinese+SameOrNot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+SameOrNot.swift"; sourceTree = "<group>"; };
 		311B7B121C76A14000B674DB /* TestViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
-		312331971CAA9CD70069A4A1 /* TestProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestProtocol.swift; sourceTree = "<group>"; };
 		312331991CAB85880069A4A1 /* WordCharacterPinyin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WordCharacterPinyin.swift; sourceTree = "<group>"; };
 		3123319B1CAB89C50069A4A1 /* Pinyins.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Pinyins.swift; sourceTree = "<group>"; };
 		317519D31C701001002223F1 /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
@@ -301,7 +299,6 @@
 				3175AF061C69B77C001BEACE /* NavigationController.swift */,
 				C3CDD5071C522CFC00209556 /* HomepageViewController.swift */,
 				311B7B121C76A14000B674DB /* TestViewController.swift */,
-				312331971CAA9CD70069A4A1 /* TestProtocol.swift */,
 				3175AF0B1C69CD19001BEACE /* SameOrNotViewController.swift */,
 				31F09E171C6B239200196277 /* SelectTheSameViewController.swift */,
 				31F09E1D1C6C737D00196277 /* SpellViewController.swift */,
@@ -550,7 +547,6 @@
 				3123319A1CAB85880069A4A1 /* WordCharacterPinyin.swift in Sources */,
 				311A8A0C1C688A2600257A26 /* Global.swift in Sources */,
 				31F09E201C6C73F400196277 /* Chinese+Spell.swift in Sources */,
-				312331981CAA9CD70069A4A1 /* TestProtocol.swift in Sources */,
 				3197AB431C7EEAB700A5A340 /* Struct_J.swift in Sources */,
 				3100970D1C72A423003C7FA6 /* UIFont+.swift in Sources */,
 				317519D81C704792002223F1 /* NextButton.swift in Sources */,
