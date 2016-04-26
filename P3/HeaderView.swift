@@ -32,16 +32,29 @@ class HeaderView: UIView {
 
 	weak var delegate: HeaderViewDelegate?
 
-	init(number: Int, totalScore: Int) {
+	init(index: Int, totalScore: Int) {
 		super.init(frame: CGRect(x: 2, y: 2, width: ScreenWidth - 4, height: 60))
 		backgroundColor = UIColor.clearColor()
 		self.totalScore = totalScore
 		showedNumber = page
 
 		addBackButton(CGRect(x: -15, y: 0, width: 60, height: frame.height))
-		addScoreLabel(CGRect(x: frame.width - 70, y: 0, width: 60, height: frame.height))
-		addOneToTenLabels()
 		addcenterLabel(1, frame: CGRect(x: (frame.width - 60) / 2, y: 0, width: 60, height: frame.height))
+
+		if index != 21 {
+			addScoreLabel(CGRect(x: frame.width - 70, y: 0, width: 60, height: frame.height))
+			addOneToTenLabels()
+		}
+
+		if index == 21 {
+			centerLabel.frame = CGRect(x: frame.width - 70, y: 0, width: 60, height: frame.height)
+			centerLabel.textAlignment = .Right
+			centerLabel.text = "pin"
+		}
+
+		if index == 11 {
+			centerLabel.text = ""
+		}
 	}
 
 
@@ -94,6 +107,7 @@ class HeaderView: UIView {
 		label.font = UIFont.systemFontOfSize(size)
 		label.text = titles[number - 1]
 		centerLabel = label
+		centerLabel.adjustsFontSizeToFitWidth = true
 		addSubview(centerLabel)
 	}
 
@@ -109,6 +123,30 @@ class HeaderView: UIView {
 				UIView.animateWithDuration(0.3, animations: { () -> Void in
 					self.centerLabel.alpha = 1.0
 				})
+		}
+	}
+
+	func changeCenterLabelTitle(toTitle: String, backToNil: Bool) {
+		UIView.animateWithDuration(0.3, animations: { () -> Void in
+			self.centerLabel.alpha = 0.0
+		}) { (_) -> Void in
+			self.centerLabel.text = toTitle
+
+			UIView.animateWithDuration(0.3, animations: { 
+				self.centerLabel.alpha = 1.0
+				}, completion: { (_) in
+					if backToNil {
+						delay(seconds: 0.5, completion: { 
+							UIView.animateWithDuration(0.3, animations: { () -> Void in
+								self.centerLabel.alpha = 0.0
+							}) { (_) -> Void in
+								self.centerLabel.text = toTitle
+							}
+						})
+					}
+			})
+
+
 		}
 	}
 

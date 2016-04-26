@@ -34,7 +34,7 @@ struct Struct_G: Characters {
 		case "gui":  characters = ["瑰", "规", "圭", "归", "闺", "轨", "鬼", "诡", "癸", "桂", "柜", "跪", "贵", "刽", "硅", "傀", "炔", "龟"]
 		case "gun":  characters = ["辊", "滚", "棍"]
 		case "guo":  characters = ["锅", "郭", "国", "果", "裹", "过", "涡"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

@@ -35,6 +35,10 @@ class HomepageViewController: UIViewController {
         super.viewWillAppear(animated)
 		navigationController?.setNavigationBarHidden(true, animated: true)
 
+
+//		print(chinese.selectTheSame60Characters)
+//		print(chinese.selectTheSame60Pinyins)
+
 		let queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 		dispatch_async(queue) {
 			if self.chinese.forSameOrNot.count == 0 { self.chinese.getOneForSameOrNot() }
@@ -45,7 +49,7 @@ class HomepageViewController: UIViewController {
 					$0.userInteractionEnabled = true
 					$0.changeToColor(UIColor.clearColor())
 					let i = self.bigButtons.indexOf($0)!
-					$0.viewAddAnimation(.Appear, delay: 0.1 * Double(i), distance: 40 + 30 * CGFloat(i))
+					$0.viewAddAnimation(.Appear, delay: 0.1 * Double(i), distance: 55 + 35 * CGFloat(i))
 				})
 			}
 		}
@@ -155,6 +159,17 @@ class HomepageViewController: UIViewController {
 		defaults.synchronize()
 	}
 
+	func spellStyleIsFreeStyle() -> Bool {
+		let userdefaults = NSUserDefaults.standardUserDefaults()
+		if let style = userdefaults.valueForKey(Defaults.SpellStyle) as? String {
+			return style == "Free"
+		} else {
+			userdefaults.setObject("Q&A", forKey: Defaults.SpellStyle)
+			userdefaults.synchronize()
+			return false
+		}
+	}
+
 	func bigButtonTapped(sender: UIButton) {
 		goToPageBaseOnTag(sender.tag - 10)
 	}
@@ -164,9 +179,13 @@ class HomepageViewController: UIViewController {
 		var viewController: TestViewController!
 
 		switch tag {
-		case 0: viewController = SameOrNotViewController()
-		case 1: viewController = SelectTheSameViewController()
-		case 2: viewController = SpellViewController()
+		case 0:
+			viewController = SameOrNotViewController()
+		case 1:
+			viewController = SelectTheSameViewController()
+		case 2:
+			viewController = SpellViewController()
+			viewController.freeStyle = spellStyleIsFreeStyle()
 		default: break
 		}
 
@@ -177,6 +196,7 @@ class HomepageViewController: UIViewController {
 		viewController.sendBackScore = { [weak self] totalScore, score -> Void in
 			self!.scoreModel.totalScore = totalScore
 			self!.scoreModel.scores.insert(score, atIndex: 0)
+			self!.chinese = viewController.chinese
 		}
 
 		navigationController?.pushViewController(viewController, animated: true)

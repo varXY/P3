@@ -67,6 +67,7 @@ extension WordCharacterPinyin {
 	}
 
 	func charactersFromPinyin(pinyin: String) -> [String] {
+		if pinyin == "" { return [""] }
 		let index = pinyin.startIndex.advancedBy(0)
 		let letter = String(pinyin[index])
 
@@ -96,7 +97,7 @@ extension WordCharacterPinyin {
 		case "x": result = Struct_X(pinyin: pinyin)
 		case "y": result = Struct_Y(pinyin: pinyin)
 		case "z": result = Struct_Z(pinyin: pinyin)
-		default: return ["wrong"]
+		default: return [""]
 		}
 
 		return result.characters

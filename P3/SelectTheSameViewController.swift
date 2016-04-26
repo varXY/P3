@@ -17,20 +17,27 @@ class SelectTheSameViewController: TestViewController {
 	var answerShowed = false
 	var selectedBlocks = [[String]]()
 
+	var selectedCharacterIndexes = [Int]()
+	var lianLianKan: LianLianKan!
+
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		rightScore = 3
 		wrongScore = -3
 
-		headerView = HeaderView(number: 1, totalScore: totalScore)
+		headerView = HeaderView(index: ScreenHeight == 480 ? 10 : 11, totalScore: totalScore)
 		headerView.delegate = self
 		view.addSubview(headerView)
 
-		nextButton = NextButton()
-		nextButton.delegate = self
-		view.addSubview(nextButton)
+		if ScreenHeight == 480 {
+			nextButton = NextButton()
+			nextButton.delegate = self
+			view.addSubview(nextButton)
 
-		prepareScrollView(firstTime: true)
+			prepareScrollView(firstTime: true)
+		} else {
+			lianLianKan = LianLianKan(content: chinese.selectTheSame60Characters, VC: self)
+		}
 
 	}
 
@@ -79,7 +86,18 @@ class SelectTheSameViewController: TestViewController {
 	}
 
 	override func removeContent() {
-		blockViews.forEach({ if blockViews.indexOf($0) < 6 { $0.removeFromSuperview() } })
+		if ScreenHeight == 480 {
+			blockViews.forEach({ if blockViews.indexOf($0) < 6 { $0.removeFromSuperview() } })
+		} else {
+			lianLianKan = LianLianKan(content: chinese.selectTheSame60Characters, VC: self)
+			delay(seconds: 0.3, completion: { self.headerView.centerLabel.removeFromSuperview() })
+			delay(seconds: 1.0, completion: {
+				self.headerView.centerLabel.text = ""
+				self.headerView.centerLabel.alpha = 1.0
+				self.headerView.addSubview(self.headerView.centerLabel)
+			})
+		}
+
 	}
 
 	func showRightOrWrong() {
@@ -99,6 +117,58 @@ class SelectTheSameViewController: TestViewController {
 
 		selectedBlocks.removeAll()
 	}
+
+}
+
+extension SelectTheSameViewController: LittleTouchDownAndUp {
+
+	func touchDown(sender: UIButton) {
+		sender.backgroundColor = UIColor.whiteColor()
+		sender.tintColor = UIColor.colorWithValues(MyColors.P_darkBlue)
+	}
+
+	func touchUpOutside(sender: UIButton) {
+		sender.backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
+		sender.tintColor = UIColor.whiteColor()
+	}
+
+	func touchUpInside(sender: UIButton) {
+		selectedCharacterIndexes.append(sender.tag - 200)
+
+		if selectedCharacterIndexes.count == 2 {
+			if chinese.selectTheSame60Pinyins[selectedCharacterIndexes[0]] == chinese.selectTheSame60Pinyins[selectedCharacterIndexes[1]] && selectedCharacterIndexes[0] != selectedCharacterIndexes[1] {
+				headerView.changeCenterLabelTitle(chinese.selectTheSame60Pinyins[selectedCharacterIndexes[1]], backToNil: true)
+				lianLianKan.buttons[selectedCharacterIndexes[0]].removeFromSuperview()
+				lianLianKan.buttons[selectedCharacterIndexes[1]].removeFromSuperview()
+				headerView.showAndAddScore(rightScore)
+				if sound { rightSound.play() }
+
+				delay(seconds: 0.8, completion: { self.checkTestCompleteOrNot() })
+			} else {
+				lianLianKan.buttons[selectedCharacterIndexes[0]].backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
+				lianLianKan.buttons[selectedCharacterIndexes[0]].tintColor = UIColor.whiteColor()
+				lianLianKan.buttons[selectedCharacterIndexes[1]].backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
+				lianLianKan.buttons[selectedCharacterIndexes[1]].tintColor = UIColor.whiteColor()
+				headerView.showAndAddScore(wrongScore)
+				if sound { wrongSound.play() }
+				if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
+			}
+
+			selectedCharacterIndexes.removeAll()
+		}
+	}
+
+	func checkTestCompleteOrNot() {
+		if view.subviews.count == 2 {
+			chinese.get60CharactersForSelectTheSame()
+			self.view.bringSubviewToFront(self.finalView)
+			self.finalView.show(self.headerView.currentScore, delay: 0.5)
+
+			let score = Score(score: self.headerView.currentScore, time: NSDate())
+			self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
+		}
+	}
+
 
 }
 

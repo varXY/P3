@@ -246,14 +246,9 @@ class BlockView: UIView {
 
 	func changeColorAtIndex(index: Int, color: UIColor, backToBlue: Bool) {
 		colorfulViews[index].backgroundColor = color
-
-		if color == UIColor.whiteColor() {
-			textLabels[index].textColor = UIColor.colorWithValues(MyColors.P_darkBlue)
-			pinyinLabels[index].textColor = UIColor.colorWithValues(MyColors.P_darkBlue)
-		} else {
-			textLabels[index].textColor = UIColor.whiteColor()
-			pinyinLabels[index].textColor = UIColor.whiteColor()
-		}
+		let selected = color == UIColor.whiteColor()
+		textLabels[index].textColor = selected ? UIColor.colorWithValues(MyColors.P_darkBlue) : UIColor.whiteColor()
+		pinyinLabels[index].textColor = selected ? UIColor.colorWithValues(MyColors.P_darkBlue) : UIColor.whiteColor()
 
 		if backToBlue {
 			delay(seconds: 0.5) { () -> () in

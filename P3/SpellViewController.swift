@@ -23,7 +23,9 @@ class SpellViewController: TestViewController {
 	var showed = false
 	var amount: Int!
 	var selectedCharacters = [String]()
-	
+
+	var freeLabel: FreeLabel!
+
 	private let component_titles_0 = ["", "b", "c", "ch", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "sh", "t", "w", "x", "y", "z", "zh", ""]
 	private let component_titles_1 = ["", "a", "e", "i", "o", "u", "v", ""]
 	private let component_titles_2_0 = ["", "a", "ai", "an", "ang", "ao", "e", "ei", "en", "eng", "i", "n", "ng", "o", "ong", "ou", "r", "u", ""]
@@ -32,18 +34,26 @@ class SpellViewController: TestViewController {
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
-		rightScore = 2
-		wrongScore = -2
 
-		headerView = HeaderView(number: 1, totalScore: totalScore)
+		headerView = HeaderView(index: freeStyle ? 21 : 20, totalScore: totalScore)
 		headerView.delegate = self
 		view.addSubview(headerView)
 
-		nextButton = NextButton()
-		nextButton.delegate = self
-		view.addSubview(nextButton)
+		if freeStyle {
+			freeLabel = FreeLabel()
+			view.addSubview(freeLabel)
+			freeLabel.showCharacters(chinese.charactersFromPinyin("pin"))
 
-		prepareScrollView(firstTime: true)
+		} else {
+			rightScore = 2
+			wrongScore = -2
+
+			nextButton = NextButton()
+			nextButton.delegate = self
+			view.addSubview(nextButton)
+
+			prepareScrollView(firstTime: true)
+		}
 
 		let userDefaults = NSUserDefaults.standardUserDefaults()
 		if let defaultsAmount = userDefaults.valueForKey(Defaults.C_amount) as? Int {
@@ -225,7 +235,12 @@ extension SpellViewController: UIPickerViewDataSource, UIPickerViewDelegate {
 	func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
 		selectedCharacters[component] = component_allTitles[component][row]
 		let result = selectedCharacters.reduce("", combine: { $0 + $1 })
-		changeStateBaseOnSelectedPinyin(result)
+		if freeStyle {
+			freeLabel.showCharacters(chinese.charactersFromPinyin(result))
+			headerView.changeCenterLabelTitle(result, backToNil: false)
+		} else {
+			changeStateBaseOnSelectedPinyin(result)
+		}
 	}
 
 

@@ -48,7 +48,7 @@ struct Struct_S: Characters {
 		case "sui":  characters = ["虽", "隋", "随", "绥", "髓", "碎", "岁", "穗", "遂", "隧", "祟", "尿"]
 		case "sun":  characters = ["孙", "损", "笋"]
 		case "suo":  characters = ["蓑", "梭", "唆", "琐", "索", "锁", "所", "莎", "缩"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

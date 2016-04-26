@@ -40,6 +40,7 @@ struct Defaults {
 	static let vibration = "Vibration"
 	static let pronunciations = "Pronunciations"
 	static let C_amount = "C_amount"
+	static let SpellStyle = "SpellStyle"
 }
 
 struct Time {

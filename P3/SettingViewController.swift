@@ -18,6 +18,7 @@ class SettingViewController: UIViewController {
 	var switchControl_V: UISwitch!
 
 	var C_amount = 3
+	var spellStyle = "Q&A"
 
 	let titles = [
 		[
@@ -25,7 +26,9 @@ class SettingViewController: UIViewController {
 			NSLocalizedString("Vibration", comment: "SettingVC")
 		],
 
-		[NSLocalizedString("Number of wheels to spell with", comment: "SettingVC")],
+		[
+			NSLocalizedString("Spell style", comment: "SettingVC"),
+			NSLocalizedString("Number of wheels to spell with", comment: "SettingVC")],
 
 		[
 			NSLocalizedString("Rate this app", comment: "SettingVC"),
@@ -54,12 +57,12 @@ class SettingViewController: UIViewController {
 		switchControl_V = initialSwitchControl()
 
 		NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(productPurchased(_:)), name: IAPHelperProductPurchasedNotification, object: nil)
+		getSettings()
 
 	}
 
 	override func viewWillAppear(animated: Bool) {
 		super.viewWillAppear(animated)
-		getSettings()
 		tableView.reloadData()
 	}
 
@@ -85,8 +88,13 @@ class SettingViewController: UIViewController {
 		if let amount = userDefaults.valueForKey(Defaults.C_amount) as? Int {
 			C_amount = amount
 		} else {
-			C_amount = 3
 			userDefaults.setInteger(C_amount, forKey: Defaults.C_amount)
+		}
+
+		if let style = userDefaults.valueForKey(Defaults.SpellStyle) as? String {
+			spellStyle = style
+		} else {
+			userDefaults.setObject(spellStyle, forKey: Defaults.SpellStyle)
 		}
 	}
 
@@ -200,7 +208,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 		case 1:
 			cell = UITableViewCell(style: .Value1, reuseIdentifier: "Cell_1")
 			cell.textLabel?.text = titles[indexPath.section][indexPath.row]
-			cell.detailTextLabel?.text = String(C_amount)
+			cell.detailTextLabel?.text = indexPath.row == 0 ? NSLocalizedString(spellStyle, comment: "SettingVC") : String(C_amount)
 			cell.accessoryType = .DisclosureIndicator
 
 		case 2, 3:
@@ -225,11 +233,25 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 
 		case 1:
 			let settingVC_1 = SettingVC_1()
-			settingVC_1.selectedOne = C_amount
-			settingVC_1.sendBack = { [weak self] selected -> Void in
-				self!.C_amount = selected
-				self!.userDefaults.setInteger(self!.C_amount, forKey: Defaults.C_amount)
+			settingVC_1.type = indexPath.row
+
+			switch indexPath.row {
+			case 0:
+				settingVC_1.selectedOne = NSLocalizedString(spellStyle, comment: "SettingVC")
+				settingVC_1.sendBack = { [weak self] selected -> Void in
+					self!.spellStyle = selected == 3 ? "Q&A" : "Free"
+					self!.userDefaults.setObject(self?.spellStyle, forKey: Defaults.SpellStyle)
+				}
+			case 1:
+				settingVC_1.selectedOne = String(C_amount)
+				settingVC_1.sendBack = { [weak self] selected -> Void in
+					self!.C_amount = selected
+					self!.userDefaults.setInteger(self!.C_amount, forKey: Defaults.C_amount)
+				}
+			default:
+				break
 			}
+
 			navigationController?.pushViewController(settingVC_1, animated: true)
 
 		case 2:

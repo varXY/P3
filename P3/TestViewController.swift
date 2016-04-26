@@ -33,6 +33,8 @@ class TestViewController: UIViewController {
 	var rightScore: Int!
 	var wrongScore: Int!
 
+	var freeStyle = true
+
 	override func prefersStatusBarHidden() -> Bool {
 		return true
 	}
@@ -73,7 +75,7 @@ class TestViewController: UIViewController {
 	func jumpToPage(page: Int) {
 		let duration = Double(scrollView.frame.width / 640)
 		UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
-			self.scrollView.contentOffset = CGPoint(x: self.scrollView.bounds.size.width * CGFloat(page), y: 0.0)
+			self.scrollView.contentOffset = CGPoint(x: self.scrollView.bounds.size.width * CGFloat(page), y: 0.0) 
 			}, completion: {(_) -> Void in
 				self.removeContent()
 		})

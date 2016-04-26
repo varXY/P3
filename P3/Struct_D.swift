@@ -34,7 +34,7 @@ struct Struct_D: Characters {
 		case "dui":  characters = ["兑", "队", "对", "堆"]
 		case "dun":  characters = ["墩", "吨", "钝", "遁", "蹲", "敦", "顿", "囤", "盾"]
 		case "duo":  characters = ["掇", "哆", "多", "夺", "垛", "躲", "朵", "跺", "剁", "惰", "度", "舵", "堕"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

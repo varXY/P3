@@ -8,16 +8,19 @@
 
 import UIKit
 
+
 class SettingVC_1: UITableViewController {
 
-	let titles = ["3", "4"]
-	var selectedOne = Int()
+	var type: Int!
+	var titles = ["3", "4"]
+	var selectedOne = String()
 	var sendBack: ((Int) -> Void)?
 
 	override func viewDidLoad() {
 		super.viewDidLoad()
 		tableView = UITableView(frame: view.bounds, style: .Grouped)
 		tableView.backgroundColor = UIColor.colorWithValues(MyColors.P_lightGray)
+		titles = type == 0 ? [NSLocalizedString("Q&A", comment: "SettingVC"), NSLocalizedString("Free", comment: "SettingVC")] : ["3", "4"]
 	}
 
 	override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -31,15 +34,14 @@ class SettingVC_1: UITableViewController {
 	override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 		let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
 		cell.textLabel?.text = titles[indexPath.row]
-		if cell.textLabel?.text == String(selectedOne) { cell.accessoryType = .Checkmark }
+		if cell.textLabel?.text == selectedOne { cell.accessoryType = .Checkmark }
 		return cell
 	}
 
 	override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 		let cell = tableView.cellForRowAtIndexPath(indexPath)
 		cell?.accessoryType = .Checkmark
-		let selected = Int((cell?.textLabel?.text)!)
-		sendBack!(selected!)
+		sendBack!(indexPath.row + 3)
 
 		let row = indexPath.row == 0 ? 1 : 0
 		let otherIndexPath = NSIndexPath(forRow: row, inSection: 0)

@@ -17,7 +17,7 @@ struct Struct_O: Characters {
 		switch pinyin {
 		case "o":  characters = ["哦"]
 		case "ou":  characters = ["欧", "鸥", "殴", "藕", "呕", "偶", "沤", "区"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

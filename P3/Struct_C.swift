@@ -48,7 +48,7 @@ struct Struct_C: Characters {
 		case "cui":  characters = ["摧", "崔", "催", "脆", "瘁", "粹", "淬", "翠"]
 		case "cun":  characters = ["村", "存", "寸"]
 		case "cuo":  characters = ["磋", "搓", "措", "挫", "错", "撮"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

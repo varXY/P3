@@ -32,7 +32,7 @@ struct Struct_K: Characters {
 		case "kui":  characters = ["亏", "盔", "岿", "窥", "葵", "奎", "魁", "馈", "愧", "傀", "溃"]
 		case "kun":  characters = ["坤", "昆", "捆", "困"]
 		case "kuo":  characters = ["扩", "廓", "阔", "括"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

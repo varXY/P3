@@ -34,7 +34,7 @@ struct Struct_T: Characters {
 		case "tui":  characters = ["推", "颓", "腿", "蜕", "退", "褪"]
 		case "tun":  characters = ["吞", "屯", "臀", "囤"]
 		case "tuo":  characters = ["拖", "托", "脱", "鸵", "陀", "驼", "椭", "妥", "唾", "驮", "拓"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

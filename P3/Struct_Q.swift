@@ -29,7 +29,7 @@ struct Struct_Q: Characters {
 		case "quan":  characters = ["颧", "权", "醛", "泉", "全", "痊", "拳", "犬", "券", "劝", "卷", "圈"]
 		case "que":  characters = ["缺", "瘸", "却", "鹊", "榷", "确", "炔", "雀"]
 		case "qun":  characters = ["裙", "群"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

@@ -19,7 +19,7 @@ class SameOrNotViewController: TestViewController {
 		rightScore = 2
 		wrongScore = -2
 
-		headerView = HeaderView(number: 1, totalScore: totalScore)
+		headerView = HeaderView(index: 0, totalScore: totalScore)
 		headerView.delegate = self
 		view.addSubview(headerView)
 

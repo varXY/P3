@@ -11,6 +11,36 @@ import Foundation
 
 extension Chinese {
 
+	mutating func get60CharactersForSelectTheSame() {
+		let all = pinyinsWithSeveralCharacters(2, index: 0)
+		let indexes = getRandomNumbers(30, lessThan: all.count)
+		let selectedPinyins = all.filter({ indexes.contains(all.indexOf($0)!) })
+		let selectedCharacters: [[String]] = selectedPinyins.map({
+			let charcacters = charactersFromPinyin($0)
+			let indexes = getRandomNumbers(2, lessThan: charcacters.count)
+			return charcacters.filter({ indexes.contains(charcacters.indexOf($0)!) })
+		})
+
+		var characters_60 = [String]()
+		var pinyins_60 = [String]()
+
+		var i = 0
+		repeat {
+			characters_60.append(selectedCharacters[i][0])
+			characters_60.append(selectedCharacters[i][1])
+
+			pinyins_60.append(selectedPinyins[i])
+			pinyins_60.append(selectedPinyins[i])
+
+			i += 1
+		} while i < selectedCharacters.count
+
+		let randomIndexes = getRandomNumbers(60, lessThan: 60)
+		selectTheSame60Characters = randomIndexes.map({ characters_60[$0] })
+		selectTheSame60Pinyins = randomIndexes.map({ pinyins_60[$0] })
+
+	}
+
 	mutating func getSixForSelectTheSame() {
 		func coupleOfConfusablePinyin() -> [String] {
 			var results = [String]()

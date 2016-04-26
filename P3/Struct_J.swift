@@ -29,7 +29,7 @@ struct Struct_J: Characters {
 		case "juan":  characters = ["捐", "鹃", "娟", "倦", "眷", "绢", "卷", "圈"]
 		case "jue":  characters = ["撅", "攫", "抉", "掘", "倔", "爵", "决", "诀", "绝", "嚼", "觉", "角"]
 		case "jun":  characters = ["菌", "钧", "军", "君", "峻", "俊", "竣", "郡", "骏", "均", "浚"]
-		default:  characters = ["无"]
+		default:  characters = [""]
 		}
 	}
 }

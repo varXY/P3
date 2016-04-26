@@ -16,8 +16,11 @@ struct Chinese: WordCharacterPinyin {
 	var forSelectTheSame = [[String]]()
 	var forSpell = [String]()
 
+	var selectTheSame60Pinyins = [String]()
+	var selectTheSame60Characters = [String]()
+
 	init() {
-		getSixForSelectTheSame()
+		ScreenHeight == 480 ? getSixForSelectTheSame() : get60CharactersForSelectTheSame()
 	}
 }
 
