@@ -167,26 +167,22 @@ class HeaderView: UIView {
 
 	func showAndAddScore(number: Int) {
 		currentScore += number
+		totalScore += number
 		scoreLabel.text = ""
 		let numberForShow = number > 0 ? "+" + "\(number)" : "\(number)"
 		let textColor = number > 0 ? UIColor.greenColor() : UIColor.redColor()
 		numberColors.append(textColor)
 
 		delay(seconds: 0.2) {
-			UIView.animateWithDuration(0.5, animations: { () -> Void in
-				self.scoreLabel.textColor = textColor
-				self.scoreLabel.text = numberForShow
-			})
+			self.scoreLabel.textColor = textColor
+			self.scoreLabel.text = numberForShow
 		}
 
 		delay(seconds: 1.0) {
 			self.scoreLabel.text = ""
+			self.scoreLabel.textColor = UIColor.whiteColor()
+			self.scoreLabel.text = "\(self.totalScore)"
 
-			UIView.animateWithDuration(0.5, animations: { () -> Void in
-				self.totalScore += number
-				self.scoreLabel.textColor = UIColor.whiteColor()
-				self.scoreLabel.text = "\(self.totalScore)"
-			})
 		}
 	}
 
