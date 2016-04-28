@@ -95,7 +95,7 @@ class SameOrNotViewController: TestViewController {
 
 		if ChosenSame == trulySame {
 			headerView.showAndAddScore(rightScore)
-			if sound { rightSound.play() }
+			if sound { promptSound.play(true, sound: promptSound.right_sound) }
 			blockViews.forEach({ $0.allChangeColor(UIColor.colorWithValues(MyColors.P_rightGreen)) })
 			sender.changeToColor(UIColor.colorWithValues(MyColors.P_rightGreen))
 			buttons.forEach({ if $0 != sender { $0.enabled = false }})
@@ -103,7 +103,7 @@ class SameOrNotViewController: TestViewController {
 		} else {
 			headerView.showAndAddScore(wrongScore)
 			blockViews.forEach({ $0.allChangeColor(UIColor.colorWithValues(MyColors.P_wrongRed)) })
-			if sound { wrongSound.play() }
+			if sound { promptSound.play(true, sound: promptSound.wrong_sound) }
 			if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 			sender.changeColorBack()
 			sender.enabled = false

@@ -196,7 +196,8 @@ class HomepageViewController: UIViewController {
 		viewController.sendBackScore = { [weak self] totalScore, score -> Void in
 			self!.scoreModel.totalScore = totalScore
 			self!.scoreModel.scores.insert(score, atIndex: 0)
-			self!.chinese = viewController.chinese
+			self!.chinese.selectTheSame60Characters = viewController.chinese.selectTheSame60Characters
+			self!.chinese.selectTheSame60Pinyins = viewController.chinese.selectTheSame60Pinyins
 		}
 
 		navigationController?.pushViewController(viewController, animated: true)

@@ -33,12 +33,9 @@ struct LianLianKan {
 			button.addTarget(VC, action: #selector(LittleTouchDownAndUp.touchUpOutside(_:)), forControlEvents: .TouchUpOutside)
 			button.addTarget(VC, action: #selector(LittleTouchDownAndUp.touchUpInside(_:)), forControlEvents: .TouchUpInside)
 			button.tag = index + 200
-			VC.view.addSubview(button)
 			return button
 		})
 	}
-
-
 
 	func buttonFrames() -> [CGRect] {
 		var frames = [CGRect]()

@@ -37,6 +37,7 @@ class SelectTheSameViewController: TestViewController {
 			prepareScrollView(firstTime: true)
 		} else {
 			lianLianKan = LianLianKan(content: chinese.selectTheSame60Characters, VC: self)
+			lianLianKan.buttons.forEach({ view.addSubview($0) })
 		}
 
 	}
@@ -90,6 +91,11 @@ class SelectTheSameViewController: TestViewController {
 			blockViews.forEach({ if blockViews.indexOf($0) < 6 { $0.removeFromSuperview() } })
 		} else {
 			lianLianKan = LianLianKan(content: chinese.selectTheSame60Characters, VC: self)
+			lianLianKan.buttons.forEach({ (button) in
+				button.alpha = 0.0
+				view.addSubview(button)
+				UIView.animateWithDuration(0.3, animations: { button.alpha = 1.0 }, completion: nil)
+			})
 			delay(seconds: 0.3, completion: { self.headerView.centerLabel.removeFromSuperview() })
 			delay(seconds: 1.0, completion: {
 				self.headerView.centerLabel.text = ""
@@ -106,7 +112,7 @@ class SelectTheSameViewController: TestViewController {
 		let color: UIColor = right ? UIColor.colorWithValues(MyColors.P_rightGreen) : UIColor.colorWithValues(MyColors.P_wrongRed)
 		let score = right ? rightScore : wrongScore
 		headerView.showAndAddScore(score)
-		if sound { right ? rightSound.play() : wrongSound.play() }
+		if sound { right ? promptSound.play(true, sound: promptSound.right_sound) : promptSound.play(true, sound: promptSound.wrong_sound) }
 		if vibration && !right { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 
 		blockViews.forEach({
@@ -141,8 +147,7 @@ extension SelectTheSameViewController: LittleTouchDownAndUp {
 				lianLianKan.buttons[selectedCharacterIndexes[0]].removeFromSuperview()
 				lianLianKan.buttons[selectedCharacterIndexes[1]].removeFromSuperview()
 				headerView.showAndAddScore(rightScore)
-				if sound { rightSound.play() }
-
+				if sound { promptSound.play(true, sound: promptSound.right_sound) }
 				delay(seconds: 0.8, completion: { self.checkTestCompleteOrNot() })
 			} else {
 				lianLianKan.buttons[selectedCharacterIndexes[0]].backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
@@ -150,7 +155,7 @@ extension SelectTheSameViewController: LittleTouchDownAndUp {
 				lianLianKan.buttons[selectedCharacterIndexes[1]].backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
 				lianLianKan.buttons[selectedCharacterIndexes[1]].tintColor = UIColor.whiteColor()
 				headerView.showAndAddScore(wrongScore)
-				if sound { wrongSound.play() }
+				if sound { promptSound.play(true, sound: promptSound.wrong_sound) }
 				if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 			}
 

@@ -26,15 +26,6 @@ class FreeLabel: UILabel, WordCharacterPinyin {
 	}
 
 	func showCharacters(characters: [String]) {
-//		UIView.animateWithDuration(0.3, animations: { () -> Void in
-//			self.alpha = 0.0
-//		}) { (_) -> Void in
-//			self.text = characters.reduce("", combine: { $0! + $1 + " " })
-//
-//			UIView.animateWithDuration(0.3, animations: { () -> Void in
-//				self.alpha = 1.0
-//			})
-//		}
 		text = characters.reduce("", combine: { $0! + $1 + " " })
 	}
 

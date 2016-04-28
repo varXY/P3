@@ -85,6 +85,7 @@
 		31F09E1A1C6B26C900196277 /* Chinese+SelectTheSame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */; };
 		31F09E1E1C6C737D00196277 /* SpellViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E1D1C6C737D00196277 /* SpellViewController.swift */; };
 		31F09E201C6C73F400196277 /* Chinese+Spell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F09E1F1C6C73F400196277 /* Chinese+Spell.swift */; };
+		31F34F081CD18ED800E1F303 /* PromptSound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31F34F071CD18ED800E1F303 /* PromptSound.swift */; };
 		C372483C1C561B9100EDD735 /* Term+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */; };
 		C372483D1C561B9100EDD735 /* Term.swift in Sources */ = {isa = PBXBuildFile; fileRef = C372483B1C561B9100EDD735 /* Term.swift */; };
 		C3CDD5061C522CFC00209556 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3CDD5051C522CFC00209556 /* AppDelegate.swift */; };
@@ -178,6 +179,7 @@
 		31F09E191C6B26C900196277 /* Chinese+SelectTheSame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+SelectTheSame.swift"; sourceTree = "<group>"; };
 		31F09E1D1C6C737D00196277 /* SpellViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpellViewController.swift; sourceTree = "<group>"; };
 		31F09E1F1C6C73F400196277 /* Chinese+Spell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Chinese+Spell.swift"; sourceTree = "<group>"; };
+		31F34F071CD18ED800E1F303 /* PromptSound.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PromptSound.swift; sourceTree = "<group>"; };
 		C372483A1C561B9100EDD735 /* Term+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Term+CoreDataProperties.swift"; path = "../Term+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		C372483B1C561B9100EDD735 /* Term.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Term.swift; path = ../Term.swift; sourceTree = "<group>"; };
 		C3CDD5021C522CFC00209556 /* Pinyin Comparison.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Pinyin Comparison.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,8 +256,8 @@
 		311A89FD1C6863FF00257A26 /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				C3CDD5051C522CFC00209556 /* AppDelegate.swift */,
 				311A8A0B1C688A2600257A26 /* Global.swift */,
+				C3CDD5051C522CFC00209556 /* AppDelegate.swift */,
 				C3CDD5141C522CFD00209556 /* Info.plist */,
 				31E0FA011C828AA300054496 /* InfoPlist.strings */,
 				31E0F9F81C827DF400054496 /* Localizable.strings */,
@@ -290,6 +292,7 @@
 				3123319B1CAB89C50069A4A1 /* Pinyins.swift */,
 				3197AB311C7EE75400A5A340 /* Character Struct */,
 				311A89F31C685E4300257A26 /* Word Store */,
+				31F34F071CD18ED800E1F303 /* PromptSound.swift */,
 				317519DB1C706083002223F1 /* ScoreModel.swift */,
 				317519D31C701001002223F1 /* Score.swift */,
 				310097051C7197B7003C7FA6 /* DailyScore.swift */,
@@ -537,6 +540,7 @@
 				31E5C5F31CCEE521001FF3C0 /* FreeLabel.swift in Sources */,
 				3175AF071C69B77C001BEACE /* NavigationController.swift in Sources */,
 				31C8D1D71C7BE168006B2279 /* SupportProducts.swift in Sources */,
+				31F34F081CD18ED800E1F303 /* PromptSound.swift in Sources */,
 				3197AB451C7EEAC000A5A340 /* Struct_K.swift in Sources */,
 				3197AB371C7EEA7600A5A340 /* Struct_C.swift in Sources */,
 				3197AB411C7EEAAB00A5A340 /* Struct_H.swift in Sources */,

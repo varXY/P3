@@ -118,7 +118,7 @@ class SpellViewController: TestViewController {
 
 		if pinyins[selectedIndex] == selectedPinyin && !showed {
 			showed = true
-			if sound { rightSound.play() }
+			if sound { promptSound.play(true, sound: promptSound.right_sound) }
 			blockView.changeColorAtIndex(selectedIndex, color: UIColor.colorWithValues(MyColors.P_rightGreen), backToBlue: true)
 
 			delay(seconds: 0.5, completion: { () -> () in
@@ -160,7 +160,7 @@ extension SpellViewController: BlockViewDelegate {
 
 	func answerShowedByQuestionMark() {
 		headerView.showAndAddScore(wrongScore)
-		if sound { wrongSound.play() }
+		if sound { promptSound.play(true, sound: promptSound.wrong_sound) }
 		if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 
 		delay(seconds: 0.8, completion: { () -> () in
