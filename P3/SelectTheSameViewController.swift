@@ -148,7 +148,7 @@ extension SelectTheSameViewController: LittleTouchDownAndUp {
 				lianLianKan.buttons[selectedCharacterIndexes[1]].removeFromSuperview()
 				headerView.showAndAddScore(rightScore)
 				if sound { promptSound.play(true, sound: promptSound.right_sound) }
-				delay(seconds: 0.8, completion: { self.checkTestCompleteOrNot() })
+				self.checkTestCompleteOrNot()
 			} else {
 				lianLianKan.buttons[selectedCharacterIndexes[0]].backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
 				lianLianKan.buttons[selectedCharacterIndexes[0]].tintColor = UIColor.whiteColor()
@@ -165,12 +165,14 @@ extension SelectTheSameViewController: LittleTouchDownAndUp {
 
 	func checkTestCompleteOrNot() {
 		if view.subviews.count == 2 {
-			chinese.get60CharactersForSelectTheSame()
-			self.view.bringSubviewToFront(self.finalView)
-			self.finalView.show(self.headerView.currentScore, delay: 0.5)
+			delay(seconds: 0.8, completion: { 
+				self.chinese.get60CharactersForSelectTheSame()
+				self.view.bringSubviewToFront(self.finalView)
+				self.finalView.show(self.headerView.currentScore, delay: 0.5)
 
-			let score = Score(score: self.headerView.currentScore, time: NSDate())
-			self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
+				let score = Score(score: self.headerView.currentScore, time: NSDate())
+				self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
+			})
 		}
 	}
 

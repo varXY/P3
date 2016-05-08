@@ -44,8 +44,6 @@ struct Pinyins {
 
 		//--------------------------- c
 
-		"dou diu",
-
 		// - h
 		"ca cha",
 		"cu chu",
@@ -59,6 +57,18 @@ struct Pinyins {
 		"chen cheng",
 		"chou cou",
 		"chuan chuang",
+
+		// join z 
+		"chi zhi",
+
+		// join s
+		"chi shi",
+
+		//--------------------------- d
+
+		"dou diu",
+
+		// - g
 		"dan dang",
 
 		//--------------------------- e
@@ -271,6 +281,9 @@ struct Pinyins {
 		"shan shang",
 		"shen sheng",
 		"shuan shuang",
+
+		// - join z
+		"shi, zhi",
 
 		//--------------------------- t
 
