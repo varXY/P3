@@ -106,6 +106,10 @@
 		3100970C1C72A423003C7FA6 /* UIFont+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		3100970F1C72B2A1003C7FA6 /* Tahoma Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Tahoma Bold.ttf"; sourceTree = "<group>"; };
 		310097101C72B2A1003C7FA6 /* Tahoma.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Tahoma.ttf; sourceTree = "<group>"; };
+		311242D81D1571F700DEFC87 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		311242D91D1571F700DEFC87 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		311242DA1D1571FF00DEFC87 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		311242DB1D15720000DEFC87 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		311A89F41C685ECE00257A26 /* SingleViewCoreData.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = SingleViewCoreData.sqlite; sourceTree = "<group>"; };
 		311A89F51C685ECE00257A26 /* SingleViewCoreData.sqlite-shm */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SingleViewCoreData.sqlite-shm"; sourceTree = "<group>"; };
 		311A89F61C685ECE00257A26 /* SingleViewCoreData.sqlite-wal */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SingleViewCoreData.sqlite-wal"; sourceTree = "<group>"; };
@@ -454,6 +458,8 @@
 				Base,
 				"zh-Hans",
 				"zh-Hant",
+				ko,
+				ja,
 			);
 			mainGroup = C3CDD4F91C522CFC00209556;
 			productRefGroup = C3CDD5031C522CFC00209556 /* Products */;
@@ -577,6 +583,8 @@
 				31E0F9F91C827DF400054496 /* Base */,
 				31E0F9FB1C827E2A00054496 /* zh-Hans */,
 				31E0F9FC1C827E7C00054496 /* zh-Hant */,
+				311242D91D1571F700DEFC87 /* ko */,
+				311242DB1D15720000DEFC87 /* ja */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -587,6 +595,8 @@
 				31E0FA001C828AA300054496 /* Base */,
 				31E0FA021C828AAA00054496 /* zh-Hans */,
 				31E0FA031C828AAD00054496 /* zh-Hant */,
+				311242D81D1571F700DEFC87 /* ko */,
+				311242DA1D1571FF00DEFC87 /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

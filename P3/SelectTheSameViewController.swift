@@ -94,7 +94,11 @@ class SelectTheSameViewController: TestViewController {
 			lianLianKan.buttons.forEach({ (button) in
 				button.alpha = 0.0
 				view.addSubview(button)
-				UIView.animateWithDuration(0.3, animations: { button.alpha = 1.0 }, completion: nil)
+				let delayTime = 0.01 * Double(lianLianKan.buttons.indexOf(button)!)
+				UIView.animateKeyframesWithDuration(0.2, delay: delayTime, options: [], animations: { 
+					button.alpha = 1.0
+					}, completion: nil)
+//				UIView.animateWithDuration(0.3, animations: { button.alpha = 1.0 }, completion: nil)
 			})
 			delay(seconds: 0.3, completion: { self.headerView.centerLabel.removeFromSuperview() })
 			delay(seconds: 1.0, completion: {
