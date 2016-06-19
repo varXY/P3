@@ -6,7 +6,6 @@
 //  Copyright © 2016 myname. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import MessageUI
 import StoreKit
@@ -35,7 +34,7 @@ class SettingViewController: UIViewController {
 			NSLocalizedString("Share", comment: "SettingVC")
 		],
 
-		[NSLocalizedString("Contribute", comment: "SettingVC")]
+		[NSLocalizedString("Feedback", comment: "SettingVC")]
 	]
 
 	let userDefaults = NSUserDefaults.standardUserDefaults()
@@ -104,7 +103,7 @@ class SettingViewController: UIViewController {
 	}
 
 	func shareContent() {
-		let text: String = NSLocalizedString("App Store: Pinyin Comparsion", comment: "SettingVC")
+		let text: String = NSLocalizedString("App Store: Pinyin Comparison", comment: "SettingVC")
 		let link = NSURL(string: AppStoreLink)!
 		let arr: [AnyObject] = [text, link]
 		presentViewController(UIActivityViewController(activityItems: arr, applicationActivities: []), animated: true, completion: nil)
@@ -262,7 +261,7 @@ extension SettingViewController: UITableViewDataSource, UITableViewDelegate {
 			}
 
 		case 3:
-			connectToStore()
+			menuViewControllerSendSupportEmail()
 
 		default:
 			break
