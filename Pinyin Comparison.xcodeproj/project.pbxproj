@@ -260,8 +260,8 @@
 		311A89FD1C6863FF00257A26 /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				311A8A0B1C688A2600257A26 /* Global.swift */,
 				C3CDD5051C522CFC00209556 /* AppDelegate.swift */,
+				311A8A0B1C688A2600257A26 /* Global.swift */,
 				C3CDD5141C522CFD00209556 /* Info.plist */,
 				31E0FA011C828AA300054496 /* InfoPlist.strings */,
 				31E0F9F81C827DF400054496 /* Localizable.strings */,

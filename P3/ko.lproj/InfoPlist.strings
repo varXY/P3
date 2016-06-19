@@ -6,4 +6,4 @@
   Copyright © 2016 myname. All rights reserved.
 */
 
-CFBundleDisplayName = "병음 판별하는";
+CFBundleDisplayName = "병음 비교";
