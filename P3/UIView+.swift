@@ -11,24 +11,24 @@ import UIKit
 
 extension UIView {
 
-	func viewAddAnimation(animationType: AnimationType, delay: Double, distance: CGFloat) {
+	func viewAddAnimation(_ animationType: AnimationType, delay: Double, distance: CGFloat) {
 
 		switch animationType {
-		case .BecomeVisble:
+		case .becomeVisble:
 			self.alpha = 0.0
 
-			UIView.animateWithDuration(0.5, delay: delay, options: [], animations: { () -> Void in
+			UIView.animate(withDuration: 0.5, delay: delay, options: [], animations: { () -> Void in
 				self.alpha = 1.0
 				}, completion: nil)
 
-		case .Appear:
+		case .appear:
 			alpha = 0.0
 			frame.origin.y += distance
 //			transform = CGAffineTransformMakeScale(1.2, 1.2)
 
-			let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * delay ))
-			dispatch_after(popTime, dispatch_get_main_queue()) {
-				UIView.performSystemAnimation(.Delete, onViews: [], options: [], animations: {
+			let popTime = DispatchTime.now() + Double(Int64( Double(NSEC_PER_SEC) * delay )) / Double(NSEC_PER_SEC)
+			DispatchQueue.main.asyncAfter(deadline: popTime) {
+				UIView.perform(.delete, on: [], options: [], animations: {
 					self.alpha = 1.0
 					self.frame.origin.y -= distance
 					}, completion: nil)
@@ -40,8 +40,8 @@ extension UIView {
 ////				self.transform = CGAffineTransformIdentity
 //				}, completion: nil)
 
-		case .Disappear:
-			UIView.animateWithDuration(0.5, delay: delay, options: [], animations: { () -> Void in
+		case .disappear:
+			UIView.animate(withDuration: 0.5, delay: delay, options: [], animations: { () -> Void in
 				self.alpha = 0.0
 				}, completion: nil)
 
@@ -51,8 +51,8 @@ extension UIView {
 		}
 	}
 
-	func addBorder(borderColor borderColor: UIColor, width: CGFloat) {
-		self.layer.borderColor = borderColor.CGColor
+	func addBorder(borderColor: UIColor, width: CGFloat) {
+		self.layer.borderColor = borderColor.cgColor
 		self.layer.borderWidth = width
 	}
 

@@ -11,11 +11,11 @@ import UIKit
 
 
 protocol FinalViewDelegate: class {
-	func finalViewButtonTapped(buttonType: FinalViewButtonType)
+	func finalViewButtonTapped(_ buttonType: FinalViewButtonType)
 }
 
 enum FinalViewButtonType {
-	case Again, Quit
+	case again, quit
 }
 
 class FinalView: UIView {
@@ -28,65 +28,65 @@ class FinalView: UIView {
 
 	init() {
 		super.init(frame: CGRect(x: 0, y: ScreenHeight, width: ScreenWidth, height: ScreenHeight - 60))
-		self.backgroundColor = UIColor.whiteColor()
+		self.backgroundColor = UIColor.white
 
 		titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: frame.width, height: 50))
-		titleLabel.textAlignment = .Center
-		titleLabel.font = UIFont.systemFontOfSize(20)
+		titleLabel.textAlignment = .center
+		titleLabel.font = UIFont.systemFont(ofSize: 20)
 		addSubview(titleLabel)
 
 		numberLabel = UILabel(frame: CGRect(x: 0, y: titleLabel.frame.height - 20, width: frame.width, height: frame.height - 160 - 60 - 50))
 		numberLabel.textColor = UIColor.colorWithValues(MyColors.P_gold)
-		numberLabel.textAlignment = .Center
+		numberLabel.textAlignment = .center
 		numberLabel.font = UIFont.scoreFont(90)
 		addSubview(numberLabel)
 
 		let indexes = [0, 1]
 		let _: [UIButton] = indexes.map({
-			let button = UIButton(type: .System)
+			let button = UIButton(type: .system)
 			button.frame = CGRect(x: 20, y: (self.frame.height - 160 - 60) + 80 * CGFloat($0), width: self.frame.width - 40, height: 60)
-			button.backgroundColor = UIColor.clearColor()
-			button.addTextLabel(Titles.finalChoices[$0], textColor: UIColor.colorWithValues(MyColors.P_darkBlue), font: UIFont.systemFontOfSize(22), animated: false)
+			button.backgroundColor = UIColor.clear
+			button.addTextLabel(Titles.finalChoices[$0], textColor: UIColor.colorWithValues(MyColors.P_darkBlue), font: UIFont.systemFont(ofSize: 22), animated: false)
 			button.changeColorWhenTouchDown(UIColor.colorWithValues(MyColors.P_darkBlue))
 			button.addBorder(borderColor: UIColor.colorWithValues(MyColors.P_darkBlue), width: 2.0)
 			button.tag = 9999 + $0
-			button.addTarget(self, action: #selector(finalChoice(_:)), forControlEvents: .TouchUpInside)
-			button.exclusiveTouch = true
+			button.addTarget(self, action: #selector(finalChoice(_:)), for: .touchUpInside)
+			button.isExclusiveTouch = true
 			addSubview(button)
 			return button
 		})
 
 		bottomLabel = UILabel(frame: CGRect(x: 0, y: frame.height - 60, width: frame.width, height: 60))
-		bottomLabel.textColor =  UIColor.whiteColor()
-		bottomLabel.font = UIFont.systemFontOfSize(22)
-		bottomLabel.textAlignment = .Center
+		bottomLabel.textColor =  UIColor.white
+		bottomLabel.font = UIFont.systemFont(ofSize: 22)
+		bottomLabel.textAlignment = .center
 		bottomLabel.backgroundColor = UIColor.colorWithValues(MyColors.P_gold)
 		addSubview(bottomLabel)
 	}
 
-	func show(currentScore: Int, delay: Double) {
+	func show(_ currentScore: Int, delay: Double) {
 		let win = currentScore >= 0
 		let numberToShow = win ? currentScore : -currentScore
 		titleLabel.textColor = win ? UIColor.colorWithValues(MyColors.P_rightGreen) : UIColor.colorWithValues(MyColors.P_wrongRed)
 		titleLabel.text = win ? NSLocalizedString("You win:", comment: "FinalView") : NSLocalizedString("You lose:", comment: "FinalView")
 		numberLabel.text = "\(numberToShow)"
 
-		let formatter = NSDateFormatter()
+		let formatter = DateFormatter()
 		formatter.dateFormat = "HH:mm MM-dd-yyyy"
-		bottomLabel.text = formatter.stringFromDate(NSDate())
+		bottomLabel.text = formatter.string(from: Date())
 		
-		UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
+		UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 			self.frame.origin.y -= self.frame.height
 			}, completion: nil)
 
 	}
 
-	func finalChoice(sender: UIButton) {
+	func finalChoice(_ sender: UIButton) {
 
-		UIView.animateWithDuration(0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
+		UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 			self.frame.origin.y += self.frame.height
 			}) { (_) -> Void in
-				let buttonType = sender.tag == 9999 ? FinalViewButtonType.Again : FinalViewButtonType.Quit
+				let buttonType = sender.tag == 9999 ? FinalViewButtonType.again : FinalViewButtonType.quit
 				self.delegate?.finalViewButtonTapped(buttonType)
 		}
 

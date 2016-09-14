@@ -6,16 +6,20 @@
 //  Copyright © 2016 myname. All rights reserved.
 //
 
-import Foundation
 import UIKit
 import AVFoundation
 
+
+protocol TestViewControllerDelegate: class {
+    func sendBackScore(totalScore: Int, newScore: Score, chinese: Chinese)
+}
 
 class TestViewController: UIViewController {
 
 	var chinese: Chinese!
 	var totalScore: Int!
-	var sendBackScore: ((totalScore: Int, newScore: Score) -> Void)!
+	
+    weak var delegate: TestViewControllerDelegate?
 
 	var blockViews = [BlockView]()
 	var scrollView = UIScrollView()
@@ -33,7 +37,7 @@ class TestViewController: UIViewController {
 
 	var freeStyle = true
 
-	override func prefersStatusBarHidden() -> Bool {
+	override var prefersStatusBarHidden : Bool {
 		return true
 	}
 
@@ -46,7 +50,7 @@ class TestViewController: UIViewController {
 		view.addSubview(finalView)
 	}
 
-	override func viewWillAppear(animated: Bool) {
+	override func viewWillAppear(_ animated: Bool) {
 		super.viewWillAppear(animated)
 		self.navigationController?.setNavigationBarHidden(true, animated: true)
 	}
@@ -54,16 +58,16 @@ class TestViewController: UIViewController {
 	func setUpScrollView() {
 		scrollView.contentSize = CGSize(width: scrollView.frame.width * 10, height: scrollView.frame.height)
 		scrollView.backgroundColor = UIColor.colorWithValues(MyColors.P_darkBlue)
-		scrollView.pagingEnabled = true
-		scrollView.scrollEnabled = false
+		scrollView.isPagingEnabled = true
+		scrollView.isScrollEnabled = false
 		view.addSubview(scrollView)
-		view.bringSubviewToFront(headerView)
-		view.bringSubviewToFront(nextButton)
+		view.bringSubview(toFront: headerView)
+		view.bringSubview(toFront: nextButton)
 	}
 
-	func jumpToPage(page: Int) {
+	func jumpToPage(_ page: Int) {
 		let duration = Double(scrollView.frame.width / 640)
-		UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
+		UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 			self.scrollView.contentOffset = CGPoint(x: self.scrollView.bounds.size.width * CGFloat(page), y: 0.0) 
 			}, completion: {(_) -> Void in
 				self.removeContent()
@@ -75,7 +79,7 @@ class TestViewController: UIViewController {
 	}
 
 	func confirmToQuit() {
-		self.navigationController?.popViewControllerAnimated(true)
+		let _ = navigationController?.popViewController(animated: true)
 	}
 
 }
@@ -88,20 +92,20 @@ extension TestViewController: HeaderViewDelegate {
 			let warning = NSLocalizedString("If you quit, current score will be lost.", comment: "TestVC")
 			alertOfStayOrQuit(self, title: notFinished, message: warning, quit: { self.confirmToQuit() })
 		} else {
-			navigationController?.popToRootViewControllerAnimated(true)
+			let _ = navigationController?.popToRootViewController(animated: true)
 		}
 	}
 }
 
 extension TestViewController: FinalViewDelegate {
 
-	func finalViewButtonTapped(buttonType: FinalViewButtonType) {
+	func finalViewButtonTapped(_ buttonType: FinalViewButtonType) {
 
-		if buttonType == .Again {
+		if buttonType == .again {
 			headerView.startAllOver()
 
 			let duration = Double(scrollView.frame.width / 640)
-			UIView.animateWithDuration(duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
+			UIView.animate(withDuration: duration, delay: 0.0, usingSpringWithDamping: 0.95, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 				self.scrollView.frame.origin.x -= self.view.frame.width
 				}, completion: {(_) -> Void in
 					self.removeContent()

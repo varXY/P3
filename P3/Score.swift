@@ -13,26 +13,26 @@ import UIKit
 class Score: NSObject, NSCoding {
 
 	var score: Int!
-	var time: NSDate!
+	var time: Date!
 
 	override init() {
 		self.score = 0
-		self.time = NSDate()
+		self.time = Date()
 	}
 
-	init(score: Int, time: NSDate) {
+	init(score: Int, time: Date) {
 		self.score = score
 		self.time = time
 	}
 
-	func encodeWithCoder(aCoder: NSCoder) {
-		aCoder.encodeObject(score, forKey: "Score")
-		aCoder.encodeObject(time, forKey: "Time")
+	func encode(with aCoder: NSCoder) {
+		aCoder.encode(score, forKey: "Score")
+		aCoder.encode(time, forKey: "Time")
 	}
 
 	required init?(coder aDecoder: NSCoder) {
-		score = aDecoder.decodeObjectForKey("Score") as! Int
-		time = aDecoder.decodeObjectForKey("Time") as! NSDate
+		score = aDecoder.decodeObject(forKey: "Score") as! Int
+		time = aDecoder.decodeObject(forKey: "Time") as! Date
 		super.init()
 	}
 }

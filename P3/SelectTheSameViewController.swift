@@ -9,6 +9,17 @@
 import Foundation
 import UIKit
 import AVFoundation
+fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
+  switch (lhs, rhs) {
+  case let (l?, r?):
+    return l < r
+  case (nil, _?):
+    return true
+  default:
+    return false
+  }
+}
+
 
 
 class SelectTheSameViewController: TestViewController {
@@ -42,7 +53,7 @@ class SelectTheSameViewController: TestViewController {
 
 	}
 
-	func prepareScrollView(firstTime firstTime: Bool) {
+	func prepareScrollView(firstTime: Bool) {
 		scrollView = UIScrollView(frame: view.bounds)
 		scrollView.frame.origin.x += firstTime ? 0 : view.frame.width
 		setUpScrollView()
@@ -51,19 +62,19 @@ class SelectTheSameViewController: TestViewController {
 		addContent(page: currentPage, firstTime: firstTime)
 	}
 
-	func addContent(page page: Int, firstTime: Bool) {
+	func addContent(page: Int, firstTime: Bool) {
 		if !firstTime { chinese.getSixForSelectTheSame() }
 		rightAnswer = chinese.forSelectTheSame[0][0]
 
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let indexes = getRandomNumbers(6, lessThan: 6)
 		blockViews += indexes.map({
-			let i = indexes.indexOf($0)!
+			let i = indexes.index(of: $0)!
 			let margin = (ScreenWidth - BlockWidth.selectTheSame * 2) / 3
 			let x = positionInPage + margin + (BlockWidth.selectTheSame + margin) * CGFloat(i % 2)
 			let y = blockY(i)
 
-			let blockView = BlockView(type: .SelectTheSame, origin: CGPoint(x: x, y: y), text: chinese.forSelectTheSame[indexes[i]])
+			let blockView = BlockView(type: .selectTheSame, origin: CGPoint(x: x, y: y), text: chinese.forSelectTheSame[indexes[i]])
 			blockView.delegate = self
 			scrollView.addSubview(blockView)
 			return blockView
@@ -71,7 +82,7 @@ class SelectTheSameViewController: TestViewController {
 
 	}
 
-	func blockY(number: Int) -> CGFloat {
+	func blockY(_ number: Int) -> CGFloat {
 		let initalY: CGFloat = ScreenHeight == 480 ? 50 : 90
 		let margin: CGFloat = ScreenHeight == 480 ? 10 : 30
 		switch number {
@@ -88,14 +99,14 @@ class SelectTheSameViewController: TestViewController {
 
 	override func removeContent() {
 		if ScreenHeight == 480 {
-			blockViews.forEach({ if blockViews.indexOf($0) < 6 { $0.removeFromSuperview() } })
+			blockViews.forEach({ if blockViews.index(of: $0) < 6 { $0.removeFromSuperview() } })
 		} else {
 			lianLianKan = LianLianKan(content: chinese.selectTheSame60Characters, VC: self)
 			lianLianKan.buttons.forEach({ (button) in
 				button.alpha = 0.0
 				view.addSubview(button)
-				let delayTime = 0.01 * Double(lianLianKan.buttons.indexOf(button)!)
-				UIView.animateKeyframesWithDuration(0.2, delay: delayTime, options: [], animations: { 
+				let delayTime = 0.01 * Double(lianLianKan.buttons.index(of: button)!)
+				UIView.animateKeyframes(withDuration: 0.2, delay: delayTime, options: [], animations: { 
 					button.alpha = 1.0
 					}, completion: nil)
 //				UIView.animateWithDuration(0.3, animations: { button.alpha = 1.0 }, completion: nil)
@@ -115,7 +126,7 @@ class SelectTheSameViewController: TestViewController {
 		let right = allTheSame.count == 3 && selectedBlocks.count == 3
 		let color: UIColor = right ? UIColor.colorWithValues(MyColors.P_rightGreen) : UIColor.colorWithValues(MyColors.P_wrongRed)
 		let score = right ? rightScore : wrongScore
-		headerView.showAndAddScore(score)
+		headerView.showAndAddScore(score!)
 		if sound { right ? promptSound.play(true, sound: promptSound.right_sound) : promptSound.play(true, sound: promptSound.wrong_sound) }
 		if vibration && !right { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 
@@ -132,17 +143,17 @@ class SelectTheSameViewController: TestViewController {
 
 extension SelectTheSameViewController: LittleTouchDownAndUp {
 
-	func touchDown(sender: UIButton) {
-		sender.backgroundColor = UIColor.whiteColor()
+	func touchDown(_ sender: UIButton) {
+		sender.backgroundColor = UIColor.white
 		sender.tintColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 	}
 
-	func touchUpOutside(sender: UIButton) {
+	func touchUpOutside(_ sender: UIButton) {
 		sender.backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
-		sender.tintColor = UIColor.whiteColor()
+		sender.tintColor = UIColor.white
 	}
 
-	func touchUpInside(sender: UIButton) {
+	func touchUpInside(_ sender: UIButton) {
 		selectedCharacterIndexes.append(sender.tag - 200)
 
 		if selectedCharacterIndexes.count == 2 {
@@ -155,9 +166,9 @@ extension SelectTheSameViewController: LittleTouchDownAndUp {
 				self.checkTestCompleteOrNot()
 			} else {
 				lianLianKan.buttons[selectedCharacterIndexes[0]].backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
-				lianLianKan.buttons[selectedCharacterIndexes[0]].tintColor = UIColor.whiteColor()
+				lianLianKan.buttons[selectedCharacterIndexes[0]].tintColor = UIColor.white
 				lianLianKan.buttons[selectedCharacterIndexes[1]].backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
-				lianLianKan.buttons[selectedCharacterIndexes[1]].tintColor = UIColor.whiteColor()
+				lianLianKan.buttons[selectedCharacterIndexes[1]].tintColor = UIColor.white
 				headerView.showAndAddScore(wrongScore)
 				if sound { promptSound.play(true, sound: promptSound.wrong_sound) }
 				if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
@@ -171,11 +182,11 @@ extension SelectTheSameViewController: LittleTouchDownAndUp {
 		if view.subviews.count == 2 {
 			delay(seconds: 0.8, completion: { 
 				self.chinese.get60CharactersForSelectTheSame()
-				self.view.bringSubviewToFront(self.finalView)
+				self.view.bringSubview(toFront: self.finalView)
 				self.finalView.show(self.headerView.currentScore, delay: 0.5)
 
-				let score = Score(score: self.headerView.currentScore, time: NSDate())
-				self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
+				let score = Score(score: self.headerView.currentScore, time: Date())
+				self.delegate?.sendBackScore(totalScore: self.headerView.totalScore, newScore: score, chinese: self.chinese)
 			})
 		}
 	}
@@ -186,14 +197,14 @@ extension SelectTheSameViewController: LittleTouchDownAndUp {
 
 extension SelectTheSameViewController: BlockViewDelegate {
 
-	func blockViewSelected(selected: Bool, blockText: [String]) {
+	func blockViewSelected(_ selected: Bool, blockText: [String]) {
 		selectedBlocks = selected ? selectedBlocks + [blockText] : selectedBlocks.filter({ $0[1] != blockText[1] })
 
-		if selectedBlocks.count > 2 && nextButton.titleType != .Confirm {
-			nextButton.show(.Confirm, dismissAfterTapped: false)
+		if selectedBlocks.count > 2 && nextButton.titleType != .confirm {
+			nextButton.show(.confirm, dismissAfterTapped: false)
 		}
 
-		if selectedBlocks.count < 3 && nextButton.titleType == .Confirm {
+		if selectedBlocks.count < 3 && nextButton.titleType == .confirm {
 			nextButton.hide()
 		}
 
@@ -206,15 +217,15 @@ extension SelectTheSameViewController: BlockViewDelegate {
 
 extension SelectTheSameViewController: NextButtonDelegate {
 
-	func nextButtonTapped(title: NextButtonTitle) {
+	func nextButtonTapped(_ title: NextButtonTitle) {
 		
 		if currentPage < 10 {
 
-			if title == .Confirm {
+			if title == .confirm {
 				showRightOrWrong()
 
 				delay(seconds: 0.8, completion: {
-					let nextTitle: NextButtonTitle = self.currentPage == 9 ? .Done : .Next
+					let nextTitle: NextButtonTitle = self.currentPage == 9 ? .done : .next
 					self.nextButton.changeTitle(nextTitle, dismissAfterTapped: true)
 				})
 
@@ -225,7 +236,7 @@ extension SelectTheSameViewController: NextButtonDelegate {
 
 			}
 
-			if title == .Next {
+			if title == .next {
 				delay(seconds: Time.toNextPageWaitingTime, completion: {
 					self.headerView.changeNumber(toNumber: self.currentPage + 1)
 					self.jumpToPage(self.currentPage)
@@ -234,17 +245,17 @@ extension SelectTheSameViewController: NextButtonDelegate {
 			}
 
 		} else {
-			UIView.animateWithDuration(0.3, animations: { () -> Void in
+			UIView.animate(withDuration: 0.3, animations: { () -> Void in
 				self.scrollView.alpha = 0.0
 				}, completion: { (_) -> Void in
 					self.headerView.showAllNumbers()
 					self.scrollView.removeFromSuperview()
-					self.view.bringSubviewToFront(self.finalView)
+					self.view.bringSubview(toFront: self.finalView)
 					self.finalView.show(self.headerView.currentScore, delay: 0.5)
 					self.prepareScrollView(firstTime: false)
 
-					let score = Score(score: self.headerView.currentScore, time: NSDate())
-					self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
+					let score = Score(score: self.headerView.currentScore, time: Date())
+					self.delegate?.sendBackScore(totalScore: self.headerView.totalScore, newScore: score, chinese: self.chinese)
 			})
 		}
 

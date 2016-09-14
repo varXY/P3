@@ -6,7 +6,6 @@
 //  Copyright © 2016 myname. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 
@@ -15,6 +14,8 @@ class DailyScoreCell: UITableViewCell {
 	var scoreLabel: UILabel!
 	var dateLabel: UILabel!
 
+    
+    
 	override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
 		super.init(style: style, reuseIdentifier: reuseIdentifier)
 
@@ -28,11 +29,12 @@ class DailyScoreCell: UITableViewCell {
 
 		dateLabel = UILabel(frame: CGRect(x: contentView.frame.width - 110, y: 5, width: 100, height: contentView.frame.height - 5))
 		dateLabel.textColor = UIColor.colorWithValues(MyColors.P_darkBlue)
-		dateLabel.textAlignment = .Right
+		dateLabel.textAlignment = .right
 		contentView.addSubview(dateLabel)
 	}
 
-	func showFakeData(data: [AnyObject]) {
+    
+	func showFakeData(_ data: [AnyObject]) {
 		let max = 109
 		let number = CGFloat(data[0] as! Int)
 		let positive = number >= 0
@@ -47,17 +49,19 @@ class DailyScoreCell: UITableViewCell {
 		contentView.addSubview(colorView)
 
 		scoreLabel.text = positive ? "+" + String(data[0] as! Int) : String(data[0] as! Int)
-		contentView.bringSubviewToFront(scoreLabel)
+		contentView.bringSubview(toFront: scoreLabel)
 
 		dateLabel.text = data[1] as? String
-		contentView.bringSubviewToFront(dateLabel)
+		contentView.bringSubview(toFront: dateLabel)
 	}
 
+    
 	func showNoData() {
 		scoreLabel.text = Titles.noRecords
 	}
 
-	func configureForCell(dailyScore: DailyScore, max: UInt) {
+    
+	func configureForCell(_ dailyScore: DailyScore, max: UInt) {
 		let number = CGFloat(dailyScore.score)
 		let positive = number >= 0
 
@@ -71,14 +75,16 @@ class DailyScoreCell: UITableViewCell {
 		contentView.addSubview(colorView)
 
 		scoreLabel.text = positive ? "+" + String(dailyScore.score) : String(dailyScore.score)
-		contentView.bringSubviewToFront(scoreLabel)
+		contentView.bringSubview(toFront: scoreLabel)
 
 		dateLabel.text = dailyScore.date
-		contentView.bringSubviewToFront(dateLabel)
+		contentView.bringSubview(toFront: dateLabel)
 
 	}
 
+    
 	required init?(coder aDecoder: NSCoder) {
 	    fatalError("init(coder:) has not been implemented")
 	}
+    
 }

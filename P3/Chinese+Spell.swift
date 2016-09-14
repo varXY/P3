@@ -17,7 +17,7 @@ extension Chinese {
 		repeat {
 			let randomIndex = getRandomNumbers(1, lessThan: 52936)
 			let pinyin = wordPinyinFromIndex(Double(randomIndex[0]))
-			let yins = pinyin.componentsSeparatedByString(" ")
+			let yins = pinyin.components(separatedBy: " ")
 			let words = wordsFromPinyin(pinyin)
 
 			if words.count >= 1 {

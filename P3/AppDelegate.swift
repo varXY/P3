@@ -18,34 +18,34 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 	let scoreModel = ScoreModel()
 	var chinese = Chinese()
 
-    func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
-		window = UIWindow(frame: UIScreen.mainScreen().bounds)
-		window!.backgroundColor = UIColor.whiteColor()
+		window = UIWindow(frame: UIScreen.main.bounds)
+		window!.backgroundColor = UIColor.white
 
 		// MARK: Shortcut
 
 		var shouldPerformAdditionalDelegateHandling = true
 
-		if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsShortcutItemKey] as? UIApplicationShortcutItem {
+		if let shortcutItem = launchOptions?[UIApplicationLaunchOptionsKey.shortcutItem] as? UIApplicationShortcutItem {
 
 			launchedShortcutItem = shortcutItem
 
 			shouldPerformAdditionalDelegateHandling = false
 		}
 
-		if let shortcutItems = application.shortcutItems where shortcutItems.isEmpty {
+		if let shortcutItems = application.shortcutItems , shortcutItems.isEmpty {
 
-			let shortcut1 = UIApplicationShortcutItem(type: ShortcutIdentifier.First.type, localizedTitle: Titles.homepageBigButtons[0], localizedSubtitle: nil, icon: UIApplicationShortcutIcon(type: .Play), userInfo: [
-				AppDelegate.applicationShortcutUserInfoIconKey: UIApplicationShortcutIconType.Play.rawValue
+			let shortcut1 = UIApplicationShortcutItem(type: ShortcutIdentifier.First.type, localizedTitle: Titles.homepageBigButtons[0], localizedSubtitle: nil, icon: UIApplicationShortcutIcon(type: .play), userInfo: [
+				AppDelegate.applicationShortcutUserInfoIconKey: UIApplicationShortcutIconType.play.rawValue
 				])
 
-			let shortcut2 = UIApplicationShortcutItem(type: ShortcutIdentifier.Second.type, localizedTitle: Titles.homepageBigButtons[1], localizedSubtitle: nil, icon: UIApplicationShortcutIcon(type: .Play), userInfo: [
-				AppDelegate.applicationShortcutUserInfoIconKey: UIApplicationShortcutIconType.Play.rawValue
+			let shortcut2 = UIApplicationShortcutItem(type: ShortcutIdentifier.Second.type, localizedTitle: Titles.homepageBigButtons[1], localizedSubtitle: nil, icon: UIApplicationShortcutIcon(type: .play), userInfo: [
+				AppDelegate.applicationShortcutUserInfoIconKey: UIApplicationShortcutIconType.play.rawValue
 				])
 
-			let shortcut3 = UIApplicationShortcutItem(type: ShortcutIdentifier.Third.type, localizedTitle: Titles.homepageBigButtons[2], localizedSubtitle: nil, icon: UIApplicationShortcutIcon(type: .Play), userInfo: [
-				AppDelegate.applicationShortcutUserInfoIconKey: UIApplicationShortcutIconType.Play.rawValue
+			let shortcut3 = UIApplicationShortcutItem(type: ShortcutIdentifier.Third.type, localizedTitle: Titles.homepageBigButtons[2], localizedSubtitle: nil, icon: UIApplicationShortcutIcon(type: .play), userInfo: [
+				AppDelegate.applicationShortcutUserInfoIconKey: UIApplicationShortcutIconType.play.rawValue
 				])
 
 			application.shortcutItems = [shortcut1, shortcut2, shortcut3]
@@ -68,22 +68,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
-	func applicationDidBecomeActive(application: UIApplication) {
+	func applicationDidBecomeActive(_ application: UIApplication) {
 		guard let shortcut = launchedShortcutItem else { return }
-		handleShortCutItem(shortcut)
+		let _ = handleShortCutItem(shortcut)
 		launchedShortcutItem = nil
 	}
 
-	func application(application: UIApplication, performActionForShortcutItem shortcutItem: UIApplicationShortcutItem, completionHandler: (Bool) -> Void) {
+	func application(_ application: UIApplication, performActionFor shortcutItem: UIApplicationShortcutItem, completionHandler: @escaping (Bool) -> Void) {
 		let handledShortCutItem = handleShortCutItem(shortcutItem)
 		completionHandler(handledShortCutItem)
 	}
 
-	func applicationDidEnterBackground(application: UIApplication) {
+	func applicationDidEnterBackground(_ application: UIApplication) {
 		scoreModel.saveScores()
 	}
 
-    func applicationWillTerminate(application: UIApplication) {
+    func applicationWillTerminate(_ application: UIApplication) {
         scoreModel.saveScores()
         saveContext()
     }
@@ -96,13 +96,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 		case Third
 
 		init?(fullType: String) {
-			guard let last = fullType.componentsSeparatedByString(".").last else { return nil }
+			guard let last = fullType.components(separatedBy: ".").last else { return nil }
 
 			self.init(rawValue: last)
 		}
 
 		var type: String {
-			return NSBundle.mainBundle().bundleIdentifier! + ".\(self.rawValue)"
+			return Bundle.main.bundleIdentifier! + ".\(self.rawValue)"
 		}
 	}
 
@@ -110,7 +110,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 	var launchedShortcutItem: UIApplicationShortcutItem?
 
-	func handleShortCutItem(shortcutItem: UIApplicationShortcutItem) -> Bool {
+	func handleShortCutItem(_ shortcutItem: UIApplicationShortcutItem) -> Bool {
 
 		var handled = false
 
@@ -146,29 +146,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     // MARK: - Core Data stack
 
-    lazy var applicationDocumentsDirectory: NSURL = {
-        let urls = NSFileManager.defaultManager().URLsForDirectory(.DocumentDirectory, inDomains: .UserDomainMask)
+    lazy var applicationDocumentsDirectory: URL = {
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return urls[urls.count-1]
     }()
 
     lazy var managedObjectModel: NSManagedObjectModel = {
-        let modelURL = NSBundle.mainBundle().URLForResource("P3", withExtension: "momd")!
-        return NSManagedObjectModel(contentsOfURL: modelURL)!
+        let modelURL = Bundle.main.url(forResource: "P3", withExtension: "momd")!
+        return NSManagedObjectModel(contentsOf: modelURL)!
     }()
 
     lazy var persistentStoreCoordinator: NSPersistentStoreCoordinator = {
         let coordinator = NSPersistentStoreCoordinator(managedObjectModel: self.managedObjectModel)
-		let path = NSBundle.mainBundle().pathForResource("SingleViewCoreData", ofType: "sqlite")
-		let url = NSURL.fileURLWithPath(path!, isDirectory: false)
+		let path = Bundle.main.path(forResource: "SingleViewCoreData", ofType: "sqlite")
+		let url = URL(fileURLWithPath: path!, isDirectory: false)
 		let options = [NSMigratePersistentStoresAutomaticallyOption: true, NSInferMappingModelAutomaticallyOption: true, NSReadOnlyPersistentStoreOption: true]
         var failureReason = "There was an error creating or loading the application's saved data."
 
         do {
-            try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: url, options: options)
+            try coordinator.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: url, options: options)
         } catch {
             var dict = [String: AnyObject]()
-            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data"
-            dict[NSLocalizedFailureReasonErrorKey] = failureReason
+            dict[NSLocalizedDescriptionKey] = "Failed to initialize the application's saved data" as AnyObject?
+            dict[NSLocalizedFailureReasonErrorKey] = failureReason as AnyObject?
 
             dict[NSUnderlyingErrorKey] = error as NSError
             let wrappedError = NSError(domain: "YOUR_ERROR_DOMAIN", code: 9999, userInfo: dict)
@@ -181,7 +181,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     lazy var managedObjectContext: NSManagedObjectContext = {
         let coordinator = self.persistentStoreCoordinator
-        var managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        var managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = coordinator
         return managedObjectContext
     }()

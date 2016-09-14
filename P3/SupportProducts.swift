@@ -13,7 +13,7 @@ import Foundation
 public enum SupportProducts {
 
 	/// TODO:  Change this to whatever you set on iTunes connect
-	private static let Prefix = "com.xiaoyao.PinyinComparison."
+	fileprivate static let Prefix = "com.xiaoyao.PinyinComparison."
 
 	/// MARK: - Supported Product Identifiers
 	public static let SupportOne = Prefix + "SupportOne"
@@ -22,7 +22,7 @@ public enum SupportProducts {
 
 
 	// All of the products assembled into a set of product identifiers.
-	private static let productIdentifiers: Set<ProductIdentifier> = [
+	fileprivate static let productIdentifiers: Set<ProductIdentifier> = [
 		SupportProducts.SupportOne,
 		SupportProducts.SupportTwo,
 		SupportProducts.SupportThree]
@@ -32,6 +32,6 @@ public enum SupportProducts {
 }
 
 /// Return the resourcename for the product identifier.
-func resourceNameForProductIdentifier(productIdentifier: String) -> String? {
-	return productIdentifier.componentsSeparatedByString(".").last
+func resourceNameForProductIdentifier(_ productIdentifier: String) -> String? {
+	return productIdentifier.components(separatedBy: ".").last
 }

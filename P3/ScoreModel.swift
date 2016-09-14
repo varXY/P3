@@ -19,7 +19,7 @@ class ScoreModel {
 	}
 
 	func documentDiretory() -> String {
-		let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+		let paths = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
 		return paths[0]
 	}
 
@@ -29,21 +29,21 @@ class ScoreModel {
 
 	func saveScores() {
 		let data = NSMutableData()
-		let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
-		archiver.encodeInteger(totalScore, forKey: "TotalScore")
-		archiver.encodeObject(scores, forKey: "Scores")
+		let archiver = NSKeyedArchiver(forWritingWith: data)
+		archiver.encode(totalScore, forKey: "TotalScore")
+		archiver.encode(scores, forKey: "Scores")
 		archiver.finishEncoding()
-		data.writeToFile(dataFilePath(), atomically: true)
+		data.write(toFile: dataFilePath(), atomically: true)
 	}
 
 	func loadScores() {
 		let path = dataFilePath()
 
-		if NSFileManager.defaultManager().fileExistsAtPath(path) {
-			if let data = NSData(contentsOfFile: path) {
-				let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-				totalScore = unarchiver.decodeIntegerForKey("TotalScore")
-				scores = unarchiver.decodeObjectForKey("Scores") as! [Score]
+		if FileManager.default.fileExists(atPath: path) {
+			if let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+				let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+				totalScore = unarchiver.decodeInteger(forKey: "TotalScore")
+				scores = unarchiver.decodeObject(forKey: "Scores") as! [Score]
 				unarchiver.finishDecoding()
 			}
 		}

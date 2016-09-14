@@ -8,28 +8,33 @@
 
 import UIKit
 
+
 class FreeLabel: UILabel, WordCharacterPinyin {
 
-
 	init() {
-		super.init(frame: CGRectMake(0, 60, ScreenWidth, ScreenHeight / 2 - 80))
+		super.init(frame: CGRect(x: 0, y: 60, width: ScreenWidth, height: ScreenHeight / 2 - 80))
 		backgroundColor = UIColor.colorWithValues(MyColors.P_blue)
-		textColor = UIColor.whiteColor()
-		textAlignment = .Center
+		textColor = UIColor.white
+		textAlignment = .center
 		numberOfLines = 0
-		font = UIFont.systemFontOfSize(ScreenHeight == 736 ? 22 : 21)
+		font = UIFont.systemFont(ofSize: ScreenHeight == 736 ? 22 : 21)
 	}
 
-	override func drawTextInRect(rect: CGRect) {
+    
+	override func drawText(in rect: CGRect) {
 		let insets = UIEdgeInsets.init(top: 0, left: 10, bottom: 0, right: 10)
-		super.drawTextInRect(UIEdgeInsetsInsetRect(rect, insets))
+		super.drawText(in: UIEdgeInsetsInsetRect(rect, insets))
 	}
 
-	func showCharacters(characters: [String]) {
-		text = characters.reduce("", combine: { $0! + $1 + " " })
+    
+	func showCharacters(_ characters: [String]) {
+		text = characters.reduce("", { $0! + $1 + " " })
 	}
 
+    
 	required init?(coder aDecoder: NSCoder) {
 		fatalError("init(coder:) has not been implemented")
 	}
+    
+    
 }

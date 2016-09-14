@@ -11,34 +11,34 @@ import UIKit
 
 extension UIButton {
 
-	func addTextLabel(text: String, textColor: UIColor, font: UIFont, animated: Bool) {
+	func addTextLabel(_ text: String, textColor: UIColor, font: UIFont, animated: Bool) {
 		let label = UILabel(frame: self.bounds)
 		label.text = text
 		label.textColor = textColor
 		label.font = font
-		label.textAlignment = .Center
+		label.textAlignment = .center
 		addSubview(label)
 
-		if animated { label.viewAddAnimation(.BecomeVisble, delay: 0.0, distance: 0.0) }
+		if animated { label.viewAddAnimation(.becomeVisble, delay: 0.0, distance: 0.0) }
 	}
 
-	func addImageView(imageName: String, tintColor: UIColor?, animated: Bool) {
+	func addImageView(_ imageName: String, tintColor: UIColor?, animated: Bool) {
 		let imageView = UIImageView()
 		imageView.frame.size = CGSize(width: 22, height: 22)
 		imageView.image = UIImage(named: imageName)
 		if tintColor != nil { imageView.tintColor = tintColor }
 
-		let center = CGPoint(x: CGRectGetMidX(bounds), y: CGRectGetMidY(bounds))
+		let center = CGPoint(x: bounds.midX, y: bounds.midY)
 		imageView.center = center
 		addSubview(imageView)
 
-		if animated { imageView.viewAddAnimation(.BecomeVisble, delay: 0.0, distance: 0.0) }
+		if animated { imageView.viewAddAnimation(.becomeVisble, delay: 0.0, distance: 0.0) }
 	}
 
-	func removeSubview(animated animated: Bool) {
+	func removeSubview(animated: Bool) {
 		subviews.forEach({ view in
 			if animated {
-				UIView.animateWithDuration(0.5, animations: { () -> Void in
+				UIView.animate(withDuration: 0.5, animations: { () -> Void in
 					view.alpha = 0.0
 					}, completion: { (_) -> Void in
 						view.removeFromSuperview()
@@ -49,64 +49,64 @@ extension UIButton {
 		})
 	}
 
-	func changeColorWhenTouchDown(borderColor: UIColor) {
-		let selector = borderColor == UIColor.whiteColor() ? "changeColorBack" : "changeColorBack_D"
-		addTarget(self, action: #selector(changeColor), forControlEvents: .TouchDown)
-		addTarget(self, action: Selector(selector), forControlEvents: .TouchUpOutside)
-		addTarget(self, action: Selector(selector), forControlEvents: .TouchUpInside)
+	func changeColorWhenTouchDown(_ borderColor: UIColor) {
+		let selector = borderColor == UIColor.white ? "changeColorBack" : "changeColorBack_D"
+		addTarget(self, action: #selector(changeColor), for: .touchDown)
+		addTarget(self, action: Selector(selector), for: .touchUpOutside)
+		addTarget(self, action: Selector(selector), for: .touchUpInside)
 	}
 
-	func addAnimation(animationType: AnimationType, delay: Double, distance: CGFloat) {
+	func addAnimation(_ animationType: AnimationType, delay: Double, distance: CGFloat) {
 
 		switch animationType {
-		case .BecomeVisble:
+		case .becomeVisble:
 			self.alpha = 0.0
 
-			UIView.animateWithDuration(0.5, animations: { () -> Void in
+			UIView.animate(withDuration: 0.5, animations: { () -> Void in
 				self.alpha = 1.0
 			})
 
-		case .Appear:
+		case .appear:
 			self.alpha = 0.0
 			self.frame.origin.y += distance
 
-			UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 0.9, initialSpringVelocity: 10.0, options: [], animations: { () -> Void in
+			UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 0.9, initialSpringVelocity: 10.0, options: [], animations: { () -> Void in
 				self.alpha = 1.0
 				self.frame.origin.y -= distance
 				}, completion: nil)
 
-		case .Disappear:
-			UIView.animateWithDuration(0.4, animations: { () -> Void in
-				self.transform = CGAffineTransformMakeScale(0.5, 0.5)
+		case .disappear:
+			UIView.animate(withDuration: 0.4, animations: { () -> Void in
+				self.transform = CGAffineTransform(scaleX: 0.5, y: 0.5)
 				self.alpha = 0.0
 				}, completion: { (_) -> Void in
-					self.hidden = true
-					self.transform = CGAffineTransformMakeScale(1.0, 1.0)
+					self.isHidden = true
+					self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
 					self.alpha = 1.0
 			})
 
-		case .Touched:
-			UIView.animateWithDuration(0.4, animations: { () -> Void in
-				self.transform = CGAffineTransformMakeScale(1.5, 1.5)
+		case .touched:
+			UIView.animate(withDuration: 0.4, animations: { () -> Void in
+				self.transform = CGAffineTransform(scaleX: 1.5, y: 1.5)
 				self.alpha = 0.0
 				}, completion: { (what) -> Void in
-					self.hidden = true
-					self.transform = CGAffineTransformMakeScale(1.0, 1.0)
+					self.isHidden = true
+					self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
 					self.alpha = 1.0
 			})
 
-		case .IsRightAnswer:
-			UIView.animateWithDuration(0.4, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 10.0, options: [], animations: { () -> Void in
-				self.transform = CGAffineTransformMakeScale(1.06, 1.06)
+		case .isRightAnswer:
+			UIView.animate(withDuration: 0.4, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 10.0, options: [], animations: { () -> Void in
+				self.transform = CGAffineTransform(scaleX: 1.06, y: 1.06)
 				}, completion: nil)
 
-		case .Bigger:
+		case .bigger:
 			self.alpha = 0.0
-			self.transform = CGAffineTransformMakeScale(0.0, 0.0)
+			self.transform = CGAffineTransform(scaleX: 0.0, y: 0.0)
 
-			UIView.animateWithDuration(0.5, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 5.0, options: [], animations: { () -> Void in
+			UIView.animate(withDuration: 0.5, delay: delay, usingSpringWithDamping: 1.0, initialSpringVelocity: 5.0, options: [], animations: { () -> Void in
 				self.alpha = 1.0
-				self.transform = CGAffineTransformMakeScale(1.0, 1.0)
+				self.transform = CGAffineTransform(scaleX: 1.0, y: 1.0)
 				}, completion: nil)
 
 		default:
@@ -115,24 +115,24 @@ extension UIButton {
 
 	}
 
-	func changeToColor(color: UIColor) {
+	func changeToColor(_ color: UIColor) {
 		self.backgroundColor = color
-		self.layer.borderColor = UIColor.whiteColor().CGColor
+		self.layer.borderColor = UIColor.white.cgColor
 	}
 
 	func changeColor() {
 		self.backgroundColor = UIColor.colorWithValues(MyColors.P_gold)
-		self.layer.borderColor = UIColor.colorWithValues(MyColors.P_gold).CGColor
+		self.layer.borderColor = UIColor.colorWithValues(MyColors.P_gold).cgColor
 	}
 
 	func changeColorBack() {
-		self.backgroundColor = UIColor.clearColor()
-		self.layer.borderColor = UIColor.whiteColor().CGColor
+		self.backgroundColor = UIColor.clear
+		self.layer.borderColor = UIColor.white.cgColor
 	}
 
 	func changeColorBack_D() {
-		self.backgroundColor = UIColor.clearColor()
-		self.layer.borderColor = UIColor.colorWithValues(MyColors.P_darkBlue).CGColor
+		self.backgroundColor = UIColor.clear
+		self.layer.borderColor = UIColor.colorWithValues(MyColors.P_darkBlue).cgColor
 	}
 
 	

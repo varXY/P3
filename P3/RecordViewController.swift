@@ -37,50 +37,50 @@ class RecordViewController: UIViewController {
 		super.viewDidLoad()
 		view.backgroundColor = UIColor.colorWithValues(MyColors.P_darkBlue)
 //		title = NSLocalizedString("Total score:", comment: "RecordVC") + " 82"
-		title = NSLocalizedString("Total score:", comment: "RecordVC") + " \(totalScore)"
-
-		let quitButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: #selector(dismiss))
+        title = NSLocalizedString("Total score:", comment: "RecordVC") + " \(totalScore!)"
+        
+		let quitButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(dismissVC))
 		navigationItem.rightBarButtonItem = quitButton
 
-		tableView = UITableView(frame: view.bounds, style: .Plain)
+		tableView = UITableView(frame: view.bounds, style: .plain)
 		tableView.frame.size.height -= 64
 		tableView.backgroundColor = UIColor.colorWithValues(MyColors.P_lightGray)
-		tableView.separatorStyle = .None
+		tableView.separatorStyle = .none
 		tableView.allowsSelection = false
 		tableView.dataSource = self
 		tableView.delegate = self
 		view.addSubview(tableView)
 
 		let footer = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 5))
-		footer.backgroundColor = UIColor.clearColor()
+		footer.backgroundColor = UIColor.clear
 		tableView.tableFooterView = footer
 
 	}
 
-	func dismiss() {
-		dismissViewControllerAnimated(true, completion: nil)
+	func dismissVC() {
+		self.dismiss(animated: true, completion: nil)
 	}
 }
 
 extension RecordViewController: UITableViewDataSource, UITableViewDelegate {
 
-	func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+	func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 //		return fakeData.count
 		return dailyScores.count == 0 ? 1 : dailyScores.count
 	}
 
-	func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+	func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 		return 60
 	}
 
-	func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-		let cell = DailyScoreCell(style: .Default, reuseIdentifier: "DailyScoreCell")
+	func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+		let cell = DailyScoreCell(style: .default, reuseIdentifier: "DailyScoreCell")
 //		cell.showFakeData(fakeData[indexPath.row])
 
 		if dailyScores.count == 0 {
 			cell.showNoData()
 		} else {
-			cell.configureForCell(dailyScores[indexPath.row], max: maxDailyNumber)
+			cell.configureForCell(dailyScores[(indexPath as NSIndexPath).row], max: maxDailyNumber)
 		}
 
 		return cell

@@ -15,14 +15,14 @@ struct PromptSound {
 	let wrong_sound: AVAudioPlayer
 
 	init() {
-		let soundPath_0 = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("right", ofType: "caf")!)
-		right_sound = try! AVAudioPlayer(contentsOfURL: soundPath_0)
+		let soundPath_0 = URL(fileURLWithPath: Bundle.main.path(forResource: "right", ofType: "caf")!)
+		right_sound = try! AVAudioPlayer(contentsOf: soundPath_0)
 
-		let soundPath_1 = NSURL(fileURLWithPath: NSBundle.mainBundle().pathForResource("wrong", ofType: "caf")!)
-		wrong_sound = try! AVAudioPlayer(contentsOfURL: soundPath_1)
+		let soundPath_1 = URL(fileURLWithPath: Bundle.main.path(forResource: "wrong", ofType: "caf")!)
+		wrong_sound = try! AVAudioPlayer(contentsOf: soundPath_1)
 	}
 
-	func play(play: Bool, sound: AVAudioPlayer) {
+	func play(_ play: Bool, sound: AVAudioPlayer) {
 		sound.stop()
 		if play {
 			sound.currentTime = 0

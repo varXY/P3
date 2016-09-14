@@ -34,7 +34,7 @@ class HeaderView: UIView {
 
 	init(index: Int, totalScore: Int) {
 		super.init(frame: CGRect(x: 2, y: 2, width: ScreenWidth - 4, height: 60))
-		backgroundColor = UIColor.clearColor()
+		backgroundColor = UIColor.clear
 		self.totalScore = totalScore
 		showedNumber = page
 
@@ -48,7 +48,7 @@ class HeaderView: UIView {
 
 		if index == 21 {
 			centerLabel.frame = CGRect(x: frame.width - 70, y: 0, width: 60, height: frame.height)
-			centerLabel.textAlignment = .Right
+			centerLabel.textAlignment = .right
 			centerLabel.text = "pin"
 		}
 
@@ -60,13 +60,13 @@ class HeaderView: UIView {
 
 	// MARK: - Add Contents
 
-	func addBackButton(frame: CGRect) {
-		let backButton = UIButton(type: .System)
-		backButton.tintColor = UIColor.whiteColor()
+	func addBackButton(_ frame: CGRect) {
+		let backButton = UIButton(type: .system)
+		backButton.tintColor = UIColor.white
 		backButton.frame = frame
-		backButton.setImage(UIImage(named: ImageName.Back), forState: .Normal)
-		backButton.addTarget(self, action: #selector(backButtonTapped), forControlEvents: .TouchUpInside)
-		backButton.exclusiveTouch = true
+		backButton.setImage(#imageLiteral(resourceName: "Back"), for: UIControlState())
+		backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+		backButton.isExclusiveTouch = true
 		addSubview(backButton)
 	}
 
@@ -77,10 +77,10 @@ class HeaderView: UIView {
 		let frames = indexes.map({ CGRect(x: 60 + littleLabelWidth * CGFloat($0), y: 0, width: littleLabelWidth, height: frame.height) })
 		let labels = frames.map({ UILabel(frame: $0) })
 		labels.forEach({
-			let i = labels.indexOf($0)!
+			let i = labels.index(of: $0)!
 			$0.text = titles[i]
-			$0.textAlignment = .Center
-			$0.textColor = UIColor.whiteColor()
+			$0.textAlignment = .center
+			$0.textColor = UIColor.white
 			$0.adjustsFontSizeToFitWidth = true
 			$0.alpha = 0.0
 			$0.tag = 123456789 + i
@@ -88,23 +88,23 @@ class HeaderView: UIView {
 		})
 	}
 
-	func addScoreLabel(frame: CGRect) {
+	func addScoreLabel(_ frame: CGRect) {
 		scoreLabel = UILabel(frame: frame)
-		scoreLabel.textColor = UIColor.whiteColor()
-		scoreLabel.textAlignment = .Right
+		scoreLabel.textColor = UIColor.white
+		scoreLabel.textAlignment = .right
 		scoreLabel.font = UIFont.scoreFont(18)
 		scoreLabel.adjustsFontSizeToFitWidth = true
 		scoreLabel.text = "\(totalScore)"
 		addSubview(scoreLabel)
 	}
 
-	func addcenterLabel(number: Int, frame: CGRect) {
+	func addcenterLabel(_ number: Int, frame: CGRect) {
 		let label = UILabel(frame: frame)
-		label.backgroundColor = UIColor.clearColor()
+		label.backgroundColor = UIColor.clear
 		label.textColor = UIColor.colorWithValues(MyColors.P_gold)
-		label.textAlignment = .Center
+		label.textAlignment = .center
 		let size: CGFloat = ScreenHeight == 736 ? 21 : 20
-		label.font = UIFont.systemFontOfSize(size)
+		label.font = UIFont.systemFont(ofSize: size)
 		label.text = titles[number - 1]
 		centerLabel = label
 		centerLabel.adjustsFontSizeToFitWidth = true
@@ -114,46 +114,46 @@ class HeaderView: UIView {
 
 	// MARK: - Functions
 
-	func changeNumber(toNumber toNumber: Int) {
-		UIView.animateWithDuration(0.3, animations: { () -> Void in
+	func changeNumber(toNumber: Int) {
+		UIView.animate(withDuration: 0.3, animations: { () -> Void in
 			self.centerLabel.alpha = 0.0
-			}) { (_) -> Void in
+			}, completion: { (_) -> Void in
 				self.centerLabel.text = self.titles[toNumber - 1]
 
-				UIView.animateWithDuration(0.3, animations: { () -> Void in
+				UIView.animate(withDuration: 0.3, animations: { () -> Void in
 					self.centerLabel.alpha = 1.0
 				})
-		}
+		}) 
 	}
 
-	func changeCenterLabelTitle(toTitle: String, backToNil: Bool) {
-		UIView.animateWithDuration(0.3, animations: { () -> Void in
+	func changeCenterLabelTitle(_ toTitle: String, backToNil: Bool) {
+		UIView.animate(withDuration: 0.3, animations: { () -> Void in
 			self.centerLabel.alpha = 0.0
-		}) { (_) -> Void in
+		}, completion: { (_) -> Void in
 			self.centerLabel.text = toTitle
 
-			UIView.animateWithDuration(0.3, animations: { 
+			UIView.animate(withDuration: 0.3, animations: { 
 				self.centerLabel.alpha = 1.0
 				}, completion: { (_) in
 					if backToNil {
 						delay(seconds: 0.5, completion: { 
-							UIView.animateWithDuration(0.3, animations: { () -> Void in
+							UIView.animate(withDuration: 0.3, animations: { () -> Void in
 								self.centerLabel.alpha = 0.0
-							}) { (_) -> Void in
+							}, completion: { (_) -> Void in
 								self.centerLabel.text = toTitle
-							}
+							}) 
 						})
 					}
 			})
 
 
-		}
+		}) 
 	}
 
 	func showAllNumbers() {
-		UIView.animateWithDuration(0.15) { () -> Void in
+		UIView.animate(withDuration: 0.15, animations: { () -> Void in
 			self.centerLabel.alpha = 0.0
-		}
+		}) 
 
 		delay(seconds: 0.15) { () -> () in
 			for i in 0..<10 {
@@ -165,12 +165,12 @@ class HeaderView: UIView {
 
 	}
 
-	func showAndAddScore(number: Int) {
+	func showAndAddScore(_ number: Int) {
 		currentScore += number
 		totalScore += number
 		scoreLabel.text = ""
 		let numberForShow = number > 0 ? "+" + "\(number)" : "\(number)"
-		let textColor = number > 0 ? UIColor.greenColor() : UIColor.redColor()
+		let textColor = number > 0 ? UIColor.green : UIColor.red
 		numberColors.append(textColor)
 
 		delay(seconds: 0.2) {
@@ -180,7 +180,7 @@ class HeaderView: UIView {
 
 		delay(seconds: 1.0) {
 			self.scoreLabel.text = ""
-			self.scoreLabel.textColor = UIColor.whiteColor()
+			self.scoreLabel.textColor = UIColor.white
 			self.scoreLabel.text = "\(self.totalScore)"
 
 		}
@@ -192,7 +192,7 @@ class HeaderView: UIView {
 
 		for i in 0..<10 {
 			delay(seconds: 0.05 * Double(i), completion: { () -> () in
-				self.hideNumberLabel(i + 1, textColor: UIColor.whiteColor())
+				self.hideNumberLabel(i + 1, textColor: UIColor.white)
 			})
 		}
 
@@ -202,20 +202,20 @@ class HeaderView: UIView {
 
 	// MARK: Local Functions
 
-	func showNumberLabel(number: Int, textColor: UIColor) {
+	func showNumberLabel(_ number: Int, textColor: UIColor) {
 		if let label = self.viewWithTag(123456789 + number - 1) as? UILabel {
 			showedNumberLabel = label
 			showedNumber = number
-			UIView.animateWithDuration(0.3, animations: { () -> Void in
+			UIView.animate(withDuration: 0.3, animations: { () -> Void in
 				label.textColor = textColor
 				label.alpha = 1.0
 			})
 		}
 	}
 
-	func hideNumberLabel(number: Int, textColor: UIColor) {
+	func hideNumberLabel(_ number: Int, textColor: UIColor) {
 		if let label = self.viewWithTag(123456789 + number - 1) as? UILabel {
-			UIView.animateWithDuration(0.3, animations: { () -> Void in
+			UIView.animate(withDuration: 0.3, animations: { () -> Void in
 				label.alpha = 0.0
 				label.textColor = textColor
 			})

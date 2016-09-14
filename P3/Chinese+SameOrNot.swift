@@ -19,7 +19,7 @@ extension Chinese {
 
 			if characterOrWord[0] == 0 {
 				let index = getRandomNumbers(1, lessThan: pinyins.confusablePinyin_Different.count)[0]
-				let differentPinyins = pinyins.confusablePinyin_Different[index].componentsSeparatedByString(" ")
+				let differentPinyins = pinyins.confusablePinyin_Different[index].components(separatedBy: " ")
 
 				let indexs_1 = getRandomNumbers(2, lessThan: differentPinyins.count)
 
@@ -37,7 +37,7 @@ extension Chinese {
 
 			if characterOrWord[0] == 1 {
 				let index = getRandomNumbers(1, lessThan: pinyins.confusablePinyinOfWord_Different.count)[0]
-				let differentPinyinOfWords = pinyins.confusablePinyinOfWord_Different[index].componentsSeparatedByString("-")
+				let differentPinyinOfWords = pinyins.confusablePinyinOfWord_Different[index].components(separatedBy: "-")
 
 				let indexs_1 = getRandomNumbers(2, lessThan: differentPinyinOfWords.count)
 

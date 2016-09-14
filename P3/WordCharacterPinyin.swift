@@ -11,28 +11,27 @@ import UIKit
 import CoreData
 
 protocol WordCharacterPinyin {
-	func wordsFromPinyin(pinyin: String) -> [String]
-	func wordPinyinFromIndex(index: Double) -> String
-	func charactersFromPinyin(pinyin: String) -> [String]
-	func pinyinsWithSeveralCharacters(numberOfCharacters: Int, index: Int) -> [String]
+	func wordsFromPinyin(_ pinyin: String) -> [String]
+	func wordPinyinFromIndex(_ index: Double) -> String
+	func charactersFromPinyin(_ pinyin: String) -> [String]
+	func pinyinsWithSeveralCharacters(_ numberOfCharacters: Int, index: Int) -> [String]
 }
 
 extension WordCharacterPinyin {
 
-	func wordsFromPinyin(pinyin: String) -> [String] {
+    
+	func wordsFromPinyin(_ pinyin: String) -> [String] {
 		var words = [String]()
 
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let managedContext = appDelegate.managedObjectContext
 
-		let fetchRequest = NSFetchRequest(entityName: "Term")
+		let fetchRequest = NSFetchRequest<Term>(entityName: "Term")
 		fetchRequest.predicate = NSPredicate(format:"pinyin == %@", pinyin + " ")
 
 		do {
-			let fetchedResults = try managedContext.executeFetchRequest(fetchRequest)
-			if let results = fetchedResults as? [Term] {
-				words = results.map({ $0.word! })
-			}
+			let fetchedResults = try managedContext.fetch(fetchRequest)
+            words = fetchedResults.map({ $0.word! })
 
 		} catch let error as NSError {
 			print("Counld not fetch \(error), \(error.userInfo)")
@@ -41,23 +40,22 @@ extension WordCharacterPinyin {
 		return words
 	}
 
-	func wordPinyinFromIndex(index: Double) -> String {
+    
+	func wordPinyinFromIndex(_ index: Double) -> String {
 		var pinyin = ""
 
-		let appDelegate = UIApplication.sharedApplication().delegate as! AppDelegate
+		let appDelegate = UIApplication.shared.delegate as! AppDelegate
 		let managedContext = appDelegate.managedObjectContext
 
-		let fetchRequest = NSFetchRequest(entityName: "Term")
+		let fetchRequest = NSFetchRequest<Term>(entityName: "Term")
 		fetchRequest.predicate = NSPredicate(format:"index == %f", index)
 
 		do {
-			let fetchedResults = try managedContext.executeFetchRequest(fetchRequest)
+			let fetchedResults = try managedContext.fetch(fetchRequest)
 
-			if let results = fetchedResults as? [Term] {
-				if results[0].pinyin != nil {
-					pinyin = String(results[0].pinyin!.characters.dropLast())
-				}
-			}
+            if fetchedResults[0].pinyin != nil {
+                pinyin = String(fetchedResults[0].pinyin!.characters.dropLast())
+            }
 
 		} catch let error as NSError {
 			print("Counld not fetch \(error), \(error.userInfo)")
@@ -66,9 +64,10 @@ extension WordCharacterPinyin {
 		return pinyin
 	}
 
-	func charactersFromPinyin(pinyin: String) -> [String] {
+    
+	func charactersFromPinyin(_ pinyin: String) -> [String] {
 		if pinyin == "" { return [""] }
-		let index = pinyin.startIndex.advancedBy(0)
+		let index = pinyin.characters.index(pinyin.startIndex, offsetBy: 0)
 		let letter = String(pinyin[index])
 
 		var result: Characters
@@ -103,7 +102,8 @@ extension WordCharacterPinyin {
 		return result.characters
 	}
 
-	func pinyinsWithSeveralCharacters(numberOfCharacters: Int, index: Int) -> [String] {
+    
+	func pinyinsWithSeveralCharacters(_ numberOfCharacters: Int, index: Int) -> [String] {
 		switch numberOfCharacters {
 		case 2:
 			return ["a", "ai", "an", "ang", "ao", "ba", "bai", "ban", "bang", "bao", "bei", "ben", "beng", "bi", "bian", "biao", "bie", "bin", "bing", "bo", "bu", "cai", "can", "cang", "cao", "ce", "ceng", "cha", "chai", "chan", "chang", "chao", "che", "chen", "cheng", "chi", "chong", "chou", "chu", "chuan", "chuang", "chui", "chun", "chuo", "ci", "cong", "cu", "cuan", "cui", "cun", "cuo", "da", "dai", "dan", "dang", "dao", "de", "deng", "di", "dian", "diao", "die", "ding", "dong", "dou", "du", "duan", "dui", "dun", "duo", "e", "er", "fa", "fan", "fang", "fei", "fen", "feng", "fu", "ga", "gai", "gan", "gang", "gao", "ge", "gen", "geng", "gong", "gou", "gu", "gua", "guai", "guan", "guang", "gui", "gun", "guo", "ha", "hai", "han", "hang", "hao", "he", "hei", "hen", "heng", "hong", "hou", "hu", "hua", "huai", "huan", "huang", "hui", "hun", "huo", "ji", "jia", "jian", "jiang", "jiao", "jie", "jin", "jing", "jiong", "jiu", "ju", "juan", "jue", "jun", "ka", "kai", "kan", "kang", "kao", "ke", "ken", "keng", "kong", "kou", "ku", "kua", "kuai", "kuan", "kuang", "kui", "kun", "kuo", "la", "lai", "lan", "lang", "lao", "le", "lei", "leng", "li", "lian", "liang", "liao", "lie", "lin", "ling", "liu", "long", "lou", "lu", "lv", "lve", "luan", "lun", "luo", "ma", "mai", "man", "mang", "mao", "mei", "men", "meng", "mi", "mian", "miao", "mie", "min", "ming", "mo", "mou", "mu", "na", "nai", "nan", "nao", "ne", "nei", "ni", "nian", "niang", "niao", "nie", "ning", "niu", "nong", "nu", "nve", "nuo", "ou", "pa", "pai", "pan", "pang", "pao", "pei", "pen", "peng", "pi", "pian", "piao", "pie", "pin", "ping", "po", "pu", "qi", "qia", "qian", "qiang", "qiao", "qie", "qin", "qing", "qiong", "qiu", "qu", "quan", "que", "qun", "ran", "rang", "rao", "re", "ren", "reng", "rong", "rou", "ru", "ruan", "rui", "run", "ruo", "sa", "sai", "san", "sang", "sao", "se", "sha", "shai", "shan", "shang", "shao", "she", "shen", "sheng", "shi", "shou", "shu", "shua", "shuai", "shuan", "shuang", "shui", "shun", "shuo", "si", "song", "sou", "su", "suan", "sui", "sun", "suo", "ta", "tai", "tan", "tang", "tao", "teng", "ti", "tian", "tiao", "tie", "ting", "tong", "tou", "tu", "tuan", "tui", "tun", "tuo", "wa", "wai", "wan", "wang", "wei", "wen", "weng", "wo", "wu", "xi", "xia", "xian", "xiang", "xiao", "xie", "xin", "xing", "xiong", "xiu", "xu", "xuan", "xue", "xun", "ya", "yan", "yang", "yao", "ye", "yi", "yin", "ying", "yong", "you", "yu", "yuan", "yue", "yun", "za", "zai", "zan", "zang", "zao", "ze", "zeng", "zha", "zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhua", "zhuan", "zhuang", "zhui", "zhun", "zhuo", "zi", "zong", "zou", "zu", "zuan", "zui", "zun", "zuo"]
@@ -162,4 +162,5 @@ extension WordCharacterPinyin {
 			return ["za", "zai", "zan", "zang", "zao", "ze", "zeng", "zha", "zhai", "zhan", "zhang", "zhao", "zhe", "zhen", "zheng", "zhi", "zhong", "zhou", "zhu", "zhuan", "zhuang", "zhui", "zhuo", "zi", "zong", "zou", "zu", "zui", "zuo"]
 		}
 	}
+    
 }

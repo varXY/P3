@@ -15,29 +15,29 @@ class NavigationController: UINavigationController {
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		self.navigationBar.barTintColor = UIColor.clearColor()
-		self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
-		self.navigationBar.tintColor = UIColor.whiteColor()
-		self.navigationBar.translucent = false
+		self.navigationBar.barTintColor = UIColor.clear
+		self.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+		self.navigationBar.tintColor = UIColor.white
+		self.navigationBar.isTranslucent = false
 
-		let rect = CGRectMake(0, 0, self.view.frame.width, 64)
-		self.navigationBar.setBackgroundImage(UIImage.imageWithColor(UIColor.clearColor(), rect: rect), forBarMetrics: UIBarMetrics.Default)
-		self.navigationBar.shadowImage = UIImage.imageWithColor(UIColor.clearColor(), rect: CGRectMake(0, 0, 10, 10))
+		let rect = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 64)
+		self.navigationBar.setBackgroundImage(UIImage.imageWithColor(UIColor.clear, rect: rect), for: UIBarMetrics.default)
+		self.navigationBar.shadowImage = UIImage.imageWithColor(UIColor.clear, rect: CGRect(x: 0, y: 0, width: 10, height: 10))
 
         self.delegate = self
         
 	}
 
-	override func preferredStatusBarStyle() -> UIStatusBarStyle {
-		return .LightContent
+	override var preferredStatusBarStyle : UIStatusBarStyle {
+		return .lightContent
 	}
 	
 	func captureScreen() -> UIImage {
 
-		let screen = UIApplication.sharedApplication().windows[0]
+		let screen = UIApplication.shared.windows[0]
 
 		UIGraphicsBeginImageContextWithOptions(screen.frame.size, false, 0)
-		self.view.drawViewHierarchyInRect(screen.bounds, afterScreenUpdates: true)
+		self.view.drawHierarchy(in: screen.bounds, afterScreenUpdates: true)
 		let image = UIGraphicsGetImageFromCurrentImageContext()
 		UIGraphicsEndImageContext()
 
@@ -49,8 +49,8 @@ class NavigationController: UINavigationController {
 			rect = CGRect(x: 0, y: 20, width: ScreenWidth * 2, height: ScreenHeight * 2 - 20)
 		}
 
-		let cuttedmage = CGImageCreateWithImageInRect(image.CGImage, rect)
-		let resultImage = UIImage(CGImage: cuttedmage!)
+		let cuttedmage = image!.cgImage!.cropping(to: rect)
+		let resultImage = UIImage(cgImage: cuttedmage!)
 
 		return resultImage
 	}
@@ -58,7 +58,7 @@ class NavigationController: UINavigationController {
 
 extension NavigationController: UINavigationControllerDelegate {
     
-    func navigationController(navigationController: UINavigationController, willShowViewController viewController: UIViewController, animated: Bool) {
+    func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
 
 		self.navigationBar.barTintColor = UIColor.colorWithValues(MyColors.P_darkBlue)
         

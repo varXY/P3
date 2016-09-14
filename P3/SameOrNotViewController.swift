@@ -31,7 +31,7 @@ class SameOrNotViewController: TestViewController {
 
 	}
 
-	func prepareScrollView(firstTime firstTime: Bool) {
+	func prepareScrollView(firstTime: Bool) {
 		scrollView = UIScrollView(frame: view.bounds)
 		scrollView.frame.origin.x += firstTime ? 0 : view.frame.width
 		setUpScrollView()
@@ -40,7 +40,7 @@ class SameOrNotViewController: TestViewController {
 		addContent(page: currentPage, firstTime: firstTime)
 	}
 
-	func addContent(page page: Int, firstTime: Bool) {
+	func addContent(page: Int, firstTime: Bool) {
 		if !firstTime { chinese.getOneForSameOrNot() }
 		let positionInPage = scrollView.frame.width * CGFloat(page)
 		let buttonSize = CGSize(width: scrollView.frame.width - 40, height: 60)
@@ -50,7 +50,7 @@ class SameOrNotViewController: TestViewController {
 			let blockWidth = BlockWidth.sameOrNot
 			let gapWidth = (ScreenWidth - blockWidth * 2) / 3
 			let point = CGPoint(x: positionInPage + gapWidth + (blockWidth + gapWidth) * CGFloat($0), y: (ScreenHeight / 2 - blockWidth) / 2)
-			let blockView = BlockView(type: .SameOrNot, origin: point, text: chinese.forSameOrNot[$0])
+			let blockView = BlockView(type: .sameOrNot, origin: point, text: chinese.forSameOrNot[$0])
 			scrollView.addSubview(blockView)
 			return blockView
 		})
@@ -58,16 +58,16 @@ class SameOrNotViewController: TestViewController {
 		buttons += indexes.map({
 			let buttonY = ScreenHeight / 2
 			let buttonOrigin = CGPoint(x: positionInPage + 20, y: buttonY + (buttonSize.height + 20) * CGFloat($0))
-			let button = UIButton(type: .System)
+			let button = UIButton(type: .system)
 			button.frame = CGRect(origin: buttonOrigin, size: buttonSize)
-			button.backgroundColor = UIColor.clearColor()
-			button.addTextLabel(Titles.sameOrNot[$0], textColor: UIColor.whiteColor(), font: UIFont.buttonTitleFont(22), animated: true)
-			button.changeColorWhenTouchDown(UIColor.whiteColor())
-			button.addBorder(borderColor: UIColor.whiteColor(), width: 2.0)
+			button.backgroundColor = UIColor.clear
+			button.addTextLabel(Titles.sameOrNot[$0], textColor: UIColor.white, font: UIFont.buttonTitleFont(22), animated: true)
+			button.changeColorWhenTouchDown(UIColor.white)
+			button.addBorder(borderColor: UIColor.white, width: 2.0)
 
 			button.tag = 100 + $0
-			button.addTarget(self, action: #selector(SameOrNotViewController.sameOrNot(_:)), forControlEvents: .TouchUpInside)
-			button.exclusiveTouch = true
+			button.addTarget(self, action: #selector(SameOrNotViewController.sameOrNot(_:)), for: .touchUpInside)
+			button.isExclusiveTouch = true
 			scrollView.addSubview(button)
 			return button
 		})
@@ -81,15 +81,15 @@ class SameOrNotViewController: TestViewController {
 		buttons[1].removeFromSuperview()
 	}
 
-	func sameOrNot(sender: UIButton) {
-		buttons.forEach({ $0.userInteractionEnabled = false })
+	func sameOrNot(_ sender: UIButton) {
+		buttons.forEach({ $0.isUserInteractionEnabled = false })
 		showRightOrWorng(sender)
 		delay(seconds: 0.6) { self.blockViews.forEach({ $0.allShowPinyin() }) }
-		delay(seconds: 0.8) { self.nextButton.show(self.currentPage < 9 ? .Next : .Done, dismissAfterTapped: true) }
+		delay(seconds: 0.8) { self.nextButton.show(self.currentPage < 9 ? .next : .done, dismissAfterTapped: true) }
 		delay(seconds: 0.85) { self.currentPage += 1; self.addContent(page: self.currentPage, firstTime: false) }
 	}
 
-	func showRightOrWorng(sender: UIButton) {
+	func showRightOrWorng(_ sender: UIButton) {
 		let ChosenSame = sender.tag == 100
 		let trulySame = blockViews[blockViews.count - 2].text[0] == blockViews[blockViews.count - 1].text[0]
 
@@ -98,7 +98,7 @@ class SameOrNotViewController: TestViewController {
 			if sound { promptSound.play(true, sound: promptSound.right_sound) }
 			blockViews.forEach({ $0.allChangeColor(UIColor.colorWithValues(MyColors.P_rightGreen)) })
 			sender.changeToColor(UIColor.colorWithValues(MyColors.P_rightGreen))
-			buttons.forEach({ if $0 != sender { $0.enabled = false }})
+			buttons.forEach({ if $0 != sender { $0.isEnabled = false }})
 
 		} else {
 			headerView.showAndAddScore(wrongScore)
@@ -106,7 +106,7 @@ class SameOrNotViewController: TestViewController {
 			if sound { promptSound.play(true, sound: promptSound.wrong_sound) }
 			if vibration { AudioServicesPlaySystemSound(UInt32(kSystemSoundID_Vibrate)) }
 			sender.changeColorBack()
-			sender.enabled = false
+			sender.isEnabled = false
 			buttons.forEach({ if $0 != sender { $0.changeToColor(UIColor.colorWithValues(MyColors.P_rightGreen)) } })
 		}
 
@@ -117,24 +117,24 @@ class SameOrNotViewController: TestViewController {
 
 extension SameOrNotViewController: NextButtonDelegate {
 
-	func nextButtonTapped(title: NextButtonTitle) {
+	func nextButtonTapped(_ title: NextButtonTitle) {
 		if currentPage < 10 {
 			delay(seconds: Time.toNextPageWaitingTime, completion: {
 				self.headerView.changeNumber(toNumber: self.currentPage + 1)
 				self.jumpToPage(self.currentPage)
 			})
 		} else {
-			UIView.animateWithDuration(0.3, animations: { () -> Void in
+			UIView.animate(withDuration: 0.3, animations: { () -> Void in
 				self.scrollView.alpha = 0.0
 				}, completion: { (_) -> Void in
 					self.headerView.showAllNumbers()
 					self.scrollView.removeFromSuperview()
-					self.view.bringSubviewToFront(self.finalView)
+					self.view.bringSubview(toFront: self.finalView)
 					self.finalView.show(self.headerView.currentScore, delay: 0.5)
 					self.prepareScrollView(firstTime: false)
 
-					let score = Score(score: self.headerView.currentScore, time: NSDate())
-					self.sendBackScore(totalScore: self.headerView.totalScore, newScore: score)
+					let score = Score(score: self.headerView.currentScore, time: Date())
+					self.delegate?.sendBackScore(totalScore: self.headerView.totalScore, newScore: score, chinese: self.chinese)
 			})
 
 		}

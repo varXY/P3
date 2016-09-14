@@ -14,11 +14,11 @@ extension Chinese {
 	mutating func get60CharactersForSelectTheSame() {
 		let all = pinyinsWithSeveralCharacters(2, index: 0)
 		let indexes = getRandomNumbers(30, lessThan: all.count)
-		let selectedPinyins = all.filter({ indexes.contains(all.indexOf($0)!) })
+		let selectedPinyins = all.filter({ indexes.contains(all.index(of: $0)!) })
 		let selectedCharacters: [[String]] = selectedPinyins.map({
 			let charcacters = charactersFromPinyin($0)
 			let indexes = getRandomNumbers(2, lessThan: charcacters.count)
-			return charcacters.filter({ indexes.contains(charcacters.indexOf($0)!) })
+			return charcacters.filter({ indexes.contains(charcacters.index(of: $0)!) })
 		})
 
 		var characters_60 = [String]()
@@ -60,8 +60,8 @@ extension Chinese {
 
 		three.forEach({ forSelectTheSame.append([pinyins[index], words[$0]]) })
 
-		if let index = pinyins.indexOf(pinyins[index]) {
-			pinyins.removeAtIndex(index)
+		if let index = pinyins.index(of: pinyins[index]) {
+			pinyins.remove(at: index)
 			pinyins.forEach({
 				let words = charactersFromPinyin($0)
 				let randomOne = getRandomNumbers(1, lessThan: words.count)[0]

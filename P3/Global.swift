@@ -10,29 +10,29 @@ import Foundation
 import UIKit
 
 
-let ScreenBounds = UIScreen.mainScreen().bounds
+let ScreenBounds = UIScreen.main.bounds
 let ScreenWidth = ScreenBounds.width
 let ScreenHeight = ScreenBounds.height
 
-let BarHeight = UIApplication.sharedApplication().statusBarFrame.height
+let BarHeight = UIApplication.shared.statusBarFrame.height
 let AppStoreLink = "https://itunes.apple.com/cn/app/pinyin-comparison/id1086816660?l=en&mt=8"
 let iTunesViewLink = "http://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=1086816660&pageNumber=0&sortOrdering=2&type=Purple+Software&mt=8"
 
-let dateFormatter: NSDateFormatter = {
-	let formatter = NSDateFormatter()
+let dateFormatter: DateFormatter = {
+	let formatter = DateFormatter()
 	formatter.dateFormat = "MM/dd/yy"
 	return formatter
 }()
 
-var priceFormatter: NSNumberFormatter = {
-	let pf = NSNumberFormatter()
-	pf.formatterBehavior = .Behavior10_4
-	pf.numberStyle = .CurrencyStyle
+var priceFormatter: NumberFormatter = {
+	let pf = NumberFormatter()
+	pf.formatterBehavior = .behavior10_4
+	pf.numberStyle = .currency
 	return pf
 }()
 
 enum AnimationType {
-    case Appear, Disappear, Touched, IsRightAnswer, Bigger, BecomeVisble, Other
+    case appear, disappear, touched, isRightAnswer, bigger, becomeVisble, other
 }
 
 struct Defaults {
@@ -88,23 +88,23 @@ struct BlockWidth {
 	static let spell: CGFloat = ScreenHeight / 2 - 80
 }
 
-func getIndexArrayFromAmount(amount: Int) -> [Int] {
-	var array = [0]
-	repeat {
-		array.append(array[array.count - 1] + 1)
-	} while array.count < amount
-	return amount == 1 ? [0] : array
-}
+//func getIndexArrayFromAmount(amount: Int) -> [Int] {
+//	var array = [0]
+//	repeat {
+//		array.append(array[array.count - 1] + 1)
+//	} while array.count < amount
+//	return amount == 1 ? [0] : array
+//}
 
 
-func delay(seconds seconds: Double, completion:()->()) {
-    let popTime = dispatch_time(DISPATCH_TIME_NOW, Int64( Double(NSEC_PER_SEC) * seconds ))
-    dispatch_after(popTime, dispatch_get_main_queue()) {
+func delay(seconds: Double, completion:@escaping ()->()) {
+    let popTime = DispatchTime.now() + Double(Int64( Double(NSEC_PER_SEC) * seconds )) / Double(NSEC_PER_SEC)
+    DispatchQueue.main.asyncAfter(deadline: popTime) {
         completion()
     }
 }
 
-func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
+func getRandomNumbers(_ amount: Int, lessThan: Int) -> [Int] {
     var result = [Int]()
 
 	if lessThan <= 1 {
@@ -121,15 +121,15 @@ func getRandomNumbers(amount: Int, lessThan: Int) -> [Int] {
     return result
 }
 
-func alertOfStayOrQuit(viewController: UIViewController, title: String, message: String, quit: (() -> ())) {
+func alertOfStayOrQuit(_ viewController: UIViewController, title: String, message: String, quit: @escaping (() -> ())) {
 	let quitTitle = NSLocalizedString("Quit", comment: "FinalView")
 	let resumeTitle = NSLocalizedString("Resume", comment: "TestVC")
-	let alert = UIAlertController(title: title, message: message, preferredStyle: .Alert)
-	let action = UIAlertAction(title: quitTitle, style: .Default, handler: ({ _ in quit() }))
-	let action1 = UIAlertAction(title: resumeTitle, style: .Default, handler: nil)
+	let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+	let action = UIAlertAction(title: quitTitle, style: .default, handler: ({ _ in quit() }))
+	let action1 = UIAlertAction(title: resumeTitle, style: .default, handler: nil)
 	alert.addAction(action)
 	alert.addAction(action1)
-	viewController.presentViewController(alert, animated: true, completion: nil)
+	viewController.present(alert, animated: true, completion: nil)
 }
 
 
