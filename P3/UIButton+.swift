@@ -120,7 +120,7 @@ extension UIButton {
 		self.layer.borderColor = UIColor.white.cgColor
 	}
 
-	func changeColor() {
+	@objc func changeColor() {
 		self.backgroundColor = UIColor.colorWithValues(MyColors.P_gold)
 		self.layer.borderColor = UIColor.colorWithValues(MyColors.P_gold).cgColor
 	}

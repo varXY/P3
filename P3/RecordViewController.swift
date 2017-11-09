@@ -57,7 +57,7 @@ class RecordViewController: UIViewController {
 
 	}
 
-	func dismissVC() {
+	@objc func dismissVC() {
 		self.dismiss(animated: true, completion: nil)
 	}
 }

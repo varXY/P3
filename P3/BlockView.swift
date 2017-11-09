@@ -151,7 +151,7 @@ class BlockView: UIView {
 		addSubview(button)
 	}
 
-	func colorViewTapped() {
+	@objc func colorViewTapped() {
 		questionMarkVisble = !questionMarkVisble
 		questionMarkVisble ? addQuestionButton() : removeQustionButton()
 	}
@@ -188,7 +188,7 @@ class BlockView: UIView {
 		}
 	}
 
-	func showAnwser(_ sender: UIButton) {
+	@objc func showAnwser(_ sender: UIButton) {
 		sender.removeFromSuperview()
 		if let view = viewWithTag(77) { view.removeFromSuperview() }
 
@@ -212,7 +212,7 @@ class BlockView: UIView {
 
 	// MARK:
 
-	func selected(_ sender: UIButton) {
+	@objc func selected(_ sender: UIButton) {
 		selected = !selected
 		selected ? sender.addBorder(borderColor: UIColor.white, width: 2.0) : sender.addBorder(borderColor: UIColor.white, width: 0.0)
 		delegate?.blockViewSelected(selected, blockText: text)

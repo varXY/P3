@@ -11,7 +11,7 @@ import UIKit
 extension UIFont {
 
 	class func homepageTitleFont(_ size: CGFloat) -> UIFont {
-		return UIFont(name: "Geneva", size: size)!
+		return UIFont(name: "SignPainter-HouseScript", size: size)!
 		// SignPainter-HouseScript
 	}
 

@@ -81,7 +81,7 @@ class FinalView: UIView {
 
 	}
 
-	func finalChoice(_ sender: UIButton) {
+	@objc func finalChoice(_ sender: UIButton) {
 
 		UIView.animate(withDuration: 0.5, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [], animations: { () -> Void in
 			self.frame.origin.y += self.frame.height

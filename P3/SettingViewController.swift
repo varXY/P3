@@ -97,7 +97,7 @@ class SettingViewController: UIViewController {
 		}
 	}
 
-	func switched(_ sender: UISwitch) {
+	@objc func switched(_ sender: UISwitch) {
 		let key = sender == switchControl_S ? Defaults.sound : Defaults.vibration
 		userDefaults.set(sender.isOn, forKey: key)
 	}
@@ -130,7 +130,7 @@ class SettingViewController: UIViewController {
 
 	}
 
-	func dismissVC() {
+	@objc func dismissVC() {
 		self.dismiss(animated: true, completion: nil)
 	}
 
@@ -180,7 +180,7 @@ class SettingViewController: UIViewController {
 		hudView.text = NSLocalizedString("Thank you!", comment: "SettingVC")
 	}
 
-	func productPurchased(_ notification: Notification) {
+	@objc func productPurchased(_ notification: Notification) {
 		_ = notification.object as! String
 	}
 }

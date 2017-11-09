@@ -81,7 +81,7 @@ class SameOrNotViewController: TestViewController {
 		buttons[1].removeFromSuperview()
 	}
 
-	func sameOrNot(_ sender: UIButton) {
+	@objc func sameOrNot(_ sender: UIButton) {
 		buttons.forEach({ $0.isUserInteractionEnabled = false })
 		showRightOrWorng(sender)
 		delay(seconds: 0.6) { self.blockViews.forEach({ $0.allShowPinyin() }) }

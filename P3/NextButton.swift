@@ -44,7 +44,7 @@ class NextButton: UIButton {
 		isUserInteractionEnabled = false
 	}
 
-	func nextButtonTapped() {
+	@objc func nextButtonTapped() {
 		isUserInteractionEnabled = false
 		if dismissAfterTapped { hide() }
 		delegate?.nextButtonTapped(titleType)

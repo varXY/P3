@@ -170,7 +170,7 @@ class HomepageViewController: UIViewController {
 		}
 	}
 
-	func bigButtonTapped(_ sender: UIButton) {
+	@objc func bigButtonTapped(_ sender: UIButton) {
 		goToPageBaseOnTag(sender.tag - 10)
 	}
 
@@ -199,7 +199,7 @@ class HomepageViewController: UIViewController {
 		navigationController?.pushViewController(viewController, animated: true)
 	}
 
-	func smallButtonTapped(_ sender: UIButton) {
+	@objc func smallButtonTapped(_ sender: UIButton) {
 		let recordButtonTapped = sender.tag == 9111
 
 		if recordButtonTapped {

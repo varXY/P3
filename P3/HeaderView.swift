@@ -222,7 +222,7 @@ class HeaderView: UIView {
 		}
 	}
 
-	func backButtonTapped() {
+	@objc func backButtonTapped() {
 		delegate?.backButtonTapped()
 	}
 
